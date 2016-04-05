@@ -1,0 +1,6 @@
+github "ReactiveX/RxSwift" ~> 2.0
+github "Alamofire/Alamofire" ~> 3.0
+git "https://github.com/kylef/WebLinking.swift.git" "master"
+git "https://github.com/Anviking/Decodable.git" "master"
+git "https://github.com/thoughtbot/Argo.git" "master"
+github "malcommac/SwiftDate" ~> 3.0

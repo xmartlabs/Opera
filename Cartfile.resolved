@@ -1,0 +1,8 @@
+github "Alamofire/Alamofire" "3.3.0"
+git "https://github.com/thoughtbot/Argo.git" "591211367a5dcb040f7a6076df4f91926d5b9bc6"
+git "https://github.com/Anviking/Decodable.git" "446fe20c4a2fdf96a7d14a4367ab47304d6999a8"
+github "Quick/Nimble" "v4.0.0"
+github "Quick/Quick" "v0.9.1"
+github "ReactiveX/RxSwift" "2.3.1"
+github "malcommac/SwiftDate" "3.0.9"
+git "https://github.com/kylef/WebLinking.swift.git" "276fe2d49347b8f7a970bdfcc8289bcb39e96290"
