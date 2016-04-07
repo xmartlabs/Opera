@@ -12,6 +12,10 @@
 		28A6B9CC1CB5EC2D00682BCE /* FilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A6B9CB1CB5EC2D00682BCE /* FilterType.swift */; };
 		28A6B9CE1CB5EFB600682BCE /* PaginationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A6B9CD1CB5EFB600682BCE /* PaginationRequest.swift */; };
 		28A6B9D01CB5EFE000682BCE /* PaginationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A6B9CF1CB5EFE000682BCE /* PaginationResponse.swift */; };
+		28A6B9D11CB5F4E700682BCE /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28F1075A1CB4623C007D8B7D /* RxCocoa.framework */; };
+		28A6B9D21CB5F4EE00682BCE /* WebLinking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D91C5C1CB38622006488F1 /* WebLinking.framework */; };
+		28A6B9D31CB5F4F200682BCE /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D91C501CB381D7006488F1 /* Alamofire.framework */; };
+		28A6B9D41CB5F4F500682BCE /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D91C4D1CB381B0006488F1 /* RxSwift.framework */; };
 		28D91C4E1CB381B0006488F1 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D91C4D1CB381B0006488F1 /* RxSwift.framework */; };
 		28D91C511CB381D7006488F1 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D91C501CB381D7006488F1 /* Alamofire.framework */; };
 		28D91C571CB385CC006488F1 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C521CB385CC006488F1 /* NetworkError.swift */; };
@@ -82,6 +86,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				28A6B9D41CB5F4F500682BCE /* RxSwift.framework in Frameworks */,
+				28A6B9D11CB5F4E700682BCE /* RxCocoa.framework in Frameworks */,
+				28A6B9D21CB5F4EE00682BCE /* WebLinking.framework in Frameworks */,
+				28A6B9D31CB5F4F200682BCE /* Alamofire.framework in Frameworks */,
 				28F828881C494B2C00330CF4 /* Opera.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -443,6 +451,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xmartlabs.OperaTests;
@@ -455,6 +467,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xmartlabs.OperaTests;
