@@ -145,7 +145,7 @@ public class PaginationViewModel<Element: OperaDecodable> {
 extension PaginationViewModel {
     
     public var loading: Driver<Bool> {
-        return fullloading.asDriver().skip(1).map { $0.0 }.distinctUntilChanged()
+        return fullloading.asDriver().map { $0.0 }.distinctUntilChanged()
     }
     
     public var firstPageLoading: Driver<Bool> {

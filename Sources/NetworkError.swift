@@ -27,22 +27,22 @@ import Alamofire
 
 /**
  Provides information about networking errors, either networking errors or parsing error when Opera tries to parse the response.
- 
+
  - Networking: Networking errors, most of the time errors thrown by NSURLSession under NSURLErrorDomain domain or by Alamofire library.
  - Parsing:    Represent parsing errors normally thrown by Json parsing library such as Argo or Decodable.
  */
 public enum NetworkError: ErrorType {
-    
+
     case Networking(error: NSError, request: NSURLRequest?, response: NSHTTPURLResponse?, json: AnyObject?)
     case Parsing(error: ErrorType, request: NSURLRequest?, response: NSHTTPURLResponse?, json: AnyObject?)
-        
+
 }
 
 extension NetworkError : CustomDebugStringConvertible {
 
     /// A textual representation of NetworkError instance, suitable for debugging.
     public var debugDescription: String {
-        
+
         switch self {
         case .Networking(let error, let request, _, let json):
             var components = ["Networking Error - Code: \(error.code)"]
@@ -80,7 +80,7 @@ extension NetworkError : CustomDebugStringConvertible {
 }
 
 extension NetworkError: CustomStringConvertible {
-    
+
     /// A textual representation of NetworkError instance.
     public var description: String {
         switch self {
