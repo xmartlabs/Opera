@@ -42,14 +42,13 @@ extension Request {
                 } else {
                     let failureReason = "Json response could not be found"
                     let error = Error.errorWithCode(.JSONSerializationFailed, failureReason: failureReason)
-                    return .Failure(NetworkError.networkingError(error, request: request, response: response, json: data))
+                    return .Failure(NetworkError.Networking(error: error, request: request, response: response, json: data))
                 }
             }
         }
         return response(responseSerializer: responseSerializer, completionHandler: completionHandler)
     }
 
-    
     public func responseCollection<T: OperaDecodable>(collectionKeyPath: String? = nil,
                                                       completionHandler: Response<[T], NetworkError> -> Void) -> Self {
         let responseSerializer = ResponseSerializer<[T], NetworkError> { request, response, data, error in
@@ -69,7 +68,7 @@ extension Request {
                 } else {
                     let failureReason = "Json Response collection could not be found"
                     let error = Error.errorWithCode(.JSONSerializationFailed, failureReason: failureReason)
-                    return .Failure(NetworkError.networkingError(error, request: request, response: response, json: data))
+                    return .Failure(NetworkError.Networking(error: error, request: request, response: response, json: data))
                 }
             }
         }
@@ -86,13 +85,11 @@ extension Request {
                 if let _ = response { return .Success(value) }
                 let failureReason = "JSON could not be serialized into response object"
                 let error = Error.errorWithCode(.JSONSerializationFailed, failureReason: failureReason)
-                return .Failure(NetworkError.networkingError(error, request: request, response: response, json: data))
+                return .Failure(NetworkError.Networking(error: error, request: request, response: response, json: data))
             }
         }
         return response(responseSerializer: responseSerializer, completionHandler: completionHandler)
     }
-    
-    // Mark: Auxiliary method
     
     private static func serialize<T>(request: NSURLRequest?,
                                     response: NSHTTPURLResponse?,
@@ -100,7 +97,7 @@ extension Request {
                                        error: NSError?,
                                    onSuccess: (Result<AnyObject, NSError>, AnyObject) -> Result<T, NetworkError>)
                         -> Result<T, NetworkError> {
-        guard error == nil else { return .Failure(NetworkError.networkingError(error!, request: request, response: response, json: data)) }
+        guard error == nil else { return .Failure(NetworkError.Networking(error: error!, request: request, response: response, json: data)) }
         let JSONResponseSerializer = Request.JSONResponseSerializer(options: .AllowFragments)
         let result = JSONResponseSerializer.serializeResponse(request, response, data, error)
         
@@ -109,14 +106,14 @@ extension Request {
             guard let _ = response else {
                 let failureReason = "JSON could not be serialized into response object: \(value)"
                 let error = Error.errorWithCode(.JSONSerializationFailed, failureReason: failureReason)
-                return .Failure(NetworkError.networkingError(error, request: request, response: response, json: data))
+                return .Failure(NetworkError.Networking(error: error, request: request, response: response, json: data))
             }
             return onSuccess(result, value)
             
         case .Failure(let error):
             var userInfo = error.userInfo
             userInfo["responseData"] = result.value ?? data
-            return .Failure(NetworkError.networkingError(NSError(domain: error.domain, code: error.code, userInfo: userInfo), request: request, response: response, json: result.value ?? data))
+            return .Failure(NetworkError.Networking(error: NSError(domain: error.domain, code: error.code, userInfo: userInfo), request: request, response: response, json: result.value ?? data))
         }
     }
     

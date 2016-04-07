@@ -52,9 +52,9 @@ extension Repository: OperaDecodable,  Decodable {
                                language: j =>? "language",
                              openIssues: j => "open_issues_count",
                         stargazersCount: j => "stargazers_count",
-                        forksCount: j => "forks_count",
+                             forksCount: j => "forks_count",
                         url: NSURL(string: j => "url")!,
-                        createdAt: NSDate())
+                        createdAt: j => "created_at")
     }
 }
 

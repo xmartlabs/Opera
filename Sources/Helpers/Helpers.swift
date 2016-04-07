@@ -28,6 +28,13 @@ import RxSwift
 
 extension ObservableType {
     
+    /**
+     Helper to handle any NetworkError in the observable sequence, and propagates all observer messages through the result sequence. Note that callback is not invoked for errors different to NetworkError. In this cases you should use onError directly.
+
+     - parameter onError: Action to invoke upon NetworkError errored termination of the observable sequence.
+     
+     - returns: The source sequence with the side-effecting behavior applied.
+     */
     @warn_unused_result(message="http://git.io/rxs.uo")
     public func doOnNetworkError(onError: (NetworkError throws -> Void)) -> Observable<E> {
         return self.doOnError() { error in
@@ -39,19 +46,23 @@ extension ObservableType {
 
 extension NSHTTPURLResponse {
     
-    var previousLinkPageValue: String? {
+    /// Get previous url parameter value of "prev" relation link.
+    var previousPage: String? {
         return linkPagePrameter("prev")
     }
     
-    var nextLinkPageValue: String? {
+    /// Get next url parameter value of "next" relation link.
+    var nextPage: String? {
         return linkPagePrameter("next")
     }
     
-    var firstLinkPageValue: String? {
+    /// Get first url parameter value of "first" relation link.
+    var firstPage: String? {
         return linkPagePrameter("first")
     }
     
-    var lastLinkPageValue: String? {
+    /// Get last url parameter value of "last" relation link.
+    var lastPage: String? {
         return linkPagePrameter("last")
     }
     

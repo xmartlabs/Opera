@@ -29,12 +29,15 @@ import UIKit
 
 extension UIControl {
     
+    /// Reactive wrapper for UIControlEvents.ValueChanged target action pattern.
     public var rx_valueChanged: ControlEvent<Void> {
         return rx_controlEvent(.ValueChanged)
     }
 }
 
 extension UIScrollView {
+    
+    /// Reactive observable that emit items whenever scroll view contentOffset.y is close to contentSize.height
     public var rx_reachedBottom: Observable<Void> {
         return rx_contentOffset
             .flatMap { [weak self] contentOffset -> Observable<Void> in

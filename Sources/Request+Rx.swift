@@ -27,6 +27,13 @@ import RxSwift
 
 extension Alamofire.Request {
     
+    /**
+     Returns an `Observable` of T for the current request. Notice that T conforms to OperaDecodable. If something goes wrong a NetworkError error is propagated through the result sequence.
+     
+     - parameter keyPath: keyPath to look up json object to serialize. Ignore parameter or pass nil when json object is the json root item.
+     
+     - returns: An instance of `Observable<T>`
+     */
     public func rx_object<T: OperaDecodable>(keyPath: String? = nil) -> Observable<T> {
         return Observable.create { [weak self] subscriber in
              self?.responseObject(keyPath) { (response: Response<T, NetworkError>) in
@@ -44,6 +51,13 @@ extension Alamofire.Request {
         }
     }
     
+    /**
+     Returns an `Observable` of [T] for the current request. Notice that T conforms to OperaDecodable. If something goes wrong a NetworkError error is propagated through the result sequence.
+     
+     - parameter collectionKeyPath: keyPath to look up json array to serialize. Ignore parameter or pass nil when json array is the json root item.
+     
+     - returns: An instance of `Observable<[T]>`
+     */
     public func rx_collection<T: OperaDecodable>(collectionKeyPath:String? = nil) -> Observable<[T]> {
         return Observable.create { [weak self] subscriber in
             self?.responseCollection(collectionKeyPath) { (response: Response<[T], NetworkError>) in
@@ -61,6 +75,11 @@ extension Alamofire.Request {
         }
     }
     
+    /**
+     Returns an `Observable` of [AnyObject] for the current request. If something goes wrong a NetworkError error is propagated through the result sequence.
+     
+     - returns: An instance of `Observable<AnyObject>`
+     */
     public func rx_anyObject() -> Observable<AnyObject> {
         return Observable.create { [weak self] subscriber in
             self?.responseAnyObject { (response: Response<AnyObject, NetworkError>) in

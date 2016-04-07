@@ -85,7 +85,7 @@ extension PaginationRequestType where Response.Element: OperaDecodable {
         let myRequest = request
         let myPage = page
         return myRequest.rx_collection(collectionKeyPath).map({ elements -> Response in
-            return Response.init(elements: elements, previousPage: myRequest.response?.previousLinkPageValue, nextPage: myRequest.response?.nextLinkPageValue, page: myPage)
+            return Response.init(elements: elements, previousPage: myRequest.response?.previousPage, nextPage: myRequest.response?.nextPage, page: myPage)
         })
     }
     

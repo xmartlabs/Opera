@@ -24,6 +24,9 @@
 
 import Foundation
 
+/**
+ *  Types conforming to FilterType can be used to create requst parameters. Notice that PaginationViewModel relies on this protocol to generate filter parameters. Normally a view controller passes a FilterType instance to PaginationViewModel instance in order to make a new request that considers FilterType parameters.
+ */
 public protocol FilterType {
     var parameters: [String: AnyObject]? { get }
 }
