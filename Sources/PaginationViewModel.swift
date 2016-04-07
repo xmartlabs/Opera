@@ -153,7 +153,7 @@ extension PaginationViewModel {
     }
     
     public var emptyState: Driver<Bool> {
-        return Driver.combineLatest(loading, elements.asDriver().skip(1)) { (isLoading, elements) -> Bool in
+        return Driver.combineLatest(loading, elements.asDriver()) { (isLoading, elements) -> Bool in
             return !isLoading && elements.isEmpty
         }
         .distinctUntilChanged()
