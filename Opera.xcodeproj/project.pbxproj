@@ -215,6 +215,7 @@
 				28F828831C494B2C00330CF4 /* Sources */,
 				28F828841C494B2C00330CF4 /* Frameworks */,
 				28F828851C494B2C00330CF4 /* Resources */,
+				28A6B9DB1CB6354F00682BCE /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -277,6 +278,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		28A6B9DB1CB6354F00682BCE /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/WebLinking.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		28F828781C494B2C00330CF4 /* Sources */ = {
