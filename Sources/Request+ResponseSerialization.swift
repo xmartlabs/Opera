@@ -26,7 +26,15 @@ import Foundation
 import Alamofire
 
 extension Request {
-    
+
+    /**
+     Generic response object serializarion that returns a OperaDecodable instance.
+
+     - parameter keyPath:           keyPath to look up json object to serialize. Ignore parameter or pass nil when json object is the json root item.
+     - parameter completionHandler: A closure to be executed once the request has finished.
+
+     - returns: The request.
+     */
     public func responseObject<T: OperaDecodable>(keyPath: String? = nil,
                                         completionHandler: Response<T, NetworkError> -> Void) -> Self {
         let responseSerializer = ResponseSerializer<T, NetworkError> { request, response, data, error in
@@ -49,6 +57,14 @@ extension Request {
         return response(responseSerializer: responseSerializer, completionHandler: completionHandler)
     }
 
+    /**
+     Generic response object serializarion that returns an Array of OperaDecodable instances.
+
+     - parameter collectionKeyPath: keyPath to look up json array to serialize. Ignore parameter or pass nil when json array is the json root item.
+     - parameter completionHandler: A closure to be executed once the request has finished.
+
+     - returns: The request.
+     */
     public func responseCollection<T: OperaDecodable>(collectionKeyPath: String? = nil,
                                                       completionHandler: Response<[T], NetworkError> -> Void) -> Self {
         let responseSerializer = ResponseSerializer<[T], NetworkError> { request, response, data, error in
@@ -74,10 +90,18 @@ extension Request {
         }
         return response(responseSerializer: responseSerializer, completionHandler: completionHandler)
     }
-    
+
+
+    /**
+     Generic response object serializarion. Notice that Response Error type is NetworkError.
+
+     - parameter completionHandler: A closure to be excecuted once the request has finished.
+
+     - returns: The request.
+     */
     public func responseAnyObject(completionHandler: Response<AnyObject, NetworkError> -> Void) -> Self {
         let responseSerializer = ResponseSerializer<AnyObject, NetworkError> { request, response, data, error in
-            
+
             return Request.serialize(request,
                                     response: response,
                                         data: data,
@@ -90,7 +114,7 @@ extension Request {
         }
         return response(responseSerializer: responseSerializer, completionHandler: completionHandler)
     }
-    
+
     private static func serialize<T>(request: NSURLRequest?,
                                     response: NSHTTPURLResponse?,
                                         data: NSData?,
@@ -100,7 +124,7 @@ extension Request {
         guard error == nil else { return .Failure(NetworkError.Networking(error: error!, request: request, response: response, json: data)) }
         let JSONResponseSerializer = Request.JSONResponseSerializer(options: .AllowFragments)
         let result = JSONResponseSerializer.serializeResponse(request, response, data, error)
-        
+
         switch result {
         case .Success(let value):
             guard let _ = response else {
@@ -109,12 +133,12 @@ extension Request {
                 return .Failure(NetworkError.Networking(error: error, request: request, response: response, json: data))
             }
             return onSuccess(result, value)
-            
+
         case .Failure(let error):
             var userInfo = error.userInfo
             userInfo["responseData"] = result.value ?? data
             return .Failure(NetworkError.Networking(error: NSError(domain: error.domain, code: error.code, userInfo: userInfo), request: request, response: response, json: result.value ?? data))
         }
     }
-    
+
 }

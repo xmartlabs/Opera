@@ -26,20 +26,35 @@ import Foundation
 import Alamofire
 import RxSwift
 
+/**
+ *  A type that adopts RequestType can be used to create a request. Is ideal to represent an API route/request since it clearly defines all the parts of a request such as its http path, method, parameters, encoding, etc. Often we group a set of related routes/request by conforming this protocol from an enum type that each value represent a specific route/request which may have specific configuration hold by its associated values.
+ */
 public protocol RequestType: URLRequestConvertible {
+    
+    /// HTTP method
     var method: Alamofire.Method { get }
+    /// URL path
     var path: String { get }
+    /// The parameters, nil if not implemented.
     var parameters: [String: AnyObject]? { get }
+    /// Used to specify the way in which a set of parameters are applied to a URL request. Default implementation returns .JSON when method value is either .POST, .PUT or .PATCH. Otherwise .URL.
     var encoding: Alamofire.ParameterEncoding { get }
-    var URLRequest: NSMutableURLRequest { get }
+    /// Base url
     var baseURL: NSURL { get }
+    /// Alamofire Manager that creates the request.
     var manager: Alamofire.Manager { get }
 }
 
+/**
+ *  By adopting URLRequestSetup a RequestType or PaginationRequstType is able to customize it right before sending it to the server.
+ */
 public protocol URLRequestSetup {
     func urlRequestSetup(urlRequest: NSMutableURLRequest)
 }
 
+/**
+ *  By adopting URLRequestParametersSetup a RequestType or PaginationRequstType is able to make a final customization to request parameters dictionary before they are encoded.
+ */
 public protocol URLRequestParametersSetup {
     func urlRequestParametersSetup(urlRequest: NSMutableURLRequest, parameters: [String: AnyObject]?) -> [String: AnyObject]?
 }
@@ -69,6 +84,6 @@ extension RequestType {
     }
         
     public var request: Alamofire.Request {
-        return manager.request(URLRequest).validate()
+        return manager.request(self).validate()
     }
 }

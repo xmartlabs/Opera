@@ -26,13 +26,20 @@ import Foundation
 import WebLinking
 import RxSwift
 
+struct OperaSettings {
+
+    static var pageParamName = "page"
+    static var nextRelationName = "next"
+    static var prevRelationName = "prev"
+}
+
 extension ObservableType {
-    
+
     /**
      Helper to handle any NetworkError in the observable sequence, and propagates all observer messages through the result sequence. Note that callback is not invoked for errors different to NetworkError. In this cases you should use onError directly.
 
      - parameter onError: Action to invoke upon NetworkError errored termination of the observable sequence.
-     
+
      - returns: The source sequence with the side-effecting behavior applied.
      */
     @warn_unused_result(message="http://git.io/rxs.uo")
@@ -45,34 +52,23 @@ extension ObservableType {
 }
 
 extension NSHTTPURLResponse {
-    
-    /// Get previous url parameter value of "prev" relation link.
+
+    /// Get last url parameter value of "prev" relation link.
     var previousPage: String? {
-        return linkPagePrameter("prev")
+        return linkPagePrameter(OperaSettings.prevRelationName)
     }
-    
+
     /// Get next url parameter value of "next" relation link.
     var nextPage: String? {
-        return linkPagePrameter("next")
+        return linkPagePrameter(OperaSettings.nextRelationName)
     }
-    
-    /// Get first url parameter value of "first" relation link.
-    var firstPage: String? {
-        return linkPagePrameter("first")
-    }
-    
-    /// Get last url parameter value of "last" relation link.
-    var lastPage: String? {
-        return linkPagePrameter("last")
-    }
-    
-    private func linkPagePrameter(relation: String) -> String? {
+
+    private func linkPagePrameter(relation: String, pageParameterName: String = OperaSettings.pageParamName) -> String? {
         guard let uri = self.findLink(relation: relation)?.uri else { return nil }
         let components = NSURLComponents(string: uri)
-        return components?.queryItems?.filter { $0.name == "page" }.first?.value
+        return components?.queryItems?.filter { $0.name == pageParameterName }.first?.value
     }
 }
-
 
 func JSONStringify(value: AnyObject, prettyPrinted: Bool = true) -> String {
     let options: NSJSONWritingOptions = prettyPrinted ? .PrettyPrinted : []
