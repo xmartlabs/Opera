@@ -44,7 +44,7 @@ class MyManager: Alamofire.Manager {
     }
 }
 
-extension RequestType {
+extension RouteType {
     
     var baseURL: NSURL {
         return NSURL(string: "https://api.github.com")!
@@ -59,7 +59,7 @@ extension RequestType {
 
 extension Request {
     
-    enum Repository: RequestType {
+    enum Repository: RouteType {
         
         case GetInfo(owner: String, repo: String)
         case Search()
