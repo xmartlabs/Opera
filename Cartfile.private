@@ -1,2 +1,5 @@
 github "Quick/Quick"
 github "Quick/Nimble"
+git "https://github.com/Anviking/Decodable.git" "master"
+git "https://github.com/thoughtbot/Argo.git" "master"
+github "malcommac/SwiftDate" ~> 3.0

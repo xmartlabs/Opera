@@ -43,6 +43,23 @@
 		542B0A1A1CB6E07D00EC2C71 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 542B0A171CB6E07D00EC2C71 /* Alamofire.framework */; };
 		542B0A1C1CB6E07D00EC2C71 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 542B0A191CB6E07D00EC2C71 /* RxSwift.framework */; };
 		542B0A1E1CB6E09900EC2C71 /* WebLinking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 542B0A1D1CB6E09900EC2C71 /* WebLinking.framework */; };
+		5468B3FF1CB82EE600D0643E /* Opera.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5468B3F51CB82EE600D0643E /* Opera.framework */; };
+		5468B40C1CB82F2100D0643E /* Opera.h in Headers */ = {isa = PBXBuildFile; fileRef = 28F828801C494B2C00330CF4 /* Opera.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5468B40D1CB82F2100D0643E /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F107761CB498FB007D8B7D /* Helpers.swift */; };
+		5468B40E1CB82F2100D0643E /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C521CB385CC006488F1 /* NetworkError.swift */; };
+		5468B40F1CB82F2100D0643E /* Request+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C641CB38751006488F1 /* Request+Rx.swift */; };
+		5468B4101CB82F2100D0643E /* Request+ResponseSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C661CB38759006488F1 /* Request+ResponseSerialization.swift */; };
+		5468B4111CB82F2100D0643E /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C561CB385CC006488F1 /* RequestType.swift */; };
+		5468B4121CB82F2100D0643E /* PaginationRequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C531CB385CC006488F1 /* PaginationRequestType.swift */; };
+		5468B4131CB82F2100D0643E /* PaginationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A6B9CD1CB5EFB600682BCE /* PaginationRequest.swift */; };
+		5468B4141CB82F2100D0643E /* PaginationResponseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C541CB385CC006488F1 /* PaginationResponseType.swift */; };
+		5468B4151CB82F2100D0643E /* PaginationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A6B9CF1CB5EFE000682BCE /* PaginationResponse.swift */; };
+		5468B4161CB82F2100D0643E /* PaginationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C551CB385CC006488F1 /* PaginationViewModel.swift */; };
+		5468B4171CB82F2100D0643E /* OperaDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C5E1CB38687006488F1 /* OperaDecodable.swift */; };
+		5468B4181CB82F2100D0643E /* FilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A6B9CB1CB5EC2D00682BCE /* FilterType.swift */; };
+		5468B41C1CB82F4400D0643E /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5468B4191CB82F4400D0643E /* Alamofire.framework */; };
+		5468B41D1CB82F4400D0643E /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5468B41A1CB82F4400D0643E /* RxSwift.framework */; };
+		5468B41E1CB82F4400D0643E /* WebLinking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5468B41B1CB82F4400D0643E /* WebLinking.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +76,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 542B09E11CB6D5BE00EC2C71;
 			remoteInfo = "Opera-OSX";
+		};
+		5468B4001CB82EE600D0643E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 28F828741C494B2C00330CF4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5468B3F41CB82EE600D0643E;
+			remoteInfo = "Opera-tvOS";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -91,6 +115,11 @@
 		542B0A171CB6E07D00EC2C71 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		542B0A191CB6E07D00EC2C71 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
 		542B0A1D1CB6E09900EC2C71 /* WebLinking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebLinking.framework; path = Carthage/Build/iOS/WebLinking.framework; sourceTree = "<group>"; };
+		5468B3F51CB82EE600D0643E /* Opera.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Opera.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5468B3FE1CB82EE600D0643E /* Opera-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Opera-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5468B4191CB82F4400D0643E /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/tvOS/Alamofire.framework; sourceTree = "<group>"; };
+		5468B41A1CB82F4400D0643E /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/tvOS/RxSwift.framework; sourceTree = "<group>"; };
+		5468B41B1CB82F4400D0643E /* WebLinking.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebLinking.framework; path = Carthage/Build/tvOS/WebLinking.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,12 +159,33 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5468B3F11CB82EE600D0643E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5468B41C1CB82F4400D0643E /* Alamofire.framework in Frameworks */,
+				5468B41D1CB82F4400D0643E /* RxSwift.framework in Frameworks */,
+				5468B41E1CB82F4400D0643E /* WebLinking.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5468B3FB1CB82EE600D0643E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5468B3FF1CB82EE600D0643E /* Opera.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		28D91C4F1CB381BD006488F1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5468B4191CB82F4400D0643E /* Alamofire.framework */,
+				5468B41A1CB82F4400D0643E /* RxSwift.framework */,
+				5468B41B1CB82F4400D0643E /* WebLinking.framework */,
 				542B0A1D1CB6E09900EC2C71 /* WebLinking.framework */,
 				542B0A171CB6E07D00EC2C71 /* Alamofire.framework */,
 				542B0A191CB6E07D00EC2C71 /* RxSwift.framework */,
@@ -173,6 +223,8 @@
 				28F828871C494B2C00330CF4 /* OperaTests_iOS.xctest */,
 				542B09E21CB6D5BE00EC2C71 /* Opera.framework */,
 				542B09EB1CB6D5BE00EC2C71 /* Opera-OSXTests.xctest */,
+				5468B3F51CB82EE600D0643E /* Opera.framework */,
+				5468B3FE1CB82EE600D0643E /* Opera-tvOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -241,6 +293,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				542B0A091CB6D9A600EC2C71 /* Opera.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5468B3F21CB82EE600D0643E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5468B40C1CB82F2100D0643E /* Opera.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,6 +380,42 @@
 			productReference = 542B09EB1CB6D5BE00EC2C71 /* Opera-OSXTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		5468B3F41CB82EE600D0643E /* Opera-tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5468B40A1CB82EE600D0643E /* Build configuration list for PBXNativeTarget "Opera-tvOS" */;
+			buildPhases = (
+				5468B3F01CB82EE600D0643E /* Sources */,
+				5468B3F11CB82EE600D0643E /* Frameworks */,
+				5468B3F21CB82EE600D0643E /* Headers */,
+				5468B3F31CB82EE600D0643E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Opera-tvOS";
+			productName = "Opera-tvOS";
+			productReference = 5468B3F51CB82EE600D0643E /* Opera.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		5468B3FD1CB82EE600D0643E /* Opera-tvOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5468B40B1CB82EE600D0643E /* Build configuration list for PBXNativeTarget "Opera-tvOSTests" */;
+			buildPhases = (
+				5468B3FA1CB82EE600D0643E /* Sources */,
+				5468B3FB1CB82EE600D0643E /* Frameworks */,
+				5468B3FC1CB82EE600D0643E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5468B4011CB82EE600D0643E /* PBXTargetDependency */,
+			);
+			name = "Opera-tvOSTests";
+			productName = "Opera-tvOSTests";
+			productReference = 5468B3FE1CB82EE600D0643E /* Opera-tvOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -341,6 +437,12 @@
 					542B09EA1CB6D5BE00EC2C71 = {
 						CreatedOnToolsVersion = 7.3;
 					};
+					5468B3F41CB82EE600D0643E = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					5468B3FD1CB82EE600D0643E = {
+						CreatedOnToolsVersion = 7.3;
+					};
 				};
 			};
 			buildConfigurationList = 28F828771C494B2C00330CF4 /* Build configuration list for PBXProject "Opera" */;
@@ -359,6 +461,8 @@
 				28F828861C494B2C00330CF4 /* OperaTests-iOS */,
 				542B09E11CB6D5BE00EC2C71 /* Opera-OSX */,
 				542B09EA1CB6D5BE00EC2C71 /* Opera-OSXTests */,
+				5468B3F41CB82EE600D0643E /* Opera-tvOS */,
+				5468B3FD1CB82EE600D0643E /* Opera-tvOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -386,6 +490,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		542B09E91CB6D5BE00EC2C71 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5468B3F31CB82EE600D0643E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5468B3FC1CB82EE600D0643E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -469,6 +587,32 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5468B3F01CB82EE600D0643E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5468B40D1CB82F2100D0643E /* Helpers.swift in Sources */,
+				5468B4131CB82F2100D0643E /* PaginationRequest.swift in Sources */,
+				5468B4151CB82F2100D0643E /* PaginationResponse.swift in Sources */,
+				5468B4141CB82F2100D0643E /* PaginationResponseType.swift in Sources */,
+				5468B4121CB82F2100D0643E /* PaginationRequestType.swift in Sources */,
+				5468B40F1CB82F2100D0643E /* Request+Rx.swift in Sources */,
+				5468B40E1CB82F2100D0643E /* NetworkError.swift in Sources */,
+				5468B4101CB82F2100D0643E /* Request+ResponseSerialization.swift in Sources */,
+				5468B4161CB82F2100D0643E /* PaginationViewModel.swift in Sources */,
+				5468B4171CB82F2100D0643E /* OperaDecodable.swift in Sources */,
+				5468B4111CB82F2100D0643E /* RequestType.swift in Sources */,
+				5468B4181CB82F2100D0643E /* FilterType.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5468B3FA1CB82EE600D0643E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -481,6 +625,11 @@
 			isa = PBXTargetDependency;
 			target = 542B09E11CB6D5BE00EC2C71 /* Opera-OSX */;
 			targetProxy = 542B09ED1CB6D5BE00EC2C71 /* PBXContainerItemProxy */;
+		};
+		5468B4011CB82EE600D0643E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5468B3F41CB82EE600D0643E /* Opera-tvOS */;
+			targetProxy = 5468B4001CB82EE600D0643E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -731,6 +880,80 @@
 			};
 			name = Release;
 		};
+		5468B4061CB82EE600D0643E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+				);
+				INFOPLIST_FILE = "Sources/Supporting Files/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.xmartlabs.Opera;
+				PRODUCT_NAME = Opera;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.2;
+			};
+			name = Debug;
+		};
+		5468B4071CB82EE600D0643E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+				);
+				INFOPLIST_FILE = "Sources/Supporting Files/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.xmartlabs.Opera;
+				PRODUCT_NAME = Opera;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.2;
+			};
+			name = Release;
+		};
+		5468B4081CB82EE600D0643E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				INFOPLIST_FILE = "Opera-tvOSTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.xmartlabs.Opera-tvOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TVOS_DEPLOYMENT_TARGET = 9.2;
+			};
+			name = Debug;
+		};
+		5468B4091CB82EE600D0643E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				INFOPLIST_FILE = "Opera-tvOSTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.xmartlabs.Opera-tvOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TVOS_DEPLOYMENT_TARGET = 9.2;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -768,12 +991,30 @@
 				542B09F41CB6D5BE00EC2C71 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		542B09F81CB6D5BE00EC2C71 /* Build configuration list for PBXNativeTarget "Opera-OSXTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				542B09F51CB6D5BE00EC2C71 /* Debug */,
 				542B09F61CB6D5BE00EC2C71 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5468B40A1CB82EE600D0643E /* Build configuration list for PBXNativeTarget "Opera-tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5468B4061CB82EE600D0643E /* Debug */,
+				5468B4071CB82EE600D0643E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		5468B40B1CB82EE600D0643E /* Build configuration list for PBXNativeTarget "Opera-tvOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5468B4081CB82EE600D0643E /* Debug */,
+				5468B4091CB82EE600D0643E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
