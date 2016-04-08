@@ -26,11 +26,11 @@ import Foundation
 import Alamofire
 import Opera
 
-final class Request {}
+final class Route {}
 
-extension Request {
+extension Route {
     
-    enum Repository: RequestType {
+    enum Repository: RouteType {
         
         case GetInfo(owner: String, repo: String)
         case Search()

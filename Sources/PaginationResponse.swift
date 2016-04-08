@@ -24,6 +24,9 @@
 
 import Foundation
 
+/**
+ *  PaginationResponse is a genertic type that adopts PaginationResponseType
+ */
 public struct PaginationResponse<E>: PaginationResponseType {
     
     public let elements: [E]

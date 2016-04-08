@@ -27,9 +27,9 @@ import Alamofire
 import RxSwift
 
 /**
- *  A type that adopts RequestType can be used to create a request. Is ideal to represent an API route/request since it clearly defines all the parts of a request such as its http path, method, parameters, encoding, etc. Often we group a set of related routes/request by conforming this protocol from an enum type that each value represent a specific route/request which may have specific configuration hold by its associated values.
+ *  A type that adopts RouteType can be used to create a request. Is ideal to represent an API route/request since it clearly defines all the parts of a request such as its http path, method, parameters, encoding, etc. Often we group a set of related routes/request by conforming this protocol from an enum type that each value represent a specific route/request which may have specific configuration hold by its associated values.
  */
-public protocol RequestType: URLRequestConvertible {
+public protocol RouteType: URLRequestConvertible {
     
     /// HTTP method
     var method: Alamofire.Method { get }
@@ -59,8 +59,9 @@ public protocol URLRequestParametersSetup {
     func urlRequestParametersSetup(urlRequest: NSMutableURLRequest, parameters: [String: AnyObject]?) -> [String: AnyObject]?
 }
 
-extension RequestType {
+extension RouteType {
     
+    /// The URL request.
     public var URLRequest: NSMutableURLRequest {
         let mutableURLRequest = NSMutableURLRequest(URL: baseURL.URLByAppendingPathComponent(path))
         mutableURLRequest.HTTPMethod = method.rawValue

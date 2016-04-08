@@ -28,27 +28,62 @@ import RxSwift
 import WebLinking
 
 /**
- *  A type that adopts RequestType can be used to create a request. Is ideal to represent an API route/request since it clearly defines all the parts of a request such as its http path, method, parameters, encoding, etc. Often we group a set of related routes/request by conforming this protocol from an enum type that each value represent a specific route/request which may have specific configuration hold by its associated values.
- */
-
-/**
- * A type that adopts PaginationRequestType encapsulates information required to fetch and filter a collection of items from a server endpoint. It can be used to created the Request needed to fetch the items based on page, query route, filter properties.
+ *  A type that adopts PaginationRequestType encapsulates information required to fetch and filter a collection of items from a server endpoint. It can be used to create a pagination request. The request will take into account page, query, route, filter properties.
  */
 public protocol PaginationRequestType: URLRequestConvertible {
     
     associatedtype Response: PaginationResponseType
     
+    /// Route
+    var route: RouteType { get }
+    /// Page, represent request page parameter
     var page: String { get }
+    /// Query string
     var query: String? { get }
-    var route: RequestType { get }
+    /// Filters
     var filter: FilterType? { get }
+    /// keyPath to get the parseable json array.
     var collectionKeyPath: String? { get }
     
+    /**
+     Creates a new PaginationRequestType equals to self but updating the page value.
+     
+     - parameter page: new page value
+     
+     - returns: PaginationRequestType instance identically to self and having its page value updated to `page`
+     */
     func routeWithPage(page: String) -> Self
+    
+    /**
+     Creates a new PaginationRequestType equals to self but updating query strng and setting its page to first page value.
+     
+     - parameter query: query string
+     
+     - returns: PaginationRequestType instance identically to self and having its query value updated to `query` and its page to firs page value.
+     */
     func routeWithQuery(query: String) -> Self
+    
+    /**
+     Creates a new PaginationRequestType equals to self but updating its filter. Page value is set to first page.
+     
+     - parameter filter: filters
+     
+     - returns: PaginationRequestType instance identically to self and having its filter value updated to `filter` and its page to firs page value.
+     */
     func routeWithFilter(filter: FilterType) -> Self
     
-    init(route: RequestType, page: String, query: String?, filter: FilterType?, collectionKeyPath: String?)
+    /**
+     Instantiate a new `PaginationRequestType`
+     
+     - parameter route:             route info
+     - parameter page:              page
+     - parameter query:             query string
+     - parameter filter:            filters
+     - parameter collectionKeyPath: location within json response to get array of items to parse using the JSON parsing library.
+     
+     - returns: The new PaginationRequestType instance.
+     */
+    init(route: RouteType, page: String, query: String?, filter: FilterType?, collectionKeyPath: String?)
 }
 
 extension PaginationRequestType {
@@ -65,8 +100,10 @@ extension PaginationRequestType {
     }
 }
 
+
 extension PaginationRequestType {
-    
+
+    /// Pagination request parameters
     var parameters: [String: AnyObject]? {
         var result = route.parameters ?? [:]
         result["page"] = page
@@ -95,6 +132,11 @@ extension PaginationRequestType {
 
 extension PaginationRequestType where Response.Element: OperaDecodable {
     
+    /**
+     Returns an `Observable` of [Response] for the PaginationRequestType instance. If something goes wrong a NetworkError error is propagated through the result sequence.
+     
+     - returns: An instance of `Observable<Response>`
+     */
     func rx_collection() -> Observable<Response> {
         let myRequest = route.manager.request(self).validate()
         let myPage = page
