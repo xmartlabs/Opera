@@ -29,7 +29,7 @@ class SearchRepositoriesController: UIViewController {
     }()
     
     lazy var viewModel: PaginationViewModel<Repository>  = { [unowned self] in
-        return PaginationViewModel(paginationRequest: PaginationRequest(route: Request.Repository.Search(), collectionKeyPath: "items"))
+        return PaginationViewModel(paginationRequest: PaginationRequest(route: Route.Repository.Search(), collectionKeyPath: "items"))
         }()
     
     override func viewDidLoad() {

@@ -27,6 +27,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
+
 public class PaginationViewModel<Element: OperaDecodable> {
     
     var paginationRequest: PaginationRequest<Element>

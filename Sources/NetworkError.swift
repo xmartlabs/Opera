@@ -66,8 +66,8 @@ extension NetworkError : CustomDebugStringConvertible {
             if let method = request?.HTTPMethod {
                 components.append(method)
             }
-            if let request = request {
-                components.append("Request: \(request)") //request.map { "URL: " + $0.URLString }
+            if let URLString = request?.URL?.absoluteString {
+                components.append("URL: \(URLString)")
             }
             if let jsonStringify = json.map({ JSONStringify($0) }) {
                 components.append("Json:")
@@ -100,8 +100,8 @@ extension NetworkError: CustomStringConvertible {
             if let method = request?.HTTPMethod {
                 components.append(method)
             }
-            if let request = request {
-                components.append("Request: \(request)") //request.map { "URL: " + $0.URLString }
+            if let URLString = request?.URL?.absoluteURL {
+                components.append("URL: \(URLString)")
             }
             if let error = error as? CustomStringConvertible {
                 components.append(error.description)

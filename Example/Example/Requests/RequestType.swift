@@ -26,7 +26,7 @@ import Foundation
 import Opera
 import Alamofire
 
-extension RequestType {
+extension RouteType {
     
     var baseURL: NSURL {
         return NSURL(string: "https://api.github.com")!
