@@ -28,25 +28,42 @@ import RxSwift
 import RxCocoa
 
 
-public class PaginationViewModel<Element: OperaDecodable> {
+/// Reactive View Model helper to load list of OperaDecodable items.
+public class PaginationViewModel<PaginationRequest: PaginationRequestType where PaginationRequest.Response.Element: OperaDecodable> {
     
-    var paginationRequest: PaginationRequest<Element>
+    /// pagination request
+    var paginationRequest: PaginationRequest
     public typealias LoadingType = (Bool, String)
     
+    /// trigger a refresh, if emited item is true it will cancel pending request and make a new one. if false it will not refresh if there is a request in progress.
     public let refreshTrigger = PublishSubject<Bool>()
+    /// trigger a next page load, it makes a new request for the nextPage value provided by lastest request sent to server.
     public let loadNextPageTrigger = PublishSubject<Void>()
+    /// Cancel any in progress request and start a new one using the query string provided.
     public let queryTrigger = PublishSubject<String>()
+    /// Cancel any in progress request and start a new one using the filter parameters provided.
     public let filterTrigger = PublishSubject<FilterType>()
-    public let networkErrorTrigger = PublishSubject<NetworkError>()
-
+    
+    /// Allows subscribers to get notified about networking errors
+    public let networkErrors = PublishSubject<NetworkError>()
+    /// Indicates if there is a next page to load. hasNextPage value is the result of getting next link relation from latest response.
     public let hasNextPage = Variable<Bool>(false)
+    /// Indicates is there are a request in progress and with is the request page.
     public let fullloading = Variable<LoadingType>((false, "1"))
-    public let elements = Variable<[Element]>([])
+    /// Elements array from first page up to latest fetched page.
+    public let elements = Variable<[PaginationRequest.Response.Element]>([])
     
     private var disposeBag = DisposeBag()
     private let queryDisposeBag = DisposeBag()
     
-    public init(paginationRequest: PaginationRequest<Element>) {
+    /**
+     Initialize a new PaginationViewModel instance.
+     
+     - parameter paginationRequest: pagination request.
+     
+     - returns: A PaginationViewModel instance.
+     */
+    public init(paginationRequest: PaginationRequest) {
         self.paginationRequest = paginationRequest
         bindPaginationRequest(self.paginationRequest, nextPage: nil)
         setUpForceRefresh()
@@ -84,7 +101,7 @@ public class PaginationViewModel<Element: OperaDecodable> {
             .addDisposableTo(queryDisposeBag)
     }
     
-    private func bindPaginationRequest(paginationRequest: PaginationRequest<Element>, nextPage: String?) {
+    private func bindPaginationRequest(paginationRequest: PaginationRequest, nextPage: String?) {
         disposeBag = DisposeBag()
         self.paginationRequest = paginationRequest
         let refreshRequest = refreshTrigger
@@ -131,7 +148,7 @@ public class PaginationViewModel<Element: OperaDecodable> {
         response
             .doOnNetworkError { [weak self] error throws in
                 guard let mySelf = self else { return }
-                Observable.just(error).bindTo(mySelf.networkErrorTrigger).addDisposableTo(mySelf.disposeBag)
+                Observable.just(error).bindTo(mySelf.networkErrors).addDisposableTo(mySelf.disposeBag)
             }
             .doOnError { [weak self] _ in
                 guard let mySelf = self else { return }
@@ -145,14 +162,17 @@ public class PaginationViewModel<Element: OperaDecodable> {
 
 extension PaginationViewModel {
     
+    /// Emits items indicating when start and complete requests.
     public var loading: Driver<Bool> {
         return fullloading.asDriver().map { $0.0 }.distinctUntilChanged()
     }
     
+    /// Emits items indicating when first page request starts and completes.
     public var firstPageLoading: Driver<Bool> {
         return fullloading.asDriver().filter { $0.1 == "1" }.map { $0.0 }
     }
     
+    /// Emits items to show/hide a empty state view
     public var emptyState: Driver<Bool> {
         return Driver.combineLatest(loading, elements.asDriver()) { (isLoading, elements) -> Bool in
             return !isLoading && elements.isEmpty

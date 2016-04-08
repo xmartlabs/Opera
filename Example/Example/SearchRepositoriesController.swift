@@ -28,7 +28,7 @@ class SearchRepositoriesController: UIViewController {
         return emptyStateLabel
     }()
     
-    lazy var viewModel: PaginationViewModel<Repository>  = { [unowned self] in
+    lazy var viewModel: PaginationViewModel<PaginationRequest<Repository>>  = { [unowned self] in
         return PaginationViewModel(paginationRequest: PaginationRequest(route: Route.Repository.Search(), collectionKeyPath: "items"))
         }()
     
