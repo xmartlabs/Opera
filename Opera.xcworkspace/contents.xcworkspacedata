@@ -5,6 +5,6 @@
       location = "container:Opera.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:/Users/barreto/Development/iOS/OpenSource/Opera/Example-iOS.xcodeproj">
+      location = "group:Example-iOS.xcodeproj">
    </FileRef>
 </Workspace>
