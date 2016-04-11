@@ -76,7 +76,7 @@ extension Alamofire.Request {
     }
     
     /**
-     Returns an `Observable` of [AnyObject] for the current request. If something goes wrong a NetworkError error is propagated through the result sequence.
+     Returns an `Observable` of AnyObject for the current request. If something goes wrong a NetworkError error is propagated through the result sequence.
      
      - returns: An instance of `Observable<AnyObject>`
      */

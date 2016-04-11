@@ -9,21 +9,18 @@
 <a href="https://raw.githubusercontent.com/xmartlabs/Opera/master/LICENSE"><img src="http://img.shields.io/badge/license-MIT-blue.svg?style=flat" alt="License: MIT" /></a>
 </p>
 
-By [Xmartlabs SRL](http://xmartlabs.com).
+Made with ❤️ by [XMARTLABS](http://xmartlabs.com). View all our [open source contributions](https://github.com/xmartlabs).
 
 ## Inroduction
 
-Networking abstraction layer written in Swift.
-It simplifies our Networking API manager by splitting up your API into `RouteType`'s, a Alamofire `Request` abstraction.
-
-It works on top of Alamofire, RxSwift and the JSON parsing library of your choice (Argo, Decodable, etc). PaginationViewModel abstraction was heavy inspired by [RxPagination](https://github.com/tryswift/RxPagination) project.
+Protocol-Oriented Network abstraction layer written in Swift. Greatly inspired by [RxPagination](https://github.com/tryswift/RxPagination) project but working on top of [Alamofire](https://github.com/Alamofire/Alamofire) and the Json parsing library of your choice.
 
 ## Features
 
 * API abstraction through `RouteType` conformance.
 * Pagination support through `PaginationRequestType` conformance.
 * Supports for any JSON parsing library such as [Decodable](https://github.com/Anviking/Decodable) and [Argo](https://github.com/thoughtbot/Argo) though `OperaDecodable` protocol conformance.
-* Networking errors abstraction through `NetworkError` type. Opera `NetworkError` indicates either an NSURLSession error, Alamofire error, or your JSON parsing library error.
+* Networking errors abstraction through `NetworkError` type. Opera `NetworkError` indicates either an `NSURLSession` error, Alamofire error, or your JSON parsing library error.
 * RxSwift wrappers around `Alamofire` Request that returns an Observable of a JSON serialized type or an array if it. NetworkError is passed when error event happens.
 * RxSwift wrappers around `PaginationRequestType` that returns a Observable of a `PaginationRensponseType` which contains  the serialized elements and information about the current, next and previous page.
 
@@ -78,7 +75,6 @@ extension RouteType {
     var manager: Alamofire.Manager {
         return Manager.singleton
     }
-
 }
 ```
 
@@ -94,6 +90,231 @@ let request: Alamofire.Request =  GithubAPI.Repository.GetInfo(owner: "xmartlabs
 
 We can also take advantage of the reactive helpers provided by Opera:
 
+```swift
+request
+.rx_collection()
+.doOnNetworkError { (error: NetworkError) in
+  // do something when networking went wrong
+}
+.subscribeNext { (repositories: [Repository]) in
+  // do something when networking and Json parsing completes successfully
+}
+.addDisposableTo(disposeBag)
+```
+
+```swift
+getInfoRequest
+.rx_object()
+.doOnNetworkError { (error: NetworkError) in
+  // do something when networking went wrong
+}
+.subscribeNext { (repository: Repository) in
+  // do something when networking and Json parsing completes successfully
+}
+.addDisposableTo(disposeBag)
+
+```
+
+> If you are not interested in serialize your json response you can invoke `request.rx_anyObject()` which returns an `Observable` of `AnyObject` for the current request and propagates a `NetworkError` error through the result sequence if something goes wrong.
+
+> Opera can be used along with [RxAlamofire](https://github.com/RxSwiftCommunity/RxAlamofire).
+
+
+Opera represents pagination request through `PaginationRequestType` protocol which also conforms to `URLRequestConvertible`. Typically we don't need to create a new type to conform to it. Opera provides `PaginationRequest<Element: OperaDecodable>` generic type that can be used in most of the scenarios.
+
+One of the requirements to adopt `PaginationRequestType` is to implement the following initializer:
+
+```swift
+init(route: RouteType, page: String?, query: String?, filter: FilterType?, collectionKeyPath: String?)
+```
+so we create a pagination request doing:
+
+```
+let paginatinRequest: PaginationRequest<Repository> = PaginationRequest(route: GithubAPI.Repository.Search(), collectionKeyPath: "items")
+```
+
+> Repositories json response array is under "items" key as [github repositories api documentation](https://developer.github.com/v3/search/#search-repositories) indicates so we pass `"items"` as `collectionKeyPath` parameter.
+
+
+A pagination request type wraps up a `RouteType` instance and holds additional info related with pagination such as query string, page, filters, etc. It also provides some helpers to get a new pagination request from the current pagination request info updating  its query string, page or filters value.
+
+let firtPageRequest = paginatinRequest.routeWithPage("1").request
+let filteredFirstPageRequest = firtPageRequest.routeWithQuery("Eureka").request
+> Another variant of the previous helpers is `public func routeWithFilter(filter: FilterType) -> Self`.
+
+
+We've 'said Opera is able to decode json response using your favorite Json parsing library.  Let's see how Opera accomplishes that.
+
+> At Xmartlabs we have been using `Decodable` as our Json parsing library since march 16. Before that we had used Argo, ObjectMapper and many others. I don't want to deep into the reason of our json parsing library choice (we have our reasons ;)) but during Opera implementation/design we though it was a good feature to be flexible about it.
+
+This is our Repository model...
+
+```swift
+struct Repository {
+
+    let id: Int
+    let name: String
+    let desc: String?
+    let company: String?
+    let language: String?
+    let openIssues: Int
+    let stargazersCount: Int
+    let forksCount: Int
+    let url: NSURL
+    let createdAt: NSDate
+
+}
+```
+
+and `OperaDecodable` protocol:
+
+```swift
+public protocol OperaDecodable {
+    static func decode(json: AnyObject) throws -> Self
+}
+```
+
+Since `OperaDecodable` and `Decodable.Decodable` require us to implement the same method, we only have to declare protocol conformance.
+
+```swift
+// Make Repository conforms to Decodable.Decodable
+extension Repository: Decodable {
+
+    static func decode(j: AnyObject) throws -> Repository {
+        return try Repository.init(  id: j => "id",
+                                   name: j => "name",
+                                   desc: j =>? "description",
+                                company: j =>? ["owner", "login"],
+                               language: j =>? "language",
+                             openIssues: j => "open_issues_count",
+                        stargazersCount: j => "stargazers_count",
+                             forksCount: j => "forks_count",
+                                    url: j => "url",
+                              createdAt: j => "created_at")
+    }
+}
+
+// Declare OperaDecodable adoption
+extension Repository : OperaDecodable {}
+```
+
+Using Argo is a little bit harder, we need to implement `OperaDecodable` not just declare the protocol adoption. Here swift language protocol extension feature comes in handy....
+
+```swift
+extension Argo.Decodable where Self.DecodedType == Self, Self: OperaDecodable {
+  static func decode(json: AnyObject) throws -> Self {
+    let decoded = decode(JSON.parse(json))
+    switch decoded {
+      case .Success(let value):
+        return value
+      case .Failure(let error):
+            throw error
+    }
+  }
+}
+```
+
+Now we can make any Argo.Decodable model conforms to OperaDecodable by simply declaring `OperaDecodable` protocol adoption.
+
+```swift
+extension Repository : OperaDecodable {}
+```
+
+Finally let's look into PaginationViewModel generic class thats allows us to list/paginate/sort/filter decodable items in a very straightforward way.
+
+
+```swift
+import UIKit
+import RxSwift
+import RxCocoa
+import Opera
+
+class SearchRepositoriesController: UIViewController {
+
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet weak var searchBar: UISearchBar!
+    let refreshControl = UIRefreshControl()
+
+    var disposeBag = DisposeBag()
+
+    private lazy var emptyStateLabel: UILabel = {
+        let emptyStateLabel = UILabel()
+        emptyStateLabel.text = ControllerConstants.NoTextMessage
+        emptyStateLabel.textAlignment = .Center
+        return emptyStateLabel
+    }()
+
+    lazy var viewModel: PaginationViewModel<PaginationRequest<Repository>>  = { [unowned self] in
+        return PaginationViewModel(paginationRequest: PaginationRequest(route: GithubAPI.Repository.Search(), collectionKeyPath: "items"))
+    }()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        tableView.backgroundView = emptyStateLabel
+        tableView.keyboardDismissMode = .OnDrag
+        tableView.addSubview(self.refreshControl)
+        let refreshControl = self.refreshControl
+
+        rx_sentMessage(#selector(SearchRepositoriesController.viewWillAppear(_:)))
+            .skip(1)
+            .map { _ in false }
+            .bindTo(viewModel.refreshTrigger)
+            .addDisposableTo(disposeBag)
+
+        tableView.rx_reachedBottom
+            .bindTo(viewModel.loadNextPageTrigger)
+            .addDisposableTo(disposeBag)
+
+        viewModel.loading
+            .drive(activityIndicatorView.rx_animating)
+            .addDisposableTo(disposeBag)
+
+        Driver.combineLatest(viewModel.elements.asDriver(), viewModel.firstPageLoading, searchBar.rx_text.asDriver()) { elements, loading, searchText in
+                return loading || searchText.isEmpty ? [] : elements
+            }
+            .asDriver()
+            .drive(tableView.rx_itemsWithCellIdentifier("Cell")) { _, repository, cell in
+                cell.textLabel?.text = repository.name
+                cell.detailTextLabel?.text = "🌟\(repository.stargazersCount)"
+            }
+            .addDisposableTo(disposeBag)
+
+        searchBar.rx_text
+            .filter { !$0.isEmpty }
+            .throttle(0.25, scheduler: MainScheduler.instance)
+            .bindTo(viewModel.queryTrigger)
+            .addDisposableTo(disposeBag)
+
+        searchBar.rx_text
+            .filter { $0.isEmpty }
+            .map { _ in return [] }
+            .bindTo(viewModel.elements)
+            .addDisposableTo(disposeBag)
+
+
+        refreshControl.rx_valueChanged
+            .filter { refreshControl.refreshing }
+            .map { true }
+            .bindTo(viewModel.refreshTrigger)
+            .addDisposableTo(disposeBag)
+
+
+        viewModel.loading
+            .filter { !$0  && refreshControl.refreshing }
+            .driveNext { _ in refreshControl.endRefreshing() }
+            .addDisposableTo(disposeBag)
+
+        Driver.combineLatest(viewModel.emptyState, searchBar.rx_text.asDriver().throttle(0.25)) { $0 ||  $1.isEmpty }
+            .driveNext { [weak self] state in
+                self?.emptyStateLabel.hidden = !state
+                self?.emptyStateLabel.text = (self?.searchBar.text?.isEmpty ?? true) ? ControllerConstants.NoTextMessage : ControllerConstants.NoRepositoriesMessage
+            }
+            .addDisposableTo(disposeBag)
+    }
+}
+```
 
 ## Requirements
 

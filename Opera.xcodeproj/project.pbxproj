@@ -22,7 +22,7 @@
 		28D91C581CB385CC006488F1 /* PaginationRequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C531CB385CC006488F1 /* PaginationRequestType.swift */; };
 		28D91C591CB385CC006488F1 /* PaginationResponseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C541CB385CC006488F1 /* PaginationResponseType.swift */; };
 		28D91C5A1CB385CC006488F1 /* PaginationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C551CB385CC006488F1 /* PaginationViewModel.swift */; };
-		28D91C5B1CB385CC006488F1 /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C561CB385CC006488F1 /* RequestType.swift */; };
+		28D91C5B1CB385CC006488F1 /* RouteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C561CB385CC006488F1 /* RouteType.swift */; };
 		28D91C5F1CB38687006488F1 /* OperaDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C5E1CB38687006488F1 /* OperaDecodable.swift */; };
 		28D91C651CB38751006488F1 /* Request+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C641CB38751006488F1 /* Request+Rx.swift */; };
 		28D91C671CB38759006488F1 /* Request+ResponseSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C661CB38759006488F1 /* Request+ResponseSerialization.swift */; };
@@ -39,7 +39,7 @@
 		542B0A001CB6D63200EC2C71 /* PaginationResponseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C541CB385CC006488F1 /* PaginationResponseType.swift */; };
 		542B0A011CB6D63200EC2C71 /* PaginationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A6B9CF1CB5EFE000682BCE /* PaginationResponse.swift */; };
 		542B0A021CB6D63200EC2C71 /* PaginationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C551CB385CC006488F1 /* PaginationViewModel.swift */; };
-		542B0A031CB6D63200EC2C71 /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C561CB385CC006488F1 /* RequestType.swift */; };
+		542B0A031CB6D63200EC2C71 /* RouteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C561CB385CC006488F1 /* RouteType.swift */; };
 		542B0A041CB6D63200EC2C71 /* OperaDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C5E1CB38687006488F1 /* OperaDecodable.swift */; };
 		542B0A051CB6D63200EC2C71 /* FilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A6B9CB1CB5EC2D00682BCE /* FilterType.swift */; };
 		542B0A091CB6D9A600EC2C71 /* Opera.h in Headers */ = {isa = PBXBuildFile; fileRef = 28F828801C494B2C00330CF4 /* Opera.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -55,7 +55,7 @@
 		5468B40E1CB82F2100D0643E /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C521CB385CC006488F1 /* NetworkError.swift */; };
 		5468B40F1CB82F2100D0643E /* Request+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C641CB38751006488F1 /* Request+Rx.swift */; };
 		5468B4101CB82F2100D0643E /* Request+ResponseSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C661CB38759006488F1 /* Request+ResponseSerialization.swift */; };
-		5468B4111CB82F2100D0643E /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C561CB385CC006488F1 /* RequestType.swift */; };
+		5468B4111CB82F2100D0643E /* RouteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C561CB385CC006488F1 /* RouteType.swift */; };
 		5468B4121CB82F2100D0643E /* PaginationRequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C531CB385CC006488F1 /* PaginationRequestType.swift */; };
 		5468B4131CB82F2100D0643E /* PaginationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A6B9CD1CB5EFB600682BCE /* PaginationRequest.swift */; };
 		5468B4141CB82F2100D0643E /* PaginationResponseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C541CB385CC006488F1 /* PaginationResponseType.swift */; };
@@ -104,7 +104,7 @@
 		28D91C531CB385CC006488F1 /* PaginationRequestType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaginationRequestType.swift; sourceTree = "<group>"; };
 		28D91C541CB385CC006488F1 /* PaginationResponseType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaginationResponseType.swift; sourceTree = "<group>"; };
 		28D91C551CB385CC006488F1 /* PaginationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaginationViewModel.swift; sourceTree = "<group>"; };
-		28D91C561CB385CC006488F1 /* RequestType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestType.swift; sourceTree = "<group>"; };
+		28D91C561CB385CC006488F1 /* RouteType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteType.swift; sourceTree = "<group>"; };
 		28D91C5E1CB38687006488F1 /* OperaDecodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperaDecodable.swift; sourceTree = "<group>"; };
 		28D91C641CB38751006488F1 /* Request+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Request+Rx.swift"; sourceTree = "<group>"; };
 		28D91C661CB38759006488F1 /* Request+ResponseSerialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Request+ResponseSerialization.swift"; sourceTree = "<group>"; };
@@ -255,7 +255,7 @@
 				28D91C521CB385CC006488F1 /* NetworkError.swift */,
 				28D91C641CB38751006488F1 /* Request+Rx.swift */,
 				28D91C661CB38759006488F1 /* Request+ResponseSerialization.swift */,
-				28D91C561CB385CC006488F1 /* RequestType.swift */,
+				28D91C561CB385CC006488F1 /* RouteType.swift */,
 				28D91C531CB385CC006488F1 /* PaginationRequestType.swift */,
 				28644D791CB83FE700DD1B54 /* PaginationRequestTypeSettings.swift */,
 				28A6B9CD1CB5EFB600682BCE /* PaginationRequest.swift */,
@@ -559,7 +559,7 @@
 				28D91C5A1CB385CC006488F1 /* PaginationViewModel.swift in Sources */,
 				28D91C571CB385CC006488F1 /* NetworkError.swift in Sources */,
 				28644D761CB83DCB00DD1B54 /* WebLinkingSettingsSettings.swift in Sources */,
-				28D91C5B1CB385CC006488F1 /* RequestType.swift in Sources */,
+				28D91C5B1CB385CC006488F1 /* RouteType.swift in Sources */,
 				28F107771CB498FB007D8B7D /* Helpers.swift in Sources */,
 				28D91C671CB38759006488F1 /* Request+ResponseSerialization.swift in Sources */,
 			);
@@ -588,7 +588,7 @@
 				542B09FF1CB6D63200EC2C71 /* PaginationRequest.swift in Sources */,
 				28644D771CB83DCB00DD1B54 /* WebLinkingSettingsSettings.swift in Sources */,
 				542B0A041CB6D63200EC2C71 /* OperaDecodable.swift in Sources */,
-				542B0A031CB6D63200EC2C71 /* RequestType.swift in Sources */,
+				542B0A031CB6D63200EC2C71 /* RouteType.swift in Sources */,
 				28644D7B1CB83FE700DD1B54 /* PaginationRequestTypeSettings.swift in Sources */,
 				542B0A051CB6D63200EC2C71 /* FilterType.swift in Sources */,
 			);
@@ -616,7 +616,7 @@
 				5468B4161CB82F2100D0643E /* PaginationViewModel.swift in Sources */,
 				28644D781CB83DCB00DD1B54 /* WebLinkingSettingsSettings.swift in Sources */,
 				5468B4171CB82F2100D0643E /* OperaDecodable.swift in Sources */,
-				5468B4111CB82F2100D0643E /* RequestType.swift in Sources */,
+				5468B4111CB82F2100D0643E /* RouteType.swift in Sources */,
 				28644D7C1CB83FE700DD1B54 /* PaginationRequestTypeSettings.swift in Sources */,
 				5468B4181CB82F2100D0643E /* FilterType.swift in Sources */,
 			);

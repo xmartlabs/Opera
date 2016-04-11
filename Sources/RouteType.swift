@@ -1,4 +1,4 @@
-//  RequestType.swift
+//  RouteType.swift
 //  Opera ( https://github.com/xmartlabs/Opera )
 //
 //  Copyright (c) 2016 Xmartlabs SRL ( http://xmartlabs.com )

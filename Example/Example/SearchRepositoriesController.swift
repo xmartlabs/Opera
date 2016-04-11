@@ -6,7 +6,6 @@
 //  Copyright © 2016 XLOrganizationName. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import RxSwift
 import RxCocoa

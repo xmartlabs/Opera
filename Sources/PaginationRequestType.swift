@@ -28,7 +28,7 @@ import RxSwift
 import WebLinking
 
 
-private struct Default {
+struct Default {
     static let firstPageParameterValue = "1"
     static let queryParameterName = "q"
     static let pageParamName = "page"
@@ -94,7 +94,7 @@ public protocol PaginationRequestType: URLRequestConvertible {
      
      - returns: The new PaginationRequestType instance.
      */
-    init(route: RouteType, page: String, query: String?, filter: FilterType?, collectionKeyPath: String?)
+    init(route: RouteType, page: String?, query: String?, filter: FilterType?, collectionKeyPath: String?)
 }
 
 extension PaginationRequestType {
