@@ -1,4 +1,4 @@
-//  Repository.swift
+//  RouteType.swift
 //  Example-iOS ( https://github.com/xmartlabs/Example-iOS )
 //
 //  Copyright (c) 2016 Xmartlabs SRL ( http://xmartlabs.com )
@@ -23,33 +23,17 @@
 // THE SOFTWARE.
 
 import Foundation
-import Alamofire
 import Opera
+import Alamofire
 
-final class Route {}
-
-extension Route {
+extension RouteType {
     
-    enum Repository: RouteType {
-        
-        case GetInfo(owner: String, repo: String)
-        case Search()
-        
-        var method: Alamofire.Method {
-            switch self {
-            case .GetInfo, .Search:
-                return .GET
-            }
-        }
-        
-        var path: String {
-            switch self {
-            case let .GetInfo(owner, repo):
-                return "repos/\(owner)/\(repo)"
-            case .Search:
-                return "search/repositories"
-            }
-        }
-        
+    var baseURL: NSURL {
+        return NSURL(string: "https://api.github.com")!
     }
+    
+    var manager: Alamofire.Manager {
+        return Manager.singleton
+    }
+    
 }
