@@ -26,13 +26,6 @@ import Foundation
 import WebLinking
 import RxSwift
 
-struct OperaSettings {
-
-    static var pageParamName = "page"
-    static var nextRelationName = "next"
-    static var prevRelationName = "prev"
-}
-
 extension ObservableType {
 
     /**
@@ -53,17 +46,15 @@ extension ObservableType {
 
 extension NSHTTPURLResponse {
 
-    /// Get last url parameter value of "prev" relation link.
-    var previousPage: String? {
-        return linkPagePrameter(OperaSettings.prevRelationName)
-    }
-
-    /// Get next url parameter value of "next" relation link.
-    var nextPage: String? {
-        return linkPagePrameter(OperaSettings.nextRelationName)
-    }
-
-    private func linkPagePrameter(relation: String, pageParameterName: String = OperaSettings.pageParamName) -> String? {
+    /**
+     Get page parameter value from a particular link relation
+     
+     - parameter relation:          relation name.
+     - parameter pageParameterName: url page parameter name.
+     
+     - returns: The page parameter value.
+     */
+    func linkPagePrameter(relation: String, pageParameterName: String) -> String? {
         guard let uri = self.findLink(relation: relation)?.uri else { return nil }
         let components = NSURLComponents(string: uri)
         return components?.queryItems?.filter { $0.name == pageParameterName }.first?.value

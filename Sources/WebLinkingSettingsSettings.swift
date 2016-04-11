@@ -1,4 +1,4 @@
-//  PaginationResponseSettings.swift
+//  WebLinkingSettings.swift
 //  Opera ( https://github.com/xmartlabs/Opera )
 //
 //  Copyright (c) 2016 Xmartlabs SRL ( http://xmartlabs.com )
@@ -25,11 +25,10 @@
 import Foundation
 
 
-public protocol PaginationResponseTypeSettings {
+public protocol WebLinkingSettings {
 
+    var relationPageParamName: String { get }
+    var nextRelationName: String { get }
+    var prevRelationName: String { get }
     
-//    var pageParamName: String { get }
-//    
-//    var nextRelationName: String { get }
-//    var prevRelationName: String { get }
 }

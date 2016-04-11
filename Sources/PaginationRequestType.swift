@@ -27,6 +27,17 @@ import Alamofire
 import RxSwift
 import WebLinking
 
+
+private struct Default {
+    static let firstPageParameterValue = "1"
+    static let queryParameterName = "q"
+    static let pageParamName = "page"
+    static let prevRelationName = "prev"
+    static let nextRelationName = "next"
+    static let relationPageParamName = "page"
+    
+}
+
 /**
  *  A type that adopts PaginationRequestType encapsulates information required to fetch and filter a collection of items from a server endpoint. It can be used to create a pagination request. The request will take into account page, query, route, filter properties.
  */
@@ -106,9 +117,9 @@ extension PaginationRequestType {
     /// Pagination request parameters
     var parameters: [String: AnyObject]? {
         var result = route.parameters ?? [:]
-        result[(self as? PaginationRequestTypeSettings)?.pageParameterName ?? "page"] = page
+        result[(self as? PaginationRequestTypeSettings)?.pageParameterName ?? Default.pageParamName] = page
         if let q = query where q != "" {
-            result[(self as? PaginationRequestTypeSettings)?.queryParameterName ?? "q"] = query
+            result[(self as? PaginationRequestTypeSettings)?.queryParameterName ?? Default.queryParameterName] = query
         }
         for (k, v) in filter?.parameters ?? [:]  {
             result.updateValue(v, forKey: k)
@@ -121,11 +132,11 @@ extension PaginationRequestType {
     }
     
     public func routeWithQuery(query: String) -> Self {
-        return Self.init(route: route, page: (self as? PaginationRequestTypeSettings)?.firstPageParameterValue ?? "1", query: query, filter: filter, collectionKeyPath: collectionKeyPath)
+        return Self.init(route: route, page: (self as? PaginationRequestTypeSettings)?.firstPageParameterValue ?? Default.firstPageParameterValue, query: query, filter: filter, collectionKeyPath: collectionKeyPath)
     }
     
     public func routeWithFilter(filter: FilterType) -> Self {
-        return Self.init(route: route, page: (self as? PaginationRequestTypeSettings)?.firstPageParameterValue ?? "1", query: query, filter: filter, collectionKeyPath: collectionKeyPath)
+        return Self.init(route: route, page: (self as? PaginationRequestTypeSettings)?.firstPageParameterValue ?? Default.firstPageParameterValue, query: query, filter: filter, collectionKeyPath: collectionKeyPath)
     }
 
 }
@@ -141,7 +152,11 @@ extension PaginationRequestType where Response.Element: OperaDecodable {
         let myRequest = route.manager.request(self).validate()
         let myPage = page
         return myRequest.rx_collection(collectionKeyPath).map({ elements -> Response in
-            return Response.init(elements: elements, previousPage: myRequest.response?.previousPage, nextPage: myRequest.response?.nextPage, page: myPage)
+            return Response.init(elements: elements,
+                             previousPage: myRequest.response?.linkPagePrameter((self as? WebLinkingSettings)?.prevRelationName ?? Default.prevRelationName, pageParameterName: (self as? WebLinkingSettings)?.relationPageParamName ?? Default.relationPageParamName),
+                                 nextPage: myRequest.response?.linkPagePrameter((self as? WebLinkingSettings)?.nextRelationName ?? Default.nextRelationName, pageParameterName: (self as? WebLinkingSettings)?.relationPageParamName ?? Default.relationPageParamName),
+                                     page: myPage
+            )
         })
     }
     
