@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		2840C42B1CB56841009AAB02 /* Helpers-iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2840C42A1CB56841009AAB02 /* Helpers-iOS.swift */; };
+		28644D761CB83DCB00DD1B54 /* PaginationResponseTypeSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28644D751CB83DCB00DD1B54 /* PaginationResponseTypeSettings.swift */; };
+		28644D771CB83DCB00DD1B54 /* PaginationResponseTypeSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28644D751CB83DCB00DD1B54 /* PaginationResponseTypeSettings.swift */; };
+		28644D781CB83DCB00DD1B54 /* PaginationResponseTypeSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28644D751CB83DCB00DD1B54 /* PaginationResponseTypeSettings.swift */; };
+		28644D7A1CB83FE700DD1B54 /* PaginationRequestTypeSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28644D791CB83FE700DD1B54 /* PaginationRequestTypeSettings.swift */; };
+		28644D7B1CB83FE700DD1B54 /* PaginationRequestTypeSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28644D791CB83FE700DD1B54 /* PaginationRequestTypeSettings.swift */; };
+		28644D7C1CB83FE700DD1B54 /* PaginationRequestTypeSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28644D791CB83FE700DD1B54 /* PaginationRequestTypeSettings.swift */; };
 		287D0A6E1C4B73BD004566D6 /* OperaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287D0A6D1C4B73BD004566D6 /* OperaTests.swift */; };
 		28A6B9CC1CB5EC2D00682BCE /* FilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A6B9CB1CB5EC2D00682BCE /* FilterType.swift */; };
 		28A6B9CE1CB5EFB600682BCE /* PaginationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A6B9CD1CB5EFB600682BCE /* PaginationRequest.swift */; };
@@ -88,6 +94,8 @@
 
 /* Begin PBXFileReference section */
 		2840C42A1CB56841009AAB02 /* Helpers-iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Helpers-iOS.swift"; path = "Helpers/Helpers-iOS.swift"; sourceTree = "<group>"; };
+		28644D751CB83DCB00DD1B54 /* PaginationResponseTypeSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaginationResponseTypeSettings.swift; sourceTree = "<group>"; };
+		28644D791CB83FE700DD1B54 /* PaginationRequestTypeSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaginationRequestTypeSettings.swift; sourceTree = "<group>"; };
 		287D0A6D1C4B73BD004566D6 /* OperaTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OperaTests.swift; path = Tests/OperaTests.swift; sourceTree = SOURCE_ROOT; };
 		28A6B9CB1CB5EC2D00682BCE /* FilterType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterType.swift; sourceTree = "<group>"; };
 		28A6B9CD1CB5EFB600682BCE /* PaginationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaginationRequest.swift; sourceTree = "<group>"; };
@@ -249,8 +257,10 @@
 				28D91C661CB38759006488F1 /* Request+ResponseSerialization.swift */,
 				28D91C561CB385CC006488F1 /* RequestType.swift */,
 				28D91C531CB385CC006488F1 /* PaginationRequestType.swift */,
+				28644D791CB83FE700DD1B54 /* PaginationRequestTypeSettings.swift */,
 				28A6B9CD1CB5EFB600682BCE /* PaginationRequest.swift */,
 				28D91C541CB385CC006488F1 /* PaginationResponseType.swift */,
+				28644D751CB83DCB00DD1B54 /* PaginationResponseTypeSettings.swift */,
 				28A6B9CF1CB5EFE000682BCE /* PaginationResponse.swift */,
 				28D91C551CB385CC006488F1 /* PaginationViewModel.swift */,
 				28D91C5E1CB38687006488F1 /* OperaDecodable.swift */,
@@ -544,9 +554,11 @@
 				2840C42B1CB56841009AAB02 /* Helpers-iOS.swift in Sources */,
 				28A6B9CE1CB5EFB600682BCE /* PaginationRequest.swift in Sources */,
 				28D91C591CB385CC006488F1 /* PaginationResponseType.swift in Sources */,
+				28644D7A1CB83FE700DD1B54 /* PaginationRequestTypeSettings.swift in Sources */,
 				28A6B9D01CB5EFE000682BCE /* PaginationResponse.swift in Sources */,
 				28D91C5A1CB385CC006488F1 /* PaginationViewModel.swift in Sources */,
 				28D91C571CB385CC006488F1 /* NetworkError.swift in Sources */,
+				28644D761CB83DCB00DD1B54 /* PaginationResponseTypeSettings.swift in Sources */,
 				28D91C5B1CB385CC006488F1 /* RequestType.swift in Sources */,
 				28F107771CB498FB007D8B7D /* Helpers.swift in Sources */,
 				28D91C671CB38759006488F1 /* Request+ResponseSerialization.swift in Sources */,
@@ -574,8 +586,10 @@
 				542B09FD1CB6D63200EC2C71 /* Request+ResponseSerialization.swift in Sources */,
 				542B09FE1CB6D63200EC2C71 /* PaginationRequestType.swift in Sources */,
 				542B09FF1CB6D63200EC2C71 /* PaginationRequest.swift in Sources */,
+				28644D771CB83DCB00DD1B54 /* PaginationResponseTypeSettings.swift in Sources */,
 				542B0A041CB6D63200EC2C71 /* OperaDecodable.swift in Sources */,
 				542B0A031CB6D63200EC2C71 /* RequestType.swift in Sources */,
+				28644D7B1CB83FE700DD1B54 /* PaginationRequestTypeSettings.swift in Sources */,
 				542B0A051CB6D63200EC2C71 /* FilterType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -600,8 +614,10 @@
 				5468B40E1CB82F2100D0643E /* NetworkError.swift in Sources */,
 				5468B4101CB82F2100D0643E /* Request+ResponseSerialization.swift in Sources */,
 				5468B4161CB82F2100D0643E /* PaginationViewModel.swift in Sources */,
+				28644D781CB83DCB00DD1B54 /* PaginationResponseTypeSettings.swift in Sources */,
 				5468B4171CB82F2100D0643E /* OperaDecodable.swift in Sources */,
 				5468B4111CB82F2100D0643E /* RequestType.swift in Sources */,
+				28644D7C1CB83FE700DD1B54 /* PaginationRequestTypeSettings.swift in Sources */,
 				5468B4181CB82F2100D0643E /* FilterType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1009,6 +1025,7 @@
 				5468B4071CB82EE600D0643E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5468B40B1CB82EE600D0643E /* Build configuration list for PBXNativeTarget "Opera-tvOSTests" */ = {
 			isa = XCConfigurationList;
@@ -1017,6 +1034,7 @@
 				5468B4091CB82EE600D0643E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

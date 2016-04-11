@@ -106,9 +106,9 @@ extension PaginationRequestType {
     /// Pagination request parameters
     var parameters: [String: AnyObject]? {
         var result = route.parameters ?? [:]
-        result["page"] = page
+        result[(self as? PaginationRequestTypeSettings)?.pageParameterName ?? "page"] = page
         if let q = query where q != "" {
-            result["q"] = query
+            result[(self as? PaginationRequestTypeSettings)?.queryParameterName ?? "q"] = query
         }
         for (k, v) in filter?.parameters ?? [:]  {
             result.updateValue(v, forKey: k)
@@ -121,11 +121,11 @@ extension PaginationRequestType {
     }
     
     public func routeWithQuery(query: String) -> Self {
-        return Self.init(route: route, page: "1", query: query, filter: filter, collectionKeyPath: collectionKeyPath)
+        return Self.init(route: route, page: (self as? PaginationRequestTypeSettings)?.firstPageParameterValue ?? "1", query: query, filter: filter, collectionKeyPath: collectionKeyPath)
     }
     
     public func routeWithFilter(filter: FilterType) -> Self {
-        return Self.init(route: route, page: "1", query: query, filter: filter, collectionKeyPath: collectionKeyPath)
+        return Self.init(route: route, page: (self as? PaginationRequestTypeSettings)?.firstPageParameterValue ?? "1", query: query, filter: filter, collectionKeyPath: collectionKeyPath)
     }
 
 }
