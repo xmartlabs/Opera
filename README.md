@@ -63,7 +63,7 @@ Check out the rest of [RouteType](https://github.com/xmartlabs/Opera/tree/master
 
 As you have may seen in the `RouteType` protocol definition. Any type that conforms to it must provide `baseUrl` and the Alamofire `manager` instance.
 
-Usually these values do not change among our routes so we can easily provide them by a implementing a protocol extension over `RequestType` as shown below.
+Usually these values do not change among our routes so we can provide them by implementing a protocol extension over `RequestType` as shown below.
 
 ```swift
 extension RouteType {
@@ -86,7 +86,7 @@ At this point we can easily create an Alamofire Request:
 let request: Alamofire.Request =  GithubAPI.Repository.GetInfo(owner: "xmartlabs", repo: "Opera").request
 ```
 
-> Notice that `RouteType` conforms to `Alamofire.URLRequestConvertible` so having the manager we can provide the associated `Alamofire.Request`.
+> Notice that `RouteType` conforms to `Alamofire.URLRequestConvertible` so having the manager we can create the associated `Alamofire.Request`.
 
 We can also take advantage of the reactive helpers provided by Opera:
 
@@ -115,7 +115,7 @@ getInfoRequest
 
 ```
 
-> If you are not interested in serialize your json response you can invoke `request.rx_anyObject()` which returns an `Observable` of `AnyObject` for the current request and propagates a `NetworkError` error through the result sequence if something goes wrong.
+> If you are not interested in decode your json response into a Model you can invoke `request.rx_anyObject()` which returns an `Observable` of `AnyObject` for the current request and propagates a `NetworkError` error through the result sequence if something goes wrong.
 
 > Opera can be used along with [RxAlamofire](https://github.com/RxSwiftCommunity/RxAlamofire).
 
@@ -135,7 +135,6 @@ let paginatinRequest: PaginationRequest<Repository> = PaginationRequest(route: G
 
 > Repositories json response array is under "items" key as [github repositories api documentation](https://developer.github.com/v3/search/#search-repositories) indicates so we pass `"items"` as `collectionKeyPath` parameter.
 
-
 A pagination request type wraps up a `RouteType` instance and holds additional info related with pagination such as query string, page, filters, etc. It also provides some helpers to get a new pagination request from the current pagination request info updating  its query string, page or filters value.
 
 let firtPageRequest = paginatinRequest.routeWithPage("1").request
@@ -143,7 +142,7 @@ let filteredFirstPageRequest = firtPageRequest.routeWithQuery("Eureka").request
 > Another variant of the previous helpers is `public func routeWithFilter(filter: FilterType) -> Self`.
 
 
-We've 'said Opera is able to decode json response using your favorite Json parsing library.  Let's see how Opera accomplishes that.
+We've said Opera is able to decode json response into a Model using your favorite Json parsing library.  Let's see how Opera accomplishes that.
 
 > At Xmartlabs we have been using `Decodable` as our Json parsing library since march 16. Before that we had used Argo, ObjectMapper and many others. I don't want to deep into the reason of our json parsing library choice (we have our reasons ;)) but during Opera implementation/design we though it was a good feature to be flexible about it.
 
@@ -198,7 +197,7 @@ extension Repository: Decodable {
 extension Repository : OperaDecodable {}
 ```
 
-Using Argo is a little bit harder, we need to implement `OperaDecodable` not just declare the protocol adoption. Here swift language protocol extension feature comes in handy....
+Using Argo is a little bit harder, we need to implement `OperaDecodable` in addition to declare the protocol adoption. Here where swift language protocol extension feature comes in handy....
 
 ```swift
 extension Argo.Decodable where Self.DecodedType == Self, Self: OperaDecodable {
@@ -234,17 +233,6 @@ class SearchRepositoriesController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var searchBar: UISearchBar!
-    let refreshControl = UIRefreshControl()
-
-    var disposeBag = DisposeBag()
-
-    private lazy var emptyStateLabel: UILabel = {
-        let emptyStateLabel = UILabel()
-        emptyStateLabel.text = ControllerConstants.NoTextMessage
-        emptyStateLabel.textAlignment = .Center
-        return emptyStateLabel
-    }()
-
     lazy var viewModel: PaginationViewModel<PaginationRequest<Repository>>  = { [unowned self] in
         return PaginationViewModel(paginationRequest: PaginationRequest(route: GithubAPI.Repository.Search(), collectionKeyPath: "items"))
     }()
@@ -252,67 +240,62 @@ class SearchRepositoriesController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // set up views
         tableView.backgroundView = emptyStateLabel
         tableView.keyboardDismissMode = .OnDrag
-        tableView.addSubview(self.refreshControl)
-        let refreshControl = self.refreshControl
 
+        // on viewWill appear load pagination view model by emitting false (do not cancel pending request if any) to view model `refreshTrigger` PublishSubject.
+        // viewModel is subscribed to `refreshTrigger` observable and starts a new request.
         rx_sentMessage(#selector(SearchRepositoriesController.viewWillAppear(_:)))
             .skip(1)
             .map { _ in false }
             .bindTo(viewModel.refreshTrigger)
             .addDisposableTo(disposeBag)
 
+        // make model view loads next page when reaches table view bottom...  
         tableView.rx_reachedBottom
             .bindTo(viewModel.loadNextPageTrigger)
             .addDisposableTo(disposeBag)
 
+        // Updates activity indicator accordingly based on modelView `loading` variable.
         viewModel.loading
             .drive(activityIndicatorView.rx_animating)
             .addDisposableTo(disposeBag)
 
+        // updates tableView observing viewModel `elements`, since github api only works if a query string is present we show no items if the first page is being loading or UISearchBar text is empty. By doing that whenever the search criteria is updated we take away all the item from the table view giving a sense of being fetching/searching the server. Notice the strongly typed `Repository` type below.
         Driver.combineLatest(viewModel.elements.asDriver(), viewModel.firstPageLoading, searchBar.rx_text.asDriver()) { elements, loading, searchText in
                 return loading || searchText.isEmpty ? [] : elements
             }
             .asDriver()
-            .drive(tableView.rx_itemsWithCellIdentifier("Cell")) { _, repository, cell in
+            .drive(tableView.rx_itemsWithCellIdentifier("Cell")) { _, repository: Repository, cell in
                 cell.textLabel?.text = repository.name
                 cell.detailTextLabel?.text = "🌟\(repository.stargazersCount)"
             }
             .addDisposableTo(disposeBag)
 
+        // whenever search bar text is changed, wait for 1/4 sec of search bar inactivity then update the `viewModel` pagination request type (will cancel any pending request). We propagates query string by binding it to viewModel.queryTrigger.
         searchBar.rx_text
             .filter { !$0.isEmpty }
             .throttle(0.25, scheduler: MainScheduler.instance)
             .bindTo(viewModel.queryTrigger)
             .addDisposableTo(disposeBag)
 
-        searchBar.rx_text
-            .filter { $0.isEmpty }
-            .map { _ in return [] }
-            .bindTo(viewModel.elements)
-            .addDisposableTo(disposeBag)
-
-
-        refreshControl.rx_valueChanged
-            .filter { refreshControl.refreshing }
-            .map { true }
-            .bindTo(viewModel.refreshTrigger)
-            .addDisposableTo(disposeBag)
-
-
-        viewModel.loading
-            .filter { !$0  && refreshControl.refreshing }
-            .driveNext { _ in refreshControl.endRefreshing() }
-            .addDisposableTo(disposeBag)
-
+        // handles view empty state.
         Driver.combineLatest(viewModel.emptyState, searchBar.rx_text.asDriver().throttle(0.25)) { $0 ||  $1.isEmpty }
             .driveNext { [weak self] state in
                 self?.emptyStateLabel.hidden = !state
-                self?.emptyStateLabel.text = (self?.searchBar.text?.isEmpty ?? true) ? ControllerConstants.NoTextMessage : ControllerConstants.NoRepositoriesMessage
+                self?.emptyStateLabel.text = (self?.searchBar.text?.isEmpty ?? true) ? "Enter text to search repositories" : "No repositories found"
             }
             .addDisposableTo(disposeBag)
     }
+
+    private lazy var emptyStateLabel: UILabel = {
+        let emptyStateLabel = UILabel()
+        emptyStateLabel.text = ControllerConstants.NoTextMessage
+        emptyStateLabel.textAlignment = .Center
+        return emptyStateLabel
+    }()
+    private let disposeBag = DisposeBag()
 }
 ```
 
