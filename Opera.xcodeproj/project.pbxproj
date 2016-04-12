@@ -26,11 +26,12 @@
 		28D91C5F1CB38687006488F1 /* OperaDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C5E1CB38687006488F1 /* OperaDecodable.swift */; };
 		28D91C651CB38751006488F1 /* Request+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C641CB38751006488F1 /* Request+Rx.swift */; };
 		28D91C671CB38759006488F1 /* Request+ResponseSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C661CB38759006488F1 /* Request+ResponseSerialization.swift */; };
-		28F107771CB498FB007D8B7D /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F107761CB498FB007D8B7D /* Helpers.swift */; };
 		28F828811C494B2C00330CF4 /* Opera.h in Headers */ = {isa = PBXBuildFile; fileRef = 28F828801C494B2C00330CF4 /* Opera.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		28F828881C494B2C00330CF4 /* Opera.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28F8287D1C494B2C00330CF4 /* Opera.framework */; };
+		5415F01C1CBD6CEC00D7A7E4 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5415F01B1CBD6CEC00D7A7E4 /* Helpers.swift */; };
+		5415F01D1CBD6CEE00D7A7E4 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5415F01B1CBD6CEC00D7A7E4 /* Helpers.swift */; };
+		5415F01E1CBD6CEE00D7A7E4 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5415F01B1CBD6CEC00D7A7E4 /* Helpers.swift */; };
 		542B09EC1CB6D5BE00EC2C71 /* Opera.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 542B09E21CB6D5BE00EC2C71 /* Opera.framework */; };
-		542B09FA1CB6D63200EC2C71 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F107761CB498FB007D8B7D /* Helpers.swift */; };
 		542B09FB1CB6D63200EC2C71 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C521CB385CC006488F1 /* NetworkError.swift */; };
 		542B09FC1CB6D63200EC2C71 /* Request+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C641CB38751006488F1 /* Request+Rx.swift */; };
 		542B09FD1CB6D63200EC2C71 /* Request+ResponseSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C661CB38759006488F1 /* Request+ResponseSerialization.swift */; };
@@ -51,7 +52,6 @@
 		542B0A1E1CB6E09900EC2C71 /* WebLinking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 542B0A1D1CB6E09900EC2C71 /* WebLinking.framework */; };
 		5468B3FF1CB82EE600D0643E /* Opera.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5468B3F51CB82EE600D0643E /* Opera.framework */; };
 		5468B40C1CB82F2100D0643E /* Opera.h in Headers */ = {isa = PBXBuildFile; fileRef = 28F828801C494B2C00330CF4 /* Opera.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5468B40D1CB82F2100D0643E /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F107761CB498FB007D8B7D /* Helpers.swift */; };
 		5468B40E1CB82F2100D0643E /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C521CB385CC006488F1 /* NetworkError.swift */; };
 		5468B40F1CB82F2100D0643E /* Request+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C641CB38751006488F1 /* Request+Rx.swift */; };
 		5468B4101CB82F2100D0643E /* Request+ResponseSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C661CB38759006488F1 /* Request+ResponseSerialization.swift */; };
@@ -93,28 +93,28 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2840C42A1CB56841009AAB02 /* Helpers-iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Helpers-iOS.swift"; path = "Helpers/Helpers-iOS.swift"; sourceTree = "<group>"; };
-		28644D751CB83DCB00DD1B54 /* WebLinkingSettingsSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebLinkingSettingsSettings.swift; sourceTree = "<group>"; };
-		28644D791CB83FE700DD1B54 /* PaginationRequestTypeSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaginationRequestTypeSettings.swift; sourceTree = "<group>"; };
+		2840C42A1CB56841009AAB02 /* Helpers-iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Helpers-iOS.swift"; path = "iOS/Helpers-iOS.swift"; sourceTree = "<group>"; };
+		28644D751CB83DCB00DD1B54 /* WebLinkingSettingsSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WebLinkingSettingsSettings.swift; path = Common/WebLinkingSettingsSettings.swift; sourceTree = "<group>"; };
+		28644D791CB83FE700DD1B54 /* PaginationRequestTypeSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaginationRequestTypeSettings.swift; path = Common/PaginationRequestTypeSettings.swift; sourceTree = "<group>"; };
 		287D0A6D1C4B73BD004566D6 /* OperaTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OperaTests.swift; path = Tests/OperaTests.swift; sourceTree = SOURCE_ROOT; };
-		28A6B9CB1CB5EC2D00682BCE /* FilterType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterType.swift; sourceTree = "<group>"; };
-		28A6B9CD1CB5EFB600682BCE /* PaginationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaginationRequest.swift; sourceTree = "<group>"; };
-		28A6B9CF1CB5EFE000682BCE /* PaginationResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaginationResponse.swift; sourceTree = "<group>"; };
-		28D91C521CB385CC006488F1 /* NetworkError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
-		28D91C531CB385CC006488F1 /* PaginationRequestType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaginationRequestType.swift; sourceTree = "<group>"; };
-		28D91C541CB385CC006488F1 /* PaginationResponseType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaginationResponseType.swift; sourceTree = "<group>"; };
-		28D91C551CB385CC006488F1 /* PaginationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaginationViewModel.swift; sourceTree = "<group>"; };
-		28D91C561CB385CC006488F1 /* RouteType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteType.swift; sourceTree = "<group>"; };
-		28D91C5E1CB38687006488F1 /* OperaDecodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperaDecodable.swift; sourceTree = "<group>"; };
-		28D91C641CB38751006488F1 /* Request+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Request+Rx.swift"; sourceTree = "<group>"; };
-		28D91C661CB38759006488F1 /* Request+ResponseSerialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Request+ResponseSerialization.swift"; sourceTree = "<group>"; };
-		28F107761CB498FB007D8B7D /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Helpers.swift; path = Helpers/Helpers.swift; sourceTree = "<group>"; };
+		28A6B9CB1CB5EC2D00682BCE /* FilterType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterType.swift; path = Common/FilterType.swift; sourceTree = "<group>"; };
+		28A6B9CD1CB5EFB600682BCE /* PaginationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaginationRequest.swift; path = Common/PaginationRequest.swift; sourceTree = "<group>"; };
+		28A6B9CF1CB5EFE000682BCE /* PaginationResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaginationResponse.swift; path = Common/PaginationResponse.swift; sourceTree = "<group>"; };
+		28D91C521CB385CC006488F1 /* NetworkError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkError.swift; path = Common/NetworkError.swift; sourceTree = "<group>"; };
+		28D91C531CB385CC006488F1 /* PaginationRequestType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaginationRequestType.swift; path = Common/PaginationRequestType.swift; sourceTree = "<group>"; };
+		28D91C541CB385CC006488F1 /* PaginationResponseType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaginationResponseType.swift; path = Common/PaginationResponseType.swift; sourceTree = "<group>"; };
+		28D91C551CB385CC006488F1 /* PaginationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaginationViewModel.swift; path = Common/PaginationViewModel.swift; sourceTree = "<group>"; };
+		28D91C561CB385CC006488F1 /* RouteType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RouteType.swift; path = Common/RouteType.swift; sourceTree = "<group>"; };
+		28D91C5E1CB38687006488F1 /* OperaDecodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OperaDecodable.swift; path = Common/OperaDecodable.swift; sourceTree = "<group>"; };
+		28D91C641CB38751006488F1 /* Request+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Request+Rx.swift"; path = "Common/Request+Rx.swift"; sourceTree = "<group>"; };
+		28D91C661CB38759006488F1 /* Request+ResponseSerialization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Request+ResponseSerialization.swift"; path = "Common/Request+ResponseSerialization.swift"; sourceTree = "<group>"; };
 		28F8287D1C494B2C00330CF4 /* Opera.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Opera.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		28F828801C494B2C00330CF4 /* Opera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Opera.h; path = "Sources/Supporting Files/Opera.h"; sourceTree = "<group>"; };
-		28F828821C494B2C00330CF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Sources/Supporting Files/Info.plist"; sourceTree = "<group>"; };
+		28F828801C494B2C00330CF4 /* Opera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Opera.h; path = "Sources/Common/Supporting Files/Opera.h"; sourceTree = "<group>"; };
+		28F828821C494B2C00330CF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Sources/Common/Supporting Files/Info.plist"; sourceTree = "<group>"; };
 		28F828871C494B2C00330CF4 /* OperaTests_iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OperaTests_iOS.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		28F8288E1C494B2C00330CF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = "Tests/Supporting Files/Info.plist"; sourceTree = "<group>"; };
 		28F8289B1C494BF100330CF4 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playground.playground; sourceTree = "<group>"; };
+		5415F01B1CBD6CEC00D7A7E4 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Helpers.swift; path = Common/Helpers/Helpers.swift; sourceTree = "<group>"; };
 		542B09E21CB6D5BE00EC2C71 /* Opera.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Opera.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		542B09EB1CB6D5BE00EC2C71 /* Opera-OSXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Opera-OSXTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		542B0A111CB6DDF500EC2C71 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/Mac/Alamofire.framework; sourceTree = "<group>"; };
@@ -207,7 +207,7 @@
 		28F1076F1CB492D8007D8B7D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				28F107761CB498FB007D8B7D /* Helpers.swift */,
+				5415F01B1CBD6CEC00D7A7E4 /* Helpers.swift */,
 				2840C42A1CB56841009AAB02 /* Helpers-iOS.swift */,
 			);
 			name = Helpers;
@@ -560,7 +560,7 @@
 				28D91C571CB385CC006488F1 /* NetworkError.swift in Sources */,
 				28644D761CB83DCB00DD1B54 /* WebLinkingSettingsSettings.swift in Sources */,
 				28D91C5B1CB385CC006488F1 /* RouteType.swift in Sources */,
-				28F107771CB498FB007D8B7D /* Helpers.swift in Sources */,
+				5415F01C1CBD6CEC00D7A7E4 /* Helpers.swift in Sources */,
 				28D91C671CB38759006488F1 /* Request+ResponseSerialization.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -577,8 +577,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				542B09FA1CB6D63200EC2C71 /* Helpers.swift in Sources */,
 				542B0A021CB6D63200EC2C71 /* PaginationViewModel.swift in Sources */,
+				5415F01D1CBD6CEE00D7A7E4 /* Helpers.swift in Sources */,
 				542B0A001CB6D63200EC2C71 /* PaginationResponseType.swift in Sources */,
 				542B09FC1CB6D63200EC2C71 /* Request+Rx.swift in Sources */,
 				542B09FB1CB6D63200EC2C71 /* NetworkError.swift in Sources */,
@@ -605,8 +605,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5468B40D1CB82F2100D0643E /* Helpers.swift in Sources */,
 				5468B4131CB82F2100D0643E /* PaginationRequest.swift in Sources */,
+				5415F01E1CBD6CEE00D7A7E4 /* Helpers.swift in Sources */,
 				5468B4151CB82F2100D0643E /* PaginationResponse.swift in Sources */,
 				5468B4141CB82F2100D0643E /* PaginationResponseType.swift in Sources */,
 				5468B4121CB82F2100D0643E /* PaginationRequestType.swift in Sources */,
@@ -751,8 +751,9 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
-				INFOPLIST_FILE = "Sources/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "Sources/Common/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.xmartlabs.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Opera;
@@ -772,8 +773,9 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
-				INFOPLIST_FILE = "Sources/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "Sources/Common/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.xmartlabs.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Opera;
@@ -828,7 +830,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = "Sources/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "Sources/Common/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
@@ -855,7 +857,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = "Sources/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "Sources/Common/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
@@ -908,7 +910,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/tvOS",
 				);
-				INFOPLIST_FILE = "Sources/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "Sources/Common/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xmartlabs.Opera;
@@ -932,7 +934,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/tvOS",
 				);
-				INFOPLIST_FILE = "Sources/Supporting Files/Info.plist";
+				INFOPLIST_FILE = "Sources/Common/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xmartlabs.Opera;

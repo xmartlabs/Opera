@@ -2,9 +2,9 @@ language: objective-c
 osx_image: xcode7.3
 env:
   global:
-  - IOS_FRAMEWORK_SCHEME="Alamofire iOS"
-  - OSX_FRAMEWORK_SCHEME="Alamofire OSX"
-  - TVOS_FRAMEWORK_SCHEME="Alamofire tvOS"
+  - IOS_FRAMEWORK_SCHEME="Opera-iOS"
+  - OSX_FRAMEWORK_SCHEME="Opera-OSX"
+  - TVOS_FRAMEWORK_SCHEME="Opera-tvOS"
   - IOS_SDK=iphonesimulator9.3
   - OSX_SDK=macosx10.11
   - TVOS_SDK=appletvsimulator9.2
@@ -16,9 +16,8 @@ before_install:
 - brew update
 - brew outdated carthage || brew upgrade carthage
 - if brew outdated | grep -qx xctool; then brew upgrade xctool; fi
-- carthage update --platform iOS
-- carthage update --platform OSX
 - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
+- ./build_dependencies.sh
 script:
 - xcodebuild -version
 - xcodebuild -project Opera.xcodeproj -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION"
