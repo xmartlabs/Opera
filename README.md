@@ -2,32 +2,32 @@
 
 <p align="left">
 <a href="https://travis-ci.org/xmartlabs/Opera"><img src="https://travis-ci.org/xmartlabs/Opera.svg?branch=master" alt="Build status" /></a>
-<img src="https://img.shields.io/badge/platform-iOS%20|%20OSX%20|%20watchOS%20|%20tvOS-blue.svg?style=flat" alt="Platform iOS" />
+<img src="https://img.shields.io/badge/platform-iOS%20|%20OSX%20|%20tvOS-blue.svg?style=flat" alt="Platform iOS" />
 <a href="https://developer.apple.com/swift"><img src="https://img.shields.io/badge/swift2-compatible-4BC51D.svg?style=flat" alt="Swift 2 compatible" /></a>
 <a href="https://github.com/Carthage/Carthage"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat" alt="Carthage compatible" /></a>
-<a href="https://cocoapods.org/pods/XLActionController"><img src="https://img.shields.io/badge/pod-1.0.0-blue.svg" alt="CocoaPods compatible" /></a>
+<a href="https://cocoapods.org/pods/Opera"><img src="https://img.shields.io/badge/pod-1.0.0-blue.svg" alt="CocoaPods compatible" /></a>
 <a href="https://raw.githubusercontent.com/xmartlabs/Opera/master/LICENSE"><img src="http://img.shields.io/badge/license-MIT-blue.svg?style=flat" alt="License: MIT" /></a>
 </p>
 
 Made with ❤️ by [XMARTLABS](http://xmartlabs.com). View all our [open source contributions](https://github.com/xmartlabs).
 
-## Inroduction
+## Introduction
 
-Protocol-Oriented Network abstraction layer written in Swift. Greatly inspired by [RxPagination](https://github.com/tryswift/RxPagination) project but working on top of [Alamofire](https://github.com/Alamofire/Alamofire) and the Json parsing library of your choice.
+Protocol-Oriented Network abstraction layer written in Swift. Greatly inspired by [RxPagination](https://github.com/tryswift/RxPagination) project but working on top of [Alamofire](https://github.com/Alamofire/Alamofire) and the JSON parsing library of your choice.
 
 ## Features
 
 * API abstraction through `RouteType` conformance.
 * Pagination support through `PaginationRequestType` conformance.
-* Supports for any JSON parsing library such as [Decodable](https://github.com/Anviking/Decodable) and [Argo](https://github.com/thoughtbot/Argo) though `OperaDecodable` protocol conformance.
+* Supports for any JSON parsing library such as [Decodable](https://github.com/Anviking/Decodable) and [Argo](https://github.com/thoughtbot/Argo) through `OperaDecodable` protocol conformance.
 * Networking errors abstraction through `NetworkError` type. Opera `NetworkError` indicates either an `NSURLSession` error, Alamofire error, or your JSON parsing library error.
 * RxSwift wrappers around `Alamofire` Request that returns an Observable of a JSON serialized type or an array if it. NetworkError is passed when error event happens.
-* RxSwift wrappers around `PaginationRequestType` that returns a Observable of a `PaginationRensponseType` which contains  the serialized elements and information about the current, next and previous page.
+* RxSwift wrappers around `PaginationRequestType` that returns a Observable of a `PaginationRensponseType` which contains the serialized elements and information about the current, next and previous page.
 
 
 ## Usage
 
-A `RouteType` is a high level representation of the request for a REST API endpoint. By adopting `RouteType` protocol a type is able to create its correspond request.
+A `RouteType` is a high level representation of the request for a REST API endpoint. By adopting the `RouteType` protocol a type is able to create its corresponding request.
 
 ```swift
 
@@ -59,11 +59,11 @@ extension GithubAPI.Repository {
 
 ```
 
-> Alternatively you can opt by conforming `RouteType` form an enum where each enum value is a specific route (api endpoint) with its own associated values.
+> Alternatively, you can opt to conform to `RouteType` form an enum where each enum value is a specific route (api endpoint) with its own associated values.
 
 If you are curious check out the rest of [RouteType](https://github.com/xmartlabs/Opera/tree/master/Sources/RouteType.swift) protocol definition.
 
-As you have may seen, any type that conforms to `RouteType` must provide `baseUrl` and the Alamofire `manager` instance.
+As you may have seen, any type that conforms to `RouteType` must provide `baseUrl` and the Alamofire `manager` instance.
 
 Usually these values do not change among our routes so we can provide them by implementing a protocol extension over `RequestType` as shown below.
 
@@ -117,7 +117,9 @@ getInfoRequest
 
 ```
 
-> If you are not interested in decode your json response into a Model you can invoke `request.rx_anyObject()` which returns an `Observable` of `AnyObject` for the current request and propagates a `NetworkError` error through the result sequence if something goes wrong.
+> Note that, when using doOnNetworkError you don't need to cast the parameter to the NetworkError type. You have to if you use the default doOnError method though.
+
+> If you are not interested in decode your JSON response into a Model you can invoke `request.rx_anyObject()` which returns an `Observable` of `AnyObject` for the current request and propagates a `NetworkError` error through the result sequence if something goes wrong.
 
 > Opera can be used along with [RxAlamofire](https://github.com/RxSwiftCommunity/RxAlamofire).
 
@@ -131,22 +133,24 @@ init(route: RouteType, page: String?, query: String?, filter: FilterType?, colle
 ```
 so we create a pagination request doing:
 
-```
+```swift
 let paginatinRequest: PaginationRequest<Repository> = PaginationRequest(route: GithubAPI.Repository.Search(), collectionKeyPath: "items")
 ```
 
-> Repositories json response array is under "items" key as [github repositories api documentation](https://developer.github.com/v3/search/#search-repositories) indicates so we pass `"items"` as `collectionKeyPath` parameter.
+> Repositories JSON response array is under "items" key as [github repositories api documentation](https://developer.github.com/v3/search/#search-repositories) indicates so we pass `"items"` as `collectionKeyPath` parameter.
 
-A pagination request type wraps up a `RouteType` instance and holds additional info related with pagination such as query string, page, filters, etc. It also provides some helpers to get a new pagination request from the current pagination request info updating  its query string, page or filters value.
+A `PaginationRequestType` wraps up a `RouteType` instance and holds additional info related with pagination such as query string, page, filters, etc. It also provides some helpers to get a new pagination request from the current pagination request info updating its query string, page or filters value.
 
+```swift
 let firtPageRequest = paginatinRequest.routeWithPage("1").request
 let filteredFirstPageRequest = firtPageRequest.routeWithQuery("Eureka").request
+```
+
 > Another variant of the previous helpers is `public func routeWithFilter(filter: FilterType) -> Self`.
 
+We've said Opera is able to decode JSON response into a Model using your favorite JSON parsing library.  Let's see how Opera accomplishes that.
 
-We've said Opera is able to decode json response into a Model using your favorite Json parsing library.  Let's see how Opera accomplishes that.
-
-> At Xmartlabs we have been using `Decodable` as our Json parsing library since march 16. Before that we had used Argo, ObjectMapper and many others. I don't want to deep into the reason of our json parsing library choice (we have our reasons ;)) but during Opera implementation/design we though it was a good feature to be flexible about it.
+> At Xmartlabs we have been using `Decodable` as our JSON parsing library since march 16. Before that we had used Argo, ObjectMapper and many others. I don't want to deep into the reason of our JSON parsing library choice (we do have our reasons ;)) but during Opera implementation/design we thought it was a good feature to be flexible about it.
 
 This is our Repository model...
 
@@ -199,7 +203,7 @@ extension Repository: Decodable {
 extension Repository : OperaDecodable {}
 ```
 
-Using Argo is a little bit harder, we need to implement `OperaDecodable` in addition to declare the protocol adoption. Here where swift language protocol extension feature comes in handy....
+Using Argo is a little bit harder, we need to implement `OperaDecodable` in addition to declare the protocol adoption. Here is where swift language protocol extension feature comes in handy....
 
 ```swift
 extension Argo.Decodable where Self.DecodedType == Self, Self: OperaDecodable {
@@ -215,13 +219,13 @@ extension Argo.Decodable where Self.DecodedType == Self, Self: OperaDecodable {
 }
 ```
 
-Now we can make any Argo.Decodable model conforms to OperaDecodable by simply declaring `OperaDecodable` protocol adoption.
+Now we can make any Argo.Decodable model conform to `OperaDecodable` by simply declaring `OperaDecodable` protocol adoption.
 
 ```swift
 extension Repository : OperaDecodable {}
 ```
 
-Finally let's look into PaginationViewModel generic class thats allows us to list/paginate/sort/filter decodable items in a very straightforward way.
+Finally let's look into `PaginationViewModel` generic class thats allows us to list/paginate/sort/filter decodable items in a very straightforward way.
 
 
 ```swift
@@ -303,32 +307,32 @@ class SearchRepositoriesController: UIViewController {
 
 --------------------------------------------------------
 
-If you want to continue using the conventional Alamofire way to make request, Opera makes this easy by providing the following response serializers.
+If you want to continue using the conventional Alamofire way to make requests, Opera makes this easy by providing the following response serializers.
 
 ```swift
 extension Request {
     /**
-         Generic response object serializarion that returns a OperaDecodable instance.
+         Generic response object serialization that returns a OperaDecodable instance.
 
-         - parameter keyPath:           keyPath to look up json object to serialize. Ignore parameter or pass nil when json object is the json root item.
+         - parameter keyPath:           keyPath to look up JSON object to serialize. Ignore parameter or pass nil when JSON object is the JSON root item.
          - parameter completionHandler: A closure to be executed once the request has finished.
 
          - returns: The request.
          */
     public func responseObject<T : OperaDecodable>(keyPath: String? = default, completionHandler: Alamofire.Response<T, Opera.NetworkError> -> Void) -> Self
     /**
-         Generic response object serializarion that returns an Array of OperaDecodable instances.
+         Generic response object serialization that returns an Array of OperaDecodable instances.
 
-         - parameter collectionKeyPath: keyPath to look up json array to serialize. Ignore parameter or pass nil when json array is the json root item.
+         - parameter collectionKeyPath: keyPath to look up JSON array to serialize. Ignore parameter or pass nil when JSON array is the JSON root item.
          - parameter completionHandler: A closure to be executed once the request has finished.
 
          - returns: The request.
          */
     public func responseCollection<T : OperaDecodable>(collectionKeyPath: String? = default, completionHandler: Alamofire.Response<[T], Opera.NetworkError> -> Void) -> Self
     /**
-         Generic response object serializarion. Notice that Response Error type is NetworkError.
+         Generic response object serialization. Notice that Response Error type is NetworkError.
 
-         - parameter completionHandler: A closure to be excecuted once the request has finished.
+         - parameter completionHandler: A closure to be executed once the request has finished.
 
          - returns: The request.
          */
@@ -353,9 +357,12 @@ If you use **Opera** in your app We would love to hear about it! Drop us a line 
 
 ## Examples
 
-Follow these 3 steps to run Example project: Clone Opera repository, open Opera workspace and run the *Example* project.
+Follow these 4 steps to run Example project:
 
-You can also experiment and learn with the *Opera Playground* which is contained in *Opera.workspace*.
+* Clone Opera repository,
+* Run the build_dependencies.sh shell script (you must have [carthage](https://github.com/Carthage/Carthage) installed). Optionally, you can specify the platforms you want to build - iOS, tvOS, OSX - via the --platform parameter.
+* Open Opera workspace
+* Run the *Example* project.
 
 ## Installation
 
