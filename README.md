@@ -27,6 +27,8 @@ Protocol-Oriented Network abstraction layer written in Swift. Greatly inspired b
 
 ## Usage
 
+A `RouteType` is a high level representation of the request for a REST API endpoint. By adopting `RouteType` protocol a type is able to create its correspond request.
+
 ```swift
 
 import Alamofire
@@ -59,9 +61,9 @@ extension GithubAPI.Repository {
 
 > Alternatively you can opt by conforming `RouteType` form an enum where each enum value is a specific route (api endpoint) with its own associated values.
 
-Check out the rest of [RouteType](https://github.com/xmartlabs/Opera/tree/master/Sources/RouteType.swift) protocol definition.
+If you are curious check out the rest of [RouteType](https://github.com/xmartlabs/Opera/tree/master/Sources/RouteType.swift) protocol definition.
 
-As you have may seen in the `RouteType` protocol definition. Any type that conforms to it must provide `baseUrl` and the Alamofire `manager` instance.
+As you have may seen, any type that conforms to `RouteType` must provide `baseUrl` and the Alamofire `manager` instance.
 
 Usually these values do not change among our routes so we can provide them by implementing a protocol extension over `RequestType` as shown below.
 
@@ -299,7 +301,9 @@ class SearchRepositoriesController: UIViewController {
 }
 ```
 
-If you want to continue using the conventional Alamofire way to make request, Opera make this easy by providing the following response serializers.
+--------------------------------------------------------
+
+If you want to continue using the conventional Alamofire way to make request, Opera makes this easy by providing the following response serializers.
 
 ```swift
 extension Request {
@@ -334,8 +338,8 @@ extension Request {
 
 ## Requirements
 
-* iOS 8.0+
-* Xcode 7.2+
+* iOS 8.0+ / Mac OS X 10.9+ / tvOS 9.0+ / watchOS 2.0+
+* Xcode 7.3+
 
 ## Getting involved
 
@@ -381,9 +385,32 @@ github "xmartlabs/Opera" ~> 1.0
 
 ## FAQ
 
-#### How to .....
+##### How do I set up additional request parameters right before creating Alamofire request from a RouteType or a PaginationRequestType?
 
-You can do it by conforming to .....
+By making any of them adopt `URLRequestParametersSetup` protocol.
+
+```swift
+/**
+ *  By adopting URLRequestParametersSetup a RequestType or PaginationRequestType is able to make a final customization to request parameters dictionary before they are encoded.
+ */
+public protocol URLRequestParametersSetup {
+    func urlRequestParametersSetup(urlRequest: NSMutableURLRequest, parameters: [String: AnyObject]?) -> [String: AnyObject]?
+}
+
+```
+
+##### How do I customize `NSMutableURLRequest` that is not possible through RouteType and PaginationRouteType adoption?
+
+You can make RouteType or PaginationRequestType adopt `URLRequestSetup`.
+
+```swift
+/**
+ *  By adopting URLRequestSetup a RequestType or PaginationRequstType is able to customize it right before sending it to the server.
+ */
+public protocol URLRequestSetup {
+    func urlRequestSetup(urlRequest: NSMutableURLRequest)
+}
+```
 
 # Change Log
 
