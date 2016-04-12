@@ -24,7 +24,6 @@
 
 import Foundation
 import Alamofire
-import RxSwift
 
 /**
  *  A type that adopts RouteType can be used to create a request. Is ideal to represent an API route/request since it clearly defines all the parts of a request such as its http path, method, parameters, encoding, etc. Often we group a set of related routes/request by conforming this protocol from an enum type that each value represent a specific route/request which may have specific configuration hold by its associated values.

@@ -20,9 +20,9 @@ Protocol-Oriented Network abstraction layer written in Swift. Greatly inspired b
 * API abstraction through `RouteType` conformance.
 * Pagination support through `PaginationRequestType` conformance.
 * Supports for any JSON parsing library such as [Decodable](https://github.com/Anviking/Decodable) and [Argo](https://github.com/thoughtbot/Argo) through `OperaDecodable` protocol conformance.
-* Networking errors abstraction through `NetworkError` type. Opera `NetworkError` indicates either an `NSURLSession` error, Alamofire error, or your JSON parsing library error.
-* RxSwift wrappers around `Alamofire` Request that returns an Observable of a JSON serialized type or an array if it. NetworkError is passed when error event happens.
-* RxSwift wrappers around `PaginationRequestType` that returns a Observable of a `PaginationRensponseType` which contains the serialized elements and information about the current, next and previous page.
+* Networking errors abstraction through `NetworkError` type. Opera `NetworkError` indicates either an `NSURLSession` error, `Alamofire` error, or your JSON parsing library error.
+* RxSwift wrappers around `Alamofire.Request` that returns an Observable of a JSON serialized type or an array if it. NetworkError is passed when error event happens.
+* RxSwift wrappers around `PaginationRequestType` that returns an Observable of a `PaginationRensponseType` which contains the serialized elements and information about the current, next and previous page.
 
 
 ## Usage
@@ -94,26 +94,26 @@ We can also take advantage of the reactive helpers provided by Opera:
 
 ```swift
 request
-.rx_collection()
-.doOnNetworkError { (error: NetworkError) in
-  // do something when networking went wrong
-}
-.subscribeNext { (repositories: [Repository]) in
-  // do something when networking and Json parsing completes successfully
-}
-.addDisposableTo(disposeBag)
+  .rx_collection()
+  .doOnNetworkError { (error: NetworkError) in
+    // do something when networking went wrong
+  }
+  .subscribeNext { (repositories: [Repository]) in
+    // do something when networking and Json parsing completes successfully
+  }
+  .addDisposableTo(disposeBag)
 ```
 
 ```swift
 getInfoRequest
-.rx_object()
-.doOnNetworkError { (error: NetworkError) in
-  // do something when networking went wrong
-}
-.subscribeNext { (repository: Repository) in
-  // do something when networking and Json parsing completes successfully
-}
-.addDisposableTo(disposeBag)
+  .rx_object()
+  .doOnNetworkError { (error: NetworkError) in
+    // do something when networking went wrong
+  }
+  .subscribeNext { (repository: Repository) in
+    // do something when networking and Json parsing completes successfully
+  }
+  .addDisposableTo(disposeBag)
 
 ```
 
@@ -150,7 +150,7 @@ let filteredFirstPageRequest = firtPageRequest.routeWithQuery("Eureka").request
 
 We've said Opera is able to decode JSON response into a Model using your favorite JSON parsing library.  Let's see how Opera accomplishes that.
 
-> At Xmartlabs we have been using `Decodable` as our JSON parsing library since march 16. Before that we had used Argo, ObjectMapper and many others. I don't want to deep into the reason of our JSON parsing library choice (we do have our reasons ;)) but during Opera implementation/design we thought it was a good feature to be flexible about it.
+> At Xmartlabs we have been using `Decodable` as our JSON parsing library since March 16. Before that we had used Argo, ObjectMapper and many others. I don't want to deep into the reason of our JSON parsing library choice (we do have our reasons ;)) but during Opera implementation/design we thought it was a good feature to be flexible about it.
 
 This is our Repository model...
 
@@ -213,7 +213,7 @@ extension Argo.Decodable where Self.DecodedType == Self, Self: OperaDecodable {
       case .Success(let value):
         return value
       case .Failure(let error):
-            throw error
+        throw error
     }
   }
 }
@@ -239,7 +239,7 @@ class SearchRepositoriesController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var searchBar: UISearchBar!
-    lazy var viewModel: PaginationViewModel<PaginationRequest<Repository>>  = { [unowned self] in
+    lazy var viewModel: PaginationViewModel<PaginationRequest<Repository>> = {
         return PaginationViewModel(paginationRequest: PaginationRequest(route: GithubAPI.Repository.Search(), collectionKeyPath: "items"))
     }()
 
@@ -250,7 +250,8 @@ class SearchRepositoriesController: UIViewController {
         tableView.backgroundView = emptyStateLabel
         tableView.keyboardDismissMode = .OnDrag
 
-        // on viewWill appear load pagination view model by emitting false (do not cancel pending request if any) to view model `refreshTrigger` PublishSubject.
+        // on viewWill appear load pagination view model by emitting false (do not cancel pending
+        // request if any) to view model `refreshTrigger` PublishSubject.
         // viewModel is subscribed to `refreshTrigger` observable and starts a new request.
         rx_sentMessage(#selector(SearchRepositoriesController.viewWillAppear(_:)))
             .skip(1)
@@ -268,7 +269,12 @@ class SearchRepositoriesController: UIViewController {
             .drive(activityIndicatorView.rx_animating)
             .addDisposableTo(disposeBag)
 
-        // updates tableView observing viewModel `elements`, since github api only works if a query string is present we show no items if the first page is being loading or UISearchBar text is empty. By doing that whenever the search criteria is updated we take away all the item from the table view giving a sense of being fetching/searching the server. Notice the strongly typed `Repository` type below.
+        // updates tableView observing viewModel `elements`, since github api only works
+        // if a query string is present we show no items if the first page is being loading
+        // or UISearchBar text is empty.
+        // By doing that whenever the search criteria is updated we take away all the item
+        // from the table view giving a sense of being fetching/searching the server.
+        // Notice the strongly typed `Repository` type below.
         Driver.combineLatest(viewModel.elements.asDriver(), viewModel.firstPageLoading, searchBar.rx_text.asDriver()) { elements, loading, searchText in
                 return loading || searchText.isEmpty ? [] : elements
             }
@@ -279,7 +285,9 @@ class SearchRepositoriesController: UIViewController {
             }
             .addDisposableTo(disposeBag)
 
-        // whenever search bar text is changed, wait for 1/4 sec of search bar inactivity then update the `viewModel` pagination request type (will cancel any pending request). We propagates query string by binding it to viewModel.queryTrigger.
+        // whenever search bar text is changed, wait for 1/4 sec of search bar inactivity
+        // then update the `viewModel` pagination request type (will cancel any pending request).
+        // We propagates query string by binding it to viewModel.queryTrigger.
         searchBar.rx_text
             .filter { !$0.isEmpty }
             .throttle(0.25, scheduler: MainScheduler.instance)
