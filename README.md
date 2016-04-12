@@ -299,6 +299,39 @@ class SearchRepositoriesController: UIViewController {
 }
 ```
 
+If you want to continue using the conventional Alamofire way to make request, Opera make this easy by providing the following response serializers.
+
+```swift
+extension Request {
+    /**
+         Generic response object serializarion that returns a OperaDecodable instance.
+
+         - parameter keyPath:           keyPath to look up json object to serialize. Ignore parameter or pass nil when json object is the json root item.
+         - parameter completionHandler: A closure to be executed once the request has finished.
+
+         - returns: The request.
+         */
+    public func responseObject<T : OperaDecodable>(keyPath: String? = default, completionHandler: Alamofire.Response<T, Opera.NetworkError> -> Void) -> Self
+    /**
+         Generic response object serializarion that returns an Array of OperaDecodable instances.
+
+         - parameter collectionKeyPath: keyPath to look up json array to serialize. Ignore parameter or pass nil when json array is the json root item.
+         - parameter completionHandler: A closure to be executed once the request has finished.
+
+         - returns: The request.
+         */
+    public func responseCollection<T : OperaDecodable>(collectionKeyPath: String? = default, completionHandler: Alamofire.Response<[T], Opera.NetworkError> -> Void) -> Self
+    /**
+         Generic response object serializarion. Notice that Response Error type is NetworkError.
+
+         - parameter completionHandler: A closure to be excecuted once the request has finished.
+
+         - returns: The request.
+         */
+    public func responseAnyObject(completionHandler: Alamofire.Response<AnyObject, Opera.NetworkError> -> Void) -> Self
+}
+```
+
 ## Requirements
 
 * iOS 8.0+
@@ -308,7 +341,7 @@ class SearchRepositoriesController: UIViewController {
 
 * If you **want to contribute** please feel free to **submit pull requests**.
 * If you **have a feature request** please **open an issue**.
-* If you **found a bug** or **need help** please **check older issues, [FAQ](#faq) and threads on [StackOverflow](http://stackoverflow.com/questions/tagged/Opera) (Tag 'Opera') before submitting an issue.**.
+* If you **found a bug** or **need help** please **check older issues, [FAQ](#faq) and threads on [StackOverflow](http://stackoverflow.com/questions/tagged/XLOpera) (Tag 'XLOpera') before submitting an issue**.
 
 Before contribute check the [CONTRIBUTING](https://github.com/xmartlabs/Opera/blob/master/CONTRIBUTING.md) file for more info.
 
