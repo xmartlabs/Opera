@@ -62,12 +62,12 @@ extension RouteType {
     
     /// The URL request.
     public var URLRequest: NSMutableURLRequest {
-        let mutableURLRequest = NSMutableURLRequest(URL: baseURL.URLByAppendingPathComponent(path))
+        var mutableURLRequest = NSMutableURLRequest(URL: baseURL.URLByAppendingPathComponent(path))
         mutableURLRequest.HTTPMethod = method.rawValue
         let params = (self as? URLRequestParametersSetup)?.urlRequestParametersSetup(mutableURLRequest, parameters: parameters) ?? parameters
-        let urlRequest = encoding.encode(mutableURLRequest, parameters: params).0
+        mutableURLRequest = encoding.encode(mutableURLRequest, parameters: params).0
         (self as? URLRequestSetup)?.urlRequestSetup(mutableURLRequest)
-        return urlRequest
+        return mutableURLRequest
     }
     
     public var encoding: Alamofire.ParameterEncoding {
