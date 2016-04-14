@@ -25,7 +25,7 @@
 import Foundation
 
 /**
- *  PaginationResponse is a genertic type that adopts PaginationResponseType
+ *  PaginationResponse is a generic type that adopts PaginationResponseType
  */
 public struct PaginationResponse<E>: PaginationResponseType {
     

@@ -25,8 +25,6 @@
 import Foundation
 import Alamofire
 import RxSwift
-import WebLinking
-
 
 struct Default {
     static let firstPageParameterValue = "1"
