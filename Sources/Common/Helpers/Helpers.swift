@@ -23,7 +23,6 @@
 // THE SOFTWARE.
 
 import Foundation
-import WebLinking
 import RxSwift
 
 extension ObservableType {

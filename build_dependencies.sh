@@ -35,11 +35,17 @@ build_OSX() {
 
 build_tvOS() {
   print_msg "Building tvOS dependencies"
-  carthage update Alamofire RxSwift WebLinking.swift --platform tvOS
+  carthage update Alamofire RxSwift --platform tvOS
   printf "** Build done **\n\n"
 }
 
-platforms=("iOS" "OSX" "tvOS")
+build_tvOS() {
+    print_msg "Building watchOS dependencies"
+    carthage update Alamofire RxSwift --platform watchOS
+    printf "** Build done **\n\n"
+}
+
+platforms=("iOS" "OSX" "tvOS" "watchOS")
 build_all() {
   for platform in $platforms
   do

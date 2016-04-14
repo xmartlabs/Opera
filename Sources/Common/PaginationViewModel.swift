@@ -48,7 +48,7 @@ public class PaginationViewModel<PaginationRequest: PaginationRequestType where 
     public let networkErrors = PublishSubject<NetworkError>()
     /// Indicates if there is a next page to load. hasNextPage value is the result of getting next link relation from latest response.
     public let hasNextPage = Variable<Bool>(false)
-    /// Indicates is there are a request in progress and with is the request page.
+    /// Indicates is there is a request in progress and what is the request page.
     public let fullloading = Variable<LoadingType>((false, "1"))
     /// Elements array from first page up to latest fetched page.
     public let elements = Variable<[PaginationRequest.Response.Element]>([])

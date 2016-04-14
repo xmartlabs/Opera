@@ -25,7 +25,7 @@
 import Foundation
 
 /**
- *  A Generic type thats adopts PaginationRequestType
+ *  A Generic type that adopts PaginationRequestType
  */
 public struct PaginationRequest<Element: OperaDecodable>: PaginationRequestType {
     

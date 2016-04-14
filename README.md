@@ -2,7 +2,7 @@
 
 <p align="left">
 <a href="https://travis-ci.org/xmartlabs/Opera"><img src="https://travis-ci.org/xmartlabs/Opera.svg?branch=master" alt="Build status" /></a>
-<img src="https://img.shields.io/badge/platform-iOS%20|%20OSX%20|%20tvOS-blue.svg?style=flat" alt="Platform iOS" />
+<img src="https://img.shields.io/badge/platform-iOS%20|%20OSX%20|%20watchOS%20|%20tvOS-blue.svg?style=flat" alt="Platform iOS" />
 <a href="https://developer.apple.com/swift"><img src="https://img.shields.io/badge/swift2-compatible-4BC51D.svg?style=flat" alt="Swift 2 compatible" /></a>
 <a href="https://github.com/Carthage/Carthage"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat" alt="Carthage compatible" /></a>
 <a href="https://cocoapods.org/pods/Opera"><img src="https://img.shields.io/badge/pod-1.0.0-blue.svg" alt="CocoaPods compatible" /></a>
@@ -65,7 +65,7 @@ If you are curious check out the rest of [RouteType](https://github.com/xmartlab
 
 As you may have seen, any type that conforms to `RouteType` must provide `baseUrl` and the Alamofire `manager` instance.
 
-Usually these values do not change among our routes so we can provide them by implementing a protocol extension over `RequestType` as shown below.
+Usually these values do not change among our routes so we can provide them by implementing a protocol extension over `RouteType` as shown below.
 
 ```swift
 extension RouteType {
@@ -406,7 +406,7 @@ By making any of them adopt `URLRequestParametersSetup` protocol.
 
 ```swift
 /**
- *  By adopting URLRequestParametersSetup a RequestType or PaginationRequestType is able to make a final customization to request parameters dictionary before they are encoded.
+ *  By adopting URLRequestParametersSetup a RouteType or PaginationRequestType is able to make a final customization to request parameters dictionary before they are encoded.
  */
 public protocol URLRequestParametersSetup {
     func urlRequestParametersSetup(urlRequest: NSMutableURLRequest, parameters: [String: AnyObject]?) -> [String: AnyObject]?
@@ -420,7 +420,7 @@ You can make RouteType or PaginationRequestType adopt `URLRequestSetup`.
 
 ```swift
 /**
- *  By adopting URLRequestSetup a RequestType or PaginationRequstType is able to customize it right before sending it to the server.
+ *  By adopting URLRequestSetup a RouteType or PaginationRequstType is able to customize it right before sending it to the server.
  */
 public protocol URLRequestSetup {
     func urlRequestSetup(urlRequest: NSMutableURLRequest)

@@ -9,11 +9,12 @@ Pod::Spec.new do |s|
   s.social_media_url = 'https://twitter.com/xmartlabs'
   s.ios.deployment_target = '8.0'
   s.osx.deployment_target = '10.9'
+  s.tvos.deployment_target = '9.0'
+  s.watchos.deployment_target = '2.0'
   s.requires_arc = true
   s.source_files = 'Sources/Common/**/*'
   s.ios.source_files = 'Sources/iOS/**/*'
   s.dependency 'Alamofire', '~> 3.0'
   s.dependency 'RxSwift', '~> 2.0'
   s.dependency 'RxCocoa', '~> 2.0'
-  s.dependency 'WebLinking', '~> 1.0'
 end

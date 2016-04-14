@@ -25,7 +25,7 @@
 import Foundation
 
 /**
- *  PaginationResponseType reprent the relevant data within a PaginationRequestType response such as its serialized elements, previous and next page information, and the page used as parameter to fetch the elements.
+ *  PaginationResponseType represent the relevant data within a PaginationRequestType response such as its serialized elements, previous and next page information, and the page used as parameter to fetch the elements.
  */
 public protocol PaginationResponseType {
     
@@ -38,7 +38,7 @@ public protocol PaginationResponseType {
     var previousPage: String? { get }
     /// next page gotten from next relation Link.
     var nextPage: String? { get }
-    /// current page, value passed as a parementer in the related PaginationRequestType request
+    /// current page, value passed as a parameter in the related PaginationRequestType request
     var page: String? { get }
     
     /**
@@ -56,12 +56,12 @@ public protocol PaginationResponseType {
 
 extension PaginationResponseType {
     
-    /// indicates if there are items in a previous page.
+    /// indicates if there are any items in a previous page.
     public var hasPreviousPage: Bool {
         return previousPage != nil
     }
     
-    /// indicates if server has more items that cen be fetched using the `nextPage` value.
+    /// indicates if the server has more items that can be fetched using the `nextPage` value.
     public var hasNextPage: Bool {
         return nextPage != nil
     }

@@ -28,7 +28,7 @@ import Alamofire
 extension Request {
 
     /**
-     Generic response object serializarion that returns a OperaDecodable instance.
+     Generic response object serialization that returns a OperaDecodable instance.
 
      - parameter keyPath:           keyPath to look up json object to serialize. Ignore parameter or pass nil when json object is the json root item.
      - parameter completionHandler: A closure to be executed once the request has finished.
@@ -58,7 +58,7 @@ extension Request {
     }
 
     /**
-     Generic response object serializarion that returns an Array of OperaDecodable instances.
+     Generic response object serialization that returns an Array of OperaDecodable instances.
 
      - parameter collectionKeyPath: keyPath to look up json array to serialize. Ignore parameter or pass nil when json array is the json root item.
      - parameter completionHandler: A closure to be executed once the request has finished.
@@ -93,7 +93,7 @@ extension Request {
 
 
     /**
-     Generic response object serializarion. Notice that Response Error type is NetworkError.
+     Generic response object serialization. Notice that Response Error type is NetworkError.
 
      - parameter completionHandler: A closure to be excecuted once the request has finished.
 
