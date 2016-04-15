@@ -427,6 +427,28 @@ public protocol URLRequestSetup {
 }
 ```
 
+##### How do I customize the default names and values of parameters for a PaginationRequest?
+
+You can make PaginationRequest adopt `PaginationRequestTypeSettings`. 
+
+```swift
+/**
+ *  By adopting PaginationRequestTypeSettings a PaginationRequestType is able to customize its default parameter names such as query, page and its first page value.
+ */
+public protocol PaginationRequestTypeSettings {
+    
+    var queryParameterName: String { get }
+    var pageParameterName: String { get }
+    var firstPageParameterValue: String { get }
+}
+```
+
+The default settings by Opera are the following ones: 
+
+* "q" for query
+* "page" for page
+* "1" for firstPageParameterValue
+
 # Change Log
 
 This can be found in the [CHANGELOG.md](CHANGELOG.md) file.
