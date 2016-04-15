@@ -100,14 +100,14 @@ extension PaginationRequestType {
 //MARK: URLRequestConvertible conformance
     
     public var URLRequest: NSMutableURLRequest {
-        let mutableURLRequest = NSMutableURLRequest(URL: route.baseURL.URLByAppendingPathComponent(route.path))
+        var mutableURLRequest = NSMutableURLRequest(URL: route.baseURL.URLByAppendingPathComponent(route.path))
         mutableURLRequest.HTTPMethod = route.method.rawValue
         var params = (self.route as? URLRequestParametersSetup)?.urlRequestParametersSetup(mutableURLRequest, parameters: parameters) ?? parameters
         params = (self as? URLRequestParametersSetup)?.urlRequestParametersSetup(mutableURLRequest, parameters: params) ?? params
-        let urlRequest = route.encoding.encode(mutableURLRequest, parameters: params).0
+        mutableURLRequest = route.encoding.encode(mutableURLRequest, parameters: params).0
         (self.route as? URLRequestSetup)?.urlRequestSetup(mutableURLRequest)
         (self as? URLRequestSetup)?.urlRequestSetup(mutableURLRequest)
-        return urlRequest
+        return mutableURLRequest
     }
 }
 
