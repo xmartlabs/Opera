@@ -3,3 +3,5 @@ github "Quick/Nimble" ~> 4.0.0
 git "https://github.com/Anviking/Decodable.git" ~> 0.4.2
 git "https://github.com/thoughtbot/Argo.git" ~> 3.0.1
 git "https://github.com/malcommac/SwiftDate" ~> 3.0
+git "https://github.com/thoughtbot/Curry" ~> 2.2
+github "Hearst-DD/ObjectMapper" ~> 1.2

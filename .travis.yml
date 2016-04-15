@@ -20,7 +20,10 @@ before_install:
 - brew outdated carthage || brew upgrade carthage
 - if brew outdated | grep -qx xctool; then brew upgrade xctool; fi
 - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
-- ./build_dependencies.sh
+- if [ ${SCHEME} = ${IOS_FRAMEWORK_SCHEME} ]; then ./build_dependencies.sh --platform iOS; fi
+- if [ ${SCHEME} = ${OSX_FRAMEWORK_SCHEME} ]; then ./build_dependencies.sh --platform OSX; fi
+- if [ ${SCHEME} = ${TVOS_FRAMEWORK_SCHEME} ]; then ./build_dependencies.sh --platform tvOS; fi
+- if [ ${SCHEME} = ${WATCHOS_FRAMEWORK_SCHEME} ]; then ./build_dependencies.sh --platform watchOS; fi
 script:
 - xcodebuild -version
 - xcodebuild -project Opera.xcodeproj -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION"
