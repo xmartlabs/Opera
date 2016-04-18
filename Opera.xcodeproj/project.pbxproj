@@ -153,6 +153,7 @@
 		54F726BE1CBECAA0008D86E8 /* Opera.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Opera.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2ECA2C71CC530B90057FCC2 /* PaginationRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaginationRequestTests.swift; path = Tests/PaginationRequestTests.swift; sourceTree = SOURCE_ROOT; };
 		54F726D51CBECC06008D86E8 /* WebLinking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WebLinking.swift; path = Common/WebLinking.swift; sourceTree = "<group>"; };
+		D2ECA2C71CC530B90057FCC2 /* PaginationRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaginationRequestTests.swift; path = Tests/PaginationRequestTests.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
