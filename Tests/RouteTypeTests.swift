@@ -9,6 +9,32 @@ import XCTest
 import Alamofire
 @testable import Opera
 
+
+class RouteTypeTests: BaseXCTextCase {
+    
+    func testParametersSetup() {
+        let parameters = Example.GetRoute().request.request?.URL?.parameters() ?? [String: String]()
+        XCTAssertTrue(parameters[RouteValues.parameterName] == RouteValues.parameterValue)
+    }
+    
+    func testHeadersSetup(){
+        XCTAssertEqual(Example.GetRoute().URLRequest.valueForHTTPHeaderField(RouteValues.headerName), RouteValues.headerValue)
+    }
+    
+    func testDefaultEncodingType(){
+        XCTAssertEqual(Example.GetRoute().encoding, RouteValues.URLEncoding)
+        XCTAssertEqual(Example.DeleteRoute().encoding, RouteValues.URLEncoding )
+        XCTAssertEqual(Example.PutRoute().encoding, RouteValues.JsonEncoding )
+        XCTAssertEqual( Example.PostRoute().encoding, RouteValues.JsonEncoding )
+    }
+    
+    func testModifiedEncodingType(){
+        XCTAssertEqual(ModifiedEncodingExample.ModifiedEncodingRoute().encoding, RouteValues.URLEncoding)
+    }
+}
+
+//MARK - Text Case Helpers
+
 private struct RouteValues {
     static let parameterName = "parameterExample"
     static let parameterValue = "parameterExampleValue"
@@ -39,24 +65,13 @@ private enum Example: RouteType, URLRequestParametersSetup, URLRequestSetup {
     }
     
     var path: String {
-        switch self {
-        default:
-            return "anEndpoint"
-        }
-    }
-    
-    var baseURL: NSURL {
-        return NSURL(string: "someURL")!
-    }
-    
-    var manager: Alamofire.Manager {
-        return Alamofire.Manager()
+        return "anEndpoint"
     }
     
     // MARK: - URLRequestParametersSetup
     
     func urlRequestParametersSetup(urlRequest: NSMutableURLRequest, parameters: [String: AnyObject]?) -> [String: AnyObject]? {
-        return [RouteValues.parameterName : RouteValues.parameterValue]
+        return [RouteValues.parameterName: RouteValues.parameterValue]
     }
     
     // MARK: - urlRequestSetup
@@ -89,84 +104,5 @@ private enum ModifiedEncodingExample: RouteType {
         case .ModifiedEncodingRoute:
             return "anEndpoint"
         }
-    }
-    
-    var baseURL: NSURL {
-        return NSURL(string: "someURL")!
-    }
-    
-    var manager: Alamofire.Manager {
-        return Alamofire.Manager()
-    }
-}
-
-class RouteTypeTests: XCTestCase {
-    
-    func testParametersSetup() {
-        let operation = Example.GetRoute()
-        let request = operation.URLRequest
-        let url = request.URL
-        let parameters = parseParameters(url?.absoluteString)
-        let settedParameter = parameters[RouteValues.parameterName]
-        XCTAssertTrue(settedParameter == RouteValues.parameterValue)
-    }
-    
-    private func parseParameters(url: String?) -> [String:String] {
-        guard let urlWithParameters = url else {
-            return [:]
-        }
-        
-        var listOfParameters: [String:String] = [:]
-        let splitParametersFromEndpoint = urlWithParameters.characters.split{$0 == "?"}.map(String.init)
-        
-        let allParameters = splitParametersFromEndpoint[1]
-        let splittedParametersIndividually = allParameters.characters.split{$0 == "&"}.map(String.init)
-        
-        for parameter in splittedParametersIndividually {
-            let parameterAndValue = parameter.characters.split{$0 == "="}.map(String.init)
-            listOfParameters.updateValue(parameterAndValue[1], forKey: parameterAndValue[0])
-        }
-        
-        return listOfParameters
-    }
-    
-    func testHeadersSetup(){
-        XCTAssertEqual(Example.GetRoute().URLRequest.valueForHTTPHeaderField(RouteValues.headerName), RouteValues.headerValue)
-    }
-    
-    func testDefaultEncodingType(){
-        let getRoute = Example.GetRoute()
-        let postRoute = Example.PostRoute()
-        let deleteRoute = Example.DeleteRoute()
-        let putRoute = Example.PutRoute()
-        
-        XCTAssertEqual(getRoute.encoding, RouteValues.URLEncoding)
-        XCTAssertEqual(deleteRoute.encoding, RouteValues.URLEncoding )
-        XCTAssertEqual(putRoute.encoding, RouteValues.JsonEncoding )
-        XCTAssertEqual(postRoute.encoding, RouteValues.JsonEncoding )
-    }
-    
-    func testModifiedEncodingType(){
-        let modifiedEncodingRoute = ModifiedEncodingExample.ModifiedEncodingRoute()
-        let encoding = modifiedEncodingRoute.encoding
-        XCTAssertEqual(encoding, RouteValues.URLEncoding)
-    }
-    
-}
-
-extension Alamofire.ParameterEncoding : Equatable {
-    
-}
-
-public func == (lhs: Alamofire.ParameterEncoding, rhs: Alamofire.ParameterEncoding) -> Bool {
-    switch (lhs, rhs) {
-    case (.URL, .URL):
-        return true
-    case(.JSON, .JSON):
-        return true
-    case(.URLEncodedInURL, .URLEncodedInURL):
-        return true
-    default:
-        return false
     }
 }

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		28251A6C1CC96A26009D5C01 /* BaseXCTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28251A6B1CC96A26009D5C01 /* BaseXCTestCase.swift */; };
+		28251A6D1CC96A26009D5C01 /* BaseXCTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28251A6B1CC96A26009D5C01 /* BaseXCTestCase.swift */; };
+		28251A6E1CC96A26009D5C01 /* BaseXCTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28251A6B1CC96A26009D5C01 /* BaseXCTestCase.swift */; };
 		2840C42B1CB56841009AAB02 /* Helpers-iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2840C42A1CB56841009AAB02 /* Helpers-iOS.swift */; };
 		28644D761CB83DCB00DD1B54 /* WebLinkingSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28644D751CB83DCB00DD1B54 /* WebLinkingSettings.swift */; };
 		28644D771CB83DCB00DD1B54 /* WebLinkingSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28644D751CB83DCB00DD1B54 /* WebLinkingSettings.swift */; };
@@ -116,6 +119,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		28251A6B1CC96A26009D5C01 /* BaseXCTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseXCTestCase.swift; path = Tests/BaseXCTestCase.swift; sourceTree = SOURCE_ROOT; };
 		2840C42A1CB56841009AAB02 /* Helpers-iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Helpers-iOS.swift"; path = "iOS/Helpers-iOS.swift"; sourceTree = "<group>"; };
 		28644D751CB83DCB00DD1B54 /* WebLinkingSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WebLinkingSettings.swift; path = Common/WebLinkingSettings.swift; sourceTree = "<group>"; };
 		28644D791CB83FE700DD1B54 /* PaginationRequestTypeSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaginationRequestTypeSettings.swift; path = Common/PaginationRequestTypeSettings.swift; sourceTree = "<group>"; };
@@ -276,6 +280,7 @@
 				542B0A081CB6D92300EC2C71 /* Supporting Files */,
 				287D0A6D1C4B73BD004566D6 /* RouteTypeTests.swift */,
 				D2ECA2C71CC530B90057FCC2 /* PaginationRequestTests.swift */,
+				28251A6B1CC96A26009D5C01 /* BaseXCTestCase.swift */,
 			);
 			name = Tests;
 			path = OperaTests;
@@ -676,6 +681,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				287D0A6E1C4B73BD004566D6 /* RouteTypeTests.swift in Sources */,
+				28251A6C1CC96A26009D5C01 /* BaseXCTestCase.swift in Sources */,
 				D2ECA2C81CC530B90057FCC2 /* PaginationRequestTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -707,6 +713,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2ECA2C51CC52FD30057FCC2 /* RouteTypeTests.swift in Sources */,
+				28251A6D1CC96A26009D5C01 /* BaseXCTestCase.swift in Sources */,
 				D2ECA2C91CC530B90057FCC2 /* PaginationRequestTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -738,6 +745,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2ECA2C61CC52FD30057FCC2 /* RouteTypeTests.swift in Sources */,
+				28251A6E1CC96A26009D5C01 /* BaseXCTestCase.swift in Sources */,
 				D2ECA2CA1CC530B90057FCC2 /* PaginationRequestTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
