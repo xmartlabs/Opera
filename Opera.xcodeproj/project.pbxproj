@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		28251A6C1CC96A26009D5C01 /* BaseXCTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28251A6B1CC96A26009D5C01 /* BaseXCTestCase.swift */; };
+		28251A6D1CC96A26009D5C01 /* BaseXCTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28251A6B1CC96A26009D5C01 /* BaseXCTestCase.swift */; };
+		28251A6E1CC96A26009D5C01 /* BaseXCTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28251A6B1CC96A26009D5C01 /* BaseXCTestCase.swift */; };
 		2840C42B1CB56841009AAB02 /* Helpers-iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2840C42A1CB56841009AAB02 /* Helpers-iOS.swift */; };
 		28644D761CB83DCB00DD1B54 /* WebLinkingSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28644D751CB83DCB00DD1B54 /* WebLinkingSettings.swift */; };
 		28644D771CB83DCB00DD1B54 /* WebLinkingSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28644D751CB83DCB00DD1B54 /* WebLinkingSettings.swift */; };
@@ -14,7 +17,7 @@
 		28644D7A1CB83FE700DD1B54 /* PaginationRequestTypeSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28644D791CB83FE700DD1B54 /* PaginationRequestTypeSettings.swift */; };
 		28644D7B1CB83FE700DD1B54 /* PaginationRequestTypeSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28644D791CB83FE700DD1B54 /* PaginationRequestTypeSettings.swift */; };
 		28644D7C1CB83FE700DD1B54 /* PaginationRequestTypeSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28644D791CB83FE700DD1B54 /* PaginationRequestTypeSettings.swift */; };
-		287D0A6E1C4B73BD004566D6 /* OperaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287D0A6D1C4B73BD004566D6 /* OperaTests.swift */; };
+		287D0A6E1C4B73BD004566D6 /* RouteTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287D0A6D1C4B73BD004566D6 /* RouteTypeTests.swift */; };
 		28A6B9CC1CB5EC2D00682BCE /* FilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A6B9CB1CB5EC2D00682BCE /* FilterType.swift */; };
 		28A6B9CE1CB5EFB600682BCE /* PaginationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A6B9CD1CB5EFB600682BCE /* PaginationRequest.swift */; };
 		28A6B9D01CB5EFE000682BCE /* PaginationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A6B9CF1CB5EFE000682BCE /* PaginationResponse.swift */; };
@@ -84,6 +87,11 @@
 		54F726D71CBECC06008D86E8 /* WebLinking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F726D51CBECC06008D86E8 /* WebLinking.swift */; };
 		54F726D81CBECC06008D86E8 /* WebLinking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F726D51CBECC06008D86E8 /* WebLinking.swift */; };
 		54F726D91CBECC06008D86E8 /* WebLinking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F726D51CBECC06008D86E8 /* WebLinking.swift */; };
+		D2ECA2C51CC52FD30057FCC2 /* RouteTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287D0A6D1C4B73BD004566D6 /* RouteTypeTests.swift */; };
+		D2ECA2C61CC52FD30057FCC2 /* RouteTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287D0A6D1C4B73BD004566D6 /* RouteTypeTests.swift */; };
+		D2ECA2C81CC530B90057FCC2 /* PaginationRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2ECA2C71CC530B90057FCC2 /* PaginationRequestTests.swift */; };
+		D2ECA2C91CC530B90057FCC2 /* PaginationRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2ECA2C71CC530B90057FCC2 /* PaginationRequestTests.swift */; };
+		D2ECA2CA1CC530B90057FCC2 /* PaginationRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2ECA2C71CC530B90057FCC2 /* PaginationRequestTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,10 +119,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		28251A6B1CC96A26009D5C01 /* BaseXCTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BaseXCTestCase.swift; path = Tests/BaseXCTestCase.swift; sourceTree = SOURCE_ROOT; };
 		2840C42A1CB56841009AAB02 /* Helpers-iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Helpers-iOS.swift"; path = "iOS/Helpers-iOS.swift"; sourceTree = "<group>"; };
 		28644D751CB83DCB00DD1B54 /* WebLinkingSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WebLinkingSettings.swift; path = Common/WebLinkingSettings.swift; sourceTree = "<group>"; };
 		28644D791CB83FE700DD1B54 /* PaginationRequestTypeSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaginationRequestTypeSettings.swift; path = Common/PaginationRequestTypeSettings.swift; sourceTree = "<group>"; };
-		287D0A6D1C4B73BD004566D6 /* OperaTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OperaTests.swift; path = Tests/OperaTests.swift; sourceTree = SOURCE_ROOT; };
+		287D0A6D1C4B73BD004566D6 /* RouteTypeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RouteTypeTests.swift; path = Tests/RouteTypeTests.swift; sourceTree = SOURCE_ROOT; };
 		28A6B9CB1CB5EC2D00682BCE /* FilterType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterType.swift; path = Common/FilterType.swift; sourceTree = "<group>"; };
 		28A6B9CD1CB5EFB600682BCE /* PaginationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaginationRequest.swift; path = Common/PaginationRequest.swift; sourceTree = "<group>"; };
 		28A6B9CF1CB5EFE000682BCE /* PaginationResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaginationResponse.swift; path = Common/PaginationResponse.swift; sourceTree = "<group>"; };
@@ -146,7 +155,9 @@
 		54E4AA291CBECD6B00A8CEC7 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/watchOS/Alamofire.framework; sourceTree = "<group>"; };
 		54E4AA2A1CBECD6B00A8CEC7 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/watchOS/RxSwift.framework; sourceTree = "<group>"; };
 		54F726BE1CBECAA0008D86E8 /* Opera.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Opera.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2ECA2C71CC530B90057FCC2 /* PaginationRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaginationRequestTests.swift; path = Tests/PaginationRequestTests.swift; sourceTree = SOURCE_ROOT; };
 		54F726D51CBECC06008D86E8 /* WebLinking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WebLinking.swift; path = Common/WebLinking.swift; sourceTree = "<group>"; };
+		D2ECA2C71CC530B90057FCC2 /* PaginationRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaginationRequestTests.swift; path = Tests/PaginationRequestTests.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -267,7 +278,9 @@
 			isa = PBXGroup;
 			children = (
 				542B0A081CB6D92300EC2C71 /* Supporting Files */,
-				287D0A6D1C4B73BD004566D6 /* OperaTests.swift */,
+				287D0A6D1C4B73BD004566D6 /* RouteTypeTests.swift */,
+				D2ECA2C71CC530B90057FCC2 /* PaginationRequestTests.swift */,
+				28251A6B1CC96A26009D5C01 /* BaseXCTestCase.swift */,
 			);
 			name = Tests;
 			path = OperaTests;
@@ -413,6 +426,7 @@
 				542B09E71CB6D5BE00EC2C71 /* Sources */,
 				542B09E81CB6D5BE00EC2C71 /* Frameworks */,
 				542B09E91CB6D5BE00EC2C71 /* Resources */,
+				D24A49041CC544A100C86743 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -449,6 +463,7 @@
 				5468B3FA1CB82EE600D0643E /* Sources */,
 				5468B3FB1CB82EE600D0643E /* Frameworks */,
 				5468B3FC1CB82EE600D0643E /* Resources */,
+				D24A49051CC545B000C86743 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -603,6 +618,38 @@
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks";
 		};
+		D24A49041CC544A100C86743 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/Mac/Alamofire.framework",
+				"$(SRCROOT)/Carthage/Build/Mac/RxSwift.framework",
+				"$(SRCROOT)/Carthage/Build/Mac/RxCocoa.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+		D24A49051CC545B000C86743 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/tvOS/Alamofire.framework",
+				"$(SRCROOT)/Carthage/Build/tvOS/RxSwift.framework",
+				"$(SRCROOT)/Carthage/Build/tvOS/RxCocoa.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -633,7 +680,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				287D0A6E1C4B73BD004566D6 /* OperaTests.swift in Sources */,
+				287D0A6E1C4B73BD004566D6 /* RouteTypeTests.swift in Sources */,
+				28251A6C1CC96A26009D5C01 /* BaseXCTestCase.swift in Sources */,
+				D2ECA2C81CC530B90057FCC2 /* PaginationRequestTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -663,6 +712,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2ECA2C51CC52FD30057FCC2 /* RouteTypeTests.swift in Sources */,
+				28251A6D1CC96A26009D5C01 /* BaseXCTestCase.swift in Sources */,
+				D2ECA2C91CC530B90057FCC2 /* PaginationRequestTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -692,6 +744,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2ECA2C61CC52FD30057FCC2 /* RouteTypeTests.swift in Sources */,
+				28251A6E1CC96A26009D5C01 /* BaseXCTestCase.swift in Sources */,
+				D2ECA2CA1CC530B90057FCC2 /* PaginationRequestTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -962,12 +1017,19 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = "Tests/Supporting Files/Info.plist";
+				INFOPLIST_OUTPUT_FORMAT = "same-as-input";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PLIST_FILE_OUTPUT_FORMAT = "same-as-input";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.xmartlabs.Opera-OSXTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				STRINGS_FILE_OUTPUT_ENCODING = "UTF-16";
 			};
 			name = Debug;
 		};
@@ -977,12 +1039,19 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
 				INFOPLIST_FILE = "Tests/Supporting Files/Info.plist";
+				INFOPLIST_OUTPUT_FORMAT = "same-as-input";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PLIST_FILE_OUTPUT_FORMAT = "same-as-input";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.xmartlabs.Opera-OSXTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				STRINGS_FILE_OUTPUT_ENCODING = "UTF-16";
 			};
 			name = Release;
 		};
@@ -1038,7 +1107,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
-				INFOPLIST_FILE = "Opera-tvOSTests/Info.plist";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+				);
+				INFOPLIST_FILE = "Tests/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.xmartlabs.Opera-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1051,7 +1124,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
-				INFOPLIST_FILE = "Opera-tvOSTests/Info.plist";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
+				);
+				INFOPLIST_FILE = "Tests/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.xmartlabs.Opera-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
