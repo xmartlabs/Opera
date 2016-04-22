@@ -29,6 +29,9 @@ class Manager: Alamofire.Manager {
     
     static let singleton = Manager()
     
+    // Add a Github personal access token to have more requests per hour
+    static let githubAuthorizationToken: String? = nil
+    
     override init?(session: NSURLSession, delegate: Manager.SessionDelegate, serverTrustPolicyManager: ServerTrustPolicyManager? = nil) {
         super.init(session: session, delegate: delegate, serverTrustPolicyManager: serverTrustPolicyManager)
     }
@@ -39,7 +42,9 @@ class Manager: Alamofire.Manager {
     }
     
     override func request(URLRequest: URLRequestConvertible) -> Alamofire.Request {
-        let result = super.request(URLRequest)
+        let request = URLRequest.URLRequest
+        if let token = Manager.githubAuthorizationToken { request.setValue("token \(token)", forHTTPHeaderField: "Authorization") }
+        let result = super.request(request)
         debugPrint(result)
         return result
     }

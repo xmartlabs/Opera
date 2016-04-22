@@ -1,4 +1,4 @@
-//  Repository.swift
+//  UserRepository.swift
 //  Example-iOS ( https://github.com/xmartlabs/Example-iOS )
 //
 //  Copyright (c) 2016 Xmartlabs SRL ( http://xmartlabs.com )
@@ -24,36 +24,50 @@
 
 import Foundation
 import Opera
-import Decodable
+import Argo
+import Curry
+import SwiftDate
 
-struct Repository {
+struct UserRepository {
     
     let id: Int
+    let owner: String
     let name: String
-    let desc: String?
-    let company: String?
-    let language: String?
-    let openIssues: Int
-    let stargazersCount: Int
-    let forksCount: Int
-    let url: NSURL
+    let description: String?
+    let forks: Int
+    let stargazers: Int
+    let watchers: Int
+    let issues: Int
     let createdAt: NSDate
     
 }
 
-extension Repository: OperaDecodable,  Decodable {
+extension UserRepository: OperaDecodable, Argo.Decodable {
     
-    static func decode(j: AnyObject) throws -> Repository {
-        return try Repository.init(  id: j => "id",
-                                   name: j => "name",
-                                   desc: j =>? "description",
-                                company: j =>? ["owner", "login"],
-                               language: j =>? "language",
-                             openIssues: j => "open_issues_count",
-                        stargazersCount: j => "stargazers_count",
-                             forksCount: j => "forks_count",
-                      url: NSURL(string: j => "url")!,
-                              createdAt: j => "created_at")
+    static func decode(j: JSON) -> Decoded<UserRepository> {
+        return curry(UserRepository.init)
+            <^> j <| "id"
+            <*> j <| ["owner", "login"]
+            <*> j <| "name"
+            <*> j <|? "description"
+            <*> j <| "forks_count"
+            <*> j <| "stargazers_count"
+            <*> j <| "watchers_count"
+            <*> j <| "open_issues_count"
+            <*> j <| "created_at"
+    }
+    
+}
+
+extension NSDate: Argo.Decodable {
+    public typealias DecodedType = NSDate
+    
+    public class func decode(j: JSON) -> Decoded<NSDate> {
+        switch j {
+        case .String(let dateString):
+            return  dateString.toDate(DateFormat.ISO8601Format(.Full)).map(pure) ?? .typeMismatch("NSDate", actual: j)
+        default: return .typeMismatch("NSDate", actual: j)
+        }
     }
 }
 

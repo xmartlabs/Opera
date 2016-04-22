@@ -23,31 +23,31 @@ contains() {
 
 build_iOS() {
   print_msg "Building iOS dependencies"
-  carthage update --platform iOS
+  carthage update --platform iOS --no-use-binaries
   printf "** Build done **\n\n"
 }
 
 build_OSX() {
   print_msg "Building OS X dependencies"
-  carthage update --platform OSX
+  carthage update --platform OSX --no-use-binaries
   printf "** Build done **\n\n"
 }
 
 build_tvOS() {
   print_msg "Building tvOS dependencies"
-  carthage update Alamofire RxSwift --platform tvOS
+  carthage update Alamofire RxSwift --platform tvOS --no-use-binaries
   printf "** Build done **\n\n"
 }
 
-build_tvOS() {
+build_watchOS() {
     print_msg "Building watchOS dependencies"
-    carthage update Alamofire RxSwift --platform watchOS
+    carthage update Alamofire RxSwift --platform watchOS --no-use-binaries
     printf "** Build done **\n\n"
 }
 
 platforms=("iOS" "OSX" "tvOS" "watchOS")
 build_all() {
-  for platform in $platforms
+  for platform in ${platforms[@]}
   do
     eval "build_$platform"
   done

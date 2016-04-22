@@ -1,4 +1,4 @@
-//  Repository.swift
+//  ObjectMapperDecodable.swift
 //  Example-iOS ( https://github.com/xmartlabs/Example-iOS )
 //
 //  Copyright (c) 2016 Xmartlabs SRL ( http://xmartlabs.com )
@@ -24,36 +24,23 @@
 
 import Foundation
 import Opera
-import Decodable
+import Argo
+import ObjectMapper
 
-struct Repository {
+extension Mappable where Self: OperaDecodable {
     
-    let id: Int
-    let name: String
-    let desc: String?
-    let company: String?
-    let language: String?
-    let openIssues: Int
-    let stargazersCount: Int
-    let forksCount: Int
-    let url: NSURL
-    let createdAt: NSDate
-    
-}
-
-extension Repository: OperaDecodable,  Decodable {
-    
-    static func decode(j: AnyObject) throws -> Repository {
-        return try Repository.init(  id: j => "id",
-                                   name: j => "name",
-                                   desc: j =>? "description",
-                                company: j =>? ["owner", "login"],
-                               language: j =>? "language",
-                             openIssues: j => "open_issues_count",
-                        stargazersCount: j => "stargazers_count",
-                             forksCount: j => "forks_count",
-                      url: NSURL(string: j => "url")!,
-                              createdAt: j => "created_at")
+    static func decode(json: AnyObject) throws -> Self {
+        guard let jsonData = json as? [String: AnyObject] else { throw NetworkError.Parsing(error: "Data is not JSON formatted", request: nil, response: nil, json: json) }
+        let map = Map(mappingType: MappingType.FromJSON, JSONDictionary: jsonData, toObject: true)
+        if var decoded = Self.init(map) {
+            decoded.mapping(map)
+            return decoded
+        } else {
+            throw NetworkError.Parsing(error: "Object could not be parsed from JSON data", request: nil, response: nil, json: json)
+        }
     }
+    
 }
 
+extension String: ErrorType {
+}

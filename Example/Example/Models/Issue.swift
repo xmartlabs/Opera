@@ -1,4 +1,4 @@
-//  Repository.swift
+//  Issue.swift
 //  Example-iOS ( https://github.com/xmartlabs/Example-iOS )
 //
 //  Copyright (c) 2016 Xmartlabs SRL ( http://xmartlabs.com )
@@ -26,34 +26,26 @@ import Foundation
 import Opera
 import Decodable
 
-struct Repository {
+struct Issue {
     
     let id: Int
-    let name: String
-    let desc: String?
-    let company: String?
-    let language: String?
-    let openIssues: Int
-    let stargazersCount: Int
-    let forksCount: Int
     let url: NSURL
-    let createdAt: NSDate
+    let number: Int
+    let state: String
+    let title: String
+    let user: String
     
 }
 
-extension Repository: OperaDecodable,  Decodable {
+extension Issue: OperaDecodable, Decodable {
     
-    static func decode(j: AnyObject) throws -> Repository {
-        return try Repository.init(  id: j => "id",
-                                   name: j => "name",
-                                   desc: j =>? "description",
-                                company: j =>? ["owner", "login"],
-                               language: j =>? "language",
-                             openIssues: j => "open_issues_count",
-                        stargazersCount: j => "stargazers_count",
-                             forksCount: j => "forks_count",
-                      url: NSURL(string: j => "url")!,
-                              createdAt: j => "created_at")
+    static func decode(j: AnyObject) throws -> Issue {
+        return try Issue.init(  id: j => "id",
+                 url: NSURL(string: j => "url")!,
+                            number: j => "number",
+                             state: j => "state",
+                             title: j => "title",
+                              user: j => ["user", "login"])
     }
+    
 }
-

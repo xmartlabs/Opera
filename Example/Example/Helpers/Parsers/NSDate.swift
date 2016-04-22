@@ -1,4 +1,4 @@
-//  Repository.swift
+//  NSDate.swift
 //  Example-iOS ( https://github.com/xmartlabs/Example-iOS )
 //
 //  Copyright (c) 2016 Xmartlabs SRL ( http://xmartlabs.com )
@@ -23,37 +23,28 @@
 // THE SOFTWARE.
 
 import Foundation
-import Opera
 import Decodable
+import Opera
+import SwiftDate
 
-struct Repository {
+extension NSDate: Decodable  {
     
-    let id: Int
-    let name: String
-    let desc: String?
-    let company: String?
-    let language: String?
-    let openIssues: Int
-    let stargazersCount: Int
-    let forksCount: Int
-    let url: NSURL
-    let createdAt: NSDate
-    
-}
-
-extension Repository: OperaDecodable,  Decodable {
-    
-    static func decode(j: AnyObject) throws -> Repository {
-        return try Repository.init(  id: j => "id",
-                                   name: j => "name",
-                                   desc: j =>? "description",
-                                company: j =>? ["owner", "login"],
-                               language: j =>? "language",
-                             openIssues: j => "open_issues_count",
-                        stargazersCount: j => "stargazers_count",
-                             forksCount: j => "forks_count",
-                      url: NSURL(string: j => "url")!,
-                              createdAt: j => "created_at")
+    public class func decode(json: AnyObject) throws -> Self {
+        let string = try String.decode(json)
+        guard let date = string.toDate(DateFormat.ISO8601Format(.Full)) else {
+            throw TypeMismatchError(expectedType: NSDate.self, receivedType: String.self, object: json)
+        }
+        return self.init(timeIntervalSince1970: date.timeIntervalSince1970)
     }
+    
 }
 
+extension NSDate {
+    
+    func shortRepresentation() -> String {
+        let formatter = NSDateFormatter()
+        formatter.dateFormat = "dd/MM/YYYY"
+        return formatter.stringFromDate(self)
+    }
+    
+}

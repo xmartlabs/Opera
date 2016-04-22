@@ -1,4 +1,4 @@
-//  Repository.swift
+//  UserRoute.swift
 //  Example-iOS ( https://github.com/xmartlabs/Example-iOS )
 //
 //  Copyright (c) 2016 Xmartlabs SRL ( http://xmartlabs.com )
@@ -23,37 +23,29 @@
 // THE SOFTWARE.
 
 import Foundation
+import Alamofire
 import Opera
-import Decodable
 
-struct Repository {
+extension GithubAPI {
     
-    let id: Int
-    let name: String
-    let desc: String?
-    let company: String?
-    let language: String?
-    let openIssues: Int
-    let stargazersCount: Int
-    let forksCount: Int
-    let url: NSURL
-    let createdAt: NSDate
+    struct User {}
     
 }
 
-extension Repository: OperaDecodable,  Decodable {
+extension GithubAPI.User {
     
-    static func decode(j: AnyObject) throws -> Repository {
-        return try Repository.init(  id: j => "id",
-                                   name: j => "name",
-                                   desc: j =>? "description",
-                                company: j =>? ["owner", "login"],
-                               language: j =>? "language",
-                             openIssues: j => "open_issues_count",
-                        stargazersCount: j => "stargazers_count",
-                             forksCount: j => "forks_count",
-                      url: NSURL(string: j => "url")!,
-                              createdAt: j => "created_at")
+    struct GetUser: RouteType {
+        
+        let username: String
+        
+        var method: Alamofire.Method {
+            return .GET
+        }
+        
+        var path: String {
+            return "users/\(username)"
+        }
+        
     }
+    
 }
-
