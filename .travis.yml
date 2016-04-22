@@ -27,4 +27,4 @@ before_install:
 script:
 - xcodebuild -version
 - xcodebuild -project Opera.xcodeproj -scheme "$SCHEME" -sdk "$SDK" -destination "$DESTINATION"
-    -configuration Debug ONLY_ACTIVE_ARCH=NO test | xcpretty -c
+    -configuration Debug ONLY_ACTIVE_ARCH=NO | xcpretty -c; test ${PIPESTATUS[0]} -eq 0
