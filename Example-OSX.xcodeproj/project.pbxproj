@@ -16,7 +16,6 @@
 		D2488E3B1CC53BFD000062F4 /* RepositoryRoutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2488E3A1CC53BFD000062F4 /* RepositoryRoutes.swift */; };
 		D2488E3D1CC53C2C000062F4 /* RouteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2488E3C1CC53C2C000062F4 /* RouteType.swift */; };
 		D2488E981CC541A9000062F4 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2488E971CC541A9000062F4 /* Manager.swift */; };
-		D2488E9A1CC5423D000062F4 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D2488E991CC5423D000062F4 /* Info.plist */; };
 		D2488E9D1CC5430D000062F4 /* Opera.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2488E8E1CC54143000062F4 /* Opera.framework */; };
 		D2488E9E1CC5432C000062F4 /* Opera.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D2488E8E1CC54143000062F4 /* Opera.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D29866501CC7CC50000CC8C1 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D298664F1CC7CC50000CC8C1 /* InfoViewController.swift */; };
@@ -418,7 +417,6 @@
 			files = (
 				D2488DFA1CC53A45000062F4 /* Assets.xcassets in Resources */,
 				D2488DFD1CC53A45000062F4 /* Main.storyboard in Resources */,
-				D2488E9A1CC5423D000062F4 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
