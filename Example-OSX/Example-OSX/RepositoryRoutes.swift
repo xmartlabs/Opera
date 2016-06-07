@@ -56,5 +56,9 @@ extension GithubAPI.Repository {
         var path: String {
             return "repos/\(owner)/\(repo)"
         }
+        
+        var retryCount: Int {
+            return 2
+        }
     }
 }

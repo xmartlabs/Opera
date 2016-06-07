@@ -36,4 +36,8 @@ extension RouteType {
         return Manager.singleton
     }
     
+    var retryCount: Int {
+        return 0
+    }
+    
 }

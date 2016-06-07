@@ -1,5 +1,6 @@
-//  RouteType.swift
-//  Example-iOS ( https://github.com/xmartlabs/Example-iOS )
+//
+//  OperaResponse.swift
+//  Opera ( https://github.com/xmartlabs/Opera )
 //
 //  Copyright (c) 2016 Xmartlabs SRL ( http://xmartlabs.com )
 //
@@ -23,21 +24,33 @@
 // THE SOFTWARE.
 
 import Foundation
-import Opera
-import Alamofire
 
-extension RouteType {
+/**
+ *  The response object returned by a successful request
+ */
+public struct OperaResponse: CustomDebugStringConvertible, Equatable {
+    public let statusCode: Int
+    public let data: NSData
+    public let response: NSHTTPURLResponse?
     
-    var baseURL: NSURL {
-        return NSURL(string: "https://api.github.com")!
-    }
-   
-    var manager: Alamofire.Manager {
-        return Manager.singleton
+    public init(statusCode: Int, data: NSData, response: NSHTTPURLResponse? = nil) {
+        self.statusCode = statusCode
+        self.data = data
+        self.response = response
     }
     
-    var retryCount: Int {
-        return 0
+    public var description: String {
+        return "Response Status Code: \(statusCode)"
     }
     
+    public var debugDescription: String {
+        return description
+    }
 }
+
+public func ==(lhs: OperaResponse, rhs: OperaResponse) -> Bool {
+    return lhs.statusCode == rhs.statusCode
+        && lhs.data == rhs.data
+        && lhs.response == rhs.response
+}
+

@@ -42,6 +42,8 @@ public protocol RouteType: URLRequestConvertible {
     var baseURL: NSURL { get }
     /// Alamofire Manager that creates the request.
     var manager: Alamofire.Manager { get }
+    /// Used to determine how often a request should be retried if unsuccessful
+    var retryCount: Int { get }
 }
 
 /**
@@ -82,8 +84,8 @@ extension RouteType {
     public var parameters: [String: AnyObject]? {
         return nil
     }
-        
-    public var request: Alamofire.Request {
-        return manager.request(self).validate()
+    
+    public func request(route: URLRequestConvertible? = nil, completionHandler: NetworkManager.CompletionHandler) -> Alamofire.Request {
+        return NetworkManager.singleton.sendRequest(route ?? self, retryLeft: nil, completionHandler: completionHandler)
     }
 }

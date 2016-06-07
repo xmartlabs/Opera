@@ -149,15 +149,41 @@ extension PaginationRequestType where Response.Element: OperaDecodable {
      - returns: An instance of `Observable<Response>`
      */
     func rx_collection() -> Observable<Response> {
-        let myRequest = route.manager.request(self).validate()
         let myPage = page
-        return myRequest.rx_collection(collectionKeyPath).map({ elements -> Response in
-            return Response.init(elements: elements,
-                             previousPage: myRequest.response?.linkPagePrameter((self as? WebLinkingSettings)?.prevRelationName ?? Default.prevRelationName, pageParameterName: (self as? WebLinkingSettings)?.relationPageParamName ?? Default.relationPageParamName),
-                                 nextPage: myRequest.response?.linkPagePrameter((self as? WebLinkingSettings)?.nextRelationName ?? Default.nextRelationName, pageParameterName: (self as? WebLinkingSettings)?.relationPageParamName ?? Default.relationPageParamName),
-                                     page: myPage
-            )
-        })
+        return Observable.create { subscriber in
+            let req = self.route.request(self) { result in
+                let serialized: Alamofire.Response<[Response.Element], NetworkError> = result.serializeCollection(self.collectionKeyPath)
+                switch serialized.result {
+                case .Failure(let error):
+                    subscriber.onError(error)
+                case .Success(let elements):
+                    let response = Response.init(elements: elements,
+                                    previousPage: serialized.response?.linkPagePrameter((self as? WebLinkingSettings)?.prevRelationName ?? Default.prevRelationName,
+                                    pageParameterName: (self as? WebLinkingSettings)?.relationPageParamName ?? Default.relationPageParamName),
+                                    nextPage: serialized.response?.linkPagePrameter((self as? WebLinkingSettings)?.nextRelationName ?? Default.nextRelationName,
+                                    pageParameterName: (self as? WebLinkingSettings)?.relationPageParamName ?? Default.relationPageParamName),
+                                    page: myPage
+                    )
+                    subscriber.onNext(response)
+                    subscriber.onCompleted()
+                }
+            }
+            return AnonymousDisposable {
+                req.cancel()
+            }
+        }
+
+//        let myRequest = route.manager.request(self).validate()
+//        let myPage = page
+//        return myRequest.rx_collection(collectionKeyPath).map({ elements -> Response in
+//            return Response.init(elements: elements,
+//                             previousPage: myRequest.response?.linkPagePrameter((self as? WebLinkingSettings)?.prevRelationName ?? Default.prevRelationName,
+//                                pageParameterName: (self as? WebLinkingSettings)?.relationPageParamName ?? Default.relationPageParamName),
+//                                 nextPage: myRequest.response?.linkPagePrameter((self as? WebLinkingSettings)?.nextRelationName ?? Default.nextRelationName,
+//                                    pageParameterName: (self as? WebLinkingSettings)?.relationPageParamName ?? Default.relationPageParamName),
+//                                     page: myPage
+//            )
+//        })
     }
     
 }

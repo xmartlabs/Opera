@@ -50,7 +50,7 @@ class RepositoryController: UITableViewController {
         
         tableView.reloadData()
         
-        GithubAPI.Repository.GetInfo(owner: owner, repo: name).request
+        GithubAPI.Repository.GetInfo(owner: owner, repo: name)
             .rx_object()
             .subscribeNext { [weak self] (userRepo: UserRepository) in
                 self?.userRepository = userRepo

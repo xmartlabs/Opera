@@ -47,9 +47,7 @@
 		542B0A041CB6D63200EC2C71 /* OperaDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C5E1CB38687006488F1 /* OperaDecodable.swift */; };
 		542B0A051CB6D63200EC2C71 /* FilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A6B9CB1CB5EC2D00682BCE /* FilterType.swift */; };
 		542B0A091CB6D9A600EC2C71 /* Opera.h in Headers */ = {isa = PBXBuildFile; fileRef = 28F828801C494B2C00330CF4 /* Opera.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		542B0A141CB6DDF500EC2C71 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 542B0A111CB6DDF500EC2C71 /* Alamofire.framework */; };
 		542B0A151CB6DDF500EC2C71 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 542B0A121CB6DDF500EC2C71 /* RxSwift.framework */; };
-		542B0A1A1CB6E07D00EC2C71 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 542B0A171CB6E07D00EC2C71 /* Alamofire.framework */; };
 		542B0A1C1CB6E07D00EC2C71 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 542B0A191CB6E07D00EC2C71 /* RxSwift.framework */; };
 		5468B3FF1CB82EE600D0643E /* Opera.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5468B3F51CB82EE600D0643E /* Opera.framework */; };
 		5468B40C1CB82F2100D0643E /* Opera.h in Headers */ = {isa = PBXBuildFile; fileRef = 28F828801C494B2C00330CF4 /* Opera.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -64,9 +62,7 @@
 		5468B4161CB82F2100D0643E /* PaginationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C551CB385CC006488F1 /* PaginationViewModel.swift */; };
 		5468B4171CB82F2100D0643E /* OperaDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C5E1CB38687006488F1 /* OperaDecodable.swift */; };
 		5468B4181CB82F2100D0643E /* FilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A6B9CB1CB5EC2D00682BCE /* FilterType.swift */; };
-		5468B41C1CB82F4400D0643E /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5468B4191CB82F4400D0643E /* Alamofire.framework */; };
 		5468B41D1CB82F4400D0643E /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5468B41A1CB82F4400D0643E /* RxSwift.framework */; };
-		54E4AA2B1CBECD6B00A8CEC7 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E4AA291CBECD6B00A8CEC7 /* Alamofire.framework */; };
 		54E4AA2C1CBECD6B00A8CEC7 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E4AA2A1CBECD6B00A8CEC7 /* RxSwift.framework */; };
 		54F726C61CBECAFD008D86E8 /* Opera.h in Headers */ = {isa = PBXBuildFile; fileRef = 28F828801C494B2C00330CF4 /* Opera.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		54F726C71CBECB04008D86E8 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5415F01B1CBD6CEC00D7A7E4 /* Helpers.swift */; };
@@ -87,6 +83,22 @@
 		54F726D71CBECC06008D86E8 /* WebLinking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F726D51CBECC06008D86E8 /* WebLinking.swift */; };
 		54F726D81CBECC06008D86E8 /* WebLinking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F726D51CBECC06008D86E8 /* WebLinking.swift */; };
 		54F726D91CBECC06008D86E8 /* WebLinking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F726D51CBECC06008D86E8 /* WebLinking.swift */; };
+		8F73B1801D073FC800E6C5CA /* RouteType+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F73B17F1D073FC800E6C5CA /* RouteType+Rx.swift */; };
+		8F73B1811D073FC800E6C5CA /* RouteType+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F73B17F1D073FC800E6C5CA /* RouteType+Rx.swift */; };
+		8F73B1821D073FC800E6C5CA /* RouteType+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F73B17F1D073FC800E6C5CA /* RouteType+Rx.swift */; };
+		8F73B1831D073FC800E6C5CA /* RouteType+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F73B17F1D073FC800E6C5CA /* RouteType+Rx.swift */; };
+		8F73B18C1D07401300E6C5CA /* OperaResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F73B18B1D07401300E6C5CA /* OperaResponse.swift */; };
+		8F73B18D1D07401300E6C5CA /* OperaResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F73B18B1D07401300E6C5CA /* OperaResponse.swift */; };
+		8F73B18E1D07401300E6C5CA /* OperaResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F73B18B1D07401300E6C5CA /* OperaResponse.swift */; };
+		8F73B18F1D07401300E6C5CA /* OperaResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F73B18B1D07401300E6C5CA /* OperaResponse.swift */; };
+		8F73B1911D0740D700E6C5CA /* OperaResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F73B1901D0740D700E6C5CA /* OperaResult.swift */; };
+		8F73B1921D0740D700E6C5CA /* OperaResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F73B1901D0740D700E6C5CA /* OperaResult.swift */; };
+		8F73B1931D0740D700E6C5CA /* OperaResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F73B1901D0740D700E6C5CA /* OperaResult.swift */; };
+		8F73B1941D0740D700E6C5CA /* OperaResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F73B1901D0740D700E6C5CA /* OperaResult.swift */; };
+		8F854FF61D05EB300094CA52 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F854FF51D05EB300094CA52 /* NetworkManager.swift */; };
+		8F854FF71D05EB300094CA52 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F854FF51D05EB300094CA52 /* NetworkManager.swift */; };
+		8F854FF81D05EB300094CA52 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F854FF51D05EB300094CA52 /* NetworkManager.swift */; };
+		8F854FF91D05EB300094CA52 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F854FF51D05EB300094CA52 /* NetworkManager.swift */; };
 		D2ECA2C51CC52FD30057FCC2 /* RouteTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287D0A6D1C4B73BD004566D6 /* RouteTypeTests.swift */; };
 		D2ECA2C61CC52FD30057FCC2 /* RouteTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287D0A6D1C4B73BD004566D6 /* RouteTypeTests.swift */; };
 		D2ECA2C81CC530B90057FCC2 /* PaginationRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2ECA2C71CC530B90057FCC2 /* PaginationRequestTests.swift */; };
@@ -116,6 +128,55 @@
 			remoteGlobalIDString = 5468B3F41CB82EE600D0643E;
 			remoteInfo = "Opera-tvOS";
 		};
+		8F8550041D05EF070094CA52 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8F854FFA1D05EF070094CA52 /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F8111E3319A95C8B0040E7D1;
+			remoteInfo = "Alamofire iOS";
+		};
+		8F8550061D05EF070094CA52 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8F854FFA1D05EF070094CA52 /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F8111E3E19A95C8B0040E7D1;
+			remoteInfo = "Alamofire iOS Tests";
+		};
+		8F8550081D05EF070094CA52 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8F854FFA1D05EF070094CA52 /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4DD67C0B1A5C55C900ED2280;
+			remoteInfo = "Alamofire OSX";
+		};
+		8F85500A1D05EF070094CA52 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8F854FFA1D05EF070094CA52 /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F829C6B21A7A94F100A2CD59;
+			remoteInfo = "Alamofire OSX Tests";
+		};
+		8F85500C1D05EF070094CA52 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8F854FFA1D05EF070094CA52 /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4CF626EF1BA7CB3E0011A099;
+			remoteInfo = "Alamofire tvOS";
+		};
+		8F85500E1D05EF070094CA52 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8F854FFA1D05EF070094CA52 /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4CF626F81BA7CB3E0011A099;
+			remoteInfo = "Alamofire tvOS Tests";
+		};
+		8F8550101D05EF070094CA52 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8F854FFA1D05EF070094CA52 /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E4202FE01B667AA100C997FB;
+			remoteInfo = "Alamofire watchOS";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -144,19 +205,19 @@
 		5415F01B1CBD6CEC00D7A7E4 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Helpers.swift; path = Common/Helpers/Helpers.swift; sourceTree = "<group>"; };
 		542B09E21CB6D5BE00EC2C71 /* Opera.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Opera.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		542B09EB1CB6D5BE00EC2C71 /* Opera-OSXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Opera-OSXTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		542B0A111CB6DDF500EC2C71 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/Mac/Alamofire.framework; sourceTree = "<group>"; };
 		542B0A121CB6DDF500EC2C71 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/Mac/RxSwift.framework; sourceTree = "<group>"; };
-		542B0A171CB6E07D00EC2C71 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		542B0A191CB6E07D00EC2C71 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
 		5468B3F51CB82EE600D0643E /* Opera.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Opera.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5468B3FE1CB82EE600D0643E /* Opera-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Opera-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5468B4191CB82F4400D0643E /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/tvOS/Alamofire.framework; sourceTree = "<group>"; };
 		5468B41A1CB82F4400D0643E /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/tvOS/RxSwift.framework; sourceTree = "<group>"; };
-		54E4AA291CBECD6B00A8CEC7 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/watchOS/Alamofire.framework; sourceTree = "<group>"; };
 		54E4AA2A1CBECD6B00A8CEC7 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/watchOS/RxSwift.framework; sourceTree = "<group>"; };
 		54F726BE1CBECAA0008D86E8 /* Opera.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Opera.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D2ECA2C71CC530B90057FCC2 /* PaginationRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaginationRequestTests.swift; path = Tests/PaginationRequestTests.swift; sourceTree = SOURCE_ROOT; };
 		54F726D51CBECC06008D86E8 /* WebLinking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WebLinking.swift; path = Common/WebLinking.swift; sourceTree = "<group>"; };
+		8F73B17F1D073FC800E6C5CA /* RouteType+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "RouteType+Rx.swift"; path = "Common/RouteType+Rx.swift"; sourceTree = "<group>"; };
+		8F73B18B1D07401300E6C5CA /* OperaResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OperaResponse.swift; path = Common/OperaResponse.swift; sourceTree = "<group>"; };
+		8F73B1901D0740D700E6C5CA /* OperaResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OperaResult.swift; path = Common/OperaResult.swift; sourceTree = "<group>"; };
+		8F854FF51D05EB300094CA52 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkManager.swift; path = Common/NetworkManager.swift; sourceTree = "<group>"; };
+		8F854FFA1D05EF070094CA52 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Carthage/Checkouts/Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		D2ECA2C71CC530B90057FCC2 /* PaginationRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaginationRequestTests.swift; path = Tests/PaginationRequestTests.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -165,7 +226,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				542B0A1A1CB6E07D00EC2C71 /* Alamofire.framework in Frameworks */,
 				542B0A1C1CB6E07D00EC2C71 /* RxSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -182,7 +242,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				542B0A141CB6DDF500EC2C71 /* Alamofire.framework in Frameworks */,
 				542B0A151CB6DDF500EC2C71 /* RxSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -199,7 +258,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5468B41C1CB82F4400D0643E /* Alamofire.framework in Frameworks */,
 				5468B41D1CB82F4400D0643E /* RxSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -217,7 +275,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				54E4AA2C1CBECD6B00A8CEC7 /* RxSwift.framework in Frameworks */,
-				54E4AA2B1CBECD6B00A8CEC7 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,13 +284,10 @@
 		28D91C4F1CB381BD006488F1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				54E4AA291CBECD6B00A8CEC7 /* Alamofire.framework */,
+				8F854FFA1D05EF070094CA52 /* Alamofire.xcodeproj */,
 				54E4AA2A1CBECD6B00A8CEC7 /* RxSwift.framework */,
-				5468B4191CB82F4400D0643E /* Alamofire.framework */,
 				5468B41A1CB82F4400D0643E /* RxSwift.framework */,
-				542B0A171CB6E07D00EC2C71 /* Alamofire.framework */,
 				542B0A191CB6E07D00EC2C71 /* RxSwift.framework */,
-				542B0A111CB6DDF500EC2C71 /* Alamofire.framework */,
 				542B0A121CB6DDF500EC2C71 /* RxSwift.framework */,
 			);
 			name = Frameworks;
@@ -295,6 +349,8 @@
 				28D91C641CB38751006488F1 /* Request+Rx.swift */,
 				28D91C661CB38759006488F1 /* Request+ResponseSerialization.swift */,
 				28D91C561CB385CC006488F1 /* RouteType.swift */,
+				8F73B17F1D073FC800E6C5CA /* RouteType+Rx.swift */,
+				8F854FF51D05EB300094CA52 /* NetworkManager.swift */,
 				28D91C531CB385CC006488F1 /* PaginationRequestType.swift */,
 				28644D791CB83FE700DD1B54 /* PaginationRequestTypeSettings.swift */,
 				28A6B9CD1CB5EFB600682BCE /* PaginationRequest.swift */,
@@ -303,6 +359,8 @@
 				28A6B9CF1CB5EFE000682BCE /* PaginationResponse.swift */,
 				28D91C551CB385CC006488F1 /* PaginationViewModel.swift */,
 				28D91C5E1CB38687006488F1 /* OperaDecodable.swift */,
+				8F73B18B1D07401300E6C5CA /* OperaResponse.swift */,
+				8F73B1901D0740D700E6C5CA /* OperaResult.swift */,
 				28A6B9CB1CB5EC2D00682BCE /* FilterType.swift */,
 			);
 			path = Sources;
@@ -324,6 +382,20 @@
 				28F8288E1C494B2C00330CF4 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8F854FFB1D05EF070094CA52 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8F8550051D05EF070094CA52 /* Alamofire.framework */,
+				8F8550071D05EF070094CA52 /* Alamofire iOS Tests.xctest */,
+				8F8550091D05EF070094CA52 /* Alamofire.framework */,
+				8F85500B1D05EF070094CA52 /* Alamofire OSX Tests.xctest */,
+				8F85500D1D05EF070094CA52 /* Alamofire.framework */,
+				8F85500F1D05EF070094CA52 /* Alamofire tvOS Tests.xctest */,
+				8F8550111D05EF070094CA52 /* Alamofire.framework */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -535,6 +607,12 @@
 			mainGroup = 28F828731C494B2C00330CF4;
 			productRefGroup = 28F8287E1C494B2C00330CF4 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 8F854FFB1D05EF070094CA52 /* Products */;
+					ProjectRef = 8F854FFA1D05EF070094CA52 /* Alamofire.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				28F8287C1C494B2C00330CF4 /* Opera-iOS */,
@@ -547,6 +625,58 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		8F8550051D05EF070094CA52 /* Alamofire.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Alamofire.framework;
+			remoteRef = 8F8550041D05EF070094CA52 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8F8550071D05EF070094CA52 /* Alamofire iOS Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Alamofire iOS Tests.xctest";
+			remoteRef = 8F8550061D05EF070094CA52 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8F8550091D05EF070094CA52 /* Alamofire.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Alamofire.framework;
+			remoteRef = 8F8550081D05EF070094CA52 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8F85500B1D05EF070094CA52 /* Alamofire OSX Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Alamofire OSX Tests.xctest";
+			remoteRef = 8F85500A1D05EF070094CA52 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8F85500D1D05EF070094CA52 /* Alamofire.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Alamofire.framework;
+			remoteRef = 8F85500C1D05EF070094CA52 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8F85500F1D05EF070094CA52 /* Alamofire tvOS Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Alamofire tvOS Tests.xctest";
+			remoteRef = 8F85500E1D05EF070094CA52 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		8F8550111D05EF070094CA52 /* Alamofire.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Alamofire.framework;
+			remoteRef = 8F8550101D05EF070094CA52 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		28F8287B1C494B2C00330CF4 /* Resources */ = {
@@ -660,15 +790,19 @@
 				28D91C651CB38751006488F1 /* Request+Rx.swift in Sources */,
 				28D91C5F1CB38687006488F1 /* OperaDecodable.swift in Sources */,
 				28A6B9CC1CB5EC2D00682BCE /* FilterType.swift in Sources */,
+				8F73B1801D073FC800E6C5CA /* RouteType+Rx.swift in Sources */,
 				28D91C581CB385CC006488F1 /* PaginationRequestType.swift in Sources */,
 				2840C42B1CB56841009AAB02 /* Helpers-iOS.swift in Sources */,
+				8F73B1911D0740D700E6C5CA /* OperaResult.swift in Sources */,
 				54F726D61CBECC06008D86E8 /* WebLinking.swift in Sources */,
 				28A6B9CE1CB5EFB600682BCE /* PaginationRequest.swift in Sources */,
 				28D91C591CB385CC006488F1 /* PaginationResponseType.swift in Sources */,
 				28644D7A1CB83FE700DD1B54 /* PaginationRequestTypeSettings.swift in Sources */,
 				28A6B9D01CB5EFE000682BCE /* PaginationResponse.swift in Sources */,
+				8F854FF61D05EB300094CA52 /* NetworkManager.swift in Sources */,
 				28D91C5A1CB385CC006488F1 /* PaginationViewModel.swift in Sources */,
 				28D91C571CB385CC006488F1 /* NetworkError.swift in Sources */,
+				8F73B18C1D07401300E6C5CA /* OperaResponse.swift in Sources */,
 				28644D761CB83DCB00DD1B54 /* WebLinkingSettings.swift in Sources */,
 				28D91C5B1CB385CC006488F1 /* RouteType.swift in Sources */,
 				5415F01C1CBD6CEC00D7A7E4 /* Helpers.swift in Sources */,
@@ -692,8 +826,10 @@
 			files = (
 				542B0A021CB6D63200EC2C71 /* PaginationViewModel.swift in Sources */,
 				5415F01D1CBD6CEE00D7A7E4 /* Helpers.swift in Sources */,
+				8F73B18D1D07401300E6C5CA /* OperaResponse.swift in Sources */,
 				542B0A001CB6D63200EC2C71 /* PaginationResponseType.swift in Sources */,
 				542B09FC1CB6D63200EC2C71 /* Request+Rx.swift in Sources */,
+				8F854FF71D05EB300094CA52 /* NetworkManager.swift in Sources */,
 				542B09FB1CB6D63200EC2C71 /* NetworkError.swift in Sources */,
 				542B0A011CB6D63200EC2C71 /* PaginationResponse.swift in Sources */,
 				542B09FD1CB6D63200EC2C71 /* Request+ResponseSerialization.swift in Sources */,
@@ -701,9 +837,11 @@
 				542B09FF1CB6D63200EC2C71 /* PaginationRequest.swift in Sources */,
 				28644D771CB83DCB00DD1B54 /* WebLinkingSettings.swift in Sources */,
 				542B0A041CB6D63200EC2C71 /* OperaDecodable.swift in Sources */,
+				8F73B1811D073FC800E6C5CA /* RouteType+Rx.swift in Sources */,
 				542B0A031CB6D63200EC2C71 /* RouteType.swift in Sources */,
 				28644D7B1CB83FE700DD1B54 /* PaginationRequestTypeSettings.swift in Sources */,
 				542B0A051CB6D63200EC2C71 /* FilterType.swift in Sources */,
+				8F73B1921D0740D700E6C5CA /* OperaResult.swift in Sources */,
 				54F726D71CBECC06008D86E8 /* WebLinking.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -724,8 +862,10 @@
 			files = (
 				5468B4131CB82F2100D0643E /* PaginationRequest.swift in Sources */,
 				5415F01E1CBD6CEE00D7A7E4 /* Helpers.swift in Sources */,
+				8F73B18E1D07401300E6C5CA /* OperaResponse.swift in Sources */,
 				5468B4151CB82F2100D0643E /* PaginationResponse.swift in Sources */,
 				5468B4141CB82F2100D0643E /* PaginationResponseType.swift in Sources */,
+				8F854FF81D05EB300094CA52 /* NetworkManager.swift in Sources */,
 				5468B4121CB82F2100D0643E /* PaginationRequestType.swift in Sources */,
 				5468B40F1CB82F2100D0643E /* Request+Rx.swift in Sources */,
 				5468B40E1CB82F2100D0643E /* NetworkError.swift in Sources */,
@@ -733,9 +873,11 @@
 				5468B4161CB82F2100D0643E /* PaginationViewModel.swift in Sources */,
 				28644D781CB83DCB00DD1B54 /* WebLinkingSettings.swift in Sources */,
 				5468B4171CB82F2100D0643E /* OperaDecodable.swift in Sources */,
+				8F73B1821D073FC800E6C5CA /* RouteType+Rx.swift in Sources */,
 				5468B4111CB82F2100D0643E /* RouteType.swift in Sources */,
 				28644D7C1CB83FE700DD1B54 /* PaginationRequestTypeSettings.swift in Sources */,
 				5468B4181CB82F2100D0643E /* FilterType.swift in Sources */,
+				8F73B1931D0740D700E6C5CA /* OperaResult.swift in Sources */,
 				54F726D81CBECC06008D86E8 /* WebLinking.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -756,8 +898,10 @@
 			files = (
 				54F726C71CBECB04008D86E8 /* Helpers.swift in Sources */,
 				54F726CC1CBECB54008D86E8 /* PaginationRequestType.swift in Sources */,
+				8F73B18F1D07401300E6C5CA /* OperaResponse.swift in Sources */,
 				54F726D01CBECB54008D86E8 /* PaginationResponseType.swift in Sources */,
 				54F726D11CBECB54008D86E8 /* PaginationResponse.swift in Sources */,
+				8F854FF91D05EB300094CA52 /* NetworkManager.swift in Sources */,
 				54F726C91CBECB54008D86E8 /* Request+Rx.swift in Sources */,
 				54F726D31CBECB54008D86E8 /* OperaDecodable.swift in Sources */,
 				54F726CB1CBECB54008D86E8 /* RouteType.swift in Sources */,
@@ -765,9 +909,11 @@
 				54F726C81CBECB54008D86E8 /* NetworkError.swift in Sources */,
 				54F726CE1CBECB54008D86E8 /* PaginationRequest.swift in Sources */,
 				54F726CF1CBECB54008D86E8 /* WebLinkingSettings.swift in Sources */,
+				8F73B1831D073FC800E6C5CA /* RouteType+Rx.swift in Sources */,
 				54F726CD1CBECB54008D86E8 /* PaginationRequestTypeSettings.swift in Sources */,
 				54F726D21CBECB54008D86E8 /* PaginationViewModel.swift in Sources */,
 				54F726CA1CBECB54008D86E8 /* Request+ResponseSerialization.swift in Sources */,
+				8F73B1941D0740D700E6C5CA /* OperaResult.swift in Sources */,
 				54F726D91CBECC06008D86E8 /* WebLinking.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

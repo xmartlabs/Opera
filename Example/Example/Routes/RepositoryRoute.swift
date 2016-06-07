@@ -57,6 +57,9 @@ extension GithubAPI.Repository {
             return "repos/\(owner)/\(repo)"
         }
         
+        var retryCount: Int {
+            return 2
+        }
     }
     
     struct GetForks: RouteType {
