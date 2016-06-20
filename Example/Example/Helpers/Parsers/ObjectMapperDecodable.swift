@@ -30,13 +30,13 @@ import ObjectMapper
 extension Mappable where Self: OperaDecodable {
     
     static func decode(json: AnyObject) throws -> Self {
-        guard let jsonData = json as? [String: AnyObject] else { throw NetworkError.Parsing(error: "Data is not JSON formatted", request: nil, response: nil, json: json) }
+        guard let jsonData = json as? [String: AnyObject] else { throw Error.Parsing(error: "Data is not JSON formatted", request: nil, response: nil, json: json) }
         let map = Map(mappingType: MappingType.FromJSON, JSONDictionary: jsonData, toObject: true)
         if var decoded = Self.init(map) {
             decoded.mapping(map)
             return decoded
         } else {
-            throw NetworkError.Parsing(error: "Object could not be parsed from JSON data", request: nil, response: nil, json: json)
+            throw Error.Parsing(error: "Object could not be parsed from JSON data", request: nil, response: nil, json: json)
         }
     }
     

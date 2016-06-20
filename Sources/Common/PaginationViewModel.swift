@@ -45,7 +45,7 @@ public class PaginationViewModel<PaginationRequest: PaginationRequestType where 
     public let filterTrigger = PublishSubject<FilterType>()
     
     /// Allows subscribers to get notified about networking errors
-    public let networkErrors = PublishSubject<NetworkError>()
+    public let errors = PublishSubject<Error>()
     /// Indicates if there is a next page to load. hasNextPage value is the result of getting next link relation from latest response.
     public let hasNextPage = Variable<Bool>(false)
     /// Indicates is there is a request in progress and what is the request page.
@@ -146,9 +146,9 @@ public class PaginationViewModel<PaginationRequest: PaginationRequestType where 
             .addDisposableTo(disposeBag)
         
         response
-            .doOnNetworkError { [weak self] error throws in
+            .doOnOperaError { [weak self] error throws in
                 guard let mySelf = self else { return }
-                Observable.just(error).bindTo(mySelf.networkErrors).addDisposableTo(mySelf.disposeBag)
+                Observable.just(error).bindTo(mySelf.errors).addDisposableTo(mySelf.disposeBag)
             }
             .doOnError { [weak self] _ in
                 guard let mySelf = self else { return }

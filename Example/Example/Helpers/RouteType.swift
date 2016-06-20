@@ -1,5 +1,5 @@
-//  Request+Rx.swift
-//  Opera ( https://github.com/xmartlabs/Opera )
+//  RouteType.swift
+//  Example-iOS ( https://github.com/xmartlabs/Example-iOS )
 //
 //  Copyright (c) 2016 Xmartlabs SRL ( http://xmartlabs.com )
 //
@@ -22,6 +22,30 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import Foundation
+import Opera
 import Alamofire
-import RxSwift
+
+extension RouteType {
+    
+    var baseURL: NSURL {
+        return NSURL(string: "https://api.github.com")!
+    }
+    
+    var manager: ManagerType {
+        return Manager.singleton
+    }
+    
+    var retryCount: Int {
+        return 2
+    }
+}
+
+
+extension URLRequestSetup {
+    
+    func urlRequestSetup(urlRequest: NSMutableURLRequest) {
+        let _ = Manager.githubAuthorizationToken.map { urlRequest.setValue("token \($0)", forHTTPHeaderField: "Authorization") }
+    }
+}
 

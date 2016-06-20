@@ -114,13 +114,6 @@
 			remoteGlobalIDString = 542B09EB1CB6D5BE00EC2C71;
 			remoteInfo = "Opera-OSXTests";
 		};
-		D2CBFEDE1CC675810059710C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 287D0A741C4B7B26004566D6 /* Opera.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 54F726BE1CBECAA0008D86E8;
-			remoteInfo = "Opera-watchOS";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -139,7 +132,7 @@
 
 /* Begin PBXFileReference section */
 		284E6E3B1CBC1FA9001874B5 /* RepositoryRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryRoute.swift; sourceTree = "<group>"; };
-		284E6E3C1CBC1FA9001874B5 /* RouteType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteType.swift; sourceTree = "<group>"; };
+		284E6E3C1CBC1FA9001874B5 /* RouteType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RouteType.swift; path = Example/Helpers/RouteType.swift; sourceTree = "<group>"; };
 		287D0A711C4B7877004566D6 /* ExampleUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExampleUITests.swift; path = Example/ExampleUITests/ExampleUITests.swift; sourceTree = SOURCE_ROOT; };
 		287D0A741C4B7B26004566D6 /* Opera.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Opera.xcodeproj; sourceTree = "<group>"; };
 		2893A68B1CB5A0770052715B /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Helpers.swift; path = Example/Helpers/Helpers.swift; sourceTree = "<group>"; };
@@ -212,7 +205,6 @@
 			isa = PBXGroup;
 			children = (
 				284E6E3B1CBC1FA9001874B5 /* RepositoryRoute.swift */,
-				284E6E3C1CBC1FA9001874B5 /* RouteType.swift */,
 				544905B81CC6A62800822350 /* UserRoute.swift */,
 			);
 			name = Routes;
@@ -239,6 +231,7 @@
 				542F7E7F1CC0207200E356E3 /* Parsers */,
 				2893A68B1CB5A0770052715B /* Helpers.swift */,
 				2893A68D1CB5A09A0052715B /* Manager.swift */,
+				284E6E3C1CBC1FA9001874B5 /* RouteType.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -477,13 +470,6 @@
 			fileType = wrapper.cfbundle;
 			path = "Opera-OSXTests.xctest";
 			remoteRef = 54DA8A0E1CB7EA7C0044C1D2 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D2CBFEDF1CC675810059710C /* Opera.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Opera.framework;
-			remoteRef = D2CBFEDE1CC675810059710C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

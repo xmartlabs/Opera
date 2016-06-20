@@ -34,7 +34,7 @@ extension GithubAPI {
 
 extension GithubAPI.User {
     
-    struct GetUser: RouteType {
+    struct GetUser: RouteType, URLRequestSetup {
         
         let username: String
         

@@ -1,4 +1,4 @@
-//  NetworkError.swift
+//  Error.swift
 //  Opera ( https://github.com/xmartlabs/Opera )
 //
 //  Copyright (c) 2016 Xmartlabs SRL ( http://xmartlabs.com )
@@ -31,16 +31,16 @@ import Alamofire
  - Networking: Networking errors, most of the time errors thrown by NSURLSession under NSURLErrorDomain domain or by Alamofire library.
  - Parsing:    Represent parsing errors normally thrown by Json parsing library such as Argo or Decodable.
  */
-public enum NetworkError: ErrorType {
+public enum Error: ErrorType {
 
     case Networking(error: NSError, request: NSURLRequest?, response: NSHTTPURLResponse?, json: AnyObject?)
     case Parsing(error: ErrorType, request: NSURLRequest?, response: NSHTTPURLResponse?, json: AnyObject?)
 
 }
 
-extension NetworkError : CustomDebugStringConvertible {
+extension Error : CustomDebugStringConvertible {
 
-    /// A textual representation of NetworkError instance, suitable for debugging.
+    /// A textual representation of Opera.Error instance, suitable for debugging.
     public var debugDescription: String {
 
         switch self {
@@ -79,9 +79,9 @@ extension NetworkError : CustomDebugStringConvertible {
 
 }
 
-extension NetworkError: CustomStringConvertible {
+extension Error: CustomStringConvertible {
 
-    /// A textual representation of NetworkError instance.
+    /// A textual representation of Error instance.
     public var description: String {
         switch self {
         case .Networking(let error, let request, _, _):

@@ -32,7 +32,7 @@ struct GithubAPI {
 
 extension GithubAPI.Repository {
     
-    struct Search: RouteType {
+    struct Search: RouteType, URLRequestSetup {
         
         var method: Alamofire.Method {
             return .GET
@@ -42,9 +42,13 @@ extension GithubAPI.Repository {
             return "search/repositories"
         }
         
+        var retryCount: Int{
+            return 2
+        }
+        
     }
     
-    struct GetInfo: RouteType {
+    struct GetInfo: RouteType, URLRequestSetup {
         
         let owner: String
         let repo: String

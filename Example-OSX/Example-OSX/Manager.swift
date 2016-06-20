@@ -24,35 +24,15 @@
 
 import Foundation
 import Alamofire
+import Opera
 
-
-class Manager: Alamofire.Manager {
-    
-    static let singleton = Manager()
+class Manager: Opera.Manager {
     
     // Add a Github personal access token to have more requests per hour
     static let githubAuthorizationToken: String? = nil
+    static let singleton = Manager(manager: Alamofire.Manager.sharedInstance)
     
-    override init?(session: NSURLSession, delegate: Manager.SessionDelegate, serverTrustPolicyManager: ServerTrustPolicyManager? = nil) {
-        super.init(session: session, delegate: delegate, serverTrustPolicyManager: serverTrustPolicyManager)
-    }
-    
-    override init(configuration: NSURLSessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: Alamofire.Manager.SessionDelegate = SessionDelegate(), serverTrustPolicyManager: Alamofire.ServerTrustPolicyManager? = nil)
-    {
-        super.init(configuration: configuration, delegate: delegate, serverTrustPolicyManager: serverTrustPolicyManager)
-    }
-    
-    override func request(URLRequest: URLRequestConvertible) -> Alamofire.Request {
-        let request = URLRequest.URLRequest
-        if let token = Manager.githubAuthorizationToken { request.setValue("token \(token)", forHTTPHeaderField: "Authorization") }
-        let result = super.request(request)
-        debugPrint(result)
-        return result
-    }
-    
-    override func request(method: Alamofire.Method, _ URLString: URLStringConvertible, parameters: [String : AnyObject]?, encoding: ParameterEncoding, headers: [String : String]?) -> Alamofire.Request {
-        let result = super.request(method, URLString, parameters: parameters, encoding: encoding, headers: headers)
-        debugPrint(result)
-        return result
+    override init(manager: Alamofire.Manager) {
+        super.init(manager: manager)
     }
 }

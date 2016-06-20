@@ -28,17 +28,14 @@ import Foundation
 /**
  *  The response object returned by a successful request
  */
-public struct OperaResponse: CustomDebugStringConvertible, Equatable {
+public struct OperaResponse {
     public let statusCode: Int
     public let data: NSData
     public let response: NSHTTPURLResponse?
     
-    public init(statusCode: Int, data: NSData, response: NSHTTPURLResponse? = nil) {
-        self.statusCode = statusCode
-        self.data = data
-        self.response = response
-    }
-    
+}
+
+extension OperaResponse: CustomDebugStringConvertible, Equatable{
     public var description: String {
         return "Response Status Code: \(statusCode)"
     }

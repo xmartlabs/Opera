@@ -24,7 +24,6 @@
 
 import Foundation
 import Alamofire
-import RxSwift
 
 struct Default {
     static let firstPageParameterValue = "1"
@@ -36,13 +35,7 @@ struct Default {
     
 }
 
-/**
- *  A type that adopts PaginationRequestType encapsulates information required to fetch and filter a collection of items from a server endpoint. It can be used to create a pagination request. The request will take into account page, query, route, filter properties.
- */
-public protocol PaginationRequestType: URLRequestConvertible {
-    
-    associatedtype Response: PaginationResponseType
-    
+public protocol BasePaginationRequestType: URLRequestConvertible {
     /// Route
     var route: RouteType { get }
     /// Page, represent request page parameter
@@ -53,6 +46,16 @@ public protocol PaginationRequestType: URLRequestConvertible {
     var filter: FilterType? { get }
     /// keyPath to get the parseable json array.
     var collectionKeyPath: String? { get }
+}
+
+/**
+ *  A type that adopts PaginationRequestType encapsulates information required to fetch and filter a collection of items from a server endpoint. It can be used to create a pagination request. The request will take into account page, query, route, filter properties.
+ */
+public protocol PaginationRequestType: BasePaginationRequestType {
+    
+    associatedtype Response: PaginationResponseType
+    
+    
     
     /**
      Creates a new PaginationRequestType equals to self but updating the page value.
@@ -95,7 +98,7 @@ public protocol PaginationRequestType: URLRequestConvertible {
     init(route: RouteType, page: String?, query: String?, filter: FilterType?, collectionKeyPath: String?)
 }
 
-extension PaginationRequestType {
+extension BasePaginationRequestType {
     
 //MARK: URLRequestConvertible conformance
     
@@ -109,11 +112,7 @@ extension PaginationRequestType {
         (self as? URLRequestSetup)?.urlRequestSetup(mutableURLRequest)
         return mutableURLRequest
     }
-}
-
-
-extension PaginationRequestType {
-
+    
     /// Pagination request parameters
     var parameters: [String: AnyObject]? {
         var result = route.parameters ?? [:]
@@ -126,6 +125,10 @@ extension PaginationRequestType {
         }
         return result
     }
+}
+
+
+extension PaginationRequestType {
 
     public func routeWithPage(page: String) -> Self {
         return Self.init(route: route, page: page, query: query, filter: filter, collectionKeyPath: collectionKeyPath)
@@ -139,51 +142,4 @@ extension PaginationRequestType {
         return Self.init(route: route, page: (self as? PaginationRequestTypeSettings)?.firstPageParameterValue ?? Default.firstPageParameterValue, query: query, filter: filter, collectionKeyPath: collectionKeyPath)
     }
 
-}
-
-extension PaginationRequestType where Response.Element: OperaDecodable {
-    
-    /**
-     Returns an `Observable` of [Response] for the PaginationRequestType instance. If something goes wrong a NetworkError error is propagated through the result sequence.
-     
-     - returns: An instance of `Observable<Response>`
-     */
-    func rx_collection() -> Observable<Response> {
-        let myPage = page
-        return Observable.create { subscriber in
-            let req = self.route.request(self) { result in
-                let serialized: Alamofire.Response<[Response.Element], NetworkError> = result.serializeCollection(self.collectionKeyPath)
-                switch serialized.result {
-                case .Failure(let error):
-                    subscriber.onError(error)
-                case .Success(let elements):
-                    let response = Response.init(elements: elements,
-                                    previousPage: serialized.response?.linkPagePrameter((self as? WebLinkingSettings)?.prevRelationName ?? Default.prevRelationName,
-                                    pageParameterName: (self as? WebLinkingSettings)?.relationPageParamName ?? Default.relationPageParamName),
-                                    nextPage: serialized.response?.linkPagePrameter((self as? WebLinkingSettings)?.nextRelationName ?? Default.nextRelationName,
-                                    pageParameterName: (self as? WebLinkingSettings)?.relationPageParamName ?? Default.relationPageParamName),
-                                    page: myPage
-                    )
-                    subscriber.onNext(response)
-                    subscriber.onCompleted()
-                }
-            }
-            return AnonymousDisposable {
-                req.cancel()
-            }
-        }
-
-//        let myRequest = route.manager.request(self).validate()
-//        let myPage = page
-//        return myRequest.rx_collection(collectionKeyPath).map({ elements -> Response in
-//            return Response.init(elements: elements,
-//                             previousPage: myRequest.response?.linkPagePrameter((self as? WebLinkingSettings)?.prevRelationName ?? Default.prevRelationName,
-//                                pageParameterName: (self as? WebLinkingSettings)?.relationPageParamName ?? Default.relationPageParamName),
-//                                 nextPage: myRequest.response?.linkPagePrameter((self as? WebLinkingSettings)?.nextRelationName ?? Default.nextRelationName,
-//                                    pageParameterName: (self as? WebLinkingSettings)?.relationPageParamName ?? Default.relationPageParamName),
-//                                     page: myPage
-//            )
-//        })
-    }
-    
 }
