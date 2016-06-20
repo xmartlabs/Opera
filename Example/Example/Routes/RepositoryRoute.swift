@@ -32,7 +32,7 @@ struct GithubAPI {
 
 extension GithubAPI.Repository {
         
-    struct Search: RouteType {
+    struct Search: RouteType, URLRequestSetup {
         
         var method: Alamofire.Method {
             return .GET
@@ -41,10 +41,9 @@ extension GithubAPI.Repository {
         var path: String {
             return "search/repositories"
         }
-        
     }
     
-    struct GetInfo: RouteType {
+    struct GetInfo: RouteType, URLRequestSetup {
         
         let owner: String
         let repo: String
@@ -62,7 +61,7 @@ extension GithubAPI.Repository {
         }
     }
     
-    struct GetForks: RouteType {
+    struct GetForks: RouteType, URLRequestSetup {
         
         let owner: String
         let repo: String
@@ -77,7 +76,7 @@ extension GithubAPI.Repository {
         
     }
     
-    struct GetStargazers: RouteType {
+    struct GetStargazers: RouteType, URLRequestSetup {
         
         let owner: String
         let repo: String
@@ -92,7 +91,7 @@ extension GithubAPI.Repository {
         
     }
     
-    struct GetIssues: RouteType {
+    struct GetIssues: RouteType, URLRequestSetup {
         
         let owner: String
         let repo: String
@@ -107,7 +106,7 @@ extension GithubAPI.Repository {
         
     }
     
-    struct GetPullRequests: RouteType {
+    struct GetPullRequests: RouteType, URLRequestSetup {
         
         let owner: String
         let repo: String
@@ -122,7 +121,7 @@ extension GithubAPI.Repository {
         
     }
     
-    struct GetBranches: RouteType {
+    struct GetBranches: RouteType, URLRequestSetup {
         
         let owner: String
         let repo: String
@@ -137,7 +136,7 @@ extension GithubAPI.Repository {
         
     }
     
-    struct GetReleases: RouteType {
+    struct GetReleases: RouteType, URLRequestSetup {
         
         let owner: String
         let repo: String
@@ -152,7 +151,7 @@ extension GithubAPI.Repository {
         
     }
     
-    struct GetCommits: RouteType {
+    struct GetCommits: RouteType, URLRequestSetup {
         
         let owner: String
         let repo: String
@@ -167,7 +166,7 @@ extension GithubAPI.Repository {
         
     }
     
-    struct GetContributors: RouteType {
+    struct GetContributors: RouteType, URLRequestSetup {
         
         let owner: String
         let repo: String

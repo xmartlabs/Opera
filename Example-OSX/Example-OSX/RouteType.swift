@@ -31,13 +31,19 @@ extension RouteType {
     var baseURL: NSURL {
         return NSURL(string: "https://api.github.com")!
     }
-   
-    var manager: Alamofire.Manager {
+    
+    var manager: ManagerType {
         return Manager.singleton
     }
     
     var retryCount: Int {
         return 0
     }
+}
+
+extension URLRequestSetup {
     
+    func urlRequestSetup(urlRequest: NSMutableURLRequest) {
+        let _ = Manager.githubAuthorizationToken.map { urlRequest.setValue("token \($0)", forHTTPHeaderField: "Authorization") }
+    }
 }

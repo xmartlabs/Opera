@@ -31,13 +31,8 @@ import Alamofire
  */
 public struct OperaResult {
     
-    var result: Result<OperaResponse, NetworkError>
-    var request: URLRequestConvertible
-    
-    public init(request: URLRequestConvertible, result: Result<OperaResponse, NetworkError>) {
-        self.result = result
-        self.request = request
-    }
+    public var result: Result<OperaResponse, Error>
+    public var requestConvertible: URLRequestConvertible
     
 }
 
@@ -50,27 +45,27 @@ extension OperaResult {
      
      - returns: The serialized object or an error.
      */
-    public func serializeObject<T: OperaDecodable>(keyPath: String? = nil) -> Response<T, NetworkError> {
+    public func serializeObject<T: OperaDecodable>(keyPath: String? = nil) -> Response<T, Error> {
         switch result {
         case let .Success(value):
-            let result = OperaResult.serialize(nil, response: value.response, data: value.data, error: nil, onSuccess: { (result, json) -> Result<T, NetworkError> in
+            let result = OperaResult.serialize(nil, response: value.response, data: value.data, error: nil, onSuccess: { (result, json) -> Result<T, Error> in
                 if let object = keyPath.map({ json.valueForKeyPath($0)}) ?? json {
                     do {
                         let decodedData = try T.decode(object)
                         return .Success(decodedData)
                     }
                     catch let error {
-                        return .Failure(NetworkError.Parsing(error: error, request: self.request.URLRequest, response: value.response, json: json))
+                        return .Failure(.Parsing(error: error, request: self.requestConvertible.URLRequest, response: value.response, json: json))
                     }
                 } else {
                     let failureReason = "Json response could not be found"
-                    let error = Error.errorWithCode(.JSONSerializationFailed, failureReason: failureReason)
-                    return .Failure(NetworkError.Networking(error: error, request: self.request.URLRequest, response: value.response, json: json))
+                    let error = Alamofire.Error.errorWithCode(.JSONSerializationFailed, failureReason: failureReason)
+                    return .Failure(.Networking(error: error, request: self.requestConvertible.URLRequest, response: value.response, json: json))
                 }
             })
-            return Response(request: request.URLRequest, response: value.response, data: value.data, result: result)
+            return Response(request: requestConvertible.URLRequest, response: value.response, data: value.data, result: result)
         case let .Failure(error):
-            return Response(request: request.URLRequest, response: nil, data: nil, result: .Failure(error))
+            return Response(request: requestConvertible.URLRequest, response: nil, data: nil, result: .Failure(error))
         }
     }
     
@@ -81,10 +76,10 @@ extension OperaResult {
      
      - returns: The serialized objects or an error.
      */
-    public func serializeCollection<T: OperaDecodable>(collectionKeyPath: String? = nil) -> Response<[T], NetworkError>  {
+    public func serializeCollection<T: OperaDecodable>(collectionKeyPath: String? = nil) -> Response<[T], Error>  {
         switch result {
         case let .Success(value):
-            let result = OperaResult.serialize(nil, response: value.response, data: value.data, error: nil, onSuccess: { (result, json) -> Result<[T], NetworkError> in
+            let result = OperaResult.serialize(nil, response: value.response, data: value.data, error: nil, onSuccess: { (result, json) -> Result<[T], Error> in
                 if let representation = (collectionKeyPath.map { json.valueForKeyPath($0) } ?? json) as? [[String: AnyObject]] {
                     var result = [T]()
                     for userRepresentation in representation {
@@ -93,40 +88,40 @@ extension OperaResult {
                             result.append(decodedData)
                         }
                         catch let error {
-                            return .Failure(NetworkError.Parsing(error: error, request: self.request.URLRequest, response: value.response, json: json))
+                            return .Failure(.Parsing(error: error, request: self.requestConvertible.URLRequest, response: value.response, json: json))
                         }
                     }
                     return .Success(result)
                 } else {
                     let failureReason = "Json Response collection could not be found"
-                    let error = Error.errorWithCode(.JSONSerializationFailed, failureReason: failureReason)
-                    return .Failure(NetworkError.Networking(error: error, request: self.request.URLRequest, response: value.response, json: json))
+                    let error = Alamofire.Error.errorWithCode(.JSONSerializationFailed, failureReason: failureReason)
+                    return .Failure(.Networking(error: error, request: self.requestConvertible.URLRequest, response: value.response, json: json))
                 }
             })
-            return Response(request: request.URLRequest, response: value.response, data: value.data, result: result)
+            return Response(request: requestConvertible.URLRequest, response: value.response, data: value.data, result: result)
         case let .Failure(error):
-            return Response(request: request.URLRequest, response: nil, data: nil, result: .Failure(error))
+            return Response(request: requestConvertible.URLRequest, response: nil, data: nil, result: .Failure(error))
         }
     }
     
     
     /**
-     Generic response object serialization. Notice that Response Error type is NetworkError.
+     Generic response object serialization. Notice that Response Error type is Opera.Error.
      
      - returns: The json object from the response or an error
      */
-    public func serializeAnyObject() -> Response<AnyObject, NetworkError> {
+    public func serializeAnyObject() -> Response<AnyObject, Error> {
         switch result {
         case let .Success(value):
-            let result = OperaResult.serialize(nil, response: value.response, data: value.data, error: nil, onSuccess: { (result, json) -> Result<AnyObject, NetworkError> in
+            let result = OperaResult.serialize(nil, response: value.response, data: value.data, error: nil, onSuccess: { (result, json) -> Result<AnyObject, Error> in
                 if let _ = value.response { return .Success(json) }
                 let failureReason = "JSON could not be serialized into response object"
-                let error = Error.errorWithCode(.JSONSerializationFailed, failureReason: failureReason)
-                return .Failure(NetworkError.Networking(error: error, request: self.request.URLRequest, response: value.response, json: json))
+                let error = Alamofire.Error.errorWithCode(.JSONSerializationFailed, failureReason: failureReason)
+                return .Failure(.Networking(error: error, request: self.requestConvertible.URLRequest, response: value.response, json: json))
             })
-            return Response(request: request.URLRequest, response: value.response, data: value.data, result: result)
+            return Response(request: requestConvertible.URLRequest, response: value.response, data: value.data, result: result)
         case let .Failure(error):
-            return Response(request: request.URLRequest, response: nil, data: nil, result: .Failure(error))
+            return Response(request: requestConvertible.URLRequest, response: nil, data: nil, result: .Failure(error))
         }
     }
     
@@ -134,9 +129,9 @@ extension OperaResult {
                                   response: NSHTTPURLResponse?,
                                   data: NSData?,
                                   error: NSError?,
-                                  onSuccess: (Result<AnyObject, NSError>, AnyObject) -> Result<T, NetworkError>)
-        -> Result<T, NetworkError> {
-            guard error == nil else { return .Failure(NetworkError.Networking(error: error!, request: request, response: response, json: data)) }
+                                  onSuccess: (Result<AnyObject, NSError>, AnyObject) -> Result<T, Error>)
+        -> Result<T, Error> {
+            guard error == nil else { return .Failure(.Networking(error: error!, request: request, response: response, json: data)) }
             let JSONResponseSerializer = Request.JSONResponseSerializer(options: .AllowFragments)
             let result = JSONResponseSerializer.serializeResponse(request, response, data, error)
             
@@ -144,15 +139,15 @@ extension OperaResult {
             case .Success(let value):
                 guard let _ = response else {
                     let failureReason = "JSON could not be serialized into response object: \(value)"
-                    let error = Error.errorWithCode(.JSONSerializationFailed, failureReason: failureReason)
-                    return .Failure(NetworkError.Networking(error: error, request: request, response: response, json: data))
+                    let error = Alamofire.Error.errorWithCode(.JSONSerializationFailed, failureReason: failureReason)
+                    return .Failure(.Networking(error: error, request: request, response: response, json: data))
                 }
                 return onSuccess(result, value)
                 
             case .Failure(let error):
                 var userInfo = error.userInfo
                 userInfo["responseData"] = result.value ?? data
-                return .Failure(NetworkError.Networking(error: NSError(domain: error.domain, code: error.code, userInfo: userInfo), request: request, response: response, json: result.value ?? data))
+                return .Failure(.Networking(error: NSError(domain: error.domain, code: error.code, userInfo: userInfo), request: request, response: response, json: result.value ?? data))
             }
     }
 }

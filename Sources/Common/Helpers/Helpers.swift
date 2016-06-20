@@ -28,16 +28,16 @@ import RxSwift
 extension ObservableType {
 
     /**
-     Helper to handle any NetworkError in the observable sequence, and propagates all observer messages through the result sequence. Note that callback is not invoked for errors different to NetworkError. In this cases you should use onError directly.
+     Helper to handle any Error in the observable sequence, and propagates all observer messages through the result sequence. Note that callback is not invoked for errors different to Opera.Error. In this cases you should use onError directly.
 
-     - parameter onError: Action to invoke upon NetworkError errored termination of the observable sequence.
+     - parameter onError: Action to invoke upon Opera.Error errored termination of the observable sequence.
 
      - returns: The source sequence with the side-effecting behavior applied.
      */
     @warn_unused_result(message="http://git.io/rxs.uo")
-    public func doOnNetworkError(onError: (NetworkError throws -> Void)) -> Observable<E> {
+    public func doOnOperaError(onError: (Error throws -> Void)) -> Observable<E> {
         return self.doOnError() { error in
-            guard let error = error as? NetworkError else { return }
+            guard let error = error as? Error else { return }
             try onError(error)
         }
     }
