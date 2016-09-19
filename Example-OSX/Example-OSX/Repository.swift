@@ -37,14 +37,14 @@ struct Repository {
     let openIssues: Int
     let stargazersCount: Int
     let forksCount: Int
-    let url: NSURL
-    let createdAt: NSDate
+    let url: URL
+    let createdAt: Date
     
 }
 
 extension Repository: OperaDecodable,  Decodable {
     
-    static func decode(j: AnyObject) throws -> Repository {
+    static func decode(_ j: AnyObject) throws -> Repository {
         return try Repository.init(  id: j => "id",
                                      name: j => "name",
                                      desc: j =>? "description",
@@ -53,17 +53,17 @@ extension Repository: OperaDecodable,  Decodable {
                                      openIssues: j => "open_issues_count",
                                      stargazersCount: j => "stargazers_count",
                                      forksCount: j => "forks_count",
-                                     url: NSURL(string: j => "url")!,
+                                     url: URL(string: j => "url")!,
                                      createdAt: j => "created_at")
     }
 }
 
-extension NSDate: Decodable  {
+extension Date: Decodable  {
     
-    public class func decode(json: AnyObject) throws -> Self {
+    public static func decode(_ json: AnyObject) throws -> Date {
         let string = try String.decode(json)
         guard let date = string.toDate(DateFormat.ISO8601Format(.Full)) else {
-            throw TypeMismatchError(expectedType: NSDate.self, receivedType: String.self, object: json)
+            throw TypeMismatchError(expectedType: Date.self, receivedType: String.self, object: json)
         }
         return self.init(timeIntervalSince1970: date.timeIntervalSince1970)
     }

@@ -38,28 +38,28 @@ class ViewController: NSViewController {
         setupTableView()
     }
 
-    private func showEmptyStateView(show: Bool) {
-        emptyStateView.hidden = !show
-        tableView.hidden = show
+    fileprivate func showEmptyStateView(_ show: Bool) {
+        emptyStateView.isHidden = !show
+        tableView.isHidden = show
     }
     
-    private func setDelegates() {
-        tableView.setDelegate(self)
-        tableView.setDataSource(self)
+    fileprivate func setDelegates() {
+        tableView.delegate = self
+        tableView.dataSource = self
         tableView.target = self
         tableView.doubleAction = #selector(ViewController.tableViewDoubleClick(_:))
     }
     
-    func tableViewDoubleClick(sender: AnyObject) {
+    func tableViewDoubleClick(_ sender: AnyObject) {
         guard tableView.selectedRow >= 0 else {
             return
         }
         selectedRepository = viewModel.elements.value[tableView.selectedRow]
-        performSegueWithIdentifier(SegueIdentifiers.ShowInformationSegue, sender: nil)
+        performSegue(withIdentifier: SegueIdentifiers.ShowInformationSegue, sender: nil)
     }
     
     
-    private func setupTableView() {
+    fileprivate func setupTableView() {
         searchBar.rx_text
             .filter { !$0.isEmpty }
             .throttle(0.50, scheduler: MainScheduler.instance)
@@ -111,7 +111,7 @@ class ViewController: NSViewController {
             .addDisposableTo(disposeBag)
     }
     
-    @IBAction func getNextPage(sender: AnyObject) {
+    @IBAction func getNextPage(_ sender: AnyObject) {
         guard !searchBar.stringValue.isEmpty else {
             return
         }
@@ -120,7 +120,7 @@ class ViewController: NSViewController {
         pageIndicator.stringValue = String(Int(pageIndicator.stringValue)! + 1)
     }
     
-    @IBAction func refresh(sender: AnyObject) {
+    @IBAction func refresh(_ sender: AnyObject) {
         guard !searchBar.stringValue.isEmpty else {
             return
         }
@@ -129,7 +129,7 @@ class ViewController: NSViewController {
         pageIndicator.stringValue = "1"
     }
 
-    override func prepareForSegue(segue: NSStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if let toViewController = segue.destinationController as? InfoViewController {
             if let repositoryToShow = selectedRepository {
                 toViewController.repository = repositoryToShow
@@ -140,7 +140,7 @@ class ViewController: NSViewController {
 
 extension ViewController : NSTableViewDataSource {
     
-    func numberOfRowsInTableView(tableView: NSTableView) -> Int {
+    func numberOfRows(in tableView: NSTableView) -> Int {
         return viewModel.elements.value.count ?? 0
     }
     
@@ -148,7 +148,7 @@ extension ViewController : NSTableViewDataSource {
 
 extension ViewController : NSTableViewDelegate {
     
-    func tableView(tableView: NSTableView, viewForTableColumn tableColumn: NSTableColumn?, row: Int) -> NSView? {
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
         var text:String = ""
         var cellIdentifier: String = ""
@@ -162,7 +162,7 @@ extension ViewController : NSTableViewDelegate {
             cellIdentifier = "StarsCell"
         }
         
-        if let cell = tableView.makeViewWithIdentifier(cellIdentifier, owner: self) as? NSTableCellView {
+        if let cell = tableView.make(withIdentifier: cellIdentifier, owner: self) as? NSTableCellView {
             cell.textField?.stringValue = text
             return cell
         }

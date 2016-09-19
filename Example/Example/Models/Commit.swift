@@ -29,9 +29,9 @@ import Decodable
 struct Commit {
     
     let sha: String
-    let url: NSURL
+    let url: URL
     let author: String
-    let date: NSDate
+    let date: Date
     let message: String
     
     
@@ -39,9 +39,9 @@ struct Commit {
 
 extension Commit: OperaDecodable, Decodable {
     
-    static func decode(j: AnyObject) throws -> Commit {
+    static func decode(_ j: Any) throws -> Commit {
         return try Commit(  sha: j => "sha",
-              url: NSURL(string: j => "url")!,
+              url: URL(string: j => "url")!,
                          author: j => ["commit", "author", "name"],
                            date: j => ["commit", "author", "date"],
                         message: j => ["commit", "message"])

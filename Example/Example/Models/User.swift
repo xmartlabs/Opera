@@ -30,7 +30,7 @@ struct User {
     
     let id: Int
     let user: String
-    let avatar: NSURL
+    let avatar: URL
     let type: String
     let contributions: Int
     
@@ -38,10 +38,10 @@ struct User {
 
 extension User: OperaDecodable, Decodable {
     
-    static func decode(j: AnyObject) throws -> User {
+    static func decode(_ j: Any) throws -> User {
         return try User(  id: j => "id",
                         user: j => "login",
-        avatar: NSURL(string: j => "avatar_url")!,
+        avatar: URL(string: j => "avatar_url")!,
                         type: j => "type",
                contributions: j => "contributions")
         

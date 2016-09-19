@@ -38,7 +38,7 @@ struct Release {
 
 extension Release: OperaDecodable, Decodable {
     
-    static func decode(j: AnyObject) throws -> Release {
+    static func decode(_ j: Any) throws -> Release {
         return try Release(  id: j => "id",
                              name: j => "name",
                              tagName: j => "tag_name",

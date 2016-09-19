@@ -27,6 +27,7 @@ import Opera
 import Argo
 import Curry
 import SwiftDate
+import Runes
 
 struct UserRepository {
     
@@ -38,13 +39,13 @@ struct UserRepository {
     let stargazers: Int
     let watchers: Int
     let issues: Int
-    let createdAt: NSDate
+    let createdAt: Date
     
 }
 
 extension UserRepository: OperaDecodable, Argo.Decodable {
     
-    static func decode(j: JSON) -> Decoded<UserRepository> {
+    static func decode(_ j: Argo.JSON) -> Argo.Decoded<UserRepository> {
         return curry(UserRepository.init)
             <^> j <| "id"
             <*> j <| ["owner", "login"]
@@ -59,14 +60,14 @@ extension UserRepository: OperaDecodable, Argo.Decodable {
     
 }
 
-extension NSDate: Argo.Decodable {
-    public typealias DecodedType = NSDate
+extension Date: Argo.Decodable {
+    public typealias DecodedType = Date
     
-    public class func decode(j: JSON) -> Decoded<NSDate> {
+    public static func decode(_ j: Argo.JSON) -> Argo.Decoded<Date> {
         switch j {
-        case .String(let dateString):
-            return  dateString.toDate(DateFormat.ISO8601Format(.Full)).map(pure) ?? .typeMismatch("NSDate", actual: j)
-        default: return .typeMismatch("NSDate", actual: j)
+        case .string(let dateString):
+            return  dateString.toDate(format: DateFormat.iso8601Format(.full)).map(pure)! //?? Argo.Decoded.typeMismatch(expected: "Date", actual: j)
+        default: return .typeMismatch(expected: "Date", actual: j)
         }
     }
 }

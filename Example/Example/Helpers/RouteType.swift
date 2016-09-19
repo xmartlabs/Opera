@@ -28,8 +28,8 @@ import Alamofire
 
 extension RouteType {
     
-    var baseURL: NSURL {
-        return NSURL(string: "https://api.github.com")!
+    var baseURL: URL {
+        return URL(string: "https://api.github.com")!
     }
     
     var manager: ManagerType {
@@ -44,7 +44,7 @@ extension RouteType {
 
 extension URLRequestSetup {
     
-    func urlRequestSetup(urlRequest: NSMutableURLRequest) {
+    func urlRequestSetup(_ urlRequest: inout URLRequest) {
         let _ = Manager.githubAuthorizationToken.map { urlRequest.setValue("token \($0)", forHTTPHeaderField: "Authorization") }
     }
 }

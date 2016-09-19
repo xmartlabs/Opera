@@ -37,7 +37,7 @@ extension RouteType {
      
      - returns: An instance of `Observable<T>`
      */
-    public func rx_object<T: OperaDecodable>(keyPath: String? = nil) -> Observable<T> {
+    public func rx_object<T: OperaDecodable>(_ keyPath: String? = nil) -> Observable<T> {
         return (manager as! RxManager).rx_object(self, keyPath: keyPath)
     }
     
@@ -49,7 +49,7 @@ extension RouteType {
      
      - returns: An instance of `Observable<[T]>`
      */
-    public func rx_collection<T: OperaDecodable>(collectionKeyPath:String? = nil) -> Observable<[T]> {
+    public func rx_collection<T: OperaDecodable>(_ collectionKeyPath:String? = nil) -> Observable<[T]> {
         return (manager as! RxManager).rx_collection(self, collectionKeyPath: collectionKeyPath)
     }
     
@@ -58,7 +58,7 @@ extension RouteType {
      
      - returns: An instance of `Observable<AnyObject>`
      */
-    public func rx_anyObject() -> Observable<AnyObject> {
-        return (manager as! RxManager).rx_anyObject(self)
+    public func rx_anyObject() -> Observable<Any> {
+        return (manager as! RxManager).rx_any(self)
     }
 }

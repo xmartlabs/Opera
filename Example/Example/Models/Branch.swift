@@ -34,8 +34,9 @@ struct Branch {
 }
 
 extension Branch: OperaDecodable, Mappable {
+
     
-    init?(_ map: Map) {
+    init?(map: Map) {
         
     }
     

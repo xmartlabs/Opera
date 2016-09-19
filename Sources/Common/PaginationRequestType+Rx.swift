@@ -20,11 +20,11 @@ extension PaginationRequestType where Response.Element: OperaDecodable {
     func rx_collection() -> Observable<Response> {
         let myPage = page
         return (route.manager as! RxManager).rx_response(self).flatMap { operaResult -> Observable<Response> in
-            let serialized: Alamofire.Response<[Response.Element], Error> = operaResult.serializeCollection(self.collectionKeyPath)
+            let serialized: DataResponse<[Response.Element]> = operaResult.serializeCollection(self.collectionKeyPath)
             switch serialized.result {
-            case .Failure(let error):
+            case .failure(let error):
                 return Observable.error(error)
-            case .Success(let elements):
+            case .success(let elements):
                 let response = Response.init(elements: elements,
                     previousPage: serialized.response?.linkPagePrameter((self as? WebLinkingSettings)?.prevRelationName ?? Default.prevRelationName,
                         pageParameterName: (self as? WebLinkingSettings)?.relationPageParamName ?? Default.relationPageParamName),

@@ -38,8 +38,8 @@ extension GithubAPI.User {
         
         let username: String
         
-        var method: Alamofire.Method {
-            return .GET
+        var method: Alamofire.HTTPMethod {
+            return .get
         }
         
         var path: String {

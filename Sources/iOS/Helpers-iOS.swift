@@ -31,7 +31,7 @@ extension UIControl {
     
     /// Reactive wrapper for UIControlEvents.ValueChanged target action pattern.
     public var rx_valueChanged: ControlEvent<Void> {
-        return rx_controlEvent(.ValueChanged)
+        return rx.controlEvent(.valueChanged)
     }
 }
 
@@ -39,7 +39,7 @@ extension UIScrollView {
     
     /// Reactive observable that emit items whenever scroll view contentOffset.y is close to contentSize.height
     public var rx_reachedBottom: Observable<Void> {
-        return rx_contentOffset
+        return rx.contentOffset
             .flatMap { [weak self] contentOffset -> Observable<Void> in
                 guard let scrollView = self else {
                     return Observable.empty()
@@ -49,7 +49,7 @@ extension UIScrollView {
                 let y = contentOffset.y + scrollView.contentInset.top
                 let threshold = max(0.0, scrollView.contentSize.height - visibleHeight)
                 
-                return y > threshold ? Observable.just() : Observable.empty()
+                return y > threshold ? Observable.just(Void()) : Observable.empty()
         }
     }
 }

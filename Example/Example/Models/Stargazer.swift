@@ -35,7 +35,7 @@ struct Stargazer {
 
 extension Stargazer: OperaDecodable, Decodable {
     
-    static func decode(j: AnyObject) throws -> Stargazer {
+    static func decode(_ j: Any) throws -> Stargazer {
         return try Stargazer.init(  name: j => "login",
                                avatarURL: j => "avatar_url")
     }

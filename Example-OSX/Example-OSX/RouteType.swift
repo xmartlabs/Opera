@@ -43,7 +43,7 @@ extension RouteType {
 
 extension URLRequestSetup {
     
-    func urlRequestSetup(urlRequest: NSMutableURLRequest) {
+    func urlRequestSetup(_ urlRequest: NSMutableURLRequest) {
         let _ = Manager.githubAuthorizationToken.map { urlRequest.setValue("token \($0)", forHTTPHeaderField: "Authorization") }
     }
 }

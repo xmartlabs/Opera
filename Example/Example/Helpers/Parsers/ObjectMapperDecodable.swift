@@ -29,18 +29,18 @@ import ObjectMapper
 
 extension Mappable where Self: OperaDecodable {
     
-    static func decode(json: AnyObject) throws -> Self {
-        guard let jsonData = json as? [String: AnyObject] else { throw Error.Parsing(error: "Data is not JSON formatted", request: nil, response: nil, json: json) }
-        let map = Map(mappingType: MappingType.FromJSON, JSONDictionary: jsonData, toObject: true)
-        if var decoded = Self.init(map) {
-            decoded.mapping(map)
+    static func decode(_ json: Any) throws -> Self {
+        guard let jsonData = json as? [String: Any] else { throw OperaError.parsing(error: "Data is not JSON formatted", request: nil, response: nil, json: json) }
+        let map = Map(mappingType: MappingType.fromJSON, JSON: jsonData, toObject: true)
+        if var decoded = Self.init(map: map) {
+            decoded.mapping(map: map)
             return decoded
         } else {
-            throw Error.Parsing(error: "Object could not be parsed from JSON data", request: nil, response: nil, json: json)
+            throw OperaError.parsing(error: "Object could not be parsed from JSON data", request: nil, response: nil, json: json)
         }
     }
     
 }
 
-extension String: ErrorType {
+extension String: Error {
 }

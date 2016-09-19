@@ -34,16 +34,16 @@ extension ObservableType {
 
      - returns: The source sequence with the side-effecting behavior applied.
      */
-    @warn_unused_result(message="http://git.io/rxs.uo")
-    public func doOnOperaError(onError: (Error throws -> Void)) -> Observable<E> {
-        return self.doOnError() { error in
-            guard let error = error as? Error else { return }
+    
+    public func doOnOperaError(_ onError: @escaping ((Error) throws -> Void)) -> Observable<E> {
+        return self.do(onError: { error in
+            guard let error = error as? OperaError else { return }
             try onError(error)
-        }
+        })
     }
 }
 
-extension NSHTTPURLResponse {
+extension HTTPURLResponse {
 
     /**
      Get page parameter value from a particular link relation
@@ -53,17 +53,17 @@ extension NSHTTPURLResponse {
      
      - returns: The page parameter value.
      */
-    func linkPagePrameter(relation: String, pageParameterName: String) -> String? {
+    func linkPagePrameter(_ relation: String, pageParameterName: String) -> String? {
         guard let uri = self.findLink(relation: relation)?.uri else { return nil }
-        let components = NSURLComponents(string: uri)
+        let components = URLComponents(string: uri)
         return components?.queryItems?.filter { $0.name == pageParameterName }.first?.value
     }
 }
 
-func JSONStringify(value: AnyObject, prettyPrinted: Bool = true) -> String {
-    let options: NSJSONWritingOptions = prettyPrinted ? .PrettyPrinted : []
-    if NSJSONSerialization.isValidJSONObject(value) {
-        if let data = try? NSJSONSerialization.dataWithJSONObject(value, options: options), let string = NSString(data: data, encoding: NSUTF8StringEncoding) {
+func JSONStringify(_ value: Any, prettyPrinted: Bool = true) -> String {
+    let options: JSONSerialization.WritingOptions = prettyPrinted ? .prettyPrinted : []
+    if JSONSerialization.isValidJSONObject(value) {
+        if let data = try? JSONSerialization.data(withJSONObject: value, options: options), let string = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
             return string as String
         }
     }

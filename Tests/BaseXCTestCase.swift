@@ -31,11 +31,11 @@ class BaseXCTextCase: XCTestCase {
     
 }
 
-extension NSURL {
+extension URL {
     
     func parameters() -> [String:String] {
         var result = [String: String]()
-        let urlStringParametersPart = URLString.characters.split{$0 == "?"}.map(String.init)[1]
+        let urlStringParametersPart = absoluteString.characters.split{$0 == "?"}.map(String.init)[1]
         let splittedParametersIndividually = urlStringParametersPart.characters.split{$0 == "&"}.map(String.init)
         for parameter in splittedParametersIndividually {
             let parameterAndValue = parameter.characters.split{$0 == "="}.map(String.init)
@@ -45,30 +45,32 @@ extension NSURL {
     }
 }
 
-extension Alamofire.ParameterEncoding : Equatable {}
-
-public func == (lhs: Alamofire.ParameterEncoding, rhs: Alamofire.ParameterEncoding) -> Bool {
-    switch (lhs, rhs) {
-    case (.URL, .URL):
-        return true
-    case(.JSON, .JSON):
-        return true
-    case(.URLEncodedInURL, .URLEncodedInURL):
-        return true
-    default:
-        return false
-    }
-}
+//extension Alamofire.ParameterEncoding : Equatable {}
+//
+//public func == (lhs: Alamofire.ParameterEncoding, rhs: Alamofire.ParameterEncoding) -> Bool {
+//    if lhs == URLEncoding.default && rhs == URLEncoding.default ||
+//       lhs == URLEncoding.methodDependent && rhs == URLEncoding.methodDependent ||
+//       lhs == URLEncoding.queryString && rhs == URLEncoding.queryString ||
+//       lhs == URLEncoding.httpBody && rhs == URLEncoding.httpBody {
+//        return true
+//    } else if lhs == JSONEncoding.default && rhs == JSONEncoding.default || lhs == JSONEncoding.prettyPrinted && rhs == JSONEncoding.prettyPrinted {
+//        return true
+//    } else {
+//        return false
+//    }
+//}
 
 
 extension RouteType {
     
-    var baseURL: NSURL {
-        return NSURL(string: "someURL")!
+    var baseURL: URL {
+        return URL(string: "someURL")!
     }
     
-    var manager: Alamofire.Manager {
-        return Alamofire.Manager.sharedInstance
+    var manager: ManagerType {
+        return RxManager(manager: Alamofire.SessionManager.default)
     }
+
+    var retryCount: Int { return 0 }
 }
 
