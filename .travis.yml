@@ -6,7 +6,7 @@ env:
   - OSX_FRAMEWORK_SCHEME="Opera-OSX"
   - TVOS_FRAMEWORK_SCHEME="Opera-tvOS"
   - WATCHOS_FRAMEWORK_SCHEME="Opera-watchOS"
-  - IOS_SDK=iphonesimulator10
+  - IOS_SDK=iphonesimulator10.0
   - OSX_SDK=macosx10.11
   - TVOS_SDK=appletvsimulator10.0
   - WATCHOS_SDK=watchsimulator3.0
