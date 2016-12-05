@@ -37,8 +37,7 @@ class Manager: RxManager {
         super.init(manager: manager)
         observers = [Logger()]
     }
-    
-    
+
     func refreshToken() -> Observable<String?>{
         return Observable.just(nil)
     }

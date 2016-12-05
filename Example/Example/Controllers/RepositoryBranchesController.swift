@@ -56,9 +56,9 @@ class RepositoryBranchesController: RepositoryBaseController {
         tableView.rx_reachedBottom
             .bindTo(viewModel.loadNextPageTrigger)
             .addDisposableTo(disposeBag)
-        
+
         viewModel.loading
-            .drive(activityIndicatorView.rx.animating)
+            .drive(activityIndicatorView.rx.isAnimating)
             .addDisposableTo(disposeBag)
         
         Driver.combineLatest(viewModel.elements.asDriver(), viewModel.firstPageLoading) { elements, loading in return loading ? [] : elements }
@@ -77,11 +77,11 @@ class RepositoryBranchesController: RepositoryBaseController {
         
         viewModel.loading
             .filter { !$0 && refreshControl.isRefreshing }
-            .driveNext { _ in refreshControl.endRefreshing() }
+            .drive(onNext: { _ in refreshControl.endRefreshing() })
             .addDisposableTo(disposeBag)
         
         viewModel.emptyState
-            .driveNext { [weak self] emptyState in self?.emptyStateLabel.isHidden = !emptyState }
+            .drive(onNext: { [weak self] emptyState in self?.emptyStateLabel.isHidden = !emptyState })
             .addDisposableTo(disposeBag)
     }
     

@@ -82,12 +82,12 @@ class RepositoryForksController: RepositoryBaseController {
             .addDisposableTo(disposeBag)
         
         viewModel.loading
-            .drive(activityIndicatorView.rx.animating)
+            .drive(activityIndicatorView.rx.isAnimating)
             .addDisposableTo(disposeBag)
         
         Driver.combineLatest(viewModel.elements.asDriver(), viewModel.firstPageLoading) { elements, loading in return loading ? [] : elements }
             .asDriver()
-            .drive(tableView.rx_itemsWithCellIdentifier("Cell")) { _, userRepository, cell in
+            .drive(tableView.rx.items(cellIdentifier: "Cell")) { _, userRepository, cell in
                 cell.textLabel?.text = userRepository.owner
                 cell.detailTextLabel?.text = userRepository.createdAt.shortRepresentation()
             }
@@ -95,7 +95,8 @@ class RepositoryForksController: RepositoryBaseController {
         
         tableView.rx.modelSelected(UserRepository)
             .asDriver()
-            .driveNext { [weak self] userRepo in self?.performSegue(withIdentifier: "Show forked repository", sender: RepositoryData(name: userRepo.name, owner: userRepo.owner)) }
+            .drive(onNext: { [weak self] userRepo in self?.performSegue(withIdentifier: "Show forked repository", sender: RepositoryData(name: userRepo.name, owner: userRepo.owner)) },
+                   onCompleted: nil, onDisposed: nil)
             .addDisposableTo(disposeBag)
         
         refreshControl.rx_valueChanged
@@ -106,7 +107,7 @@ class RepositoryForksController: RepositoryBaseController {
         
         viewModel.loading
             .filter { !$0 && refreshControl.isRefreshing }
-            .driveNext { _ in refreshControl.endRefreshing() }
+            .drive(onNext: { _ in refreshControl.endRefreshing() })
             .addDisposableTo(disposeBag)
         
         filterSegmentControl.rx_valueChanged
@@ -115,7 +116,7 @@ class RepositoryForksController: RepositoryBaseController {
             .addDisposableTo(disposeBag)
         
         viewModel.emptyState
-            .driveNext { [weak self] emptyState in self?.emptyStateLabel.isHidden = !emptyState }
+            .drive(onNext: { [weak self] emptyState in self?.emptyStateLabel.isHidden = !emptyState })
             .addDisposableTo(disposeBag)
         
     }

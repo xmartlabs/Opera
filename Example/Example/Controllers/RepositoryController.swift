@@ -52,7 +52,7 @@ class RepositoryController: UITableViewController {
         
         GithubAPI.Repository.GetInfo(owner: owner, repo: name)
             .rx_object()
-            .subscribeNext { [weak self] (userRepo: UserRepository) in
+            .subscribe(onNext: { [weak self] (userRepo: UserRepository) in
                 self?.userRepository = userRepo
                 self?.tableView.reloadData()
                 
@@ -60,12 +60,12 @@ class RepositoryController: UITableViewController {
                 self?.forksLabel.text = "\(userRepo.forks)"
                 self?.stargazersLabel.text = "\(userRepo.stargazers)"
                 self?.issuesLabel.text = "\(userRepo.issues)"
-            }
+            })
             .addDisposableTo(disposeBag)
         
         tableView.rx.itemSelected
             .asDriver()
-            .driveNext { [weak self] indexPath in self?.tableView.deselectRow(at: indexPath, animated: true) }
+            .drive(onNext: { [weak self] indexPath in self?.tableView.deselectRow(at: indexPath, animated: true) })
             .addDisposableTo(disposeBag)
         
     }

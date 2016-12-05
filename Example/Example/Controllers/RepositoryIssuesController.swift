@@ -128,12 +128,12 @@ class RepositoryIssuesController: RepositoryBaseController {
             .addDisposableTo(disposeBag)
         
         viewModel.loading
-            .drive(activityIndicatorView.rx.animating)
+            .drive(activityIndicatorView.rx.isAnimating)
             .addDisposableTo(disposeBag)
         
         Driver.combineLatest(viewModel.elements.asDriver(), viewModel.firstPageLoading) { elements, loading in return loading ? [] : elements }
             .asDriver()
-            .drive(tableView.rx_itemsWithCellIdentifier("Cell")) { _, issue, cell in
+            .drive(tableView.rx.items(cellIdentifier:"Cell")) { _, issue, cell in
                 cell.textLabel?.text = issue.title
                 cell.detailTextLabel?.text = " #\(issue.number)"
             }
@@ -147,7 +147,7 @@ class RepositoryIssuesController: RepositoryBaseController {
         
         viewModel.loading
             .filter { !$0 && refreshControl.isRefreshing }
-            .driveNext { _ in refreshControl.endRefreshing() }
+            .drive(onNext: { _ in refreshControl.endRefreshing() })
             .addDisposableTo(disposeBag)
         
         filter
@@ -157,7 +157,7 @@ class RepositoryIssuesController: RepositoryBaseController {
             .addDisposableTo(disposeBag)
         
         viewModel.emptyState
-            .driveNext { [weak self] emptyState in self?.emptyStateLabel.isHidden = !emptyState }
+            .drive(onNext: { [weak self] emptyState in self?.emptyStateLabel.isHidden = !emptyState })
             .addDisposableTo(disposeBag)
     }
     

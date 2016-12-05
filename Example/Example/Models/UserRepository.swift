@@ -66,7 +66,11 @@ extension Date: Argo.Decodable {
     public static func decode(_ j: Argo.JSON) -> Argo.Decoded<Date> {
         switch j {
         case .string(let dateString):
-            return  dateString.toDate(format: DateFormat.iso8601Format(.full)).map(pure)! //?? Argo.Decoded.typeMismatch(expected: "Date", actual: j)
+            if let date =  try? dateString.date(format: DateFormat.iso8601(options: .withFullTime)).absoluteDate {
+                return pure(date)
+            } else {
+                return .typeMismatch(expected: "Date", actual: j)
+            }//?? Argo.Decoded.typeMismatch(expected: "Date", actual: j)
         default: return .typeMismatch(expected: "Date", actual: j)
         }
     }

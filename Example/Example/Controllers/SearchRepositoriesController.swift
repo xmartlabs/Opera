@@ -66,32 +66,33 @@ class SearchRepositoriesController: UIViewController {
             .addDisposableTo(disposeBag)
         
         viewModel.loading
-            .drive(activityIndicatorView.rx.animating)
+            .drive(activityIndicatorView.rx.isAnimating)
             .addDisposableTo(disposeBag)
         
         Driver.combineLatest(viewModel.elements.asDriver(), viewModel.firstPageLoading, searchBar.rx.text.asDriver()) { elements, loading, searchText in
-                return loading || searchText.isEmpty ? [] : elements
+                return loading || searchText!.isEmpty ? [] : elements
             }
             .asDriver()
-            .drive(tableView.rx_itemsWithCellIdentifier("Cell")) { _, repository, cell in
+            .drive(tableView.rx.items(cellIdentifier: "Cell")) { _, repository, cell in
                 cell.textLabel?.text = repository.name
                 cell.detailTextLabel?.text = "🌟\(repository.stargazersCount)"
             }
             .addDisposableTo(disposeBag)
         
-        tableView.rx.modelSelected(Repository)
+        tableView.rx.modelSelected(Repository.self)
             .asDriver()
-            .driveNext { [weak self] repo in self?.performSegue(withIdentifier: Constants.repositorySegue, sender: RepositoryData(name: repo.name, owner: repo.company)) }
+            .drive(onNext: { [weak self] repo in self?.performSegue(withIdentifier: Constants.repositorySegue, sender: RepositoryData(name: repo.name, owner: repo.company)) })
             .addDisposableTo(disposeBag)
         
         searchBar.rx.text
-            .filter { !$0.isEmpty }
+            .filter { !$0!.isEmpty }
+            .map { a -> String in a ?? "" }
             .throttle(0.25, scheduler: MainScheduler.instance)
             .bindTo(viewModel.queryTrigger)
             .addDisposableTo(disposeBag)
-        
+
         searchBar.rx.text
-            .filter { $0.isEmpty }
+            .filter { $0!.isEmpty }
             .map { _ in return [] }
             .bindTo(viewModel.elements)
             .addDisposableTo(disposeBag)
@@ -104,14 +105,14 @@ class SearchRepositoriesController: UIViewController {
         
         viewModel.loading
             .filter { !$0  && refreshControl.isRefreshing }
-            .driveNext { _ in refreshControl.endRefreshing() }
+            .drive(onNext: { _ in refreshControl.endRefreshing() })
             .addDisposableTo(disposeBag)
         
-        Driver.combineLatest(viewModel.emptyState, searchBar.rx.text.asDriver().throttle(0.25)) { $0 ||  $1.isEmpty }
-            .driveNext { [weak self] state in
+        Driver.combineLatest(viewModel.emptyState, searchBar.rx.text.asDriver().throttle(0.25)) { $0 ||  $1!.isEmpty }
+            .drive(onNext: { [weak self] state in
                 self?.emptyStateLabel.isHidden = !state
                 self?.emptyStateLabel.text = (self?.searchBar.text?.isEmpty ?? true) ? Constants.noTextMessage : Constants.noRepositoriesMessage
-            }
+            })
             .addDisposableTo(disposeBag)
     }
     
