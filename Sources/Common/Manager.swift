@@ -79,7 +79,7 @@ open class Manager: ManagerType {
                     completion(result)
                     return
                 }
-                self?.retryCallback(request, retryLeft: retryLeft - 1 , completion: completion)
+                _ = self?.retryCallback(request, retryLeft: retryLeft - 1 , completion: completion)
             }
         }
         return result

@@ -102,7 +102,6 @@ open class PaginationViewModel<PaginationRequest: PaginationRequestType> where P
     }
     
     fileprivate func bindPaginationRequest(_ paginationRequest: PaginationRequest, nextPage: String?) {
-        disposeBag = DisposeBag()
         self.paginationRequest = paginationRequest
         let refreshRequest = refreshTrigger
             .filter { !$0 }
@@ -154,6 +153,7 @@ open class PaginationViewModel<PaginationRequest: PaginationRequestType> where P
                 guard let mySelf = self else { return }
                 mySelf.bindPaginationRequest(mySelf.paginationRequest, nextPage: mySelf.fullloading.value.1) })
             .subscribe(onNext: { [weak self] paginationResponse in
+                debugPrint(paginationResponse.elements)
                 self?.bindPaginationRequest(paginationRequest, nextPage: paginationResponse.nextPage)
             })
             .addDisposableTo(disposeBag)

@@ -68,7 +68,18 @@ class SearchRepositoriesController: UIViewController {
         viewModel.loading
             .drive(activityIndicatorView.rx.isAnimating)
             .addDisposableTo(disposeBag)
-        
+
+        viewModel.elements.asObservable()
+            .subscribe(
+                onNext: { repos in
+                    debugPrint(repos)
+                },
+                onError: { error in
+                    debugPrint(error)
+                }
+            )
+            .addDisposableTo(disposeBag)
+
         Driver.combineLatest(viewModel.elements.asDriver(), viewModel.firstPageLoading, searchBar.rx.text.asDriver()) { elements, loading, searchText in
                 return loading || searchText!.isEmpty ? [] : elements
             }

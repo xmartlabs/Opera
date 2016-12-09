@@ -70,7 +70,7 @@ extension Date: Argo.Decodable {
                 return pure(date)
             } else {
                 return .typeMismatch(expected: "Date", actual: j)
-            }//?? Argo.Decoded.typeMismatch(expected: "Date", actual: j)
+            }
         default: return .typeMismatch(expected: "Date", actual: j)
         }
     }

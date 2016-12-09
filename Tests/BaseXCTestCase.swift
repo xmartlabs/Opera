@@ -35,31 +35,15 @@ extension URL {
     
     func parameters() -> [String:String] {
         var result = [String: String]()
-        let urlStringParametersPart = absoluteString.characters.split{$0 == "?"}.map(String.init)[1]
-        let splittedParametersIndividually = urlStringParametersPart.characters.split{$0 == "&"}.map(String.init)
+        let urlStringParametersPart = absoluteString.components(separatedBy: "?")[1]
+        let splittedParametersIndividually = urlStringParametersPart.components(separatedBy: "&")
         for parameter in splittedParametersIndividually {
-            let parameterAndValue = parameter.characters.split{$0 == "="}.map(String.init)
+            let parameterAndValue = parameter.components(separatedBy: "=")
             result.updateValue(parameterAndValue[1], forKey: parameterAndValue[0])
         }
         return result
     }
 }
-
-//extension Alamofire.ParameterEncoding : Equatable {}
-//
-//public func == (lhs: Alamofire.ParameterEncoding, rhs: Alamofire.ParameterEncoding) -> Bool {
-//    if lhs == URLEncoding.default && rhs == URLEncoding.default ||
-//       lhs == URLEncoding.methodDependent && rhs == URLEncoding.methodDependent ||
-//       lhs == URLEncoding.queryString && rhs == URLEncoding.queryString ||
-//       lhs == URLEncoding.httpBody && rhs == URLEncoding.httpBody {
-//        return true
-//    } else if lhs == JSONEncoding.default && rhs == JSONEncoding.default || lhs == JSONEncoding.prettyPrinted && rhs == JSONEncoding.prettyPrinted {
-//        return true
-//    } else {
-//        return false
-//    }
-//}
-
 
 extension RouteType {
     

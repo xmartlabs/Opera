@@ -40,9 +40,9 @@ class RepositoryIssueFilterController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        stateSegmentControl.selectedSegmentIndex = filter.value.state.rawValue ?? 0
-        sortBySegmentControl.selectedSegmentIndex = filter.value.sortBy.rawValue ?? 0
-        sortDirectionSegmentControl.selectedSegmentIndex = filter.value.sortDirection.rawValue ?? 0
+        stateSegmentControl.selectedSegmentIndex = filter.value.state.rawValue
+        sortBySegmentControl.selectedSegmentIndex = filter.value.sortBy.rawValue
+        sortDirectionSegmentControl.selectedSegmentIndex = filter.value.sortDirection.rawValue
         issueCreatorTextField.text = filter.value.issueCreator
         issueMentionedUserTextField.text = filter.value.userMentioned
         

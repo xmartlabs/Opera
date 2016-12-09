@@ -93,7 +93,7 @@ class RepositoryForksController: RepositoryBaseController {
             }
             .addDisposableTo(disposeBag)
         
-        tableView.rx.modelSelected(UserRepository)
+        tableView.rx.modelSelected(UserRepository.self)
             .asDriver()
             .drive(onNext: { [weak self] userRepo in self?.performSegue(withIdentifier: "Show forked repository", sender: RepositoryData(name: userRepo.name, owner: userRepo.owner)) },
                    onCompleted: nil, onDisposed: nil)
