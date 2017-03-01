@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
-  s.name             = "Opera"
-  s.version          = "1.0.0"
+  s.name             = "OperaSwift"
+  s.version          = "0.1"
   s.summary          = "Protocol-Oriented Network abstraction layer written in Swift 3."
   s.homepage         = "https://github.com/xmartlabs/Opera"
   s.license          = { type: 'MIT', file: 'LICENSE' }
