@@ -30,8 +30,8 @@ import Foundation
  */
 public struct OperaResponse {
     public let statusCode: Int
-    public let data: NSData
-    public let response: NSHTTPURLResponse?
+    public let data: Data
+    public let response: HTTPURLResponse?
     
 }
 

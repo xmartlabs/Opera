@@ -11,47 +11,14 @@ import UIKit
 import Opera
 import Alamofire
 
-class MyManager: Alamofire.Manager {
-    
-    static let singleton = MyManager()
-    
-    override init?(session: NSURLSession, delegate: Manager.SessionDelegate, serverTrustPolicyManager: ServerTrustPolicyManager? = nil) {
-        super.init(session: session, delegate: delegate, serverTrustPolicyManager: serverTrustPolicyManager)
-    }
-    
-    override init(configuration: NSURLSessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: Alamofire.Manager.SessionDelegate = SessionDelegate(), serverTrustPolicyManager: Alamofire.ServerTrustPolicyManager? = nil)
-    {
-        super.init(configuration: configuration, delegate: delegate, serverTrustPolicyManager: serverTrustPolicyManager)
-    }
-    
-    override func request(URLRequest: URLRequestConvertible) -> Alamofire.Request {
-        let result = super.request(URLRequest)
-        debugPrint(result)
-        return result
-    }
-    
-    override func request(
-        method: Alamofire.Method,
-        _ URLString: URLStringConvertible,
-          parameters: [String: AnyObject]? = nil,
-          encoding: ParameterEncoding = .URL,
-          headers: [String: String]? = nil)
-        -> Request {
-            
-            let result = super.request(method, URLString, parameters: parameters, encoding: encoding, headers: headers)
-            debugPrint(result)
-            return result
-    }
-}
-
 extension RouteType {
     
-    var baseURL: NSURL {
-        return NSURL(string: "https://api.github.com")!
+    var baseURL: URL {
+        return URL(string: "https://api.github.com")!
     }
     
-    var manager: Alamofire.Manager {
-        return MyManager.singleton
+    var manager: ManagerType {
+        return RxManager(manager: Alamofire.SessionManager.default)
     }
     
 }
@@ -64,10 +31,10 @@ extension Request {
         case GetInfo(owner: String, repo: String)
         case Search()
         
-        var method: Alamofire.Method {
+        var method: Alamofire.HTTPMethod {
             switch self {
             case .GetInfo, .Search:
-                return .GET
+                return .get
             }
         }
         
@@ -79,8 +46,10 @@ extension Request {
                 return "search/repositories"
             }
         }
+
+        var retryCount: Int { return 0 }
         
     }
 }
 
-let string = Request.Repository.Search().request.debugDescription
+let string = Request.Repository.Search().urlRequest?.debugDescription

@@ -29,7 +29,7 @@ import Decodable
 struct PullRequest {
     
     let id: Int
-    let url: NSURL
+    let url: URL
     let number: Int
     let user: String
     let state: String
@@ -40,9 +40,9 @@ struct PullRequest {
 
 extension PullRequest: OperaDecodable, Decodable {
     
-    static func decode(j: AnyObject) throws -> PullRequest {
+    static func decode(_ j: Any) throws -> PullRequest {
         return try PullRequest(  id: j => "id",
-                  url: NSURL(string: j => "url")!,
+                  url: URL(string: j => "url")!,
                              number: j => "number",
                                user: j => ["user", "login"],
                               state: j => "state",

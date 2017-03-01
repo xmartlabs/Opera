@@ -27,24 +27,24 @@ import Decodable
 import Opera
 import SwiftDate
 
-extension NSDate: Decodable  {
+extension Date  {
     
-    public class func decode(json: AnyObject) throws -> Self {
+    public static func decode(_ json: Any) throws -> Date {
         let string = try String.decode(json)
-        guard let date = string.toDate(DateFormat.ISO8601Format(.Full)) else {
-            throw TypeMismatchError(expectedType: NSDate.self, receivedType: String.self, object: json)
+        guard let date = try? string.date(format: DateFormat.iso8601(options: ISO8601DateTimeFormatter.Options.withFullTime)).absoluteDate else {
+            throw DecodingError.typeMismatch(expected: Date.self, actual: String.self, DecodingError.Metadata(object: json))
         }
         return self.init(timeIntervalSince1970: date.timeIntervalSince1970)
     }
     
 }
 
-extension NSDate {
+extension Date {
     
     func shortRepresentation() -> String {
-        let formatter = NSDateFormatter()
+        let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/YYYY"
-        return formatter.stringFromDate(self)
+        return formatter.string(from: self)
     }
     
 }

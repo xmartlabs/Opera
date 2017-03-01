@@ -37,29 +37,29 @@ class RepositoryIssueFilterController: UITableViewController {
     
     var filter: Variable<IssuesFilter>!
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        stateSegmentControl.selectedSegmentIndex = filter.value.state.rawValue ?? 0
-        sortBySegmentControl.selectedSegmentIndex = filter.value.sortBy.rawValue ?? 0
-        sortDirectionSegmentControl.selectedSegmentIndex = filter.value.sortDirection.rawValue ?? 0
+        stateSegmentControl.selectedSegmentIndex = filter.value.state.rawValue
+        sortBySegmentControl.selectedSegmentIndex = filter.value.sortBy.rawValue
+        sortDirectionSegmentControl.selectedSegmentIndex = filter.value.sortDirection.rawValue
         issueCreatorTextField.text = filter.value.issueCreator
         issueMentionedUserTextField.text = filter.value.userMentioned
         
     }
     
-    @IBAction func dismiss(sender: UIBarButtonItem) {
+    @IBAction func dismiss(_ sender: UIBarButtonItem) {
         let newFilter = IssuesFilter()
         
-        newFilter.state = IssuesFilter.State(rawValue: stateSegmentControl.selectedSegmentIndex) ?? .Open
-        newFilter.sortBy = IssuesFilter.Sort(rawValue: sortBySegmentControl.selectedSegmentIndex) ?? .Created
-        newFilter.sortDirection = IssuesFilter.Direction(rawValue: sortDirectionSegmentControl.selectedSegmentIndex) ?? .Descendant
+        newFilter.state = IssuesFilter.State(rawValue: stateSegmentControl.selectedSegmentIndex) ?? .open
+        newFilter.sortBy = IssuesFilter.Sort(rawValue: sortBySegmentControl.selectedSegmentIndex) ?? .created
+        newFilter.sortDirection = IssuesFilter.Direction(rawValue: sortDirectionSegmentControl.selectedSegmentIndex) ?? .descendant
         newFilter.issueCreator = issueCreatorTextField.text
         newFilter.userMentioned = issueMentionedUserTextField.text
         
         filter.value = newFilter
         
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
 }

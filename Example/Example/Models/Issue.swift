@@ -29,7 +29,7 @@ import Decodable
 struct Issue {
     
     let id: Int
-    let url: NSURL
+    let url: URL
     let number: Int
     let state: String
     let title: String
@@ -39,9 +39,9 @@ struct Issue {
 
 extension Issue: OperaDecodable, Decodable {
     
-    static func decode(j: AnyObject) throws -> Issue {
+    static func decode(_ j: Any) throws -> Issue {
         return try Issue.init(  id: j => "id",
-                 url: NSURL(string: j => "url")!,
+                 url: URL(string: j => "url")!,
                             number: j => "number",
                              state: j => "state",
                              title: j => "title",

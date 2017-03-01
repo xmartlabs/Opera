@@ -31,44 +31,30 @@ class BaseXCTextCase: XCTestCase {
     
 }
 
-extension NSURL {
+extension URL {
     
     func parameters() -> [String:String] {
         var result = [String: String]()
-        let urlStringParametersPart = URLString.characters.split{$0 == "?"}.map(String.init)[1]
-        let splittedParametersIndividually = urlStringParametersPart.characters.split{$0 == "&"}.map(String.init)
+        let urlStringParametersPart = absoluteString.components(separatedBy: "?")[1]
+        let splittedParametersIndividually = urlStringParametersPart.components(separatedBy: "&")
         for parameter in splittedParametersIndividually {
-            let parameterAndValue = parameter.characters.split{$0 == "="}.map(String.init)
+            let parameterAndValue = parameter.components(separatedBy: "=")
             result.updateValue(parameterAndValue[1], forKey: parameterAndValue[0])
         }
         return result
     }
 }
 
-extension Alamofire.ParameterEncoding : Equatable {}
-
-public func == (lhs: Alamofire.ParameterEncoding, rhs: Alamofire.ParameterEncoding) -> Bool {
-    switch (lhs, rhs) {
-    case (.URL, .URL):
-        return true
-    case(.JSON, .JSON):
-        return true
-    case(.URLEncodedInURL, .URLEncodedInURL):
-        return true
-    default:
-        return false
-    }
-}
-
-
 extension RouteType {
     
-    var baseURL: NSURL {
-        return NSURL(string: "someURL")!
+    var baseURL: URL {
+        return URL(string: "someURL")!
     }
     
-    var manager: Alamofire.Manager {
-        return Alamofire.Manager.sharedInstance
+    var manager: ManagerType {
+        return RxManager(manager: Alamofire.SessionManager.default)
     }
+
+    var retryCount: Int { return 0 }
 }
 

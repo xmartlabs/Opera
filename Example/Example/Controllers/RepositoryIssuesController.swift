@@ -32,15 +32,15 @@ class IssuesFilter {
     
     enum State: Int, CustomStringConvertible {
         
-        case Open
-        case Closed
-        case All
+        case open
+        case closed
+        case all
         
         var description: String {
             switch self {
-            case .Open: return "open"
-            case .Closed: return "closed"
-            case .All: return "all"
+            case .open: return "open"
+            case .closed: return "closed"
+            case .all: return "all"
             }
         }
         
@@ -48,15 +48,15 @@ class IssuesFilter {
     
     enum Sort: Int, CustomStringConvertible {
         
-        case Created
-        case Updated
-        case Comments
+        case created
+        case updated
+        case comments
         
         var description: String {
             switch self {
-            case .Created: return "created"
-            case .Updated: return "updated"
-            case .Comments: return "comments"
+            case .created: return "created"
+            case .updated: return "updated"
+            case .comments: return "comments"
             }
         }
         
@@ -64,21 +64,21 @@ class IssuesFilter {
     
     enum Direction: Int, CustomStringConvertible {
         
-        case Ascendant
-        case Descendant
+        case ascendant
+        case descendant
         
         var description: String {
             switch self {
-            case .Ascendant: return "asc"
-            case .Descendant: return "desc"
+            case .ascendant: return "asc"
+            case .descendant: return "desc"
             }
         }
         
     }
     
-    var state = State.Open
-    var sortBy = Sort.Created
-    var sortDirection = Direction.Descendant
+    var state = State.open
+    var sortBy = Sort.created
+    var sortDirection = Direction.descendant
     var issueCreator: String?
     var userMentioned: String?
     
@@ -88,9 +88,9 @@ extension IssuesFilter: FilterType {
     
     var parameters: [String: AnyObject]? {
         var baseParams = ["state": "\(state)", "sort": "\(sortBy)", "direction": "\(sortDirection)"]
-        if let issueCreator = issueCreator where !issueCreator.isEmpty { baseParams["creator"] = issueCreator }
-        if let userMentioned = userMentioned where !userMentioned.isEmpty { baseParams["mentioned"] = userMentioned }
-        return baseParams
+        if let issueCreator = issueCreator , !issueCreator.isEmpty { baseParams["creator"] = issueCreator }
+        if let userMentioned = userMentioned , !userMentioned.isEmpty { baseParams["mentioned"] = userMentioned }
+        return baseParams as [String : AnyObject]?
     }
     
 }
@@ -104,7 +104,7 @@ class RepositoryIssuesController: RepositoryBaseController {
     
     var disposeBag = DisposeBag()
     
-    private var filter = Variable<IssuesFilter>(IssuesFilter())
+    fileprivate var filter = Variable<IssuesFilter>(IssuesFilter())
     
     lazy var viewModel: PaginationViewModel<PaginationRequest<Issue>> = { [unowned self] in
         return PaginationViewModel(paginationRequest: PaginationRequest(route: GithubAPI.Repository.GetIssues(owner: self.owner, repo: self.name), filter: self.filter.value))
@@ -113,12 +113,12 @@ class RepositoryIssuesController: RepositoryBaseController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.keyboardDismissMode = .OnDrag
+        tableView.keyboardDismissMode = .onDrag
         tableView.addSubview(self.refreshControl)
         emptyStateLabel.text = "No issues found"
         let refreshControl = self.refreshControl
         
-        rx_sentMessage(#selector(RepositoryForksController.viewWillAppear(_:)))
+        rx.sentMessage(#selector(RepositoryForksController.viewWillAppear(_:)))
             .map { _ in false }
             .bindTo(viewModel.refreshTrigger)
             .addDisposableTo(disposeBag)
@@ -128,26 +128,26 @@ class RepositoryIssuesController: RepositoryBaseController {
             .addDisposableTo(disposeBag)
         
         viewModel.loading
-            .drive(activityIndicatorView.rx_animating)
+            .drive(activityIndicatorView.rx.isAnimating)
             .addDisposableTo(disposeBag)
         
         Driver.combineLatest(viewModel.elements.asDriver(), viewModel.firstPageLoading) { elements, loading in return loading ? [] : elements }
             .asDriver()
-            .drive(tableView.rx_itemsWithCellIdentifier("Cell")) { _, issue, cell in
+            .drive(tableView.rx.items(cellIdentifier:"Cell")) { _, issue, cell in
                 cell.textLabel?.text = issue.title
                 cell.detailTextLabel?.text = " #\(issue.number)"
             }
             .addDisposableTo(disposeBag)
         
         refreshControl.rx_valueChanged
-            .filter { refreshControl.refreshing }
+            .filter { refreshControl.isRefreshing }
             .map { true }
             .bindTo(viewModel.refreshTrigger)
             .addDisposableTo(disposeBag)
         
         viewModel.loading
-            .filter { !$0 && refreshControl.refreshing }
-            .driveNext { _ in refreshControl.endRefreshing() }
+            .filter { !$0 && refreshControl.isRefreshing }
+            .drive(onNext: { _ in refreshControl.endRefreshing() })
             .addDisposableTo(disposeBag)
         
         filter
@@ -157,12 +157,12 @@ class RepositoryIssuesController: RepositoryBaseController {
             .addDisposableTo(disposeBag)
         
         viewModel.emptyState
-            .driveNext { [weak self] emptyState in self?.emptyStateLabel.hidden = !emptyState }
+            .drive(onNext: { [weak self] emptyState in self?.emptyStateLabel.isHidden = !emptyState })
             .addDisposableTo(disposeBag)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        guard let vc = (segue.destinationViewController as? UINavigationController)?.topViewController as? RepositoryIssueFilterController else { return }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let vc = (segue.destination as? UINavigationController)?.topViewController as? RepositoryIssueFilterController else { return }
         vc.filter = filter
     }
     

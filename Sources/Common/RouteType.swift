@@ -31,15 +31,15 @@ import Alamofire
 public protocol RouteType: URLRequestConvertible {
     
     /// HTTP method
-    var method: Alamofire.Method { get }
+    var method: Alamofire.HTTPMethod { get }
     /// URL path
     var path: String { get }
     /// The parameters, nil if not implemented.
-    var parameters: [String: AnyObject]? { get }
+    var parameters: [String: Any]? { get }
     /// Used to specify the way in which a set of parameters are applied to a URL request. Default implementation returns .JSON when method value is either .POST, .PUT or .PATCH. Otherwise .URL.
     var encoding: Alamofire.ParameterEncoding { get }
     /// Base url
-    var baseURL: NSURL { get }
+    var baseURL: URL { get }
     /// Manager that creates the request.
     var manager: ManagerType { get }
     /// Used to determine how often a request should be retried if unsuccessful
@@ -50,38 +50,41 @@ public protocol RouteType: URLRequestConvertible {
  *  By adopting URLRequestSetup a RequestType or PaginationRequstType is able to customize it right before sending it to the server.
  */
 public protocol URLRequestSetup {
-    func urlRequestSetup(urlRequest: NSMutableURLRequest)
+    func urlRequestSetup(_ urlRequest: inout URLRequest)
 }
 
 /**
  *  By adopting URLRequestParametersSetup a RequestType or PaginationRequstType is able to make a final customization to request parameters dictionary before they are encoded.
  */
 public protocol URLRequestParametersSetup {
-    func urlRequestParametersSetup(urlRequest: NSMutableURLRequest, parameters: [String: AnyObject]?) -> [String: AnyObject]?
+    func urlRequestParametersSetup(_ urlRequest: URLRequest, parameters: [String: Any]?) -> [String: Any]?
 }
 
 extension RouteType {
     
     /// The URL request.
-    public var URLRequest: NSMutableURLRequest {
-        var mutableURLRequest = NSMutableURLRequest(URL: baseURL.URLByAppendingPathComponent(path))
-        mutableURLRequest.HTTPMethod = method.rawValue
-        let params = (self as? URLRequestParametersSetup)?.urlRequestParametersSetup(mutableURLRequest, parameters: parameters) ?? parameters
-        mutableURLRequest = encoding.encode(mutableURLRequest, parameters: params).0
-        (self as? URLRequestSetup)?.urlRequestSetup(mutableURLRequest)
-        return mutableURLRequest
+    public func asURLRequest() throws -> URLRequest {
+        let url = try baseURL.asURL()
+        var urlRequest = URLRequest(url: url.appendingPathComponent(path))
+        urlRequest.httpMethod = method.rawValue
+        
+        let params = (self as? URLRequestParametersSetup)?.urlRequestParametersSetup(urlRequest, parameters: parameters) ?? parameters
+        urlRequest = try encoding.encode(urlRequest, with: params)
+        (self as? URLRequestSetup)?.urlRequestSetup(&urlRequest)
+
+        return urlRequest
     }
     
-    public var encoding: Alamofire.ParameterEncoding {
+    public var encoding: ParameterEncoding {
         switch method {
-        case .POST, .PUT, .PATCH:
-            return .JSON
+        case .post, .put, .patch:
+            return JSONEncoding.default
         default:
-            return .URL
+            return URLEncoding.default
         }
     }
     
-    public var parameters: [String: AnyObject]? {
+    public var parameters: [String: Any]? {
         return nil
     }
 }

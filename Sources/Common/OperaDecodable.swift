@@ -33,15 +33,15 @@ import Foundation
  *          static func decode(json: AnyObject) throws -> Self {
  *              let decoded = decode(JSON.parse(json))
  *              switch decoded {
- *              case .Success(let value):
+ *              case .success(let value):
  *                  return value
- *              case .Failure(let error):
+ *              case .failure(let error):
  *                  throw error
  *              }
  *          }
  *      }
  */
 public protocol OperaDecodable {
-    static func decode(json: AnyObject) throws -> Self
+    static func decode(_ json: Any) throws -> Self
 }
 

@@ -35,7 +35,7 @@ class RepositoryBaseController: UIViewController {
     
     override func viewDidLoad() {
         emptyStateLabel = UILabel()
-        emptyStateLabel.textAlignment = .Center
+        emptyStateLabel.textAlignment = .center
         tableView.backgroundView = emptyStateLabel
     }
     

@@ -64,7 +64,7 @@ public protocol PaginationRequestType: BasePaginationRequestType {
      
      - returns: PaginationRequestType instance identically to self and having its page value updated to `page`
      */
-    func routeWithPage(page: String) -> Self
+    func routeWithPage(_ page: String) -> Self
     
     /**
      Creates a new PaginationRequestType equals to self but updating query strng and setting its page to first page value.
@@ -73,7 +73,7 @@ public protocol PaginationRequestType: BasePaginationRequestType {
      
      - returns: PaginationRequestType instance identically to self and having its query value updated to `query` and its page to firs page value.
      */
-    func routeWithQuery(query: String) -> Self
+    func routeWithQuery(_ query: String) -> Self
     
     /**
      Creates a new PaginationRequestType equals to self but updating its filter. Page value is set to first page.
@@ -82,7 +82,7 @@ public protocol PaginationRequestType: BasePaginationRequestType {
      
      - returns: PaginationRequestType instance identically to self and having its filter value updated to `filter` and its page to firs page value.
      */
-    func routeWithFilter(filter: FilterType) -> Self
+    func routeWithFilter(_ filter: FilterType) -> Self
     
     /**
      Instantiate a new `PaginationRequestType`
@@ -102,23 +102,26 @@ extension BasePaginationRequestType {
     
 //MARK: URLRequestConvertible conformance
     
-    public var URLRequest: NSMutableURLRequest {
-        var mutableURLRequest = NSMutableURLRequest(URL: route.baseURL.URLByAppendingPathComponent(route.path))
-        mutableURLRequest.HTTPMethod = route.method.rawValue
-        var params = (self.route as? URLRequestParametersSetup)?.urlRequestParametersSetup(mutableURLRequest, parameters: parameters) ?? parameters
-        params = (self as? URLRequestParametersSetup)?.urlRequestParametersSetup(mutableURLRequest, parameters: params) ?? params
-        mutableURLRequest = route.encoding.encode(mutableURLRequest, parameters: params).0
-        (self.route as? URLRequestSetup)?.urlRequestSetup(mutableURLRequest)
-        (self as? URLRequestSetup)?.urlRequestSetup(mutableURLRequest)
-        return mutableURLRequest
+    public func asURLRequest() throws -> URLRequest {
+        let url = try route.baseURL.asURL()
+        var urlRequest = URLRequest(url: url.appendingPathComponent(route.path))
+        urlRequest.httpMethod = route.method.rawValue
+
+        var params = (self.route as? URLRequestParametersSetup)?.urlRequestParametersSetup(urlRequest, parameters: parameters) ?? parameters
+        params = (self as? URLRequestParametersSetup)?.urlRequestParametersSetup(urlRequest, parameters: params) ?? params
+        urlRequest = try route.encoding.encode(urlRequest, with: params)
+        (self.route as? URLRequestSetup)?.urlRequestSetup(&urlRequest)
+        (self as? URLRequestSetup)?.urlRequestSetup(&urlRequest)
+
+        return urlRequest
     }
     
     /// Pagination request parameters
-    var parameters: [String: AnyObject]? {
+    var parameters: [String: Any]? {
         var result = route.parameters ?? [:]
-        result[(self as? PaginationRequestTypeSettings)?.pageParameterName ?? Default.pageParamName] = page
-        if let q = query where q != "" {
-            result[(self as? PaginationRequestTypeSettings)?.queryParameterName ?? Default.queryParameterName] = query
+        result[(self as? PaginationRequestTypeSettings)?.pageParameterName ?? Default.pageParamName] = page as AnyObject?
+        if let q = query , q != "" {
+            result[(self as? PaginationRequestTypeSettings)?.queryParameterName ?? Default.queryParameterName] = query as AnyObject?
         }
         for (k, v) in filter?.parameters ?? [:]  {
             result.updateValue(v, forKey: k)
@@ -130,15 +133,15 @@ extension BasePaginationRequestType {
 
 extension PaginationRequestType {
 
-    public func routeWithPage(page: String) -> Self {
+    public func routeWithPage(_ page: String) -> Self {
         return Self.init(route: route, page: page, query: query, filter: filter, collectionKeyPath: collectionKeyPath)
     }
     
-    public func routeWithQuery(query: String) -> Self {
+    public func routeWithQuery(_ query: String) -> Self {
         return Self.init(route: route, page: (self as? PaginationRequestTypeSettings)?.firstPageParameterValue ?? Default.firstPageParameterValue, query: query, filter: filter, collectionKeyPath: collectionKeyPath)
     }
     
-    public func routeWithFilter(filter: FilterType) -> Self {
+    public func routeWithFilter(_ filter: FilterType) -> Self {
         return Self.init(route: route, page: (self as? PaginationRequestTypeSettings)?.firstPageParameterValue ?? Default.firstPageParameterValue, query: query, filter: filter, collectionKeyPath: collectionKeyPath)
     }
 

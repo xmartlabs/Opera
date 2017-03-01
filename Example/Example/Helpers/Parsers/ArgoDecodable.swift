@@ -28,12 +28,12 @@ import Argo
 
 extension Argo.Decodable where Self.DecodedType == Self, Self: OperaDecodable {
     
-    static func decode(json: AnyObject) throws -> Self {
+    static func decode(_ json: Any) throws -> Self {
         let decoded = decode(JSON(json))
         switch decoded {
-        case .Success(let value):
+        case .success(let value):
             return value
-        case .Failure(let error):
+        case .failure(let error):
             throw error
         }
     }

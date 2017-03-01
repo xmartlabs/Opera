@@ -31,87 +31,126 @@ import Alamofire
  - Networking: Networking errors, most of the time errors thrown by NSURLSession under NSURLErrorDomain domain or by Alamofire library.
  - Parsing:    Represent parsing errors normally thrown by Json parsing library such as Argo or Decodable.
  */
-public enum Error: ErrorType {
 
-    case Networking(error: NSError, request: NSURLRequest?, response: NSHTTPURLResponse?, json: AnyObject?)
-    case Parsing(error: ErrorType, request: NSURLRequest?, response: NSHTTPURLResponse?, json: AnyObject?)
+public protocol OperaInternalError: Error, CustomStringConvertible, CustomDebugStringConvertible {
+}
+
+public enum SerializationError: OperaInternalError {
+    case jsonSerializationError(reason: String)
+
+    public var description: String {
+        switch self {
+        case .jsonSerializationError(let reason):
+            return reason
+        }
+    }
+
+    public var debugDescription: String {
+        return description
+    }
+}
+
+public struct UnknownError: OperaInternalError {
+    public var description: String {
+        return "Unknown error"
+    }
+
+    public var debugDescription: String {
+        return description
+    }
+}
+
+public indirect enum OperaError: Error {
+
+    case networking(error: Error, request: URLRequest?, response: HTTPURLResponse?, json: Any?)
+    case parsing(error: Error, request: URLRequest?, response: HTTPURLResponse?, json: Any?)
 
 }
 
-extension Error : CustomDebugStringConvertible {
+extension OperaError : CustomDebugStringConvertible {
 
     /// A textual representation of Opera.Error instance, suitable for debugging.
     public var debugDescription: String {
 
         switch self {
-        case .Networking(let error, let request, _, let json):
-            var components = ["Networking Error - Code: \(error.code)"]
-            components.append(error.debugDescription)
-            if let method = request?.HTTPMethod {
+        case .networking(let error, let request, _, let json):
+            var components = [String]()
+            if let error = error as? CustomStringConvertible {
+                components.append("Networking Error: \(error.description)")
+            }
+            if let error = error as? CustomDebugStringConvertible {
+                components.append(error.debugDescription)
+            }
+
+            if let method = request?.httpMethod {
                 components.append(method)
             }
-            if let URLString = request?.URL?.absoluteString {
+            if let URLString = request?.url?.absoluteString {
                 components.append(URLString)
             }
             if let jsonStringify = json.map({ JSONStringify($0) }) {
                 components.append("Json:")
                 components.append(jsonStringify)
             }
-            return components.joinWithSeparator(" \\\n\t")
-        case .Parsing(let error, let request, _, let json):
+            return components.joined(separator: " \\\n\t")
+        case .parsing(let error, let request, _, let json):
             var components = ["Parsing Error:"]
-            if let error = error as? CustomDebugStringConvertible{
+            if let error = error as? CustomDebugStringConvertible {
                 components.append(error.debugDescription)
             }
-            if let method = request?.HTTPMethod {
+            if let method = request?.httpMethod {
                 components.append(method)
             }
-            if let URLString = request?.URL?.absoluteString {
+            if let URLString = request?.url?.absoluteString {
                 components.append("URL: \(URLString)")
             }
             if let jsonStringify = json.map({ JSONStringify($0) }) {
                 components.append("Json:")
                 components.append(jsonStringify)
             }
-            return components.joinWithSeparator(" \\\n\t")
+            return components.joined(separator: " \\\n\t")
         }
     }
 
 }
 
-extension Error: CustomStringConvertible {
+extension OperaError: CustomStringConvertible {
 
     /// A textual representation of Error instance.
     public var description: String {
         switch self {
-        case .Networking(let error, let request, _, _):
+        case .networking(let error, let request, _, _):
             var components = [String]()
-            components.append("Networking Error: \(error.code)")
-            components.append(error.description)
-            if let method = request?.HTTPMethod {
+            if let error = error as? CustomStringConvertible {
+                components.append("Networking Error: \(error.description)")
+            }
+            if let error = error as? CustomDebugStringConvertible {
+                components.append(error.debugDescription)
+            }
+            if let method = request?.httpMethod {
                 components.append(method)
             }
-            if let URLString = request?.URL?.absoluteString {
+            if let URLString = request?.url?.absoluteString {
                 components.append(URLString)
             }
-            return components.joinWithSeparator(" ")
-        case .Parsing(let error, let request, _, let json):
+            return components.joined(separator: " ")
+        case .parsing(let error, let request, _, let json):
             var components = ["Parsing Error"]
-            if let method = request?.HTTPMethod {
+            if let method = request?.httpMethod {
                 components.append(method)
             }
-            if let URLString = request?.URL?.absoluteURL {
+            if let URLString = request?.url?.absoluteURL {
                 components.append("URL: \(URLString)")
             }
             if let error = error as? CustomStringConvertible {
                 components.append(error.description)
             }
-            components = [components.joinWithSeparator(" ")]
+            components = [components.joined(separator: " ")]
             if let jsonStringify = json.map({ JSONStringify($0) }) {
                 components.append("Json:\r\n")
                 components.append(jsonStringify)
             }
-            return components.joinWithSeparator(" \\\n\t")
+            return components.joined(separator: " \\\n\t")
         }
 
     }

@@ -41,8 +41,8 @@ class RepositoryController: UITableViewController {
     
     var disposeBag = DisposeBag()
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return userRepository == nil ? 0 : super.numberOfSectionsInTableView(tableView)
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return userRepository == nil ? 0 : super.numberOfSections(in: tableView)
     }
     
     override func viewDidLoad() {
@@ -52,7 +52,7 @@ class RepositoryController: UITableViewController {
         
         GithubAPI.Repository.GetInfo(owner: owner, repo: name)
             .rx_object()
-            .subscribeNext { [weak self] (userRepo: UserRepository) in
+            .subscribe(onNext: { [weak self] (userRepo: UserRepository) in
                 self?.userRepository = userRepo
                 self?.tableView.reloadData()
                 
@@ -60,18 +60,18 @@ class RepositoryController: UITableViewController {
                 self?.forksLabel.text = "\(userRepo.forks)"
                 self?.stargazersLabel.text = "\(userRepo.stargazers)"
                 self?.issuesLabel.text = "\(userRepo.issues)"
-            }
+            })
             .addDisposableTo(disposeBag)
         
-        tableView.rx_itemSelected
+        tableView.rx.itemSelected
             .asDriver()
-            .driveNext { [weak self] indexPath in self?.tableView.deselectRowAtIndexPath(indexPath, animated: true) }
+            .drive(onNext: { [weak self] indexPath in self?.tableView.deselectRow(at: indexPath, animated: true) })
             .addDisposableTo(disposeBag)
         
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        guard let _ = segue.identifier, vc = segue.destinationViewController as? RepositoryBaseController else { return }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let _ = segue.identifier, let vc = segue.destination as? RepositoryBaseController else { return }
         vc.name = name
         vc.owner = owner
     }

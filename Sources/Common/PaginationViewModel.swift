@@ -29,32 +29,32 @@ import RxCocoa
 
 
 /// Reactive View Model helper to load list of OperaDecodable items.
-public class PaginationViewModel<PaginationRequest: PaginationRequestType where PaginationRequest.Response.Element: OperaDecodable> {
+open class PaginationViewModel<PaginationRequest: PaginationRequestType> where PaginationRequest.Response.Element: OperaDecodable {
     
     /// pagination request
     var paginationRequest: PaginationRequest
     public typealias LoadingType = (Bool, String)
     
     /// trigger a refresh, if emited item is true it will cancel pending request and make a new one. if false it will not refresh if there is a request in progress.
-    public let refreshTrigger = PublishSubject<Bool>()
+    open let refreshTrigger = PublishSubject<Bool>()
     /// trigger a next page load, it makes a new request for the nextPage value provided by lastest request sent to server.
-    public let loadNextPageTrigger = PublishSubject<Void>()
+    open let loadNextPageTrigger = PublishSubject<Void>()
     /// Cancel any in progress request and start a new one using the query string provided.
-    public let queryTrigger = PublishSubject<String>()
+    open let queryTrigger = PublishSubject<String>()
     /// Cancel any in progress request and start a new one using the filter parameters provided.
-    public let filterTrigger = PublishSubject<FilterType>()
+    open let filterTrigger = PublishSubject<FilterType>()
     
     /// Allows subscribers to get notified about networking errors
-    public let errors = PublishSubject<Error>()
+    open let errors = PublishSubject<Error>()
     /// Indicates if there is a next page to load. hasNextPage value is the result of getting next link relation from latest response.
-    public let hasNextPage = Variable<Bool>(false)
+    open let hasNextPage = Variable<Bool>(false)
     /// Indicates is there is a request in progress and what is the request page.
-    public let fullloading = Variable<LoadingType>((false, "1"))
+    open let fullloading = Variable<LoadingType>((false, "1"))
     /// Elements array from first page up to latest fetched page.
-    public let elements = Variable<[PaginationRequest.Response.Element]>([])
+    open let elements = Variable<[PaginationRequest.Response.Element]>([])
     
-    private var disposeBag = DisposeBag()
-    private let queryDisposeBag = DisposeBag()
+    fileprivate var disposeBag = DisposeBag()
+    fileprivate let queryDisposeBag = DisposeBag()
     
     /**
      Initialize a new PaginationViewModel instance.
@@ -69,40 +69,39 @@ public class PaginationViewModel<PaginationRequest: PaginationRequestType where 
         setUpForceRefresh()
     }
     
-    private func setUpForceRefresh() {
+    fileprivate func setUpForceRefresh() {
         
         queryTrigger
-            .doOnNext { [weak self] queryString in
+            .do(onNext: { [weak self] queryString in
                 guard let mySelf = self else { return }
                 mySelf.bindPaginationRequest(mySelf.paginationRequest.routeWithQuery(queryString), nextPage: nil)
-            }
+            })
             .map { _ in false }
             .bindTo(refreshTrigger)
             .addDisposableTo(queryDisposeBag)
         
         refreshTrigger
             .filter { $0 }
-            .doOnNext { [weak self] _ in
+            .do(onNext: { [weak self] _ in
                 guard let mySelf = self else { return }
                 mySelf.bindPaginationRequest(mySelf.paginationRequest.routeWithPage("1"), nextPage: nil)
-            }
+            })
             .map { _ in false }
             .bindTo(refreshTrigger)
             .addDisposableTo(queryDisposeBag)
         
         
         filterTrigger
-            .doOnNext { [weak self] fitler in
+            .do(onNext: { [weak self] fitler in
                 guard let mySelf = self else { return }
                 mySelf.bindPaginationRequest(mySelf.paginationRequest.routeWithFilter(fitler), nextPage: nil)
-            }
+            })
             .map { _ in false }
             .bindTo(refreshTrigger)
             .addDisposableTo(queryDisposeBag)
     }
     
-    private func bindPaginationRequest(paginationRequest: PaginationRequest, nextPage: String?) {
-        disposeBag = DisposeBag()
+    fileprivate func bindPaginationRequest(_ paginationRequest: PaginationRequest, nextPage: String?) {
         self.paginationRequest = paginationRequest
         let refreshRequest = refreshTrigger
             .filter { !$0 }
@@ -150,12 +149,13 @@ public class PaginationViewModel<PaginationRequest: PaginationRequestType where 
                 guard let mySelf = self else { return }
                 Observable.just(error).bindTo(mySelf.errors).addDisposableTo(mySelf.disposeBag)
             }
-            .doOnError { [weak self] _ in
+            .do(onError: { [weak self] _ in
                 guard let mySelf = self else { return }
-                mySelf.bindPaginationRequest(mySelf.paginationRequest, nextPage: mySelf.fullloading.value.1) }
-            .subscribeNext { [weak self] paginationResponse in
+                mySelf.bindPaginationRequest(mySelf.paginationRequest, nextPage: mySelf.fullloading.value.1) })
+            .subscribe(onNext: { [weak self] paginationResponse in
+                debugPrint(paginationResponse.elements)
                 self?.bindPaginationRequest(paginationRequest, nextPage: paginationResponse.nextPage)
-            }
+            })
             .addDisposableTo(disposeBag)
     }
 }

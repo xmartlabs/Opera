@@ -36,14 +36,14 @@ struct Repository {
     let openIssues: Int
     let stargazersCount: Int
     let forksCount: Int
-    let url: NSURL
-    let createdAt: NSDate
+    let url: URL
+    let createdAt: Date
     
 }
 
 extension Repository: OperaDecodable,  Decodable {
     
-    static func decode(j: AnyObject) throws -> Repository {
+    static func decode(_ j: Any) throws -> Repository {
         return try Repository.init(  id: j => "id",
                                    name: j => "name",
                                    desc: j =>? "description",
@@ -52,7 +52,7 @@ extension Repository: OperaDecodable,  Decodable {
                              openIssues: j => "open_issues_count",
                         stargazersCount: j => "stargazers_count",
                              forksCount: j => "forks_count",
-                      url: NSURL(string: j => "url")!,
+                      url: URL(string: j => "url")!,
                               createdAt: j => "created_at")
     }
 }

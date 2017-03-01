@@ -30,20 +30,20 @@ import RxCocoa
 
 private enum SortFilter: Int, CustomStringConvertible, FilterType {
     
-    case Newest = 0
-    case Oldest
-    case Stargazers
+    case newest = 0
+    case oldest
+    case stargazers
     
     var description: String {
         switch self {
-        case .Newest: return "newest"
-        case .Oldest: return "oldest"
-        case .Stargazers: return "stargazers"
+        case .newest: return "newest"
+        case .oldest: return "oldest"
+        case .stargazers: return "stargazers"
         }
     }
     
     var parameters: [String: AnyObject]? {
-        return ["sort":"\(self)"]
+        return ["sort":"\(self)" as AnyObject]
     }
     
 }
@@ -58,7 +58,7 @@ class RepositoryForksController: RepositoryBaseController {
     
     var disposeBag = DisposeBag()
     
-    private var filter = SortFilter.Newest
+    fileprivate var filter = SortFilter.newest
     
     lazy var viewModel: PaginationViewModel<PaginationRequest<UserRepository>> = { [unowned self] in
         return PaginationViewModel(paginationRequest: PaginationRequest(route: GithubAPI.Repository.GetForks(owner: self.owner, repo: self.name), filter: self.filter))
@@ -67,12 +67,12 @@ class RepositoryForksController: RepositoryBaseController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.keyboardDismissMode = .OnDrag
+        tableView.keyboardDismissMode = .onDrag
         emptyStateLabel.text = "No forks found"
         tableView.addSubview(self.refreshControl)
         let refreshControl = self.refreshControl
 
-        rx_sentMessage(#selector(RepositoryForksController.viewWillAppear(_:)))
+        rx.sentMessage(#selector(RepositoryForksController.viewWillAppear(_:)))
             .map { _ in false }
             .bindTo(viewModel.refreshTrigger)
             .addDisposableTo(disposeBag)
@@ -82,46 +82,47 @@ class RepositoryForksController: RepositoryBaseController {
             .addDisposableTo(disposeBag)
         
         viewModel.loading
-            .drive(activityIndicatorView.rx_animating)
+            .drive(activityIndicatorView.rx.isAnimating)
             .addDisposableTo(disposeBag)
         
         Driver.combineLatest(viewModel.elements.asDriver(), viewModel.firstPageLoading) { elements, loading in return loading ? [] : elements }
             .asDriver()
-            .drive(tableView.rx_itemsWithCellIdentifier("Cell")) { _, userRepository, cell in
+            .drive(tableView.rx.items(cellIdentifier: "Cell")) { _, userRepository, cell in
                 cell.textLabel?.text = userRepository.owner
                 cell.detailTextLabel?.text = userRepository.createdAt.shortRepresentation()
             }
             .addDisposableTo(disposeBag)
         
-        tableView.rx_modelSelected(UserRepository)
+        tableView.rx.modelSelected(UserRepository.self)
             .asDriver()
-            .driveNext { [weak self] userRepo in self?.performSegueWithIdentifier("Show forked repository", sender: RepositoryData(name: userRepo.name, owner: userRepo.owner)) }
+            .drive(onNext: { [weak self] userRepo in self?.performSegue(withIdentifier: "Show forked repository", sender: RepositoryData(name: userRepo.name, owner: userRepo.owner)) },
+                   onCompleted: nil, onDisposed: nil)
             .addDisposableTo(disposeBag)
         
         refreshControl.rx_valueChanged
-            .filter { refreshControl.refreshing }
+            .filter { refreshControl.isRefreshing }
             .map { true }
             .bindTo(viewModel.refreshTrigger)
             .addDisposableTo(disposeBag)
         
         viewModel.loading
-            .filter { !$0 && refreshControl.refreshing }
-            .driveNext { _ in refreshControl.endRefreshing() }
+            .filter { !$0 && refreshControl.isRefreshing }
+            .drive(onNext: { _ in refreshControl.endRefreshing() })
             .addDisposableTo(disposeBag)
         
         filterSegmentControl.rx_valueChanged
-            .map { [weak self] in return SortFilter(rawValue: self?.filterSegmentControl.selectedSegmentIndex ?? 0) ?? .Newest }
+            .map { [weak self] in return SortFilter(rawValue: self?.filterSegmentControl.selectedSegmentIndex ?? 0) ?? .newest }
             .bindTo(viewModel.filterTrigger)
             .addDisposableTo(disposeBag)
         
         viewModel.emptyState
-            .driveNext { [weak self] emptyState in self?.emptyStateLabel.hidden = !emptyState }
+            .drive(onNext: { [weak self] emptyState in self?.emptyStateLabel.isHidden = !emptyState })
             .addDisposableTo(disposeBag)
         
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        guard let _ = segue.identifier, vc = segue.destinationViewController as? RepositoryController, data = sender as? RepositoryData else { return }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let _ = segue.identifier, let vc = segue.destination as? RepositoryController, let data = sender as? RepositoryData else { return }
         vc.name = data.name
         vc.owner = data.owner
     }

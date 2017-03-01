@@ -43,12 +43,12 @@ class RepositoryContributionsController: RepositoryBaseController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.keyboardDismissMode = .OnDrag
+        tableView.keyboardDismissMode = .onDrag
         tableView.addSubview(self.refreshControl)
         emptyStateLabel.text = "No contributors found"
         let refreshControl = self.refreshControl
         
-        rx_sentMessage(#selector(RepositoryForksController.viewWillAppear(_:)))
+        rx.sentMessage(#selector(RepositoryForksController.viewWillAppear(_:)))
             .map { _ in false }
             .bindTo(viewModel.refreshTrigger)
             .addDisposableTo(disposeBag)
@@ -58,30 +58,30 @@ class RepositoryContributionsController: RepositoryBaseController {
             .addDisposableTo(disposeBag)
         
         viewModel.loading
-            .drive(activityIndicatorView.rx_animating)
+            .drive(activityIndicatorView.rx.isAnimating)
             .addDisposableTo(disposeBag)
         
         Driver.combineLatest(viewModel.elements.asDriver(), viewModel.firstPageLoading) { elements, loading in return loading ? [] : elements }
             .asDriver()
-            .drive(tableView.rx_itemsWithCellIdentifier("Cell")) { _, contributor, cell in
+            .drive(tableView.rx.items(cellIdentifier:"Cell")) { _, contributor, cell in
                 cell.textLabel?.text = contributor.user
                 cell.detailTextLabel?.text = "\(contributor.contributions)"
             }
             .addDisposableTo(disposeBag)
         
         refreshControl.rx_valueChanged
-            .filter { refreshControl.refreshing }
+            .filter { refreshControl.isRefreshing }
             .map { true }
             .bindTo(viewModel.refreshTrigger)
             .addDisposableTo(disposeBag)
         
         viewModel.loading
-            .filter { !$0 && refreshControl.refreshing }
-            .driveNext { _ in refreshControl.endRefreshing() }
+            .filter { !$0 && refreshControl.isRefreshing }
+            .drive(onNext: { _ in refreshControl.endRefreshing() })
             .addDisposableTo(disposeBag)
         
         viewModel.emptyState
-            .driveNext { [weak self] emptyState in self?.emptyStateLabel.hidden = !emptyState }
+            .drive(onNext: { [weak self] emptyState in self?.emptyStateLabel.isHidden = !emptyState })
             .addDisposableTo(disposeBag)
     }
     

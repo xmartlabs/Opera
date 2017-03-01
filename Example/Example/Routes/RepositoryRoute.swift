@@ -34,8 +34,8 @@ extension GithubAPI.Repository {
         
     struct Search: RouteType, URLRequestSetup {
         
-        var method: Alamofire.Method {
-            return .GET
+        var method: Alamofire.HTTPMethod {
+            return .get
         }
         
         var path: String {
@@ -48,8 +48,8 @@ extension GithubAPI.Repository {
         let owner: String
         let repo: String
         
-        var method: Alamofire.Method {
-            return .GET
+        var method: Alamofire.HTTPMethod {
+            return .get
         }
         
         var path: String {
@@ -66,8 +66,8 @@ extension GithubAPI.Repository {
         let owner: String
         let repo: String
         
-        var method: Alamofire.Method {
-            return .GET
+        var method: Alamofire.HTTPMethod {
+            return .get
         }
         
         var path: String {
@@ -81,8 +81,8 @@ extension GithubAPI.Repository {
         let owner: String
         let repo: String
         
-        var method: Alamofire.Method {
-            return .GET
+        var method: Alamofire.HTTPMethod {
+            return .get
         }
         
         var path: String {
@@ -96,8 +96,8 @@ extension GithubAPI.Repository {
         let owner: String
         let repo: String
         
-        var method: Alamofire.Method {
-            return .GET
+        var method: Alamofire.HTTPMethod {
+            return .get
         }
         
         var path: String {
@@ -111,8 +111,8 @@ extension GithubAPI.Repository {
         let owner: String
         let repo: String
         
-        var method: Alamofire.Method {
-            return .GET
+        var method: Alamofire.HTTPMethod {
+            return .get
         }
         
         var path: String {
@@ -126,8 +126,8 @@ extension GithubAPI.Repository {
         let owner: String
         let repo: String
         
-        var method: Alamofire.Method {
-            return .GET
+        var method: Alamofire.HTTPMethod {
+            return .get
         }
         
         var path: String {
@@ -141,8 +141,8 @@ extension GithubAPI.Repository {
         let owner: String
         let repo: String
         
-        var method: Alamofire.Method {
-            return .GET
+        var method: Alamofire.HTTPMethod {
+            return .get
         }
         
         var path: String {
@@ -156,8 +156,8 @@ extension GithubAPI.Repository {
         let owner: String
         let repo: String
         
-        var method: Alamofire.Method {
-            return .GET
+        var method: Alamofire.HTTPMethod {
+            return .get
         }
         
         var path: String {
@@ -171,8 +171,8 @@ extension GithubAPI.Repository {
         let owner: String
         let repo: String
         
-        var method: Alamofire.Method {
-            return .GET
+        var method: Alamofire.HTTPMethod {
+            return .get
         }
         
         var path: String {

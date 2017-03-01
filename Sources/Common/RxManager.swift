@@ -22,13 +22,13 @@ extension RxManager {
      
      - returns: An instance of `Observable<T>`
      */
-    public func rx_object<T: OperaDecodable>(route: RouteType, keyPath: String? = nil) -> Observable<T> {
+    public func rx_object<T: OperaDecodable>(_ route: RouteType, keyPath: String? = nil) -> Observable<T> {
         return rx_response(route).flatMap { operaResult -> Observable<T> in
-            let serialized: Response<T, Error>  = operaResult.serializeObject(keyPath)
+            let serialized: DataResponse<T>  = operaResult.serializeObject(keyPath)
             switch serialized.result {
-            case .Failure(let error):
+            case .failure(let error):
                 return Observable.error(error)
-            case .Success(let anyObject):
+            case .success(let anyObject):
                 return Observable.just(anyObject)
             }
         }
@@ -42,13 +42,13 @@ extension RxManager {
      
      - returns: An instance of `Observable<[T]>`
      */
-    public func rx_collection<T: OperaDecodable>(route: RouteType, collectionKeyPath:String? = nil) -> Observable<[T]> {
+    public func rx_collection<T: OperaDecodable>(_ route: RouteType, collectionKeyPath:String? = nil) -> Observable<[T]> {
         return rx_response(route).flatMap { operaResult -> Observable<[T]> in
-            let serialized: Response<[T], Error> = operaResult.serializeCollection(collectionKeyPath)
+            let serialized: DataResponse<[T]> = operaResult.serializeCollection(collectionKeyPath)
             switch serialized.result {
-            case .Failure(let error):
+            case .failure(let error):
                 return Observable.error(error)
-            case .Success(let anyObject):
+            case .success(let anyObject):
                 return Observable.just(anyObject)
             }
         }
@@ -59,13 +59,13 @@ extension RxManager {
      
      - returns: An instance of `Observable<AnyObject>`
      */
-    public func rx_anyObject(route: RouteType) -> Observable<AnyObject> {
-        return rx_response(route).flatMap { operaResult -> Observable<AnyObject> in
-            let serialized = operaResult.serializeAnyObject()
+    public func rx_any(_ route: RouteType) -> Observable<Any> {
+        return rx_response(route).flatMap { operaResult -> Observable<Any> in
+            let serialized = operaResult.serializeAny()
             switch serialized.result {
-            case .Failure(let error):
+            case .failure(let error):
                 return Observable.error(error)
-            case .Success(let anyObject):
+            case .success(let anyObject):
                 return Observable.just(anyObject)
             }
         }
@@ -74,25 +74,25 @@ extension RxManager {
 }
 
 
-public class RxManager: Opera.Manager {
+open class RxManager: Opera.Manager {
 
-    public override init(manager: Alamofire.Manager) {
+    public override init(manager: Alamofire.SessionManager) {
         super.init(manager: manager)
     }
     
     
-    public func rx_response(requestConvertible: URLRequestConvertible) -> Observable<OperaResult> {
+    open func rx_response(_ requestConvertible: URLRequestConvertible) -> Observable<OperaResult> {
         return Observable.create { subscriber in
             let req = self.response(requestConvertible) { result in
                 switch result.result {
-                case .Failure(let error):
+                case .failure(let error):
                     subscriber.onError(error)
-                case .Success:
+                case .success:
                     subscriber.onNext(result)
                     subscriber.onCompleted()
                 }
             }
-            return AnonymousDisposable {
+            return Disposables.create {
                 req.cancel()
             }
         }
