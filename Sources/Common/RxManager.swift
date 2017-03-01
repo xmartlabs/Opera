@@ -74,7 +74,7 @@ extension RxManager {
 }
 
 
-open class RxManager: Opera.Manager {
+open class RxManager: OperaSwift.Manager {
 
     public override init(manager: Alamofire.SessionManager) {
         super.init(manager: manager)

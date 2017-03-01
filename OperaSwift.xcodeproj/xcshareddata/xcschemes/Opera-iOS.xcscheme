@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "28F8287C1C494B2C00330CF4"
-               BuildableName = "Opera.framework"
-               BlueprintName = "Opera-iOS"
-               ReferencedContainer = "container:Opera.xcodeproj">
+               BuildableName = "OperaSwift.framework"
+               BlueprintName = "OperaSwift-iOS"
+               ReferencedContainer = "container:OperaSwift.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "28F828861C494B2C00330CF4"
-               BuildableName = "OperaTests_iOS.xctest"
-               BlueprintName = "OperaTests-iOS"
-               ReferencedContainer = "container:Opera.xcodeproj">
+               BuildableName = "OperaSwiftTests_iOS.xctest"
+               BlueprintName = "OperaSwiftTests-iOS"
+               ReferencedContainer = "container:OperaSwift.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "28F8287C1C494B2C00330CF4"
-            BuildableName = "Opera.framework"
-            BlueprintName = "Opera-iOS"
-            ReferencedContainer = "container:Opera.xcodeproj">
+            BuildableName = "OperaSwift.framework"
+            BlueprintName = "OperaSwift-iOS"
+            ReferencedContainer = "container:OperaSwift.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -65,9 +65,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "28F8287C1C494B2C00330CF4"
-            BuildableName = "Opera.framework"
-            BlueprintName = "Opera-iOS"
-            ReferencedContainer = "container:Opera.xcodeproj">
+            BuildableName = "OperaSwift.framework"
+            BlueprintName = "OperaSwift-iOS"
+            ReferencedContainer = "container:OperaSwift.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -83,9 +83,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "28F8287C1C494B2C00330CF4"
-            BuildableName = "Opera.framework"
-            BlueprintName = "Opera-iOS"
-            ReferencedContainer = "container:Opera.xcodeproj">
+            BuildableName = "OperaSwift.framework"
+            BlueprintName = "OperaSwift-iOS"
+            ReferencedContainer = "container:OperaSwift.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>
