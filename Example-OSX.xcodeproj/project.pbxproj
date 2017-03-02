@@ -16,13 +16,60 @@
 		D2488E3B1CC53BFD000062F4 /* RepositoryRoutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2488E3A1CC53BFD000062F4 /* RepositoryRoutes.swift */; };
 		D2488E3D1CC53C2C000062F4 /* RouteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2488E3C1CC53C2C000062F4 /* RouteType.swift */; };
 		D2488E981CC541A9000062F4 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2488E971CC541A9000062F4 /* Manager.swift */; };
-		D2488E9D1CC5430D000062F4 /* Opera.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D2488E8E1CC54143000062F4 /* Opera.framework */; };
-		D2488E9E1CC5432C000062F4 /* Opera.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D2488E8E1CC54143000062F4 /* Opera.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		D29866501CC7CC50000CC8C1 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D298664F1CC7CC50000CC8C1 /* InfoViewController.swift */; };
 		D2CBFED61CC673030059710C /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CBFED51CC673030059710C /* Repository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		1AB33E3A1E673E1600344F77 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D2488E7F1CC54143000062F4 /* OperaSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 28F8287D1C494B2C00330CF4;
+			remoteInfo = "OperaSwift-iOS";
+		};
+		1AB33E3C1E673E1600344F77 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D2488E7F1CC54143000062F4 /* OperaSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 28F828871C494B2C00330CF4;
+			remoteInfo = "OperaSwiftTests-iOS";
+		};
+		1AB33E3E1E673E1600344F77 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D2488E7F1CC54143000062F4 /* OperaSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 542B09E21CB6D5BE00EC2C71;
+			remoteInfo = "OperaSwift-OSX";
+		};
+		1AB33E401E673E1600344F77 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D2488E7F1CC54143000062F4 /* OperaSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 542B09EB1CB6D5BE00EC2C71;
+			remoteInfo = "OperaSwift-OSXTests";
+		};
+		1AB33E421E673E1600344F77 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D2488E7F1CC54143000062F4 /* OperaSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5468B3F51CB82EE600D0643E;
+			remoteInfo = "OperaSwift-tvOS";
+		};
+		1AB33E441E673E1600344F77 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D2488E7F1CC54143000062F4 /* OperaSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5468B3FE1CB82EE600D0643E;
+			remoteInfo = "OperaSwift-tvOSTests";
+		};
+		1AB33E461E673E1600344F77 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D2488E7F1CC54143000062F4 /* OperaSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 54F726BE1CBECAA0008D86E8;
+			remoteInfo = "OperaSwift-watchOS";
+		};
 		D2488E041CC53A45000062F4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D2488DEA1CC53A44000062F4 /* Project object */;
@@ -37,62 +84,6 @@
 			remoteGlobalIDString = D2488DF11CC53A44000062F4;
 			remoteInfo = "Example-OSX";
 		};
-		D2488E891CC54143000062F4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D2488E7F1CC54143000062F4 /* Opera.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 28F8287D1C494B2C00330CF4;
-			remoteInfo = "Opera-iOS";
-		};
-		D2488E8B1CC54143000062F4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D2488E7F1CC54143000062F4 /* Opera.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 28F828871C494B2C00330CF4;
-			remoteInfo = "OperaTests-iOS";
-		};
-		D2488E8D1CC54143000062F4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D2488E7F1CC54143000062F4 /* Opera.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 542B09E21CB6D5BE00EC2C71;
-			remoteInfo = "Opera-OSX";
-		};
-		D2488E8F1CC54143000062F4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D2488E7F1CC54143000062F4 /* Opera.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 542B09EB1CB6D5BE00EC2C71;
-			remoteInfo = "Opera-OSXTests";
-		};
-		D2488E911CC54143000062F4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D2488E7F1CC54143000062F4 /* Opera.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 5468B3F51CB82EE600D0643E;
-			remoteInfo = "Opera-tvOS";
-		};
-		D2488E931CC54143000062F4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D2488E7F1CC54143000062F4 /* Opera.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 5468B3FE1CB82EE600D0643E;
-			remoteInfo = "Opera-tvOSTests";
-		};
-		D2488E951CC54143000062F4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D2488E7F1CC54143000062F4 /* Opera.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 54F726BE1CBECAA0008D86E8;
-			remoteInfo = "Opera-watchOS";
-		};
-		D2488E9B1CC542F6000062F4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D2488E7F1CC54143000062F4 /* Opera.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 542B09E11CB6D5BE00EC2C71;
-			remoteInfo = "Opera-OSX";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -102,7 +93,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				D2488E9E1CC5432C000062F4 /* Opera.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -123,7 +113,7 @@
 		D2488E141CC53A45000062F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2488E3A1CC53BFD000062F4 /* RepositoryRoutes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RepositoryRoutes.swift; path = "Example-OSX/RepositoryRoutes.swift"; sourceTree = "<group>"; };
 		D2488E3C1CC53C2C000062F4 /* RouteType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RouteType.swift; path = "Example-OSX/RouteType.swift"; sourceTree = "<group>"; };
-		D2488E7F1CC54143000062F4 /* Opera.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Opera.xcodeproj; sourceTree = "<group>"; };
+		D2488E7F1CC54143000062F4 /* OperaSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = OperaSwift.xcodeproj; sourceTree = "<group>"; };
 		D2488E971CC541A9000062F4 /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Manager.swift; path = "Example-OSX/Manager.swift"; sourceTree = "<group>"; };
 		D2488E991CC5423D000062F4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Example-OSX/Info.plist"; sourceTree = "<group>"; };
 		D298664F1CC7CC50000CC8C1 /* InfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InfoViewController.swift; path = "Example-OSX/InfoViewController.swift"; sourceTree = "<group>"; };
@@ -135,7 +125,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D2488E9D1CC5430D000062F4 /* Opera.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,10 +145,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1AB33E311E673E1600344F77 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1AB33E3B1E673E1600344F77 /* OperaSwift.framework */,
+				1AB33E3D1E673E1600344F77 /* OperaSwiftTests_iOS.xctest */,
+				1AB33E3F1E673E1600344F77 /* OperaSwift.framework */,
+				1AB33E411E673E1600344F77 /* OperaSwift-OSXTests.xctest */,
+				1AB33E431E673E1600344F77 /* OperaSwift.framework */,
+				1AB33E451E673E1600344F77 /* OperaSwift-tvOSTests.xctest */,
+				1AB33E471E673E1600344F77 /* OperaSwift.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		D2488DE91CC53A44000062F4 = {
 			isa = PBXGroup;
 			children = (
-				D2488E7F1CC54143000062F4 /* Opera.xcodeproj */,
+				D2488E7F1CC54143000062F4 /* OperaSwift.xcodeproj */,
 				D2488DF41CC53A44000062F4 /* Example-OSX */,
 				D2488E061CC53A45000062F4 /* Example-OSXTests */,
 				D2488E111CC53A45000062F4 /* Example-OSXUITests */,
@@ -228,20 +231,6 @@
 			name = Helpers;
 			sourceTree = "<group>";
 		};
-		D2488E801CC54143000062F4 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D2488E8A1CC54143000062F4 /* Opera.framework */,
-				D2488E8C1CC54143000062F4 /* OperaTests_iOS.xctest */,
-				D2488E8E1CC54143000062F4 /* Opera.framework */,
-				D2488E901CC54143000062F4 /* Opera-OSXTests.xctest */,
-				D2488E921CC54143000062F4 /* Opera.framework */,
-				D2488E941CC54143000062F4 /* Opera-tvOSTests.xctest */,
-				D2488E961CC54143000062F4 /* Opera.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		D2CBFECE1CC672D50059710C /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -266,7 +255,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				D2488E9C1CC542F6000062F4 /* PBXTargetDependency */,
 			);
 			name = "Example-OSX";
 			productName = "Example-OSX";
@@ -348,8 +336,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = D2488E801CC54143000062F4 /* Products */;
-					ProjectRef = D2488E7F1CC54143000062F4 /* Opera.xcodeproj */;
+					ProductGroup = 1AB33E311E673E1600344F77 /* Products */;
+					ProjectRef = D2488E7F1CC54143000062F4 /* OperaSwift.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -362,53 +350,53 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		D2488E8A1CC54143000062F4 /* Opera.framework */ = {
+		1AB33E3B1E673E1600344F77 /* OperaSwift.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = Opera.framework;
-			remoteRef = D2488E891CC54143000062F4 /* PBXContainerItemProxy */;
+			path = OperaSwift.framework;
+			remoteRef = 1AB33E3A1E673E1600344F77 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D2488E8C1CC54143000062F4 /* OperaTests_iOS.xctest */ = {
+		1AB33E3D1E673E1600344F77 /* OperaSwiftTests_iOS.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = OperaTests_iOS.xctest;
-			remoteRef = D2488E8B1CC54143000062F4 /* PBXContainerItemProxy */;
+			path = OperaSwiftTests_iOS.xctest;
+			remoteRef = 1AB33E3C1E673E1600344F77 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D2488E8E1CC54143000062F4 /* Opera.framework */ = {
+		1AB33E3F1E673E1600344F77 /* OperaSwift.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = Opera.framework;
-			remoteRef = D2488E8D1CC54143000062F4 /* PBXContainerItemProxy */;
+			path = OperaSwift.framework;
+			remoteRef = 1AB33E3E1E673E1600344F77 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D2488E901CC54143000062F4 /* Opera-OSXTests.xctest */ = {
+		1AB33E411E673E1600344F77 /* OperaSwift-OSXTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "Opera-OSXTests.xctest";
-			remoteRef = D2488E8F1CC54143000062F4 /* PBXContainerItemProxy */;
+			path = "OperaSwift-OSXTests.xctest";
+			remoteRef = 1AB33E401E673E1600344F77 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D2488E921CC54143000062F4 /* Opera.framework */ = {
+		1AB33E431E673E1600344F77 /* OperaSwift.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = Opera.framework;
-			remoteRef = D2488E911CC54143000062F4 /* PBXContainerItemProxy */;
+			path = OperaSwift.framework;
+			remoteRef = 1AB33E421E673E1600344F77 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D2488E941CC54143000062F4 /* Opera-tvOSTests.xctest */ = {
+		1AB33E451E673E1600344F77 /* OperaSwift-tvOSTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "Opera-tvOSTests.xctest";
-			remoteRef = D2488E931CC54143000062F4 /* PBXContainerItemProxy */;
+			path = "OperaSwift-tvOSTests.xctest";
+			remoteRef = 1AB33E441E673E1600344F77 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D2488E961CC54143000062F4 /* Opera.framework */ = {
+		1AB33E471E673E1600344F77 /* OperaSwift.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = Opera.framework;
-			remoteRef = D2488E951CC54143000062F4 /* PBXContainerItemProxy */;
+			path = OperaSwift.framework;
+			remoteRef = 1AB33E461E673E1600344F77 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -503,11 +491,6 @@
 			isa = PBXTargetDependency;
 			target = D2488DF11CC53A44000062F4 /* Example-OSX */;
 			targetProxy = D2488E0F1CC53A45000062F4 /* PBXContainerItemProxy */;
-		};
-		D2488E9C1CC542F6000062F4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Opera-OSX";
-			targetProxy = D2488E9B1CC542F6000062F4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
