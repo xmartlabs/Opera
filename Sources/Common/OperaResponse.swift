@@ -32,6 +32,13 @@ public struct OperaResponse {
     public let statusCode: Int
     public let data: Data
     public let response: HTTPURLResponse?
+
+    // Initializer must be defined so that it is public and not internal
+    public init(statusCode: Int, data: Data, response: HTTPURLResponse?) {
+        self.statusCode = statusCode
+        self.data = data
+        self.response = response
+    }
     
 }
 

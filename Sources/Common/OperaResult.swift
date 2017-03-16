@@ -33,7 +33,13 @@ public struct OperaResult {
     
     public var result: Result<OperaResponse>
     public var requestConvertible: URLRequestConvertible
-    
+
+    // Initializer must be defined so that it is public and not internal
+    public init(result: Result<OperaResponse>, requestConvertible: URLRequestConvertible) {
+        self.result = result
+        self.requestConvertible = requestConvertible
+    }
+
 }
 
 extension OperaResult {
