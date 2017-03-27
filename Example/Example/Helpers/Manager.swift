@@ -24,7 +24,7 @@
 
 import Foundation
 import Alamofire
-import Opera
+import OperaSwift
 import RxSwift
 
 class Manager: RxManager {
@@ -32,10 +32,12 @@ class Manager: RxManager {
     // Add a Github personal access token to have more requests per hour
     static let githubAuthorizationToken: String? = nil
     static let singleton = Manager(manager: Alamofire.SessionManager.default)
-    
+
     override init(manager: Alamofire.SessionManager) {
         super.init(manager: manager)
         observers = [Logger()]
+        // Uncoment this line if you want to try mocked services.
+        //useSampleData = true
     }
 
     func refreshToken() -> Observable<String?>{
@@ -43,13 +45,12 @@ class Manager: RxManager {
     }
     
     override func rx_response(_ requestConvertible: URLRequestConvertible) -> Observable<OperaResult> {
-        let response = super.rx_response(requestConvertible)
-        return refreshToken().flatMap { _ in response }
+        return super.rx_response(requestConvertible)
     }
 }
 
 
-struct Logger: Opera.ObserverType {
+struct Logger: OperaSwift.ObserverType {
     func willSendRequest(_ alamoRequest: Alamofire.Request, requestConvertible: URLRequestConvertible){
         debugPrint(alamoRequest)
     }

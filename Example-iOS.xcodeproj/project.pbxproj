@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A5AEA851E8ACB25004A5082 /* repoinfo.json in Resources */ = {isa = PBXBuildFile; fileRef = 1A5AEA841E8ACB25004A5082 /* repoinfo.json */; };
 		284E6E3D1CBC1FA9001874B5 /* RepositoryRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284E6E3B1CBC1FA9001874B5 /* RepositoryRoute.swift */; };
 		284E6E3E1CBC1FA9001874B5 /* RouteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284E6E3C1CBC1FA9001874B5 /* RouteType.swift */; };
 		287D0A721C4B7877004566D6 /* ExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287D0A711C4B7877004566D6 /* ExampleUITests.swift */; };
@@ -51,6 +52,55 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		1A9E78531E89579400A139CB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 287D0A741C4B7B26004566D6 /* OperaSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 28F8287D1C494B2C00330CF4;
+			remoteInfo = "OperaSwift-iOS";
+		};
+		1A9E78551E89579400A139CB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 287D0A741C4B7B26004566D6 /* OperaSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 28F828871C494B2C00330CF4;
+			remoteInfo = "OperaSwiftTests-iOS";
+		};
+		1A9E78571E89579400A139CB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 287D0A741C4B7B26004566D6 /* OperaSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 542B09E21CB6D5BE00EC2C71;
+			remoteInfo = "OperaSwift-OSX";
+		};
+		1A9E78591E89579400A139CB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 287D0A741C4B7B26004566D6 /* OperaSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 542B09EB1CB6D5BE00EC2C71;
+			remoteInfo = "OperaSwift-OSXTests";
+		};
+		1A9E785B1E89579400A139CB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 287D0A741C4B7B26004566D6 /* OperaSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5468B3F51CB82EE600D0643E;
+			remoteInfo = "OperaSwift-tvOS";
+		};
+		1A9E785D1E89579400A139CB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 287D0A741C4B7B26004566D6 /* OperaSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5468B3FE1CB82EE600D0643E;
+			remoteInfo = "OperaSwift-tvOSTests";
+		};
+		1A9E785F1E89579400A139CB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 287D0A741C4B7B26004566D6 /* OperaSwift.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 54F726BE1CBECAA0008D86E8;
+			remoteInfo = "OperaSwift-watchOS";
+		};
 		28F828E11C4B714D00330CF4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 28F828C41C4B714D00330CF4 /* Project object */;
@@ -75,6 +125,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1A5AEA841E8ACB25004A5082 /* repoinfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = repoinfo.json; sourceTree = "<group>"; };
 		284E6E3B1CBC1FA9001874B5 /* RepositoryRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryRoute.swift; sourceTree = "<group>"; };
 		284E6E3C1CBC1FA9001874B5 /* RouteType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RouteType.swift; path = Example/Helpers/RouteType.swift; sourceTree = "<group>"; };
 		287D0A711C4B7877004566D6 /* ExampleUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExampleUITests.swift; path = Example/ExampleUITests/ExampleUITests.swift; sourceTree = SOURCE_ROOT; };
@@ -146,6 +197,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A9E784A1E89579400A139CB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1A9E78541E89579400A139CB /* OperaSwift.framework */,
+				1A9E78561E89579400A139CB /* OperaSwiftTests_iOS.xctest */,
+				1A9E78581E89579400A139CB /* OperaSwift.framework */,
+				1A9E785A1E89579400A139CB /* OperaSwift-OSXTests.xctest */,
+				1A9E785C1E89579400A139CB /* OperaSwift.framework */,
+				1A9E785E1E89579400A139CB /* OperaSwift-tvOSTests.xctest */,
+				1A9E78601E89579400A139CB /* OperaSwift.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		284E6E3A1CBC1FA9001874B5 /* Routes */ = {
 			isa = PBXGroup;
 			children = (
@@ -199,6 +264,7 @@
 		28F828C31C4B714D00330CF4 = {
 			isa = PBXGroup;
 			children = (
+				1A5AEA841E8ACB25004A5082 /* repoinfo.json */,
 				28F107661CB482BD007D8B7D /* Frameworks */,
 				28F828CE1C4B714D00330CF4 /* Example */,
 				28F828E31C4B714D00330CF4 /* ExampleUITests */,
@@ -341,6 +407,12 @@
 			mainGroup = 28F828C31C4B714D00330CF4;
 			productRefGroup = 28F828CD1C4B714D00330CF4 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 1A9E784A1E89579400A139CB /* Products */;
+					ProjectRef = 287D0A741C4B7B26004566D6 /* OperaSwift.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				28F828CB1C4B714D00330CF4 /* Example-iOS */,
@@ -348,6 +420,58 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		1A9E78541E89579400A139CB /* OperaSwift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = OperaSwift.framework;
+			remoteRef = 1A9E78531E89579400A139CB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1A9E78561E89579400A139CB /* OperaSwiftTests_iOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = OperaSwiftTests_iOS.xctest;
+			remoteRef = 1A9E78551E89579400A139CB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1A9E78581E89579400A139CB /* OperaSwift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = OperaSwift.framework;
+			remoteRef = 1A9E78571E89579400A139CB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1A9E785A1E89579400A139CB /* OperaSwift-OSXTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "OperaSwift-OSXTests.xctest";
+			remoteRef = 1A9E78591E89579400A139CB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1A9E785C1E89579400A139CB /* OperaSwift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = OperaSwift.framework;
+			remoteRef = 1A9E785B1E89579400A139CB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1A9E785E1E89579400A139CB /* OperaSwift-tvOSTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "OperaSwift-tvOSTests.xctest";
+			remoteRef = 1A9E785D1E89579400A139CB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		1A9E78601E89579400A139CB /* OperaSwift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = OperaSwift.framework;
+			remoteRef = 1A9E785F1E89579400A139CB /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		28F828CA1C4B714D00330CF4 /* Resources */ = {
@@ -357,6 +481,7 @@
 				28F828DA1C4B714D00330CF4 /* LaunchScreen.storyboard in Resources */,
 				28F828D71C4B714D00330CF4 /* Assets.xcassets in Resources */,
 				28F828D51C4B714D00330CF4 /* Main.storyboard in Resources */,
+				1A5AEA851E8ACB25004A5082 /* repoinfo.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

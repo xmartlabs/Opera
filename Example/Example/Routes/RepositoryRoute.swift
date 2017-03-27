@@ -24,7 +24,7 @@
 
 import Foundation
 import Alamofire
-import Opera
+import OperaSwift
 
 struct GithubAPI {
     struct Repository {}
@@ -41,6 +41,7 @@ extension GithubAPI.Repository {
         var path: String {
             return "search/repositories"
         }
+
     }
     
     struct GetInfo: RouteType, URLRequestSetup {
@@ -59,6 +60,12 @@ extension GithubAPI.Repository {
         var retryCount: Int {
             return 2
         }
+
+        var sampleData: Data? {
+            let data = getJsonFromPath(path: "repoinfo")
+            return data
+        }
+        
     }
     
     struct GetForks: RouteType, URLRequestSetup {

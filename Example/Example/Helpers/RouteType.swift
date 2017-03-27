@@ -23,7 +23,7 @@
 // THE SOFTWARE.
 
 import Foundation
-import Opera
+import OperaSwift
 import Alamofire
 
 extension RouteType {

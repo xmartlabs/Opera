@@ -55,7 +55,7 @@ extension OperaResult {
         switch result {
         case let .success(value):
             let result = OperaResult.serialize(nil, response: value.response, data: value.data, error: nil, onsuccess: { (result, json) -> Result<T> in
-                let object = keyPath.map({ (json as AnyObject).value(forKeyPath: $0)}) ?? json
+                let object = keyPath.map({ (json as AnyObject).value(forKeyPath: $0) as Any}) ?? json
                 do {
                     let decodedData = try T.decode(object as AnyObject)
                     return .success(decodedData)

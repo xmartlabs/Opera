@@ -23,7 +23,7 @@
 // THE SOFTWARE.
 
 import Foundation
-import Opera
+import OperaSwift
 import Argo
 import ObjectMapper
 

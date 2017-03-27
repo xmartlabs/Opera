@@ -24,7 +24,7 @@
 
 import Foundation
 import Decodable
-import Opera
+import OperaSwift
 import SwiftDate
 
 extension Date  {

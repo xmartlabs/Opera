@@ -24,7 +24,7 @@
 
 import Foundation
 import UIKit
-import Opera
+import OperaSwift
 import RxSwift
 import RxCocoa
 

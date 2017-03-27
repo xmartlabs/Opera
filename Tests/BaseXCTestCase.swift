@@ -25,7 +25,7 @@
 import Foundation
 import XCTest
 import Alamofire
-@testable import Opera
+@testable import OperaSwift
 
 class BaseXCTextCase: XCTestCase {
     

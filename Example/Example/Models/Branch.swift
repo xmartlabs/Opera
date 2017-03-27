@@ -23,7 +23,7 @@
 // THE SOFTWARE.
 
 import Foundation
-import Opera
+import OperaSwift
 import ObjectMapper
 
 struct Branch {

@@ -60,7 +60,7 @@ extension HTTPURLResponse {
     }
 }
 
-func JSONStringify(_ value: Any, prettyPrinted: Bool = true) -> String {
+public func JSONStringify(_ value: Any, prettyPrinted: Bool = true) -> String {
     let options: JSONSerialization.WritingOptions = prettyPrinted ? .prettyPrinted : []
     if JSONSerialization.isValidJSONObject(value) {
         if let data = try? JSONSerialization.data(withJSONObject: value, options: options), let string = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
@@ -68,4 +68,17 @@ func JSONStringify(_ value: Any, prettyPrinted: Bool = true) -> String {
         }
     }
     return ""
+}
+
+public func JSONFrom(data: Data?) -> Any? {
+    guard
+        let jsonData = data,
+        let json = try? JSONSerialization.jsonObject(
+            with: jsonData,
+            options: JSONSerialization.ReadingOptions.mutableContainers
+        )
+    else {
+        return nil
+    }
+    return json
 }

@@ -8,7 +8,7 @@
 //: Playground - noun: a place where people can play
 
 import UIKit
-import Opera
+import OperaSwift
 import Alamofire
 
 extension RouteType {

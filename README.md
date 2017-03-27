@@ -1,11 +1,11 @@
-# Opera
+# OperaSwift
 
 <p align="left">
 <a href="https://travis-ci.org/xmartlabs/Opera"><img src="https://travis-ci.org/xmartlabs/Opera.svg?branch=master" alt="Build status" /></a>
 <img src="https://img.shields.io/badge/platform-iOS%20|%20OSX%20|%20watchOS%20|%20tvOS-blue.svg?style=flat" alt="Platform iOS" />
 <a href="https://developer.apple.com/swift"><img src="https://img.shields.io/badge/swift2-compatible-4BC51D.svg?style=flat" alt="Swift 2 compatible" /></a>
 <a href="https://github.com/Carthage/Carthage"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat" alt="Carthage compatible" /></a>
-<a href="https://cocoapods.org/pods/Opera"><img src="https://img.shields.io/badge/pod-1.0.0-blue.svg" alt="CocoaPods compatible" /></a>
+<a href="https://cocoapods.org/pods/OperaSwift"><img src="https://img.shields.io/badge/pod-1.0.0-blue.svg" alt="CocoaPods compatible" /></a>
 <a href="https://raw.githubusercontent.com/xmartlabs/Opera/master/LICENSE"><img src="http://img.shields.io/badge/license-MIT-blue.svg?style=flat" alt="License: MIT" /></a>
 </p>
 
@@ -20,9 +20,10 @@ Protocol-Oriented Network abstraction layer written in Swift. Greatly inspired b
 * API abstraction through `RouteType` conformance.
 * Pagination support through `PaginationRequestType` conformance.
 * Supports for any JSON parsing library such as [Decodable](https://github.com/Anviking/Decodable) and [Argo](https://github.com/thoughtbot/Argo) through `OperaDecodable` protocol conformance.
-* Networking errors abstraction through `NetworkError` type. Opera `NetworkError` indicates either an `NSURLSession` error, `Alamofire` error, or your JSON parsing library error.
+* Networking errors abstraction through `OperaError` type. OperaSwift `OperaError` indicates either an `NSURLSession` error, `Alamofire` error, or your JSON parsing library error.
 * RxSwift wrappers around `Alamofire.Request` that returns an Observable of a JSON serialized type or an array if it. NetworkError is passed when error event happens.
 * RxSwift wrappers around `PaginationRequestType` that returns an Observable of a `PaginationRensponseType` which contains the serialized elements and information about the current, next and previous page.
+* Ability to easily mock services through `RouteType.sampleData`.
 
 
 ## Usage
@@ -32,7 +33,7 @@ A `RouteType` is a high level representation of the request for a REST API endpo
 ```swift
 
 import Alamofire
-import Opera
+import OperaSwift
 
 // just a hierarchy structure to organize routes
 struct GithubAPI {
@@ -43,7 +44,7 @@ extension GithubAPI.Repository {
 
   struct Search: RouteType {
 
-      var method: Alamofire.Method { return .GET }
+      var method: Method { return .get }
       var path: String { return "search/repositories" }
   }
 
@@ -52,7 +53,7 @@ extension GithubAPI.Repository {
       let owner: String
       let repo: String
 
-      var method: Alamofire.Method { return .GET }
+      var method: Method { return .get }
       var path: String { return "repos/\(owner)/\(repo)" }
   }
 }
@@ -70,11 +71,11 @@ Usually these values do not change among our routes so we can provide them by im
 ```swift
 extension RouteType {
 
-    var baseURL: NSURL {
-        return NSURL(string: "https://api.github.com")!
+    var baseURL: URL {
+        return URL(string: "https://api.github.com")!
     }
 
-    var manager: Alamofire.Manager {
+    var manager: ManagerType {
         return Manager.singleton
     }
 }
@@ -85,41 +86,43 @@ extension RouteType {
 At this point we can easily create an Alamofire Request:
 
 ```swift
-let request: Alamofire.Request =  GithubAPI.Repository.GetInfo(owner: "xmartlabs", repo: "Opera").request
+let request: Request =  GithubAPI.Repository.GetInfo(owner: "xmartlabs", repo: "Opera").request
 ```
 
-> Notice that `RouteType` conforms to `Alamofire.URLRequestConvertible` so having the manager we can create the associated `Alamofire.Request`.
+> Notice that `RouteType` conforms to `Alamofire.URLConvertible` so having the manager we can create the associated `Request`.
 
 We can also take advantage of the reactive helpers provided by Opera:
 
 ```swift
 request
   .rx_collection()
-  .doOnNetworkError { (error: NetworkError) in
-    // do something when networking went wrong
-  }
-  .subscribeNext { (repositories: [Repository]) in
-    // do something when networking and Json parsing completes successfully
-  }
+  .subscribe(
+    onNext: { (repositories: [Repository]) in
+      // do something when networking and Json parsing completes successfully
+    },
+    onError: {(error: OperaError) in
+      // do something when networking went wrong
+    }
+  )
   .addDisposableTo(disposeBag)
 ```
 
 ```swift
 getInfoRequest
   .rx_object()
-  .doOnNetworkError { (error: NetworkError) in
-    // do something when networking went wrong
-  }
-  .subscribeNext { (repository: Repository) in
-    // do something when networking and Json parsing completes successfully
-  }
+  .subscribe(
+    onNext: { (repositories: [Repository]) in
+      // do something when networking and Json parsing completes successfully
+    },
+    onError: {(error: OperaError) in
+      // do something when networking went wrong
+    }
+  )
   .addDisposableTo(disposeBag)
 
 ```
 
-> Note that, when using doOnNetworkError you don't need to cast the parameter to the NetworkError type. You have to if you use the default doOnError method though.
-
-> If you are not interested in decode your JSON response into a Model you can invoke `request.rx_anyObject()` which returns an `Observable` of `AnyObject` for the current request and propagates a `NetworkError` error through the result sequence if something goes wrong.
+> If you are not interested in decode your JSON response into a Model you can invoke `request.rx_anyObject()` which returns an `Observable` of `AnyObject` for the current request and propagates a `OperaError` error through the result sequence if something goes wrong.
 
 > Opera can be used along with [RxAlamofire](https://github.com/RxSwiftCommunity/RxAlamofire).
 
@@ -134,7 +137,7 @@ init(route: RouteType, page: String?, query: String?, filter: FilterType?, colle
 so we create a pagination request doing:
 
 ```swift
-let paginatinRequest: PaginationRequest<Repository> = PaginationRequest(route: GithubAPI.Repository.Search(), collectionKeyPath: "items")
+let paginationRequest: PaginationRequest<Repository> = PaginationRequest(route: GithubAPI.Repository.Search(), collectionKeyPath: "items")
 ```
 
 > Repositories JSON response array is under "items" key as [github repositories api documentation](https://developer.github.com/v3/search/#search-repositories) indicates so we pass `"items"` as `collectionKeyPath` parameter.
@@ -175,7 +178,7 @@ and `OperaDecodable` protocol:
 
 ```swift
 public protocol OperaDecodable {
-    static func decode(json: AnyObject) throws -> Self
+    static func decode(_ json: Any) throws -> Self
 }
 ```
 
@@ -185,7 +188,7 @@ Since `OperaDecodable` and `Decodable.Decodable` require us to implement the sam
 // Make Repository conforms to Decodable.Decodable
 extension Repository: Decodable {
 
-    static func decode(j: AnyObject) throws -> Repository {
+    static func decode(j: Any) throws -> Repository {
         return try Repository.init(  id: j => "id",
                                    name: j => "name",
                                    desc: j =>? "description",
@@ -207,7 +210,7 @@ Using Argo is a little bit harder, we need to implement `OperaDecodable` in addi
 
 ```swift
 extension Argo.Decodable where Self.DecodedType == Self, Self: OperaDecodable {
-  static func decode(json: AnyObject) throws -> Self {
+  static func decode(json: Any) throws -> Self {
     let decoded = decode(JSON.parse(json))
     switch decoded {
       case .Success(let value):
@@ -327,7 +330,7 @@ extension Request {
 
          - returns: The request.
          */
-    public func responseObject<T : OperaDecodable>(keyPath: String? = default, completionHandler: Alamofire.Response<T, Opera.NetworkError> -> Void) -> Self
+    public func responseObject<T : OperaDecodable>(keyPath: String? = default, completionHandler: Response<T, OperaError> -> Void) -> Self
     /**
          Generic response object serialization that returns an Array of OperaDecodable instances.
 
@@ -336,7 +339,7 @@ extension Request {
 
          - returns: The request.
          */
-    public func responseCollection<T : OperaDecodable>(collectionKeyPath: String? = default, completionHandler: Alamofire.Response<[T], Opera.NetworkError> -> Void) -> Self
+    public func responseCollection<T : OperaDecodable>(collectionKeyPath: String? = default, completionHandler: Response<[T], OperaError> -> Void) -> Self
     /**
          Generic response object serialization. Notice that Response Error type is NetworkError.
 
@@ -344,7 +347,7 @@ extension Request {
 
          - returns: The request.
          */
-    public func responseAnyObject(completionHandler: Alamofire.Response<AnyObject, Opera.NetworkError> -> Void) -> Self
+    public func responseAnyObject(completionHandler: Response<AnyObject, OperaError> -> Void) -> Self
 }
 ```
 
@@ -381,7 +384,7 @@ Follow these 4 steps to run Example project:
 To install Opera, simply add the following line to your Podfile:
 
 ```ruby
-pod 'Opera', '~> 1.0'
+pod 'Opera', '~> 0.2'
 ```
 
 #### Carthage
@@ -391,7 +394,7 @@ pod 'Opera', '~> 1.0'
 To install Opera, simply add the following line to your Cartfile:
 
 ```ogdl
-github "xmartlabs/Opera" ~> 1.0
+github "xmartlabs/Opera" ~> 0.2
 ```
 
 ## Author
@@ -429,21 +432,21 @@ public protocol URLRequestSetup {
 
 ##### How do I customize the default names and values of parameters for a PaginationRequest?
 
-You can make PaginationRequest adopt `PaginationRequestTypeSettings`. 
+You can make PaginationRequest adopt `PaginationRequestTypeSettings`.
 
 ```swift
 /**
  *  By adopting PaginationRequestTypeSettings a PaginationRequestType is able to customize its default parameter names such as query, page and its first page value.
  */
 public protocol PaginationRequestTypeSettings {
-    
+
     var queryParameterName: String { get }
     var pageParameterName: String { get }
     var firstPageParameterValue: String { get }
 }
 ```
 
-The default settings by Opera are the following ones: 
+The default settings by Opera are the following ones:
 
 * "q" for query
 * "page" for page

@@ -9,7 +9,7 @@
 import Foundation
 import XCTest
 import Alamofire
-@testable import Opera
+@testable import OperaSwift
 
 class PaginationRequestTests: BaseXCTextCase {
     

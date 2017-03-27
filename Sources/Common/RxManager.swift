@@ -33,7 +33,25 @@ extension RxManager {
             }
         }
     }
-    
+
+    /**
+     Returns an `Observable` of T for the current RouteType. Notice that T conforms to OperaDecodable. If something goes wrong a Opera.Error error is propagated through the result sequence.
+
+     - parameter keyPath: keyPath to look up json object to serialize. Ignore parameter or pass nil when json object is the json root item.
+
+     - returns: An instance of `Observable<T>` filled with sample data specified on the RouteType.
+     */
+    public func rx_sampleObject<T: OperaDecodable>(_ route: RouteType, keyPath: String? = nil) -> Observable<T> {
+       guard let json = JSONFrom(data: route.sampleData) else {
+            return Observable.empty()
+        }
+        let object = keyPath.map({ (json as AnyObject).value(forKeyPath: $0) as Any}) ?? json
+        guard let decodedData = try? T.decode(object as Any) else {
+            return Observable.empty()
+        }
+        return Observable.just(decodedData)
+    }
+
     
     /**
      Returns an `Observable` of [T] for the current request. Notice that T conforms to OperaDecodable. If something goes wrong a Opera.Error error is propagated through the result sequence.
@@ -53,7 +71,35 @@ extension RxManager {
             }
         }
     }
-    
+
+    /**
+     Returns an `Observable` of [T] for for the current RouteType. Notice that T conforms to OperaDecodable. If something goes wrong a Opera.Error error is propagated through the result sequence.
+
+     - parameter collectionKeyPath: keyPath to look up json array to serialize. Ignore parameter or pass nil when json array is the json root item.
+
+     - returns: An instance of `Observable<[T]>`  filled with sample data specified on the RouteType.
+     */
+    public func rx_sampleCollection<T: OperaDecodable>(_ route: RouteType, collectionKeyPath:String? = nil) -> Observable<[T]> {
+        guard
+            let json = JSONFrom(data: route.sampleData),    
+            let representation = (
+                collectionKeyPath.map {
+                    (json as AnyObject).value(forKeyPath: $0) as Any
+                } ?? json
+            ) as? [[String: AnyObject]]
+        else {
+            return Observable.empty()
+        }
+
+        var result = [T]()
+        representation.forEach {
+            if let decodedData = try? T.decode($0 as AnyObject) {
+                result.append(decodedData)
+            }
+        }
+        return Observable.just(result)
+    }
+
     /**
      Returns an `Observable` of AnyObject for the current request. If something goes wrong a Opera.Error error is propagated through the result sequence.
      
@@ -70,13 +116,20 @@ extension RxManager {
             }
         }
     }
-    
+
+    public func rx_sampleAny(_ route: RouteType) -> Observable<Any> {
+        guard let json = JSONFrom(data: route.sampleData) else {
+            return Observable.empty()
+        }
+        return Observable.just(json as Any)
+    }
+
 }
 
 
-open class RxManager: OperaSwift.Manager {
+open class RxManager: Manager {
 
-    public override init(manager: Alamofire.SessionManager) {
+    public override init(manager: SessionManager) {
         super.init(manager: manager)
     }
     

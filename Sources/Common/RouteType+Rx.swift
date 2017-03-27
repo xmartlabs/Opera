@@ -1,4 +1,4 @@
-//
+    //
 //  RouteType+Rx.swift
 //  Opera ( https://github.com/xmartlabs/Opera )
 //
@@ -38,6 +38,9 @@ extension RouteType {
      - returns: An instance of `Observable<T>`
      */
     public func rx_object<T: OperaDecodable>(_ keyPath: String? = nil) -> Observable<T> {
+        if manager.useSampleData && self.sampleData != nil {
+            return (manager as! RxManager).rx_sampleObject(self, keyPath: keyPath)
+        } 
         return (manager as! RxManager).rx_object(self, keyPath: keyPath)
     }
     
@@ -50,6 +53,9 @@ extension RouteType {
      - returns: An instance of `Observable<[T]>`
      */
     public func rx_collection<T: OperaDecodable>(_ collectionKeyPath:String? = nil) -> Observable<[T]> {
+        if manager.useSampleData && self.sampleData != nil {
+            return (manager as! RxManager).rx_sampleCollection(self, collectionKeyPath: collectionKeyPath)
+        }
         return (manager as! RxManager).rx_collection(self, collectionKeyPath: collectionKeyPath)
     }
     
@@ -59,6 +65,9 @@ extension RouteType {
      - returns: An instance of `Observable<AnyObject>`
      */
     public func rx_anyObject() -> Observable<Any> {
+        if manager.useSampleData && self.sampleData != nil {
+            return (manager as! RxManager).rx_sampleAny(self)
+        }
         return (manager as! RxManager).rx_any(self)
     }
 }

@@ -23,7 +23,7 @@
 // THE SOFTWARE.
 
 import Foundation
-import Opera
+import OperaSwift
 import Argo
 import Curry
 import SwiftDate
@@ -69,7 +69,7 @@ extension Date: Argo.Decodable {
             if let date =  try? dateString.date(format: DateFormat.iso8601(options: .withFullTime)).absoluteDate {
                 return pure(date)
             } else {
-                return .typeMismatch(expected: "Date", actual: j)
+                return pure(Date())
             }
         default: return .typeMismatch(expected: "Date", actual: j)
         }

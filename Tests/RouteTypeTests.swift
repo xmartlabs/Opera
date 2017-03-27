@@ -7,7 +7,7 @@
 
 import XCTest
 import Alamofire
-@testable import Opera
+@testable import OperaSwift
 
 
 class RouteTypeTests: BaseXCTextCase {

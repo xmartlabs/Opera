@@ -24,7 +24,7 @@
 
 import Foundation
 import Alamofire
-import Opera
+import OperaSwift
 
 extension GithubAPI {
     

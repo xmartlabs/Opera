@@ -31,7 +31,7 @@ import Alamofire
 public protocol RouteType: URLRequestConvertible {
     
     /// HTTP method
-    var method: Alamofire.HTTPMethod { get }
+    var method: HTTPMethod { get }
     /// URL path
     var path: String { get }
     /// The parameters, nil if not implemented.
@@ -44,6 +44,8 @@ public protocol RouteType: URLRequestConvertible {
     var manager: ManagerType { get }
     /// Used to determine how often a request should be retried if unsuccessful
     var retryCount: Int { get }
+
+    var sampleData: Data? { get }
 }
 
 /**
@@ -86,5 +88,22 @@ extension RouteType {
     
     public var parameters: [String: Any]? {
         return nil
+    }
+
+    public var sampleData: Data? {
+        return nil
+    }
+
+    public func getJsonFromPath(path: String) -> Data? {
+        guard let path = Bundle.main.path(forResource: path, ofType: "json") else {
+            return nil
+        }
+
+        do {
+            let jsonData = try NSData(contentsOfFile: path, options: NSData.ReadingOptions.mappedIfSafe) as Data
+            return jsonData
+        } catch {
+            return nil
+        }
     }
 }

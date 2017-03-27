@@ -25,7 +25,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
-import Opera
+import OperaSwift
 
 class SearchRepositoriesController: UIViewController {
     

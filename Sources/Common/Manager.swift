@@ -30,23 +30,24 @@ public typealias CompletionHandler = (OperaResult) -> Void
 
 public protocol ObserverType {
     /// Called immediately before a request is sent over the network (or stubbed).
-    func willSendRequest(_ alamoRequest: Alamofire.Request, requestConvertible: URLRequestConvertible)
+    func willSendRequest(_ alamoRequest: Request, requestConvertible: URLRequestConvertible)
 }
 
 public protocol ManagerType: class {
-    var manager: Alamofire.SessionManager { get }
+    var manager: SessionManager { get }
     var observers: [ObserverType] { get set }
-    func response(_ requestConvertible: URLRequestConvertible, completion: @escaping CompletionHandler) -> Alamofire.Request
+    var useSampleData: Bool { get set }
+    func response(_ requestConvertible: URLRequestConvertible, completion: @escaping CompletionHandler) -> Request
 }
 
 
 open class Manager: ManagerType {
     
     open var observers: [ObserverType]
-    open var manager: Alamofire.SessionManager
+    open var manager: SessionManager
+    public var useSampleData = false
     
-    
-    public init(manager: Alamofire.SessionManager) {
+    public init(manager: SessionManager) {
         self.manager = manager
         self.observers = []
     }
@@ -61,12 +62,12 @@ open class Manager: ManagerType {
      
      - returns: the request
      */
-    open func response(_ request: URLRequestConvertible, completion: @escaping CompletionHandler) -> Alamofire.Request {
+    open func response(_ request: URLRequestConvertible, completion: @escaping CompletionHandler) -> Request {
         return self.retryCallback(request, retryLeft: (request as? RouteType)?.retryCount ??  (request as? BasePaginationRequestType)?.route.retryCount ?? 0, completion: completion)
     }
     
     /// Callback responsible for handling retries
-    open func retryCallback(_ request: URLRequestConvertible, retryLeft: Int, completion: @escaping CompletionHandler) -> Alamofire.Request {
+    open func retryCallback(_ request: URLRequestConvertible, retryLeft: Int, completion: @escaping CompletionHandler) -> Request {
         let result = manager.request(request).validate()
         observers.forEach { $0.willSendRequest(result, requestConvertible: request) }
         result.response(){ [weak self] dataResponse in
@@ -94,7 +95,7 @@ private func toOperaResult(_ requestConvertible: URLRequestConvertible, response
     case let (_, _, .some(error)):
         return OperaResult(result: .failure(OperaError.networking(error: error, request: requestConvertible.urlRequest, response: response, json: data as AnyObject)), requestConvertible: requestConvertible)
     default:
-        return OperaResult(result: .failure(OperaError.networking(error: UnknownError(),
+        return OperaResult(result: .failure(OperaError.networking(error: UnknownError(error: error),
             request: try? requestConvertible.asURLRequest(), response: response, json: data as AnyObject)), requestConvertible: requestConvertible)
     }
 }
