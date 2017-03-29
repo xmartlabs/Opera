@@ -49,13 +49,6 @@ public protocol RouteType: URLRequestConvertible {
 }
 
 /**
- *  By adopting URLRequestSetup a RequestType or PaginationRequstType is able to customize it right before sending it to the server.
- */
-public protocol URLRequestSetup {
-    func urlRequestSetup(_ urlRequest: inout URLRequest)
-}
-
-/**
  *  By adopting URLRequestParametersSetup a RequestType or PaginationRequstType is able to make a final customization to request parameters dictionary before they are encoded.
  */
 public protocol URLRequestParametersSetup {
@@ -72,7 +65,6 @@ extension RouteType {
         
         let params = (self as? URLRequestParametersSetup)?.urlRequestParametersSetup(urlRequest, parameters: parameters) ?? parameters
         urlRequest = try encoding.encode(urlRequest, with: params)
-        (self as? URLRequestSetup)?.urlRequestSetup(&urlRequest)
 
         return urlRequest
     }

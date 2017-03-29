@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A19BC031E8BFAD000DA313F /* AuthAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A19BC021E8BFAD000DA313F /* AuthAdapter.swift */; };
 		1A5AEA851E8ACB25004A5082 /* repoinfo.json in Resources */ = {isa = PBXBuildFile; fileRef = 1A5AEA841E8ACB25004A5082 /* repoinfo.json */; };
 		284E6E3D1CBC1FA9001874B5 /* RepositoryRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284E6E3B1CBC1FA9001874B5 /* RepositoryRoute.swift */; };
 		284E6E3E1CBC1FA9001874B5 /* RouteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284E6E3C1CBC1FA9001874B5 /* RouteType.swift */; };
@@ -125,6 +126,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1A19BC021E8BFAD000DA313F /* AuthAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AuthAdapter.swift; path = Example/Helpers/AuthAdapter.swift; sourceTree = "<group>"; };
 		1A5AEA841E8ACB25004A5082 /* repoinfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = repoinfo.json; sourceTree = "<group>"; };
 		284E6E3B1CBC1FA9001874B5 /* RepositoryRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryRoute.swift; sourceTree = "<group>"; };
 		284E6E3C1CBC1FA9001874B5 /* RouteType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RouteType.swift; path = Example/Helpers/RouteType.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 				2893A68B1CB5A0770052715B /* Helpers.swift */,
 				2893A68D1CB5A09A0052715B /* Manager.swift */,
 				284E6E3C1CBC1FA9001874B5 /* RouteType.swift */,
+				1A19BC021E8BFAD000DA313F /* AuthAdapter.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -524,6 +527,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2893A68C1CB5A0770052715B /* Helpers.swift in Sources */,
+				1A19BC031E8BFAD000DA313F /* AuthAdapter.swift in Sources */,
 				284E6E3D1CBC1FA9001874B5 /* RepositoryRoute.swift in Sources */,
 				54CEB2281CC1666B00C9A1D9 /* Issue.swift in Sources */,
 				54637DDD1CC538AA008C519E /* RepositoryBranchesController.swift in Sources */,

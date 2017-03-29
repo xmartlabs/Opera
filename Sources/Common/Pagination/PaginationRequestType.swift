@@ -110,9 +110,7 @@ extension BasePaginationRequestType {
         var params = (self.route as? URLRequestParametersSetup)?.urlRequestParametersSetup(urlRequest, parameters: parameters) ?? parameters
         params = (self as? URLRequestParametersSetup)?.urlRequestParametersSetup(urlRequest, parameters: params) ?? params
         urlRequest = try route.encoding.encode(urlRequest, with: params)
-        (self.route as? URLRequestSetup)?.urlRequestSetup(&urlRequest)
-        (self as? URLRequestSetup)?.urlRequestSetup(&urlRequest)
-
+        
         return urlRequest
     }
     

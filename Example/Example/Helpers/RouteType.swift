@@ -42,10 +42,3 @@ extension RouteType {
 }
 
 
-extension URLRequestSetup {
-    
-    func urlRequestSetup(_ urlRequest: inout URLRequest) {
-        let _ = Manager.githubAuthorizationToken.map { urlRequest.setValue("token \($0)", forHTTPHeaderField: "Authorization") }
-    }
-}
-

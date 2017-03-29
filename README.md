@@ -419,16 +419,7 @@ public protocol URLRequestParametersSetup {
 
 ##### How do I customize `NSMutableURLRequest` that is not possible through RouteType and PaginationRouteType adoption?
 
-You can make RouteType or PaginationRequestType adopt `URLRequestSetup`.
-
-```swift
-/**
- *  By adopting URLRequestSetup a RouteType or PaginationRequstType is able to customize it right before sending it to the server.
- */
-public protocol URLRequestSetup {
-    func urlRequestSetup(urlRequest: NSMutableURLRequest)
-}
-```
+You can setup an Alamofire `RequestAdapter` on your manager to customize your request right before sending it.
 
 ##### How do I customize the default names and values of parameters for a PaginationRequest?
 

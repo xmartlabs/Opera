@@ -29,15 +29,21 @@ import Alamofire
 public typealias CompletionHandler = (OperaResult) -> Void
 
 public protocol ObserverType {
+    
     /// Called immediately before a request is sent over the network (or stubbed).
     func willSendRequest(_ alamoRequest: Request, requestConvertible: URLRequestConvertible)
+
 }
 
 public protocol ManagerType: class {
+
     var manager: SessionManager { get }
+    var requestAdapter: RequestAdapter? { get set }
+    var requestRetrier: RequestRetrier? { get set }
     var observers: [ObserverType] { get set }
     var useSampleData: Bool { get set }
     func response(_ requestConvertible: URLRequestConvertible, completion: @escaping CompletionHandler) -> Request
+
 }
 
 
@@ -45,6 +51,16 @@ open class Manager: ManagerType {
     
     open var observers: [ObserverType]
     open var manager: SessionManager
+    open var requestAdapter: RequestAdapter? {
+        didSet {
+            manager.adapter = requestAdapter
+        }
+    }
+    open var requestRetrier: RequestRetrier? {
+        didSet {
+            manager.retrier = requestRetrier
+        }
+    }
     public var useSampleData = false
     
     public init(manager: SessionManager) {
@@ -71,7 +87,7 @@ open class Manager: ManagerType {
         let result = manager.request(request).validate()
         observers.forEach { $0.willSendRequest(result, requestConvertible: request) }
         result.response(){ [weak self] dataResponse in
-            let result: OperaResult =  toOperaResult(request, response: dataResponse.response, data: dataResponse.data, error: dataResponse.error)
+            let result: OperaResult =  toOperaResult(request, originalRequest: dataResponse.request, response: dataResponse.response, data: dataResponse.data, error: dataResponse.error)
             switch result.result {
             case .success:
                 completion(result)
@@ -87,15 +103,15 @@ open class Manager: ManagerType {
     }
 }
 
-private func toOperaResult(_ requestConvertible: URLRequestConvertible, response: HTTPURLResponse?, data: Data?, error: Error?) ->
+private func toOperaResult(_ requestConvertible: URLRequestConvertible, originalRequest: URLRequest?, response: HTTPURLResponse?, data: Data?, error: Error?) ->
     OperaResult {
     switch (response, data, error) {
     case let (.some(response), .some(data), .none):
         return OperaResult(result: .success(OperaResponse(statusCode: response.statusCode, data: data, response: response)), requestConvertible: requestConvertible)
     case let (_, _, .some(error)):
-        return OperaResult(result: .failure(OperaError.networking(error: error, request: requestConvertible.urlRequest, response: response, json: data as AnyObject)), requestConvertible: requestConvertible)
+        return OperaResult(result: .failure(OperaError.networking(error: error, request: originalRequest, response: response, json: data as AnyObject)), requestConvertible: requestConvertible)
     default:
         return OperaResult(result: .failure(OperaError.networking(error: UnknownError(error: error),
-            request: try? requestConvertible.asURLRequest(), response: response, json: data as AnyObject)), requestConvertible: requestConvertible)
+            request: originalRequest, response: response, json: data as AnyObject)), requestConvertible: requestConvertible)
     }
 }

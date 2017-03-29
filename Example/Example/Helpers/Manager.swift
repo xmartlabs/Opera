@@ -36,6 +36,7 @@ class Manager: RxManager {
     override init(manager: Alamofire.SessionManager) {
         super.init(manager: manager)
         observers = [Logger()]
+        requestAdapter = AuthAdapter()
         // Uncoment this line if you want to try mocked services.
         //useSampleData = true
     }
