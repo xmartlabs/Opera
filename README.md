@@ -95,7 +95,7 @@ We can also take advantage of the reactive helpers provided by Opera:
 
 ```swift
 request
-  .rx_collection()
+  .rx.collection()
   .subscribe(
     onNext: { (repositories: [Repository]) in
       // do something when networking and Json parsing completes successfully
@@ -109,7 +109,7 @@ request
 
 ```swift
 getInfoRequest
-  .rx_object()
+  .rx.object()
   .subscribe(
     onNext: { (repositories: [Repository]) in
       // do something when networking and Json parsing completes successfully
@@ -122,7 +122,7 @@ getInfoRequest
 
 ```
 
-> If you are not interested in decode your JSON response into a Model you can invoke `request.rx_anyObject()` which returns an `Observable` of `AnyObject` for the current request and propagates a `OperaError` error through the result sequence if something goes wrong.
+> If you are not interested in decode your JSON response into a Model you can invoke `request.rx.anyObject()` which returns an `Observable` of `AnyObject` for the current request and propagates a `OperaError` error through the result sequence if something goes wrong.
 
 > Opera can be used along with [RxAlamofire](https://github.com/RxSwiftCommunity/RxAlamofire).
 
@@ -256,20 +256,20 @@ class SearchRepositoriesController: UIViewController {
         // on viewWill appear load pagination view model by emitting false (do not cancel pending
         // request if any) to view model `refreshTrigger` PublishSubject.
         // viewModel is subscribed to `refreshTrigger` observable and starts a new request.
-        rx_sentMessage(#selector(SearchRepositoriesController.viewWillAppear(_:)))
+        rx.sentMessage(#selector(SearchRepositoriesController.viewWillAppear(_:)))
             .skip(1)
             .map { _ in false }
             .bindTo(viewModel.refreshTrigger)
             .addDisposableTo(disposeBag)
 
         // make model view loads next page when reaches table view bottom...  
-        tableView.rx_reachedBottom
+        tableView.rx.reachedBottom
             .bindTo(viewModel.loadNextPageTrigger)
             .addDisposableTo(disposeBag)
 
         // Updates activity indicator accordingly based on modelView `loading` variable.
         viewModel.loading
-            .drive(activityIndicatorView.rx_animating)
+            .drive(activityIndicatorView.rx.animating)
             .addDisposableTo(disposeBag)
 
         // updates tableView observing viewModel `elements`, since github api only works
@@ -278,11 +278,11 @@ class SearchRepositoriesController: UIViewController {
         // By doing that whenever the search criteria is updated we take away all the item
         // from the table view giving a sense of being fetching/searching the server.
         // Notice the strongly typed `Repository` type below.
-        Driver.combineLatest(viewModel.elements.asDriver(), viewModel.firstPageLoading, searchBar.rx_text.asDriver()) { elements, loading, searchText in
+        Driver.combineLatest(viewModel.elements.asDriver(), viewModel.firstPageLoading, searchBar.rx.text.asDriver()) { elements, loading, searchText in
                 return loading || searchText.isEmpty ? [] : elements
             }
             .asDriver()
-            .drive(tableView.rx_itemsWithCellIdentifier("Cell")) { _, repository: Repository, cell in
+            .drive(tableView.rx.itemsWithCellIdentifier("Cell")) { _, repository: Repository, cell in
                 cell.textLabel?.text = repository.name
                 cell.detailTextLabel?.text = "🌟\(repository.stargazersCount)"
             }
@@ -291,14 +291,14 @@ class SearchRepositoriesController: UIViewController {
         // whenever search bar text is changed, wait for 1/4 sec of search bar inactivity
         // then update the `viewModel` pagination request type (will cancel any pending request).
         // We propagates query string by binding it to viewModel.queryTrigger.
-        searchBar.rx_text
+        searchBar.rx.text
             .filter { !$0.isEmpty }
             .throttle(0.25, scheduler: MainScheduler.instance)
             .bindTo(viewModel.queryTrigger)
             .addDisposableTo(disposeBag)
 
         // handles view empty state.
-        Driver.combineLatest(viewModel.emptyState, searchBar.rx_text.asDriver().throttle(0.25)) { $0 ||  $1.isEmpty }
+        Driver.combineLatest(viewModel.emptyState, searchBar.rx.text.asDriver().throttle(0.25)) { $0 ||  $1.isEmpty }
             .driveNext { [weak self] state in
                 self?.emptyStateLabel.hidden = !state
                 self?.emptyStateLabel.text = (self?.searchBar.text?.isEmpty ?? true) ? "Enter text to search repositories" : "No repositories found"

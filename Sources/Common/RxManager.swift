@@ -13,7 +13,7 @@ import RxCocoa
 
 
 
-extension RxManager {
+extension Reactive where Base: RxManager {
     
     /**
      Returns an `Observable` of T for the current request. Notice that T conforms to OperaDecodable. If something goes wrong a Opera.Error error is propagated through the result sequence.
@@ -22,8 +22,8 @@ extension RxManager {
      
      - returns: An instance of `Observable<T>`
      */
-    public func rx_object<T: OperaDecodable>(_ route: RouteType, keyPath: String? = nil) -> Observable<T> {
-        return rx_response(route).flatMap { operaResult -> Observable<T> in
+    public func object<T: OperaDecodable>(_ route: RouteType, keyPath: String? = nil) -> Observable<T> {
+        return base.rx_response(route).flatMap { operaResult -> Observable<T> in
             let serialized: DataResponse<T>  = operaResult.serializeObject(keyPath)
             switch serialized.result {
             case .failure(let error):
@@ -41,7 +41,7 @@ extension RxManager {
 
      - returns: An instance of `Observable<T>` filled with sample data specified on the RouteType.
      */
-    public func rx_sampleObject<T: OperaDecodable>(_ route: RouteType, keyPath: String? = nil) -> Observable<T> {
+    public func sampleObject<T: OperaDecodable>(_ route: RouteType, keyPath: String? = nil) -> Observable<T> {
        guard let json = JSONFrom(data: route.sampleData) else {
             return Observable.empty()
         }
@@ -60,8 +60,8 @@ extension RxManager {
      
      - returns: An instance of `Observable<[T]>`
      */
-    public func rx_collection<T: OperaDecodable>(_ route: RouteType, collectionKeyPath:String? = nil) -> Observable<[T]> {
-        return rx_response(route).flatMap { operaResult -> Observable<[T]> in
+    public func collection<T: OperaDecodable>(_ route: RouteType, collectionKeyPath:String? = nil) -> Observable<[T]> {
+        return base.rx_response(route).flatMap { operaResult -> Observable<[T]> in
             let serialized: DataResponse<[T]> = operaResult.serializeCollection(collectionKeyPath)
             switch serialized.result {
             case .failure(let error):
@@ -79,7 +79,7 @@ extension RxManager {
 
      - returns: An instance of `Observable<[T]>`  filled with sample data specified on the RouteType.
      */
-    public func rx_sampleCollection<T: OperaDecodable>(_ route: RouteType, collectionKeyPath:String? = nil) -> Observable<[T]> {
+    public func sampleCollection<T: OperaDecodable>(_ route: RouteType, collectionKeyPath:String? = nil) -> Observable<[T]> {
         guard
             let json = JSONFrom(data: route.sampleData),    
             let representation = (
@@ -105,8 +105,8 @@ extension RxManager {
      
      - returns: An instance of `Observable<AnyObject>`
      */
-    public func rx_any(_ route: RouteType) -> Observable<Any> {
-        return rx_response(route).flatMap { operaResult -> Observable<Any> in
+    public func any(_ route: RouteType) -> Observable<Any> {
+        return base.rx_response(route).flatMap { operaResult -> Observable<Any> in
             let serialized = operaResult.serializeAny()
             switch serialized.result {
             case .failure(let error):
@@ -117,7 +117,7 @@ extension RxManager {
         }
     }
 
-    public func rx_sampleAny(_ route: RouteType) -> Observable<Any> {
+    public func sampleAny(_ route: RouteType) -> Observable<Any> {
         guard let json = JSONFrom(data: route.sampleData) else {
             return Observable.empty()
         }
@@ -127,7 +127,11 @@ extension RxManager {
 }
 
 
-open class RxManager: Manager {
+open class RxManager: Manager{
+
+    public var rx: Reactive<RxManager> {
+        return Reactive<RxManager>(self)
+    }
 
     public override init(manager: SessionManager) {
         super.init(manager: manager)

@@ -61,7 +61,7 @@ class SearchRepositoriesController: UIViewController {
             .bindTo(viewModel.refreshTrigger)
             .addDisposableTo(disposeBag)
         
-        tableView.rx_reachedBottom
+        tableView.rx.reachedBottom
             .bindTo(viewModel.loadNextPageTrigger)
             .addDisposableTo(disposeBag)
         
