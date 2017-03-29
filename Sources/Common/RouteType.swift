@@ -45,7 +45,7 @@ public protocol RouteType: URLRequestConvertible {
     /// Used to determine how often a request should be retried if unsuccessful
     var retryCount: Int { get }
 
-    var sampleData: Data? { get }
+    var mockedData: Data? { get }
 }
 
 /**
@@ -82,7 +82,7 @@ extension RouteType {
         return nil
     }
 
-    public var sampleData: Data? {
+    public var mockedData: Data? {
         return nil
     }
 

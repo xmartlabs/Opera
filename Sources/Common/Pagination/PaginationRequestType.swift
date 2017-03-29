@@ -24,6 +24,7 @@
 
 import Foundation
 import Alamofire
+import RxSwift
 
 struct Default {
     static let firstPageParameterValue = "1"
@@ -130,6 +131,10 @@ extension BasePaginationRequestType {
 
 
 extension PaginationRequestType {
+
+    public var rx: Reactive<Self> {
+        return Reactive(self)
+    }
 
     public func routeWithPage(_ page: String) -> Self {
         return Self.init(route: route, page: page, query: query, filter: filter, collectionKeyPath: collectionKeyPath)

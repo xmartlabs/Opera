@@ -38,7 +38,7 @@ extension Reactive where Base: RouteType {
      - returns: An instance of `Observable<T>`
      */
     public func object<T: OperaDecodable>(_ keyPath: String? = nil) -> Observable<T> {
-        if base.manager.useSampleData && base.sampleData != nil {
+        if base.manager.useMockedData && base.mockedData != nil {
             return (base.manager as! RxManager).rx.sampleObject(base, keyPath: keyPath)
         } 
         return (base.manager as! RxManager).rx.object(base, keyPath: keyPath)
@@ -53,7 +53,7 @@ extension Reactive where Base: RouteType {
      - returns: An instance of `Observable<[T]>`
      */
     public func collection<T: OperaDecodable>(_ collectionKeyPath:String? = nil) -> Observable<[T]> {
-        if base.manager.useSampleData && base.sampleData != nil {
+        if base.manager.useMockedData && base.mockedData != nil{
             return (base as! RxManager).rx.sampleCollection(base, collectionKeyPath: collectionKeyPath)
         }
         return (base.manager as! RxManager).rx.collection(base, collectionKeyPath: collectionKeyPath)
@@ -65,7 +65,7 @@ extension Reactive where Base: RouteType {
      - returns: An instance of `Observable<AnyObject>`
      */
     public func anyObject() -> Observable<Any> {
-        if base.manager.useSampleData && base.sampleData != nil {
+        if base.manager.useMockedData && base.mockedData != nil{
             return (base.manager as! RxManager).rx.sampleAny(base)
         }
         return (base.manager as! RxManager).rx.any(base)

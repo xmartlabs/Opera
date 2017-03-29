@@ -41,7 +41,7 @@ public protocol ManagerType: class {
     var requestAdapter: RequestAdapter? { get set }
     var requestRetrier: RequestRetrier? { get set }
     var observers: [ObserverType] { get set }
-    var useSampleData: Bool { get set }
+    var useMockedData: Bool { get set }
     func response(_ requestConvertible: URLRequestConvertible, completion: @escaping CompletionHandler) -> Request
 
 }
@@ -61,7 +61,7 @@ open class Manager: ManagerType {
             manager.retrier = requestRetrier
         }
     }
-    public var useSampleData = false
+    public var useMockedData = false
     
     public init(manager: SessionManager) {
         self.manager = manager

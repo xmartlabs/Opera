@@ -38,16 +38,13 @@ class Manager: RxManager {
         observers = [Logger()]
         requestAdapter = AuthAdapter()
         // Uncoment this line if you want to try mocked services.
-        //useSampleData = true
+        //useMockedData = true
     }
 
     func refreshToken() -> Observable<String?>{
         return Observable.just(nil)
     }
     
-    override func rx_response(_ requestConvertible: URLRequestConvertible) -> Observable<OperaResult> {
-        return super.rx_response(requestConvertible)
-    }
 }
 
 

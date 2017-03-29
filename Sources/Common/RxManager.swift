@@ -23,7 +23,7 @@ extension Reactive where Base: RxManager {
      - returns: An instance of `Observable<T>`
      */
     public func object<T: OperaDecodable>(_ route: RouteType, keyPath: String? = nil) -> Observable<T> {
-        return base.rx_response(route).flatMap { operaResult -> Observable<T> in
+        return base.rx.response(route).flatMap { operaResult -> Observable<T> in
             let serialized: DataResponse<T>  = operaResult.serializeObject(keyPath)
             switch serialized.result {
             case .failure(let error):
@@ -42,7 +42,7 @@ extension Reactive where Base: RxManager {
      - returns: An instance of `Observable<T>` filled with sample data specified on the RouteType.
      */
     public func sampleObject<T: OperaDecodable>(_ route: RouteType, keyPath: String? = nil) -> Observable<T> {
-       guard let json = JSONFrom(data: route.sampleData) else {
+       guard let json = JSONFrom(data: route.mockedData) else {
             return Observable.empty()
         }
         let object = keyPath.map({ (json as AnyObject).value(forKeyPath: $0) as Any}) ?? json
@@ -61,7 +61,7 @@ extension Reactive where Base: RxManager {
      - returns: An instance of `Observable<[T]>`
      */
     public func collection<T: OperaDecodable>(_ route: RouteType, collectionKeyPath:String? = nil) -> Observable<[T]> {
-        return base.rx_response(route).flatMap { operaResult -> Observable<[T]> in
+        return base.rx.response(route).flatMap { operaResult -> Observable<[T]> in
             let serialized: DataResponse<[T]> = operaResult.serializeCollection(collectionKeyPath)
             switch serialized.result {
             case .failure(let error):
@@ -81,7 +81,7 @@ extension Reactive where Base: RxManager {
      */
     public func sampleCollection<T: OperaDecodable>(_ route: RouteType, collectionKeyPath:String? = nil) -> Observable<[T]> {
         guard
-            let json = JSONFrom(data: route.sampleData),    
+            let json = JSONFrom(data: route.mockedData),
             let representation = (
                 collectionKeyPath.map {
                     (json as AnyObject).value(forKeyPath: $0) as Any
@@ -106,7 +106,7 @@ extension Reactive where Base: RxManager {
      - returns: An instance of `Observable<AnyObject>`
      */
     public func any(_ route: RouteType) -> Observable<Any> {
-        return base.rx_response(route).flatMap { operaResult -> Observable<Any> in
+        return base.rx.response(route).flatMap { operaResult -> Observable<Any> in
             let serialized = operaResult.serializeAny()
             switch serialized.result {
             case .failure(let error):
@@ -118,29 +118,15 @@ extension Reactive where Base: RxManager {
     }
 
     public func sampleAny(_ route: RouteType) -> Observable<Any> {
-        guard let json = JSONFrom(data: route.sampleData) else {
+        guard let json = JSONFrom(data: route.mockedData) else {
             return Observable.empty()
         }
         return Observable.just(json as Any)
     }
 
-}
-
-
-open class RxManager: Manager{
-
-    public var rx: Reactive<RxManager> {
-        return Reactive<RxManager>(self)
-    }
-
-    public override init(manager: SessionManager) {
-        super.init(manager: manager)
-    }
-    
-    
-    open func rx_response(_ requestConvertible: URLRequestConvertible) -> Observable<OperaResult> {
+    public func response(_ requestConvertible: URLRequestConvertible) -> Observable<OperaResult> {
         return Observable.create { subscriber in
-            let req = self.response(requestConvertible) { result in
+            let req = self.base.response(requestConvertible) { result in
                 switch result.result {
                 case .failure(let error):
                     subscriber.onError(error)
@@ -156,3 +142,17 @@ open class RxManager: Manager{
     }
 
 }
+
+
+open class RxManager: Manager {
+
+    public var rx: Reactive<RxManager> {
+        return Reactive<RxManager>(self)
+    }
+
+    public override init(manager: SessionManager) {
+        super.init(manager: manager)
+    }
+
+}
+

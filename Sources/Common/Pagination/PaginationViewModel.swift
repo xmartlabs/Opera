@@ -119,7 +119,7 @@ open class PaginationViewModel<PaginationRequest: PaginationRequestType> where P
             .shareReplay(1)
         
         let response = request
-            .flatMap { $0.rx_collection() }
+            .flatMap { $0.rx.collection }
             .shareReplay(1)
         
         Observable

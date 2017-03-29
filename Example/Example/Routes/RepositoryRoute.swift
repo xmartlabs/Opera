@@ -61,7 +61,7 @@ extension GithubAPI.Repository {
             return 2
         }
 
-        var sampleData: Data? {
+        var mockedData: Data? {
             let data = getJsonFromPath(path: "repoinfo")
             return data
         }
