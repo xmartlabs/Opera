@@ -35,21 +35,23 @@ extension UIControl {
     }
 }
 
-extension UIScrollView {
-    
-    /// Reactive observable that emit items whenever scroll view contentOffset.y is close to contentSize.height
-    public var rx_reachedBottom: Observable<Void> {
-        return rx.contentOffset
-            .flatMap { [weak self] contentOffset -> Observable<Void> in
-                guard let scrollView = self else {
-                    return Observable.empty()
-                }
-                
-                let visibleHeight = scrollView.frame.height - scrollView.contentInset.top - scrollView.contentInset.bottom
-                let y = contentOffset.y + scrollView.contentInset.top
-                let threshold = max(0.0, scrollView.contentSize.height - visibleHeight)
-                
-                return y > threshold ? Observable.just(()) : Observable.empty()
+extension Reactive where Base: UIScrollView {
+
+    public var reachedBottom: Observable<Void> {
+        return didEndDecelerating
+            .flatMap { () -> Observable<Void> in
+                return self.base.isTableViewScrolledToBottom() ? Observable.just(()) : Observable.empty()
         }
+    }
+
+}
+
+extension UIScrollView {
+
+    public func isTableViewScrolledToBottom() -> Bool {
+        let visibleHeight = frame.height - contentInset.top - contentInset.bottom
+        let y = contentOffset.y + contentInset.top
+        let threshold = max(0.0, contentSize.height - visibleHeight)
+        return y >= threshold
     }
 }
