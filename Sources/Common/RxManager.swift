@@ -121,7 +121,7 @@ extension Reactive where Base: RxManager {
         return Observable.just(json as Any)
     }
 
-    func response(_ requestConvertible: URLRequestConvertible) -> Observable<OperaResult> {
+    open func response(_ requestConvertible: URLRequestConvertible) -> Observable<OperaResult> {
         return Observable.create { subscriber in
             let req = self.base.response(requestConvertible) { result in
                 switch result.result {
