@@ -26,29 +26,29 @@ import Foundation
 import UIKit
 
 class RepositoryBaseController: UIViewController {
-    
+
     @IBOutlet weak var tableView: UITableView!
 
     var name: String!
     var owner: String!
     var emptyStateLabel: UILabel!
-    
+
     override func viewDidLoad() {
         emptyStateLabel = UILabel()
         emptyStateLabel.textAlignment = .center
         tableView.backgroundView = emptyStateLabel
     }
-    
+
 }
 
 class RepositoryData {
-    
+
     let name: String?
     let owner: String?
-    
+
     init(name: String?, owner: String?) {
         self.name = name
         self.owner = owner
     }
-    
+
 }

@@ -27,7 +27,7 @@ import OperaSwift
 import Argo
 
 extension Argo.Decodable where Self.DecodedType == Self, Self: OperaDecodable {
-    
+
     static func decode(_ json: Any) throws -> Self {
         let decoded = decode(JSON(json))
         switch decoded {
@@ -37,5 +37,5 @@ extension Argo.Decodable where Self.DecodedType == Self, Self: OperaDecodable {
             throw error
         }
     }
-    
+
 }

@@ -30,7 +30,7 @@ import Alamofire
  *  The result of a network request. Contains the request and the response object or an error
  */
 public struct OperaResult {
-    
+
     public var result: Result<OperaResponse>
     public var requestConvertible: URLRequestConvertible
 
@@ -43,69 +43,119 @@ public struct OperaResult {
 }
 
 extension OperaResult {
-    
+
     /**
      Generic response object serialization that returns a OperaDecodable instance.
      
-     - parameter keyPath:           keyPath to look up json object to serialize. Ignore parameter or pass nil when json object is the json root item.
+     - parameter keyPath:           keyPath to look up json object to serialize. 
+     Ignore parameter or pass nil when json object is the json root item.
      
      - returns: The serialized object or an error.
      */
     public func serializeObject<T: OperaDecodable>(_ keyPath: String? = nil) -> DataResponse<T> {
         switch result {
         case let .success(value):
-            let result = OperaResult.serialize(nil, response: value.response, data: value.data, error: nil, onsuccess: { (result, json) -> Result<T> in
+            let result = OperaResult.serialize(
+                nil, response: value.response,
+                data: value.data,
+                error: nil, onsuccess: { (result, json) -> Result<T> in
                 let object = keyPath.map({ (json as AnyObject).value(forKeyPath: $0) as Any}) ?? json
                 do {
                     let decodedData = try T.decode(object as AnyObject)
                     return .success(decodedData)
-                }
-                catch let error {
-                    return .failure(OperaError.parsing(error: error, request: try? self.requestConvertible.asURLRequest(), response: value.response, json: json))
+                } catch let error {
+                    return .failure(
+                        OperaError.parsing(
+                            error: error,
+                            request: try? self.requestConvertible.asURLRequest(),
+                            response: value.response,
+                            json: json
+                        )
+                    )
                 }
             })
-            return DataResponse(request: try? requestConvertible.asURLRequest(), response: value.response, data: value.data, result: result)
+            return DataResponse(
+                request: try? requestConvertible.asURLRequest(),
+                response: value.response,
+                data: value.data,
+                result: result
+            )
         case let .failure(error):
-            return DataResponse(request: try? requestConvertible.asURLRequest(), response: nil, data: nil, result: .failure(error))
+            return DataResponse(
+                request: try? requestConvertible.asURLRequest(),
+                response: nil,
+                data: nil,
+                result: .failure(error)
+            )
         }
     }
-    
+
     /**
      Generic response object serialization that returns an Array of OperaDecodable instances.
      
-     - parameter collectionKeyPath: keyPath to look up json array to serialize. Ignore parameter or pass nil when json array is the json root item.
+     - parameter collectionKeyPath: keyPath to look up json array to serialize.
+     Ignore parameter or pass nil when json array is the json root item.
      
      - returns: The serialized objects or an error.
      */
-    public func serializeCollection<T: OperaDecodable>(_ collectionKeyPath: String? = nil) -> DataResponse<[T]>  {
+    public func serializeCollection<T: OperaDecodable>
+        (_ collectionKeyPath: String? = nil) -> DataResponse<[T]> {
         switch result {
         case let .success(value):
-            let result = OperaResult.serialize(nil, response: value.response, data: value.data, error: nil, onsuccess: { (result, json) -> Result<[T]> in
-                if let representation = (collectionKeyPath.map { (json as AnyObject).value(forKeyPath: $0) } ?? json) as? [[String: AnyObject]] {
+            let result = OperaResult.serialize(
+                nil,
+                response: value.response,
+                data: value.data,
+                error: nil, onsuccess: { (result, json) -> Result<[T]> in
+                if let representation = (
+                    collectionKeyPath.map {
+                        (json as AnyObject).value(forKeyPath: $0) as Any
+                    } ?? json) as? [[String: AnyObject]] {
                     var result = [T]()
                     for userRepresentation in representation {
                         do {
                             let decodedData = try T.decode(userRepresentation as AnyObject)
                             result.append(decodedData)
-                        }
-                        catch let error {
-                            return .failure(OperaError.parsing(error: error, request: try? self.requestConvertible.asURLRequest(), response: value.response, json: json))
+                        } catch let error {
+                            return .failure(
+                                OperaError.parsing(
+                                    error: error,
+                                    request: try? self.requestConvertible.asURLRequest(),
+                                    response: value.response,
+                                    json: json
+                                )
+                            )
                         }
                     }
                     return .success(result)
                 } else {
                     let failureReason = "Json Response collection could not be found"
                     let error = SerializationError.jsonSerializationError(reason: failureReason)
-                    return .failure(OperaError.networking(error: error, request: try? self.requestConvertible.asURLRequest(), response: value.response, json: json))
+                    return .failure(
+                        OperaError.networking(
+                            error: error,
+                            request: try? self.requestConvertible.asURLRequest(),
+                            response: value.response, json: json
+                        )
+                    )
                 }
             })
-            return DataResponse(request: try? requestConvertible.asURLRequest(), response: value.response, data: value.data, result: result)
+            return DataResponse(
+                request: try? requestConvertible.asURLRequest(),
+                response: value.response,
+                data: value.data,
+                result: result
+            )
         case let .failure(error):
-            return DataResponse(request: try? requestConvertible.asURLRequest(), response: nil, data: nil, result: .failure(error))
+            return DataResponse(
+                request: try? requestConvertible.asURLRequest(),
+                response: nil,
+                data: nil,
+                result: .failure(error)
+            )
         }
     }
-    
-    
+
     /**
      Generic response object serialization. Notice that Response Error type is Opera.Error.
      
@@ -114,26 +164,58 @@ extension OperaResult {
     public func serializeAny() -> DataResponse<Any> {
         switch result {
         case let .success(value):
-            let result = OperaResult.serialize(nil, response: value.response, data: value.data, error: nil, onsuccess: { (result, json) -> Result<Any> in
+            let result = OperaResult.serialize(
+                nil,
+                response: value.response,
+                data: value.data,
+                error: nil,
+                onsuccess: { (result, json) -> Result<Any> in
                 if let _ = value.response { return .success(json) }
                 let failureReason = "JSON could not be serialized into response object"
                 let error = SerializationError.jsonSerializationError(reason: failureReason)
-                return .failure(OperaError.networking(error: error, request: try? self.requestConvertible.asURLRequest(), response: value.response, json: json))
+                return .failure(
+                    OperaError.networking(
+                        error: error,
+                        request: try? self.requestConvertible.asURLRequest(),
+                        response: value.response,
+                        json: json
+                    )
+                )
             })
-            return DataResponse(request: try? requestConvertible.asURLRequest(), response: value.response, data: value.data, result: result)
+            return DataResponse(
+                request: try? requestConvertible.asURLRequest(),
+                response: value.response,
+                data: value.data,
+                result: result
+            )
         case let .failure(error):
-            return DataResponse(request: try? requestConvertible.asURLRequest(), response: nil, data: nil, result: .failure(error))
+            return DataResponse(
+                request: try? requestConvertible.asURLRequest(),
+                response: nil,
+                data: nil,
+                result: .failure(error)
+            )
         }
     }
-    
+
     fileprivate static func serialize<T>(_ request: URLRequest?,
                                   response: HTTPURLResponse?,
                                   data: Data?,
                                   error: NSError?,
                                   onsuccess: (Result<Any>, Any) -> Result<T>)
         -> Result<T> {
-            guard error == nil else { return .failure(OperaError.networking(error: error!, request: request, response: response, json: data as AnyObject)) }
-            let JSONResponseSerializer = DataRequest.jsonResponseSerializer(options: .allowFragments)
+            guard error == nil else {
+                return .failure(
+                    OperaError.networking(
+                        error: error!,
+                        request: request,
+                        response: response,
+                        json: data as AnyObject
+                    )
+                )
+            }
+            let JSONResponseSerializer = DataRequest
+                .jsonResponseSerializer(options: .allowFragments)
             let result = JSONResponseSerializer.serializeResponse(request, response, data, error)
 
             switch result {
@@ -141,12 +223,26 @@ extension OperaResult {
                 guard let _ = response else {
                     let failureReason = "JSON could not be serialized into response object: \(value)"
                     let error = SerializationError.jsonSerializationError(reason: failureReason)
-                    return .failure(OperaError.networking(error: error, request: request, response: response, json: data as AnyObject))
+                    return .failure(
+                        OperaError.networking(
+                            error: error,
+                            request: request,
+                            response: response,
+                            json: data as AnyObject
+                        )
+                    )
                 }
                 return onsuccess(result, value)
-                
+
             case .failure(let error):
-                return .failure(OperaError.networking(error: error, request: request, response: response, json: result.value ?? data))
+                return .failure(
+                    OperaError.networking(
+                        error: error,
+                        request: request,
+                        response: response,
+                        json: result.value ?? data
+                    )
+                )
             }
     }
 }

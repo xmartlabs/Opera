@@ -28,6 +28,7 @@ Protocol-Oriented Network abstraction layer written in Swift. Greatly inspired b
 
 ## Usage
 
+### Route setup
 A `RouteType` is a high level representation of the request for a REST API endpoint. By adopting the `RouteType` protocol a type is able to create its corresponding request.
 
 ```swift
@@ -82,7 +83,22 @@ extension RouteType {
 ```
 
 > Now, by default, all `RouteType`s we define will provide `https://api.github.com` as `baseUrl` and `Manager.singleton` as `mananger`. It's up to you to customize it within a specific RouteType protocol conformance.
+### Default RouteTypes
+To avoid having to implement the `method` property in every `RouteType` Opera provides A protocol for each HTTPMethod so you can implement those:
+```swift
+protocol GetRouteType: RouteType {}
+protocol PostRouteType: RouteType {}
+protocol OptionsRouteType: RouteType {}
+protocol HeadRouteType: RouteType {}
+protocol PutRouteType: RouteType {}
+protocol PatchRouteType: RouteType {}
+protocol DeleteRouteType: RouteType {}
+protocol TraceRouteType: RouteType {}
+protocol ConnectRouteType: RouteType {}
+```
+They are pretty simple, they only implement the `medthod` property of `RouteType` with the HTTPMethod that matches.
 
+### Creating requests
 At this point we can easily create an Alamofire Request:
 
 ```swift
@@ -100,8 +116,8 @@ request
     onNext: { (repositories: [Repository]) in
       // do something when networking and Json parsing completes successfully
     },
-    onError: {(error: OperaError) in
-      // do something when networking went wrong
+    onError: {(error: Error) in
+      // do something when something went wrong
     }
   )
   .addDisposableTo(disposeBag)
@@ -114,8 +130,11 @@ getInfoRequest
     onNext: { (repositories: [Repository]) in
       // do something when networking and Json parsing completes successfully
     },
-    onError: {(error: OperaError) in
-      // do something when networking went wrong
+    onError: {(error: Error) in
+      guard let error = error as? OperaError else {
+          //do something when it's not an OperaError
+      }
+      // do something with the OperaError
     }
   )
   .addDisposableTo(disposeBag)
@@ -124,33 +143,23 @@ getInfoRequest
 
 > If you are not interested in decode your JSON response into a Model you can invoke `request.rx.anyObject()` which returns an `Observable` of `AnyObject` for the current request and propagates a `OperaError` error through the result sequence if something goes wrong.
 
-> Opera can be used along with [RxAlamofire](https://github.com/RxSwiftCommunity/RxAlamofire).
-
-
-Opera represents pagination request through `PaginationRequestType` protocol which also conforms to `URLRequestConvertible`. Typically we don't need to create a new type to conform to it. Opera provides `PaginationRequest<Element: OperaDecodable>` generic type that can be used in most of the scenarios.
-
-One of the requirements to adopt `PaginationRequestType` is to implement the following initializer:
-
+## Error Handling
+If you are using the reactive helpers (which are awesome btw!) you can handle the errors on the `onError` callback which returns an `Error` that can be casted to `OperaError` for easier usage.
+`OperaError` wraps any error that is Networking or Parsing related. Keep in mind that you have to cast the `Error` on the `onError` callback before using it.
+`OperaError` also provides a set of properties that make accessing the error's data easier:
 ```swift
-init(route: RouteType, page: String?, query: String?, filter: FilterType?, collectionKeyPath: String?)
+public indirect enum OperaError: Error {
+    case networking(error: Error, request: URLRequest?, response: HTTPURLResponse?, json: Any?)
+    case parsing(error: Error, request: URLRequest?, response: HTTPURLResponse?, json: Any?)
+    public var error: Error
+    public var request: URLRequest?
+    public var response: HTTPURLResponse?
+    public var body: Any?
+    public var statusCode: Int?
+    public var localizedDescription: String
+}
 ```
-so we create a pagination request doing:
-
-```swift
-let paginationRequest: PaginationRequest<Repository> = PaginationRequest(route: GithubAPI.Repository.Search(), collectionKeyPath: "items")
-```
-
-> Repositories JSON response array is under "items" key as [github repositories api documentation](https://developer.github.com/v3/search/#search-repositories) indicates so we pass `"items"` as `collectionKeyPath` parameter.
-
-A `PaginationRequestType` wraps up a `RouteType` instance and holds additional info related with pagination such as query string, page, filters, etc. It also provides some helpers to get a new pagination request from the current pagination request info updating its query string, page or filters value.
-
-```swift
-let firtPageRequest = paginatinRequest.routeWithPage("1").request
-let filteredFirstPageRequest = firtPageRequest.routeWithQuery("Eureka").request
-```
-
-> Another variant of the previous helpers is `public func routeWithFilter(filter: FilterType) -> Self`.
-
+## Decoding
 We've said Opera is able to decode JSON response into a Model using your favorite JSON parsing library.  Let's see how Opera accomplishes that.
 
 > At Xmartlabs we have been using `Decodable` as our JSON parsing library since March 16. Before that we had used Argo, ObjectMapper and many others. I don't want to deep into the reason of our JSON parsing library choice (we do have our reasons ;)) but during Opera implementation/design we thought it was a good feature to be flexible about it.
@@ -227,6 +236,33 @@ Now we can make any Argo.Decodable model conform to `OperaDecodable` by simply d
 ```swift
 extension Repository : OperaDecodable {}
 ```
+
+> Opera can be used along with [RxAlamofire](https://github.com/RxSwiftCommunity/RxAlamofire).
+## Pagination
+
+Opera represents pagination request through `PaginationRequestType` protocol which also conforms to `URLRequestConvertible`. Typically we don't need to create a new type to conform to it. Opera provides `PaginationRequest<Element: OperaDecodable>` generic type that can be used in most of the scenarios.
+
+One of the requirements to adopt `PaginationRequestType` is to implement the following initializer:
+
+```swift
+init(route: RouteType, page: String?, query: String?, filter: FilterType?, collectionKeyPath: String?)
+```
+so we create a pagination request doing:
+
+```swift
+let paginationRequest: PaginationRequest<Repository> = PaginationRequest(route: GithubAPI.Repository.Search(), collectionKeyPath: "items")
+```
+
+> Repositories JSON response array is under "items" key as [github repositories api documentation](https://developer.github.com/v3/search/#search-repositories) indicates so we pass `"items"` as `collectionKeyPath` parameter.
+
+A `PaginationRequestType` wraps up a `RouteType` instance and holds additional info related with pagination such as query string, page, filters, etc. It also provides some helpers to get a new pagination request from the current pagination request info updating its query string, page or filters value.
+
+```swift
+let firtPageRequest = paginatinRequest.routeWithPage("1").request
+let filteredFirstPageRequest = firtPageRequest.routeWithQuery("Eureka").request
+```
+
+> Another variant of the previous helpers is `public func routeWithFilter(filter: FilterType) -> Self`.
 
 Finally let's look into `PaginationViewModel` generic class thats allows us to list/paginate/sort/filter decodable items in a very straightforward way.
 
@@ -353,8 +389,8 @@ extension Request {
 
 ## Requirements
 
-* iOS 8.0+ / Mac OS X 10.9+ / tvOS 9.0+ / watchOS 2.0+
-* Xcode 7.3+
+* iOS 9.0+ / Mac OS X 10.9+ / tvOS 9.0+ / watchOS 2.0+
+* Xcode 8+
 
 ## Getting involved
 
@@ -398,8 +434,10 @@ github "xmartlabs/Opera" ~> 0.2
 ```
 
 ## Author
-
+* [Federico Ojeda](https://github.com/fedeojeda95)
+* [Diego Medina](https://github.com/diegomedina248)
 * [Martin Barreto](https://github.com/mtnBarreto) ([@mtnBarreto](https://twitter.com/mtnBarreto))
+* [Mathias Classen](https://github.com/mats-classen)˚
 
 ## FAQ
 
@@ -434,6 +472,7 @@ public protocol PaginationRequestTypeSettings {
     var queryParameterName: String { get }
     var pageParameterName: String { get }
     var firstPageParameterValue: String { get }
+
 }
 ```
 

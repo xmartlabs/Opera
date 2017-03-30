@@ -27,25 +27,25 @@ import Alamofire
 import OperaSwift
 
 extension GithubAPI {
-    
+
     struct User {}
-    
+
 }
 
 extension GithubAPI.User {
-    
+
     struct GetUser: RouteType {
-        
+
         let username: String
-        
+
         var method: Alamofire.HTTPMethod {
             return .get
         }
-        
+
         var path: String {
             return "users/\(username)"
         }
-        
+
     }
-    
+
 }

@@ -30,7 +30,7 @@ import SwiftDate
 import Runes
 
 struct UserRepository {
-    
+
     let id: Int
     let owner: String
     let name: String
@@ -39,40 +39,39 @@ struct UserRepository {
     let stargazers: Int
     let watchers: Int
     let issues: Int
-    let createdAt: Date
-    
+    let createdAt: Date?
+
 }
 
 extension UserRepository: OperaDecodable, Argo.Decodable {
-    
-    static func decode(_ j: Argo.JSON) -> Argo.Decoded<UserRepository> {
+
+    static func decode(_ json: Argo.JSON) -> Argo.Decoded<UserRepository> {
         return curry(UserRepository.init)
-            <^> j <| "id"
-            <*> j <| ["owner", "login"]
-            <*> j <| "name"
-            <*> j <|? "description"
-            <*> j <| "forks_count"
-            <*> j <| "stargazers_count"
-            <*> j <| "watchers_count"
-            <*> j <| "open_issues_count"
-            <*> j <| "created_at"
+            <^> json <| "id"
+            <*> json <| ["owner", "login"]
+            <*> json <| "name"
+            <*> json <|? "description"
+            <*> json <| "forks_count"
+            <*> json <| "stargazers_count"
+            <*> json <| "watchers_count"
+            <*> json <| "open_issues_count"
+            <*> json <|? "created_at"
     }
-    
+
 }
 
 extension Date: Argo.Decodable {
     public typealias DecodedType = Date
-    
-    public static func decode(_ j: Argo.JSON) -> Argo.Decoded<Date> {
-        switch j {
+
+    public static func decode(_ json: Argo.JSON) -> Argo.Decoded<Date> {
+        switch json {
         case .string(let dateString):
-            if let date =  try? dateString.date(format: DateFormat.iso8601(options: .withFullTime)).absoluteDate {
+            if let date =  try? dateString.date(format: DateFormat.iso8601(options: .withInternetDateTime)).absoluteDate {
                 return pure(date)
             } else {
-                return pure(Date())
+                return .typeMismatch(expected: "Date", actual: json)
             }
-        default: return .typeMismatch(expected: "Date", actual: j)
+        default: return .typeMismatch(expected: "Date", actual: json)
         }
     }
 }
-

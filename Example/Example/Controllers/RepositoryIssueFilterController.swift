@@ -28,38 +28,38 @@ import RxSwift
 import RxCocoa
 
 class RepositoryIssueFilterController: UITableViewController {
-    
+
     @IBOutlet weak var stateSegmentControl: UISegmentedControl!
     @IBOutlet weak var sortBySegmentControl: UISegmentedControl!
     @IBOutlet weak var sortDirectionSegmentControl: UISegmentedControl!
     @IBOutlet weak var issueCreatorTextField: UITextField!
     @IBOutlet weak var issueMentionedUserTextField: UITextField!
-    
+
     var filter: Variable<IssuesFilter>!
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         stateSegmentControl.selectedSegmentIndex = filter.value.state.rawValue
         sortBySegmentControl.selectedSegmentIndex = filter.value.sortBy.rawValue
         sortDirectionSegmentControl.selectedSegmentIndex = filter.value.sortDirection.rawValue
         issueCreatorTextField.text = filter.value.issueCreator
         issueMentionedUserTextField.text = filter.value.userMentioned
-        
+
     }
-    
+
     @IBAction func dismiss(_ sender: UIBarButtonItem) {
         let newFilter = IssuesFilter()
-        
+
         newFilter.state = IssuesFilter.State(rawValue: stateSegmentControl.selectedSegmentIndex) ?? .open
         newFilter.sortBy = IssuesFilter.Sort(rawValue: sortBySegmentControl.selectedSegmentIndex) ?? .created
         newFilter.sortDirection = IssuesFilter.Direction(rawValue: sortDirectionSegmentControl.selectedSegmentIndex) ?? .descendant
         newFilter.issueCreator = issueCreatorTextField.text
         newFilter.userMentioned = issueMentionedUserTextField.text
-        
+
         filter.value = newFilter
-        
+
         self.dismiss(animated: true, completion: nil)
     }
-    
+
 }

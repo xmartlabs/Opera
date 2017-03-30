@@ -19,5 +19,5 @@ class AuthAdapter: RequestAdapter {
         urlRequest.setValue("token \(token)", forHTTPHeaderField: "Authorization")
         return urlRequest
     }
-    
+
 }

@@ -29,13 +29,13 @@ import RxSwift
 import RxCocoa
 
 class IssuesFilter {
-    
+
     enum State: Int, CustomStringConvertible {
-        
+
         case open
         case closed
         case all
-        
+
         var description: String {
             switch self {
             case .open: return "open"
@@ -43,15 +43,15 @@ class IssuesFilter {
             case .all: return "all"
             }
         }
-        
+
     }
-    
+
     enum Sort: Int, CustomStringConvertible {
-        
+
         case created
         case updated
         case comments
-        
+
         var description: String {
             switch self {
             case .created: return "created"
@@ -59,78 +59,77 @@ class IssuesFilter {
             case .comments: return "comments"
             }
         }
-        
+
     }
-    
+
     enum Direction: Int, CustomStringConvertible {
-        
+
         case ascendant
         case descendant
-        
+
         var description: String {
             switch self {
             case .ascendant: return "asc"
             case .descendant: return "desc"
             }
         }
-        
+
     }
-    
+
     var state = State.open
     var sortBy = Sort.created
     var sortDirection = Direction.descendant
     var issueCreator: String?
     var userMentioned: String?
-    
+
 }
 
 extension IssuesFilter: FilterType {
-    
+
     var parameters: [String: AnyObject]? {
         var baseParams = ["state": "\(state)", "sort": "\(sortBy)", "direction": "\(sortDirection)"]
-        if let issueCreator = issueCreator , !issueCreator.isEmpty { baseParams["creator"] = issueCreator }
-        if let userMentioned = userMentioned , !userMentioned.isEmpty { baseParams["mentioned"] = userMentioned }
+        if let issueCreator = issueCreator, !issueCreator.isEmpty { baseParams["creator"] = issueCreator }
+        if let userMentioned = userMentioned, !userMentioned.isEmpty { baseParams["mentioned"] = userMentioned }
         return baseParams as [String : AnyObject]?
     }
-    
+
 }
 
-
 class RepositoryIssuesController: RepositoryBaseController {
-    
+
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
-    
+
     let refreshControl = UIRefreshControl()
-    
+
     var disposeBag = DisposeBag()
-    
+
     fileprivate var filter = Variable<IssuesFilter>(IssuesFilter())
-    
+
     lazy var viewModel: PaginationViewModel<PaginationRequest<Issue>> = { [unowned self] in
         return PaginationViewModel(paginationRequest: PaginationRequest(route: GithubAPI.Repository.GetIssues(owner: self.owner, repo: self.name), filter: self.filter.value))
         }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         tableView.keyboardDismissMode = .onDrag
         tableView.addSubview(self.refreshControl)
         emptyStateLabel.text = "No issues found"
         let refreshControl = self.refreshControl
-        
+
         rx.sentMessage(#selector(RepositoryForksController.viewWillAppear(_:)))
             .map { _ in false }
             .bindTo(viewModel.refreshTrigger)
             .addDisposableTo(disposeBag)
-        
+
         tableView.rx.reachedBottom
             .bindTo(viewModel.loadNextPageTrigger)
             .addDisposableTo(disposeBag)
-        
+
         viewModel.loading
             .drive(activityIndicatorView.rx.isAnimating)
             .addDisposableTo(disposeBag)
-        
+
         Driver.combineLatest(viewModel.elements.asDriver(), viewModel.firstPageLoading) { elements, loading in return loading ? [] : elements }
             .asDriver()
             .drive(tableView.rx.items(cellIdentifier:"Cell")) { _, issue, cell in
@@ -138,33 +137,32 @@ class RepositoryIssuesController: RepositoryBaseController {
                 cell.detailTextLabel?.text = " #\(issue.number)"
             }
             .addDisposableTo(disposeBag)
-        
-        refreshControl.rx_valueChanged
+
+        refreshControl.rx.valueChanged
             .filter { refreshControl.isRefreshing }
             .map { true }
             .bindTo(viewModel.refreshTrigger)
             .addDisposableTo(disposeBag)
-        
+
         viewModel.loading
             .filter { !$0 && refreshControl.isRefreshing }
             .drive(onNext: { _ in refreshControl.endRefreshing() })
             .addDisposableTo(disposeBag)
-        
+
         filter
             .asObservable()
             .map { $0 }
             .bindTo(viewModel.filterTrigger)
             .addDisposableTo(disposeBag)
-        
+
         viewModel.emptyState
             .drive(onNext: { [weak self] emptyState in self?.emptyStateLabel.isHidden = !emptyState })
             .addDisposableTo(disposeBag)
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let vc = (segue.destination as? UINavigationController)?.topViewController as? RepositoryIssueFilterController else { return }
         vc.filter = filter
     }
-    
-    
+
 }

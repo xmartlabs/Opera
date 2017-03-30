@@ -28,10 +28,17 @@ import Foundation
 import UIKit
 
 extension UIControl {
-    
+
+    public var rx: Reactive<UIControl> {
+        return Reactive(self)
+    }
+
+}
+
+extension Reactive where Base: UIControl {
     /// Reactive wrapper for UIControlEvents.ValueChanged target action pattern.
-    public var rx_valueChanged: ControlEvent<Void> {
-        return rx.controlEvent(.valueChanged)
+    public var valueChanged: ControlEvent<Void> {
+        return base.rx.controlEvent(.valueChanged)
     }
 }
 
@@ -40,7 +47,8 @@ extension Reactive where Base: UIScrollView {
     public var reachedBottom: Observable<Void> {
         return didEndDecelerating
             .flatMap { () -> Observable<Void> in
-                return self.base.isTableViewScrolledToBottom() ? Observable.just(()) : Observable.empty()
+                return self.base.isTableViewScrolledToBottom() ?
+                    Observable.just(()) : Observable.empty()
         }
     }
 

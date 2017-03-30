@@ -31,32 +31,32 @@ struct GithubAPI {
 }
 
 extension GithubAPI.Repository {
-        
+
     struct Search: RouteType {
-        
+
         var method: Alamofire.HTTPMethod {
             return .get
         }
-        
+
         var path: String {
             return "search/repositories"
         }
 
     }
-    
+
     struct GetInfo: RouteType {
-        
+
         let owner: String
         let repo: String
-        
+
         var method: Alamofire.HTTPMethod {
             return .get
         }
-        
+
         var path: String {
             return "repos/\(owner)/\(repo)"
         }
-        
+
         var retryCount: Int {
             return 2
         }
@@ -65,127 +65,127 @@ extension GithubAPI.Repository {
             let data = getJsonFromPath(path: "repoinfo")
             return data
         }
-        
+
     }
-    
+
     struct GetForks: RouteType {
-        
+
         let owner: String
         let repo: String
-        
+
         var method: Alamofire.HTTPMethod {
             return .get
         }
-        
+
         var path: String {
             return "repos/\(owner)/\(repo)/forks"
         }
-        
+
     }
-    
+
     struct GetStargazers: RouteType {
-        
+
         let owner: String
         let repo: String
-        
+
         var method: Alamofire.HTTPMethod {
             return .get
         }
-        
+
         var path: String {
             return "repos/\(owner)/\(repo)/stargazers"
         }
-        
+
     }
-    
+
     struct GetIssues: RouteType {
-        
+
         let owner: String
         let repo: String
-        
+
         var method: Alamofire.HTTPMethod {
             return .get
         }
-        
+
         var path: String {
             return "repos/\(owner)/\(repo)/issues"
         }
-        
+
     }
-    
+
     struct GetPullRequests: RouteType {
-        
+
         let owner: String
         let repo: String
-        
+
         var method: Alamofire.HTTPMethod {
             return .get
         }
-        
+
         var path: String {
             return "repos/\(owner)/\(repo)/pulls"
         }
-        
+
     }
-    
+
     struct GetBranches: RouteType {
-        
+
         let owner: String
         let repo: String
-        
+
         var method: Alamofire.HTTPMethod {
             return .get
         }
-        
+
         var path: String {
             return "repos/\(owner)/\(repo)/branches"
         }
-        
+
     }
-    
+
     struct GetReleases: RouteType {
-        
+
         let owner: String
         let repo: String
-        
+
         var method: Alamofire.HTTPMethod {
             return .get
         }
-        
+
         var path: String {
             return "repos/\(owner)/\(repo)/releases"
         }
-        
+
     }
-    
+
     struct GetCommits: RouteType {
-        
+
         let owner: String
         let repo: String
-        
+
         var method: Alamofire.HTTPMethod {
             return .get
         }
-        
+
         var path: String {
             return "repos/\(owner)/\(repo)/commits"
         }
-        
+
     }
-    
+
     struct GetContributors: RouteType {
-        
+
         let owner: String
         let repo: String
-        
+
         var method: Alamofire.HTTPMethod {
             return .get
         }
-        
+
         var path: String {
             return "repos/\(owner)/\(repo)/contributors"
         }
-        
+
     }
-    
+
 }

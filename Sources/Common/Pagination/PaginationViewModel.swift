@@ -27,35 +27,39 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-
 /// Reactive View Model helper to load list of OperaDecodable items.
-open class PaginationViewModel<PaginationRequest: PaginationRequestType> where PaginationRequest.Response.Element: OperaDecodable {
-    
+open class PaginationViewModel<PaginationRequest: PaginationRequestType>
+    where PaginationRequest.Response.Element: OperaDecodable {
+
     /// pagination request
     var paginationRequest: PaginationRequest
     public typealias LoadingType = (Bool, String)
-    
-    /// trigger a refresh, if emited item is true it will cancel pending request and make a new one. if false it will not refresh if there is a request in progress.
+
+    /// trigger a refresh, if emited item is true it will cancel pending 
+    //  request and make a new one. if false it will
+    //  not refresh if there is a request in progress.
     open let refreshTrigger = PublishSubject<Bool>()
-    /// trigger a next page load, it makes a new request for the nextPage value provided by lastest request sent to server.
+    /// trigger a next page load, it makes a new request for
+    //  the nextPage value provided by lastest request sent to server.
     open let loadNextPageTrigger = PublishSubject<Void>()
     /// Cancel any in progress request and start a new one using the query string provided.
     open let queryTrigger = PublishSubject<String>()
     /// Cancel any in progress request and start a new one using the filter parameters provided.
     open let filterTrigger = PublishSubject<FilterType>()
-    
+
     /// Allows subscribers to get notified about networking errors
     open let errors = PublishSubject<Error>()
-    /// Indicates if there is a next page to load. hasNextPage value is the result of getting next link relation from latest response.
+    /// Indicates if there is a next page to load. 
+    //  hasNextPage value is the result of getting next link relation from latest response.
     open let hasNextPage = Variable<Bool>(false)
     /// Indicates is there is a request in progress and what is the request page.
     open let fullloading = Variable<LoadingType>((false, "1"))
     /// Elements array from first page up to latest fetched page.
     open let elements = Variable<[PaginationRequest.Response.Element]>([])
-    
+
     fileprivate var disposeBag = DisposeBag()
     fileprivate let queryDisposeBag = DisposeBag()
-    
+
     /**
      Initialize a new PaginationViewModel instance.
      
@@ -68,69 +72,80 @@ open class PaginationViewModel<PaginationRequest: PaginationRequestType> where P
         bindPaginationRequest(self.paginationRequest, nextPage: nil)
         setUpForceRefresh()
     }
-    
+
     fileprivate func setUpForceRefresh() {
-        
+
         queryTrigger
             .do(onNext: { [weak self] queryString in
                 guard let mySelf = self else { return }
-                mySelf.bindPaginationRequest(mySelf.paginationRequest.routeWithQuery(queryString), nextPage: nil)
+                mySelf.bindPaginationRequest(
+                    mySelf.paginationRequest.routeWithQuery(queryString),
+                    nextPage: nil
+                )
             })
             .map { _ in false }
             .bindTo(refreshTrigger)
             .addDisposableTo(queryDisposeBag)
-        
+
         refreshTrigger
             .filter { $0 }
             .do(onNext: { [weak self] _ in
                 guard let mySelf = self else { return }
-                mySelf.bindPaginationRequest(mySelf.paginationRequest.routeWithPage("1"), nextPage: nil)
+                mySelf.bindPaginationRequest(
+                    mySelf.paginationRequest.routeWithPage("1"), nextPage: nil
+                )
             })
             .map { _ in false }
             .bindTo(refreshTrigger)
             .addDisposableTo(queryDisposeBag)
-        
-        
+
         filterTrigger
             .do(onNext: { [weak self] fitler in
                 guard let mySelf = self else { return }
-                mySelf.bindPaginationRequest(mySelf.paginationRequest.routeWithFilter(fitler), nextPage: nil)
+                mySelf.bindPaginationRequest(
+                    mySelf.paginationRequest.routeWithFilter(fitler),
+                    nextPage: nil
+                )
             })
             .map { _ in false }
             .bindTo(refreshTrigger)
             .addDisposableTo(queryDisposeBag)
     }
-    
+
     fileprivate func bindPaginationRequest(_ paginationRequest: PaginationRequest, nextPage: String?) {
         self.paginationRequest = paginationRequest
         let refreshRequest = refreshTrigger
             .filter { !$0 }
             .take(1)
             .map { _ in paginationRequest }
-        
+
         let nextPageRequest = loadNextPageTrigger
             .take(1)
-            .flatMap { nextPage.map { Observable.of(paginationRequest.routeWithPage($0)) } ?? Observable.empty() }
-        
+            .flatMap { nextPage.map {
+                    Observable.of(paginationRequest.routeWithPage($0))
+                } ?? Observable.empty()
+            }
+
         let request = Observable
             .of(refreshRequest, nextPageRequest)
             .merge()
             .take(1)
             .shareReplay(1)
-        
+
         let response = request
             .flatMap { $0.rx.collection }
             .shareReplay(1)
-        
+
         Observable
             .of(
                 request.map { (true, $0.page) },
-                response.map { (false, $0.page ?? "1") }.catchErrorJustReturn((false, fullloading.value.1))
+                response.map { (false, $0.page ?? "1") }
+                    .catchErrorJustReturn((false, fullloading.value.1))
             )
             .merge()
             .bindTo(fullloading)
             .addDisposableTo(disposeBag)
-                
+
         Observable
             .combineLatest(elements.asObservable(), response) { elements, response in
                 return response.hasPreviousPage ? elements + response.elements : response.elements
@@ -138,12 +153,12 @@ open class PaginationViewModel<PaginationRequest: PaginationRequestType> where P
             .take(1)
             .bindTo(elements)
             .addDisposableTo(disposeBag)
-        
+
         response
             .map { $0.hasNextPage }
             .bindTo(hasNextPage)
             .addDisposableTo(disposeBag)
-        
+
         response
             .doOnOperaError { [weak self] error throws in
                 guard let mySelf = self else { return }
@@ -151,27 +166,34 @@ open class PaginationViewModel<PaginationRequest: PaginationRequestType> where P
             }
             .do(onError: { [weak self] _ in
                 guard let mySelf = self else { return }
-                mySelf.bindPaginationRequest(mySelf.paginationRequest, nextPage: mySelf.fullloading.value.1) })
+                mySelf.bindPaginationRequest(
+                    mySelf.paginationRequest,
+                    nextPage: mySelf.fullloading.value.1)
+                }
+            )
             .subscribe(onNext: { [weak self] paginationResponse in
                 debugPrint(paginationResponse.elements)
-                self?.bindPaginationRequest(paginationRequest, nextPage: paginationResponse.nextPage)
+                self?.bindPaginationRequest(
+                    paginationRequest,
+                    nextPage: paginationResponse.nextPage
+                )
             })
             .addDisposableTo(disposeBag)
     }
 }
 
 extension PaginationViewModel {
-    
+
     /// Emits items indicating when start and complete requests.
     public var loading: Driver<Bool> {
         return fullloading.asDriver().map { $0.0 }.distinctUntilChanged()
     }
-    
+
     /// Emits items indicating when first page request starts and completes.
     public var firstPageLoading: Driver<Bool> {
         return fullloading.asDriver().filter { $0.1 == "1" }.map { $0.0 }
     }
-    
+
     /// Emits items to show/hide a empty state view
     public var emptyState: Driver<Bool> {
         return Driver.combineLatest(loading, elements.asDriver()) { (isLoading, elements) -> Bool in

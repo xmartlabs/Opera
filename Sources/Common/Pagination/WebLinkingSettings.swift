@@ -24,11 +24,10 @@
 
 import Foundation
 
-
 public protocol WebLinkingSettings {
 
     var relationPageParamName: String { get }
     var nextRelationName: String { get }
     var prevRelationName: String { get }
-    
+
 }

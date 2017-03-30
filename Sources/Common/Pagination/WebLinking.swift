@@ -81,7 +81,8 @@ extension Link {
 }
 
 /*** Parses a Web Linking (RFC5988) header into an array of Links
-- parameter header: RFC5988 link header. For example `<?page=3>; rel=\"next\", <?page=1>; rel=\"prev\"`
+- parameter header: RFC5988 link header. 
+    For example `<?page=3>; rel=\"next\", <?page=1>; rel=\"prev\"`
 :return: An array of Links
 */
 public func parseLinkHeader(_ header: String) -> [Link] {
@@ -130,7 +131,7 @@ extension HTTPURLResponse {
 /// MARK: Private methods (used by link header conversion)
 
 /// Merge two dictionaries together
-func +<K,V>(lhs: [K:V], rhs: [K:V]) -> [K:V] {
+func +<K, V>(lhs: [K:V], rhs: [K:V]) -> [K:V] {
   var dictionary = [K:V]()
 
   for (key, value) in rhs {
@@ -145,7 +146,7 @@ func +<K,V>(lhs: [K:V], rhs: [K:V]) -> [K:V] {
 }
 
 /// LHS contains all the keys and values from RHS
-func ~=(lhs: [String: String], rhs: [String: String]) -> Bool {
+func ~= (lhs: [String: String], rhs: [String: String]) -> Bool {
   for (key, value) in rhs {
     if lhs[key] != value {
       return false
@@ -164,7 +165,12 @@ func separateBy(_ separator: String, _ input: String) -> [String] {
 
 /// Split a string by a separator into two components
 func split(_ separator: String, _ input: String) -> (String, String) {
-  let range = input.range(of: separator, options: NSString.CompareOptions(rawValue: 0), range: nil, locale: nil)
+  let range = input.range(
+    of: separator,
+    options: NSString.CompareOptions(rawValue: 0),
+    range: nil,
+    locale: nil
+    )
 
   if let range = range {
     let lhs = input.substring(to: range.lowerBound)
@@ -188,7 +194,11 @@ func takeFirst(_ input: [String]) -> (String, ArraySlice<String>) {
 /// Trim a prefix and suffix from a string
 func trim(_ lhs: Character, _ rhs: Character, _ input: String) -> String {
   if input.hasPrefix("\(lhs)") && input.hasSuffix("\(rhs)") {
-    return input[input.characters.index(after: input.startIndex)..<input.characters.index(before: input.endIndex)]
+    return input[
+        input.characters
+            .index(after: input.startIndex)..<input
+            .characters.index(before: input.endIndex)
+    ]
   }
 
   return input

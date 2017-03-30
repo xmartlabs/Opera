@@ -25,9 +25,19 @@
 import Foundation
 
 /**
- *  Entities that conforms to OperaDecotable are able to convert a AnyObject to itself. Notice that Opera expects its entities to conform to this protocol. OperaDecodable allows us to use the JSON parsing library that we feel confortable with.
- *  For instance to use Decodable we just need to declare protocol conformance since Decodable protocol methods are the same as OperaDecodable protocol.
- *  In order to use Argo as JSON parsing library each json parseable entity should declare OperaDecodable protocol conformance. We also need to implement `static func decode(json: AnyObject) throws -> Self` to each argo parseable entity and probably the most elegant way is through protocol extensions as shown bellow.
+ *  Entities that conforms to OperaDecotable are able to 
+    convert a AnyObject to itself. Notice that Opera 
+    expects its entities to conform to this protocol. 
+    OperaDecodable allows us to use the JSON parsing library
+    that we feel confortable with.
+ *  For instance to use Decodable we just need 
+    to declare protocol conformance since Decodable 
+    protocol methods are the same as OperaDecodable protocol.
+ *  In order to use Argo as JSON parsing library each json 
+    parseable entity should declare OperaDecodable protocol conformance. 
+    We also need to implement `static func decode(json: AnyObject) throws -> Self` 
+    to each argo parseable entity and probably the most elegant way is through
+    protocol extensions as shown bellow.
  *
  *      extension Argo.Decodable where Self.DecodedType == Self, Self: OperaDecodable {
  *          static func decode(json: AnyObject) throws -> Self {
@@ -44,4 +54,3 @@ import Foundation
 public protocol OperaDecodable {
     static func decode(_ json: Any) throws -> Self
 }
-

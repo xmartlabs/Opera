@@ -27,8 +27,8 @@ import Decodable
 import OperaSwift
 import SwiftDate
 
-extension Date  {
-    
+extension Date {
+
     public static func decode(_ json: Any) throws -> Date {
         let string = try String.decode(json)
         guard let date = try? string.date(format: DateFormat.iso8601(options: ISO8601DateTimeFormatter.Options.withFullTime)).absoluteDate else {
@@ -36,15 +36,15 @@ extension Date  {
         }
         return self.init(timeIntervalSince1970: date.timeIntervalSince1970)
     }
-    
+
 }
 
 extension Date {
-    
+
     func shortRepresentation() -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/YYYY"
         return formatter.string(from: self)
     }
-    
+
 }

@@ -41,15 +41,14 @@ class Manager: RxManager {
         //useMockedData = true
     }
 
-    func refreshToken() -> Observable<String?>{
+    func refreshToken() -> Observable<String?> {
         return Observable.just(nil)
     }
-    
+
 }
 
-
 struct Logger: OperaSwift.ObserverType {
-    func willSendRequest(_ alamoRequest: Alamofire.Request, requestConvertible: URLRequestConvertible){
+    func willSendRequest(_ alamoRequest: Alamofire.Request, requestConvertible: URLRequestConvertible) {
         debugPrint(alamoRequest)
     }
 }

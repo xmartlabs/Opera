@@ -27,24 +27,24 @@ import OperaSwift
 import Decodable
 
 struct User {
-    
+
     let id: Int
     let user: String
     let avatar: URL
     let type: String
     let contributions: Int
-    
+
 }
 
 extension User: OperaDecodable, Decodable {
-    
-    static func decode(_ j: Any) throws -> User {
-        return try User(  id: j => "id",
-                        user: j => "login",
-        avatar: URL(string: j => "avatar_url")!,
-                        type: j => "type",
-               contributions: j => "contributions")
-        
+
+    static func decode(_ json: Any) throws -> User {
+        return try User(  id: json => "id",
+                        user: json => "login",
+        avatar: URL(string: json => "avatar_url")!,
+                        type: json => "type",
+               contributions: json => "contributions")
+
     }
-    
+
 }

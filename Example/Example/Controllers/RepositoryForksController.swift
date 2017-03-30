@@ -29,11 +29,11 @@ import RxSwift
 import RxCocoa
 
 private enum SortFilter: Int, CustomStringConvertible, FilterType {
-    
+
     case newest = 0
     case oldest
     case stargazers
-    
+
     var description: String {
         switch self {
         case .newest: return "newest"
@@ -41,32 +41,31 @@ private enum SortFilter: Int, CustomStringConvertible, FilterType {
         case .stargazers: return "stargazers"
         }
     }
-    
+
     var parameters: [String: AnyObject]? {
         return ["sort":"\(self)" as AnyObject]
     }
-    
+
 }
 
-
 class RepositoryForksController: RepositoryBaseController {
-    
+
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var filterSegmentControl: UISegmentedControl!
-    
+
     let refreshControl = UIRefreshControl()
-    
+
     var disposeBag = DisposeBag()
-    
+
     fileprivate var filter = SortFilter.newest
-    
+
     lazy var viewModel: PaginationViewModel<PaginationRequest<UserRepository>> = { [unowned self] in
         return PaginationViewModel(paginationRequest: PaginationRequest(route: GithubAPI.Repository.GetForks(owner: self.owner, repo: self.name), filter: self.filter))
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         tableView.keyboardDismissMode = .onDrag
         emptyStateLabel.text = "No forks found"
         tableView.addSubview(self.refreshControl)
@@ -76,55 +75,55 @@ class RepositoryForksController: RepositoryBaseController {
             .map { _ in false }
             .bindTo(viewModel.refreshTrigger)
             .addDisposableTo(disposeBag)
-        
+
         tableView.rx.reachedBottom
             .bindTo(viewModel.loadNextPageTrigger)
             .addDisposableTo(disposeBag)
-        
+
         viewModel.loading
             .drive(activityIndicatorView.rx.isAnimating)
             .addDisposableTo(disposeBag)
-        
+
         Driver.combineLatest(viewModel.elements.asDriver(), viewModel.firstPageLoading) { elements, loading in return loading ? [] : elements }
             .asDriver()
             .drive(tableView.rx.items(cellIdentifier: "Cell")) { _, userRepository, cell in
                 cell.textLabel?.text = userRepository.owner
-                cell.detailTextLabel?.text = userRepository.createdAt.shortRepresentation()
+                cell.detailTextLabel?.text = userRepository.createdAt?.shortRepresentation()
             }
             .addDisposableTo(disposeBag)
-        
+
         tableView.rx.modelSelected(UserRepository.self)
             .asDriver()
             .drive(onNext: { [weak self] userRepo in self?.performSegue(withIdentifier: "Show forked repository", sender: RepositoryData(name: userRepo.name, owner: userRepo.owner)) },
                    onCompleted: nil, onDisposed: nil)
             .addDisposableTo(disposeBag)
-        
-        refreshControl.rx_valueChanged
+
+        refreshControl.rx.valueChanged
             .filter { refreshControl.isRefreshing }
             .map { true }
             .bindTo(viewModel.refreshTrigger)
             .addDisposableTo(disposeBag)
-        
+
         viewModel.loading
             .filter { !$0 && refreshControl.isRefreshing }
             .drive(onNext: { _ in refreshControl.endRefreshing() })
             .addDisposableTo(disposeBag)
-        
-        filterSegmentControl.rx_valueChanged
+
+        filterSegmentControl.rx.valueChanged
             .map { [weak self] in return SortFilter(rawValue: self?.filterSegmentControl.selectedSegmentIndex ?? 0) ?? .newest }
             .bindTo(viewModel.filterTrigger)
             .addDisposableTo(disposeBag)
-        
+
         viewModel.emptyState
             .drive(onNext: { [weak self] emptyState in self?.emptyStateLabel.isHidden = !emptyState })
             .addDisposableTo(disposeBag)
-        
+
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let _ = segue.identifier, let vc = segue.destination as? RepositoryController, let data = sender as? RepositoryData else { return }
         vc.name = data.name
         vc.owner = data.owner
     }
-    
+
 }

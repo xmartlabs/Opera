@@ -27,7 +27,7 @@ import OperaSwift
 import Decodable
 
 struct PullRequest {
-    
+
     let id: Int
     let url: URL
     let number: Int
@@ -35,20 +35,20 @@ struct PullRequest {
     let state: String
     let title: String
     let locked: Bool
-    
+
 }
 
 extension PullRequest: OperaDecodable, Decodable {
-    
-    static func decode(_ j: Any) throws -> PullRequest {
-        return try PullRequest(  id: j => "id",
-                  url: URL(string: j => "url")!,
-                             number: j => "number",
-                               user: j => ["user", "login"],
-                              state: j => "state",
-                              title: j => "title",
-                             locked: j => "locked")
-        
+
+    static func decode(_ json: Any) throws -> PullRequest {
+        return try PullRequest(  id: json => "id",
+                  url: URL(string: json => "url")!,
+                             number: json => "number",
+                               user: json => ["user", "login"],
+                              state: json => "state",
+                              title: json => "title",
+                             locked: json => "locked")
+
     }
-    
+
 }

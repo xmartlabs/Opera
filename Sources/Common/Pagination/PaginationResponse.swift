@@ -28,16 +28,17 @@ import Foundation
  *  PaginationResponse is a generic type that adopts PaginationResponseType
  */
 public struct PaginationResponse<E>: PaginationResponseType {
-    
+
     public let elements: [E]
     public let previousPage: String?
     public let nextPage: String?
     public let page: String?
-    
-    public init(elements: [E], previousPage: String?, nextPage: String?, page: String?){
+
+    public init(elements: [E], previousPage: String?, nextPage: String?, page: String?) {
         self.elements = elements
         self.previousPage = previousPage
         self.nextPage = nextPage
         self.page = page
     }
+
 }

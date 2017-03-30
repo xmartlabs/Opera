@@ -26,17 +26,26 @@ import Foundation
 import Alamofire
 
 /**
- *  A type that adopts RouteType can be used to create a request. It's ideal to represent an API route/request since it clearly defines all the parts of a request such as its http path, method, parameters, encoding, etc. Often we group a set of related routes/request by conforming this protocol from an enum type that each value represent a specific route/request which may have specific configuration hold by its associated values.
+ *  A type that adopts RouteType can be used to create a request. 
+    It's ideal to represent an API route/request since it clearly
+    defines all the parts of a request such as its http path, method,
+    parameters, encoding, etc. Often we group a set of related routes/request
+    by conforming this protocol from an enum type that each value represent
+    a specific route/request which may have specific configuration
+    hold by its associated values.
  */
 public protocol RouteType: URLRequestConvertible {
-    
+
     /// HTTP method
     var method: HTTPMethod { get }
     /// URL path
     var path: String { get }
     /// The parameters, nil if not implemented.
     var parameters: [String: Any]? { get }
-    /// Used to specify the way in which a set of parameters are applied to a URL request. Default implementation returns .JSON when method value is either .POST, .PUT or .PATCH. Otherwise .URL.
+    /* Used to specify the way in which a set of parameters
+        are applied to a URL request. Default implementation returns 
+        .JSON when method value is either .POST, .PUT or .PATCH. Otherwise .URL.
+     */
     var encoding: Alamofire.ParameterEncoding { get }
     /// Base url
     var baseURL: URL { get }
@@ -49,26 +58,32 @@ public protocol RouteType: URLRequestConvertible {
 }
 
 /**
- *  By adopting URLRequestParametersSetup a RequestType or PaginationRequstType is able to make a final customization to request parameters dictionary before they are encoded.
+ *  By adopting URLRequestParametersSetup a RequestType or 
+    PaginationRequstType is able to make a final customization
+    to request parameters dictionary before they are encoded.
  */
 public protocol URLRequestParametersSetup {
-    func urlRequestParametersSetup(_ urlRequest: URLRequest, parameters: [String: Any]?) -> [String: Any]?
+    func urlRequestParametersSetup(
+        _ urlRequest: URLRequest,
+        parameters: [String: Any]?
+    ) -> [String: Any]?
 }
 
 extension RouteType {
-    
+
     /// The URL request.
     public func asURLRequest() throws -> URLRequest {
         let url = try baseURL.asURL()
         var urlRequest = URLRequest(url: url.appendingPathComponent(path))
         urlRequest.httpMethod = method.rawValue
-        
-        let params = (self as? URLRequestParametersSetup)?.urlRequestParametersSetup(urlRequest, parameters: parameters) ?? parameters
+
+        let params = (self as? URLRequestParametersSetup)?
+            .urlRequestParametersSetup(urlRequest, parameters: parameters) ?? parameters
         urlRequest = try encoding.encode(urlRequest, with: params)
 
         return urlRequest
     }
-    
+
     public var encoding: ParameterEncoding {
         switch method {
         case .post, .put, .patch:
@@ -77,7 +92,7 @@ extension RouteType {
             return URLEncoding.default
         }
     }
-    
+
     public var parameters: [String: Any]? {
         return nil
     }
@@ -92,10 +107,95 @@ extension RouteType {
         }
 
         do {
-            let jsonData = try NSData(contentsOfFile: path, options: NSData.ReadingOptions.mappedIfSafe) as Data
+            let jsonData = try NSData(
+                contentsOfFile: path,
+                options: NSData.ReadingOptions.mappedIfSafe
+            ) as Data
             return jsonData
         } catch {
             return nil
         }
     }
+}
+
+protocol GetRouteType: RouteType {}
+protocol PostRouteType: RouteType {}
+protocol OptionsRouteType: RouteType {}
+protocol HeadRouteType: RouteType {}
+protocol PutRouteType: RouteType {}
+protocol PatchRouteType: RouteType {}
+protocol DeleteRouteType: RouteType {}
+protocol TraceRouteType: RouteType {}
+protocol ConnectRouteType: RouteType {}
+
+extension GetRouteType {
+
+    var method: HTTPMethod {
+        return .get
+    }
+
+}
+
+extension PostRouteType {
+
+    var method: HTTPMethod {
+        return .post
+    }
+
+}
+
+extension OptionsRouteType {
+
+    var method: HTTPMethod {
+        return .options
+    }
+
+}
+
+extension HeadRouteType {
+
+    var method: HTTPMethod {
+        return .head
+    }
+
+}
+
+extension PutRouteType {
+
+    var method: HTTPMethod {
+        return .put
+    }
+
+}
+
+extension PatchRouteType {
+
+    var method: HTTPMethod {
+        return .patch
+    }
+
+}
+
+extension DeleteRouteType {
+
+    var method: HTTPMethod {
+        return .delete
+    }
+
+}
+
+extension TraceRouteType {
+
+    var method: HTTPMethod {
+        return .trace
+    }
+
+}
+
+extension ConnectRouteType {
+
+    var method: HTTPMethod {
+        return .connect
+    }
+
 }

@@ -95,12 +95,12 @@ public indirect enum OperaError: Error {
         }
     }
 
-    public var body: NSDictionary? {
+    public var body: Any? {
         switch self {
         case .networking(_, _, _, let anyJson):
-            return toDictionaryWith(object: anyJson)
+            return JSONFrom(data: anyJson as? Data)
         case .parsing(_, _, _, let anyJson):
-            return toDictionaryWith(object: anyJson)
+            return JSONFrom(data: anyJson as? Data)
         }
     }
 
@@ -108,12 +108,21 @@ public indirect enum OperaError: Error {
         return response?.statusCode
     }
 
-    public var headers: [AnyHashable: Any]? {
-        return response?.allHeaderFields
+    public var localizedDescription: String {
+        switch self {
+        case .networking(let error, _, _, _):
+            return "The request could not be completed because of error: \(error.localizedDescription)"
+        case .parsing(let error, _, _, _):
+            return "JSON could not be parsed because of error: \(error.localizedDescription)"
+        }
     }
 
     private func toDictionaryWith(object: Any?) -> NSDictionary? {
-        return try? JSONSerialization.jsonObject(with: object as? Data ?? Data(), options: JSONSerialization.ReadingOptions.mutableContainers) as? NSDictionary ?? [:]
+        return try? JSONSerialization
+            .jsonObject(
+                with: object as? Data ?? Data(),
+                options: JSONSerialization.ReadingOptions.mutableContainers
+            ) as? NSDictionary ?? [:]
     }
 
 }

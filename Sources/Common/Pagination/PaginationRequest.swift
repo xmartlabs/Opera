@@ -28,18 +28,25 @@ import Foundation
  *  A Generic type that adopts PaginationRequestType
  */
 public struct PaginationRequest<Element: OperaDecodable>: PaginationRequestType {
-    
+
     public typealias Response = PaginationResponse<Element>
-    
+
     public var route: RouteType
     public var page: String = ""
     public var query: String?
     public var filter: FilterType?
     public var collectionKeyPath: String?
-    
-    public init(route: RouteType, page: String? = nil, query: String? = nil, filter: FilterType? = nil, collectionKeyPath: String? = nil) {
+
+    public init(
+        route: RouteType,
+        page: String? = nil,
+        query: String? = nil,
+        filter: FilterType? = nil,
+        collectionKeyPath: String? = nil
+    ) {
         self.route = route
-        self.page = page ?? (self as? PaginationRequestTypeSettings)?.firstPageParameterValue ?? Default.firstPageParameterValue
+        self.page = page ?? (self as? PaginationRequestTypeSettings)?
+            .firstPageParameterValue ?? Default.firstPageParameterValue
         self.query = query
         self.filter = filter
         self.collectionKeyPath = collectionKeyPath

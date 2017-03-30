@@ -27,22 +27,22 @@ import Opera
 import Alamofire
 
 extension RouteType {
-    
+
     var baseURL: NSURL {
         return NSURL(string: "https://api.github.com")!
     }
-    
+
     var manager: ManagerType {
         return Manager.singleton
     }
-    
+
     var retryCount: Int {
         return 0
     }
 }
 
 extension URLRequestSetup {
-    
+
     func urlRequestSetup(_ urlRequest: NSMutableURLRequest) {
         let _ = Manager.githubAuthorizationToken.map { urlRequest.setValue("token \($0)", forHTTPHeaderField: "Authorization") }
     }

@@ -25,8 +25,9 @@
 import Foundation
 
 public protocol PaginationRequestTypeSettings {
-    
+
     var queryParameterName: String { get }
     var pageParameterName: String { get }
     var firstPageParameterValue: String { get }
+
 }

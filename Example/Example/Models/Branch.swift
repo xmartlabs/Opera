@@ -27,22 +27,21 @@ import OperaSwift
 import ObjectMapper
 
 struct Branch {
-    
+
     var name: String?
     var commit: String?
-    
+
 }
 
 extension Branch: OperaDecodable, Mappable {
 
-    
     init?(map: Map) {
-        
+
     }
-    
+
     mutating func mapping(map: Map) {
         name    <- map["name"]
         commit  <- map["commit.sha"]
     }
-    
+
 }

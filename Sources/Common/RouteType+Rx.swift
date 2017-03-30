@@ -1,4 +1,4 @@
-    //
+//
 //  RouteType+Rx.swift
 //  Opera ( https://github.com/xmartlabs/Opera )
 //
@@ -29,7 +29,7 @@ import RxSwift
 import RxCocoa
 
 extension Reactive where Base: RouteType {
-    
+
     /**
      Returns an `Observable` of T for the current request. Notice that T conforms to OperaDecodable. If something goes wrong a Opera.Error error is propagated through the result sequence.
      
@@ -40,11 +40,10 @@ extension Reactive where Base: RouteType {
     public func object<T: OperaDecodable>(_ keyPath: String? = nil) -> Observable<T> {
         if base.manager.useMockedData && base.mockedData != nil {
             return (base.manager as! RxManager).rx.sampleObject(base, keyPath: keyPath)
-        } 
+        }
         return (base.manager as! RxManager).rx.object(base, keyPath: keyPath)
     }
-    
-    
+
     /**
      Returns an `Observable` of [T] for the current request. Notice that T conforms to OperaDecodable. If something goes wrong a Opera.Error error is propagated through the result sequence.
      
@@ -52,20 +51,20 @@ extension Reactive where Base: RouteType {
      
      - returns: An instance of `Observable<[T]>`
      */
-    public func collection<T: OperaDecodable>(_ collectionKeyPath:String? = nil) -> Observable<[T]> {
-        if base.manager.useMockedData && base.mockedData != nil{
+    public func collection<T: OperaDecodable>(_ collectionKeyPath: String? = nil) -> Observable<[T]> {
+        if base.manager.useMockedData && base.mockedData != nil {
             return (base as! RxManager).rx.sampleCollection(base, collectionKeyPath: collectionKeyPath)
         }
         return (base.manager as! RxManager).rx.collection(base, collectionKeyPath: collectionKeyPath)
     }
-    
+
     /**
      Returns an `Observable` of AnyObject for the current request. If something goes wrong a Opera.Error error is propagated through the result sequence.
      
      - returns: An instance of `Observable<AnyObject>`
      */
     public func anyObject() -> Observable<Any> {
-        if base.manager.useMockedData && base.mockedData != nil{
+        if base.manager.useMockedData && base.mockedData != nil {
             return (base.manager as! RxManager).rx.sampleAny(base)
         }
         return (base.manager as! RxManager).rx.any(base)
@@ -75,7 +74,7 @@ extension Reactive where Base: RouteType {
 extension RouteType {
 
     public var rx: Reactive<Self> {
-        return Reactive<Self>(self)
+        return Reactive(self)
     }
 
 }

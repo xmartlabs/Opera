@@ -31,36 +31,36 @@ struct GithubAPI {
 }
 
 extension GithubAPI.Repository {
-    
+
     struct Search: RouteType, URLRequestSetup {
-        
+
         var method: Alamofire.Method {
             return .GET
         }
-        
+
         var path: String {
             return "search/repositories"
         }
-        
-        var retryCount: Int{
+
+        var retryCount: Int {
             return 2
         }
-        
+
     }
-    
+
     struct GetInfo: RouteType, URLRequestSetup {
-        
+
         let owner: String
         let repo: String
-        
+
         var method: Alamofire.Method {
             return .GET
         }
-        
+
         var path: String {
             return "repos/\(owner)/\(repo)"
         }
-        
+
         var retryCount: Int {
             return 2
         }

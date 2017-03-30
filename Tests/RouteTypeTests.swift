@@ -9,18 +9,17 @@ import XCTest
 import Alamofire
 @testable import OperaSwift
 
-
 class RouteTypeTests: BaseXCTextCase {
-    
+
     func testParametersSetup() {
         let parameters = try! Example.getRoute().asURLRequest().url?.parameters() ?? [String: String]()
         XCTAssertTrue(parameters[RouteValues.parameterName] == RouteValues.parameterValue)
     }
-    
-    func testHeadersSetup(){
+
+    func testHeadersSetup() {
         XCTAssertEqual(try! Example.getRoute().asURLRequest().value(forHTTPHeaderField: RouteValues.headerName), RouteValues.headerValue)
     }
-    
+
 //    func testDefaultEncodingType() {
 //        XCTAssert(Example.getRoute().encoding == RouteValues.URLEncoding)
 //        XCTAssert(Example.deleteRoute().encoding == RouteValues.URLEncoding)
@@ -44,13 +43,13 @@ private struct RouteValues {
     static let URLEncoding = Alamofire.URLEncoding.default
 }
 
-private enum Example: RouteType, URLRequestParametersSetup, URLRequestSetup {
-    
+private enum Example: RouteType, URLRequestParametersSetup {
+
     case getRoute()
     case postRoute()
     case putRoute()
     case deleteRoute()
-    
+
     var method: Alamofire.HTTPMethod {
         switch self {
         case .getRoute:
@@ -64,8 +63,6 @@ private enum Example: RouteType, URLRequestParametersSetup, URLRequestSetup {
         }
     }
 
-    
-    
     var path: String {
         return "anEndpoint"
     }
@@ -75,32 +72,27 @@ private enum Example: RouteType, URLRequestParametersSetup, URLRequestSetup {
     func urlRequestParametersSetup(_ urlRequest: URLRequest, parameters: [String: Any]?) -> [String: Any]? {
         return [RouteValues.parameterName: RouteValues.parameterValue as Any]
     }
-    
-    // MARK: urlRequestSetup
-    
-    func urlRequestSetup( _ urlRequest: inout URLRequest) {
-        urlRequest.setValue(RouteValues.headerValue, forHTTPHeaderField: RouteValues.headerName)
-    }
+
 }
 
 private enum ModifiedEncodingExample: RouteType {
-    
+
     case modifiedEncodingRoute()
-    
+
     var method: Alamofire.HTTPMethod {
         switch self {
         case .modifiedEncodingRoute():
             return .post
         }
     }
-    
+
     var encoding: ParameterEncoding {
         switch self {
         case .modifiedEncodingRoute():
             return URLEncoding.default
         }
     }
-    
+
     var path: String {
         switch self {
         case .modifiedEncodingRoute:

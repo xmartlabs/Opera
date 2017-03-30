@@ -11,10 +11,8 @@ import Alamofire
 import RxSwift
 import RxCocoa
 
-
-
 extension Reactive where Base: RxManager {
-    
+
     /**
      Returns an `Observable` of T for the current request. Notice that T conforms to OperaDecodable. If something goes wrong a Opera.Error error is propagated through the result sequence.
      
@@ -22,7 +20,7 @@ extension Reactive where Base: RxManager {
      
      - returns: An instance of `Observable<T>`
      */
-    public func object<T: OperaDecodable>(_ route: RouteType, keyPath: String? = nil) -> Observable<T> {
+    func object<T: OperaDecodable>(_ route: RouteType, keyPath: String? = nil) -> Observable<T> {
         return base.rx.response(route).flatMap { operaResult -> Observable<T> in
             let serialized: DataResponse<T>  = operaResult.serializeObject(keyPath)
             switch serialized.result {
@@ -41,7 +39,7 @@ extension Reactive where Base: RxManager {
 
      - returns: An instance of `Observable<T>` filled with sample data specified on the RouteType.
      */
-    public func sampleObject<T: OperaDecodable>(_ route: RouteType, keyPath: String? = nil) -> Observable<T> {
+    func sampleObject<T: OperaDecodable>(_ route: RouteType, keyPath: String? = nil) -> Observable<T> {
        guard let json = JSONFrom(data: route.mockedData) else {
             return Observable.empty()
         }
@@ -52,7 +50,6 @@ extension Reactive where Base: RxManager {
         return Observable.just(decodedData)
     }
 
-    
     /**
      Returns an `Observable` of [T] for the current request. Notice that T conforms to OperaDecodable. If something goes wrong a Opera.Error error is propagated through the result sequence.
      
@@ -60,7 +57,7 @@ extension Reactive where Base: RxManager {
      
      - returns: An instance of `Observable<[T]>`
      */
-    public func collection<T: OperaDecodable>(_ route: RouteType, collectionKeyPath:String? = nil) -> Observable<[T]> {
+    func collection<T: OperaDecodable>(_ route: RouteType, collectionKeyPath: String? = nil) -> Observable<[T]> {
         return base.rx.response(route).flatMap { operaResult -> Observable<[T]> in
             let serialized: DataResponse<[T]> = operaResult.serializeCollection(collectionKeyPath)
             switch serialized.result {
@@ -79,7 +76,7 @@ extension Reactive where Base: RxManager {
 
      - returns: An instance of `Observable<[T]>`  filled with sample data specified on the RouteType.
      */
-    public func sampleCollection<T: OperaDecodable>(_ route: RouteType, collectionKeyPath:String? = nil) -> Observable<[T]> {
+    func sampleCollection<T: OperaDecodable>(_ route: RouteType, collectionKeyPath: String? = nil) -> Observable<[T]> {
         guard
             let json = JSONFrom(data: route.mockedData),
             let representation = (
@@ -105,7 +102,7 @@ extension Reactive where Base: RxManager {
      
      - returns: An instance of `Observable<AnyObject>`
      */
-    public func any(_ route: RouteType) -> Observable<Any> {
+    func any(_ route: RouteType) -> Observable<Any> {
         return base.rx.response(route).flatMap { operaResult -> Observable<Any> in
             let serialized = operaResult.serializeAny()
             switch serialized.result {
@@ -117,14 +114,14 @@ extension Reactive where Base: RxManager {
         }
     }
 
-    public func sampleAny(_ route: RouteType) -> Observable<Any> {
+    func sampleAny(_ route: RouteType) -> Observable<Any> {
         guard let json = JSONFrom(data: route.mockedData) else {
             return Observable.empty()
         }
         return Observable.just(json as Any)
     }
 
-    public func response(_ requestConvertible: URLRequestConvertible) -> Observable<OperaResult> {
+    func response(_ requestConvertible: URLRequestConvertible) -> Observable<OperaResult> {
         return Observable.create { subscriber in
             let req = self.base.response(requestConvertible) { result in
                 switch result.result {
@@ -143,11 +140,10 @@ extension Reactive where Base: RxManager {
 
 }
 
-
 open class RxManager: Manager {
 
     public var rx: Reactive<RxManager> {
-        return Reactive<RxManager>(self)
+        return Reactive(self)
     }
 
     public override init(manager: SessionManager) {
@@ -155,4 +151,3 @@ open class RxManager: Manager {
     }
 
 }
-
