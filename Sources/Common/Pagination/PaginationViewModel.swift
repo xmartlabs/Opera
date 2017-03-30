@@ -160,10 +160,6 @@ open class PaginationViewModel<PaginationRequest: PaginationRequestType>
             .addDisposableTo(disposeBag)
 
         response
-            .doOnOperaError { [weak self] error throws in
-                guard let mySelf = self else { return }
-                Observable.just(error).bindTo(mySelf.errors).addDisposableTo(mySelf.disposeBag)
-            }
             .do(onError: { [weak self] _ in
                 guard let mySelf = self else { return }
                 mySelf.bindPaginationRequest(

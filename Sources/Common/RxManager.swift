@@ -121,21 +121,8 @@ extension Reactive where Base: RxManager {
         return Observable.just(json as Any)
     }
 
-    open func response(_ requestConvertible: URLRequestConvertible) -> Observable<OperaResult> {
-        return Observable.create { subscriber in
-            let req = self.base.response(requestConvertible) { result in
-                switch result.result {
-                case .failure(let error):
-                    subscriber.onError(error)
-                case .success:
-                    subscriber.onNext(result)
-                    subscriber.onCompleted()
-                }
-            }
-            return Disposables.create {
-                req.cancel()
-            }
-        }
+    func response(_ requestConvertible: URLRequestConvertible) -> Observable<OperaResult> {
+        return base.response(requestConvertible)
     }
 
 }
@@ -148,6 +135,27 @@ open class RxManager: Manager {
 
     public override init(manager: SessionManager) {
         super.init(manager: manager)
+    }
+
+    open func response(_ requestConvertible: URLRequestConvertible) -> Observable<OperaResult> {
+        return Observable.create { [weak self] subscriber in
+            guard let `self` = self else {
+                subscriber.onError(UnknownError(error: nil))
+                return Disposables.create()
+            }
+            let req = self.response(requestConvertible) { result in
+                switch result.result {
+                case .failure(let error):
+                    subscriber.onError(error)
+                case .success:
+                    subscriber.onNext(result)
+                    subscriber.onCompleted()
+                }
+            }
+            return Disposables.create {
+                req.cancel()
+            }
+        }
     }
 
 }

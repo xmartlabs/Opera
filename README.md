@@ -144,20 +144,33 @@ getInfoRequest
 > If you are not interested in decode your JSON response into a Model you can invoke `request.rx.anyObject()` which returns an `Observable` of `AnyObject` for the current request and propagates a `OperaError` error through the result sequence if something goes wrong.
 
 ## Error Handling
-If you are using the reactive helpers (which are awesome btw!) you can handle the errors on the `onError` callback which returns an `Error` that can be casted to `OperaError` for easier usage.
+If you are using the reactive helpers (which are awesome btw!) you can handle the errors on the `onError` callback which returns an `Error` that, *in case of Networking or Parsing issues*, can be casted to `OperaError` for easier usage.
 `OperaError` wraps any error that is Networking or Parsing related. Keep in mind that you have to cast the `Error` on the `onError` callback before using it.
 `OperaError` also provides a set of properties that make accessing the error's data easier:
 ```swift
-public indirect enum OperaError: Error {
-    case networking(error: Error, request: URLRequest?, response: HTTPURLResponse?, json: Any?)
-    case parsing(error: Error, request: URLRequest?, response: HTTPURLResponse?, json: Any?)
     public var error: Error
     public var request: URLRequest?
     public var response: HTTPURLResponse?
     public var body: Any?
     public var statusCode: Int?
     public var localizedDescription: String
-}
+```
+
+Example:
+```swift
+getInfoRequest
+  .rx.object()
+  .subscribe(
+    onError: {(error: Error) in
+      guard let error = error as? OperaError else {
+          //do something when it's not an OperaError
+      }
+      // do something with the OperaError
+      debugPrint("Request failed with status code \(error.statusCode)")
+    }
+  )
+  .addDisposableTo(disposeBag)
+
 ```
 ## Decoding
 We've said Opera is able to decode JSON response into a Model using your favorite JSON parsing library.  Let's see how Opera accomplishes that.
