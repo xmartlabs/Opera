@@ -51,12 +51,15 @@ public enum SerializationError: OperaInternalError {
 }
 
 public struct UnknownError: OperaInternalError {
+
+    let error: Error?
+
     public var description: String {
         return "Unknown error"
     }
 
     public var debugDescription: String {
-        return description
+        return error?.localizedDescription ?? self.description
     }
 }
 
@@ -64,6 +67,63 @@ public indirect enum OperaError: Error {
 
     case networking(error: Error, request: URLRequest?, response: HTTPURLResponse?, json: Any?)
     case parsing(error: Error, request: URLRequest?, response: HTTPURLResponse?, json: Any?)
+
+    public var error: Error {
+        switch self {
+        case .networking(let error, _, _, _):
+            return error
+        case .parsing(let error, _, _, _):
+            return error
+        }
+    }
+
+    public var request: URLRequest? {
+        switch self {
+        case .networking(_, let request, _, _):
+            return request
+        case .parsing(_, let request, _, _):
+            return request
+        }
+    }
+
+    public var response: HTTPURLResponse? {
+        switch self {
+        case .networking(_, _, let response, _):
+            return response
+        case .parsing(_, _, let response, _):
+            return response
+        }
+    }
+
+    public var body: Any? {
+        switch self {
+        case .networking(_, _, _, let anyJson):
+            return JSONFrom(data: anyJson as? Data)
+        case .parsing(_, _, _, let anyJson):
+            return JSONFrom(data: anyJson as? Data)
+        }
+    }
+
+    public var statusCode: Int? {
+        return response?.statusCode
+    }
+
+    public var localizedDescription: String {
+        switch self {
+        case .networking(let error, _, _, _):
+            return "The request could not be completed because of error: \(error.localizedDescription)"
+        case .parsing(let error, _, _, _):
+            return "JSON could not be parsed because of error: \(error.localizedDescription)"
+        }
+    }
+
+    private func toDictionaryWith(object: Any?) -> NSDictionary? {
+        return try? JSONSerialization
+            .jsonObject(
+                with: object as? Data ?? Data(),
+                options: JSONSerialization.ReadingOptions.mutableContainers
+            ) as? NSDictionary ?? [:]
+    }
 
 }
 

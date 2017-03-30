@@ -24,16 +24,16 @@
 
 import Foundation
 import UIKit
-import Opera
+import OperaSwift
 import RxSwift
 import RxCocoa
 
 private enum SortFilter: Int, CustomStringConvertible, FilterType {
-    
+
     case open = 0
     case closed
     case all
-    
+
     var description: String {
         switch self {
         case .open: return "open"
@@ -41,49 +41,49 @@ private enum SortFilter: Int, CustomStringConvertible, FilterType {
         case .all: return "all"
         }
     }
-    
+
     var parameters: [String: AnyObject]? {
         return ["state":"\(self)" as AnyObject]
     }
-    
+
 }
 
 class RepositoryPullRequestsController: RepositoryBaseController {
-    
+
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var filterSegmentControl: UISegmentedControl!
 
     let refreshControl = UIRefreshControl()
-    
+
     var disposeBag = DisposeBag()
-    
+
     fileprivate var filter = SortFilter.open
-    
+
     lazy var viewModel: PaginationViewModel<PaginationRequest<PullRequest>> = { [unowned self] in
         return PaginationViewModel(paginationRequest: PaginationRequest(route: GithubAPI.Repository.GetPullRequests(owner: self.owner, repo: self.name), filter: self.filter))
         }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         tableView.keyboardDismissMode = .onDrag
         tableView.addSubview(self.refreshControl)
         emptyStateLabel.text = "No pull requests found"
         let refreshControl = self.refreshControl
-        
+
         rx.sentMessage(#selector(RepositoryForksController.viewWillAppear(_:)))
             .map { _ in false }
             .bindTo(viewModel.refreshTrigger)
             .addDisposableTo(disposeBag)
-        
-        tableView.rx_reachedBottom
+
+        tableView.rx.reachedBottom
             .bindTo(viewModel.loadNextPageTrigger)
             .addDisposableTo(disposeBag)
-        
+
         viewModel.loading
             .drive(activityIndicatorView.rx.isAnimating)
             .addDisposableTo(disposeBag)
-        
+
         Driver.combineLatest(viewModel.elements.asDriver(), viewModel.firstPageLoading) { elements, loading in return loading ? [] : elements }
             .asDriver()
             .drive(tableView.rx.items(cellIdentifier:"Cell")) { _, pullRequest, cell in
@@ -91,26 +91,26 @@ class RepositoryPullRequestsController: RepositoryBaseController {
                 cell.detailTextLabel?.text = pullRequest.state
             }
             .addDisposableTo(disposeBag)
-        
-        refreshControl.rx_valueChanged
+
+        refreshControl.rx.valueChanged
             .filter { refreshControl.isRefreshing }
             .map { true }
             .bindTo(viewModel.refreshTrigger)
             .addDisposableTo(disposeBag)
-        
+
         viewModel.loading
             .filter { !$0 && refreshControl.isRefreshing }
             .drive(onNext: { _ in refreshControl.endRefreshing() })
             .addDisposableTo(disposeBag)
-     
-        filterSegmentControl.rx_valueChanged
+
+        filterSegmentControl.rx.valueChanged
             .map { [weak self] in return SortFilter(rawValue: self?.filterSegmentControl.selectedSegmentIndex ?? 0) ?? SortFilter.open }
             .bindTo(viewModel.filterTrigger)
             .addDisposableTo(disposeBag)
-        
+
         viewModel.emptyState
             .drive(onNext: { [weak self] emptyState in self?.emptyStateLabel.isHidden = !emptyState })
             .addDisposableTo(disposeBag)
     }
-    
+
 }

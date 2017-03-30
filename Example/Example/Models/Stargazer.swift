@@ -23,21 +23,21 @@
 // THE SOFTWARE.
 
 import Foundation
-import Opera
+import OperaSwift
 import Decodable
 
 struct Stargazer {
-    
+
     let name: String
     let avatarURL: String
-    
+
 }
 
 extension Stargazer: OperaDecodable, Decodable {
-    
-    static func decode(_ j: Any) throws -> Stargazer {
-        return try Stargazer.init(  name: j => "login",
-                               avatarURL: j => "avatar_url")
+
+    static func decode(_ json: Any) throws -> Stargazer {
+        return try Stargazer.init(  name: json => "login",
+                               avatarURL: json => "avatar_url")
     }
-    
+
 }

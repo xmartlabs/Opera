@@ -27,11 +27,11 @@ import Alamofire
 import Opera
 
 class Manager: Opera.Manager {
-    
+
     // Add a Github personal access token to have more requests per hour
     static let githubAuthorizationToken: String? = nil
     static let singleton = Manager(manager: Alamofire.Manager.sharedInstance)
-    
+
     override init(manager: Alamofire.Manager) {
         super.init(manager: manager)
     }

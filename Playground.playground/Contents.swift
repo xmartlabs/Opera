@@ -8,36 +8,35 @@
 //: Playground - noun: a place where people can play
 
 import UIKit
-import Opera
+import OperaSwift
 import Alamofire
 
 extension RouteType {
-    
+
     var baseURL: URL {
         return URL(string: "https://api.github.com")!
     }
-    
+
     var manager: ManagerType {
         return RxManager(manager: Alamofire.SessionManager.default)
     }
-    
+
 }
 
-
 extension Request {
-    
+
     enum Repository: RouteType {
-        
+
         case GetInfo(owner: String, repo: String)
         case Search()
-        
+
         var method: Alamofire.HTTPMethod {
             switch self {
             case .GetInfo, .Search:
                 return .get
             }
         }
-        
+
         var path: String {
             switch self {
             case let .GetInfo(owner, repo):
@@ -48,7 +47,7 @@ extension Request {
         }
 
         var retryCount: Int { return 0 }
-        
+
     }
 }
 

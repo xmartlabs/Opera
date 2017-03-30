@@ -1,4 +1,4 @@
-//  FilterType.swift
+//  WebLinkingSettings.swift
 //  Opera ( https://github.com/xmartlabs/Opera )
 //
 //  Copyright (c) 2016 Xmartlabs SRL ( http://xmartlabs.com )
@@ -24,9 +24,10 @@
 
 import Foundation
 
-/**
- *  Types conforming to FilterType can be used to create requst parameters. Notice that PaginationViewModel relies on this protocol to generate filter parameters. Normally a view controller passes a FilterType instance to PaginationViewModel instance in order to make a new request that considers FilterType parameters.
- */
-public protocol FilterType {
-    var parameters: [String: AnyObject]? { get }
+public protocol WebLinkingSettings {
+
+    var relationPageParamName: String { get }
+    var nextRelationName: String { get }
+    var prevRelationName: String { get }
+
 }

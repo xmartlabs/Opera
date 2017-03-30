@@ -23,11 +23,11 @@
 // THE SOFTWARE.
 
 import Foundation
-import Opera
+import OperaSwift
 import Decodable
 
 struct Repository {
-    
+
     let id: Int
     let name: String
     let desc: String?
@@ -38,22 +38,21 @@ struct Repository {
     let forksCount: Int
     let url: URL
     let createdAt: Date
-    
+
 }
 
-extension Repository: OperaDecodable,  Decodable {
-    
-    static func decode(_ j: Any) throws -> Repository {
-        return try Repository.init(  id: j => "id",
-                                   name: j => "name",
-                                   desc: j =>? "description",
-                                company: j =>? ["owner", "login"],
-                               language: j =>? "language",
-                             openIssues: j => "open_issues_count",
-                        stargazersCount: j => "stargazers_count",
-                             forksCount: j => "forks_count",
-                      url: URL(string: j => "url")!,
-                              createdAt: j => "created_at")
+extension Repository: OperaDecodable, Decodable {
+
+    static func decode(_ json: Any) throws -> Repository {
+        return try Repository.init(  id: json => "id",
+                                   name: json => "name",
+                                   desc: json =>? "description",
+                                company: json =>? ["owner", "login"],
+                               language: json =>? "language",
+                             openIssues: json => "open_issues_count",
+                        stargazersCount: json => "stargazers_count",
+                             forksCount: json => "forks_count",
+                      url: URL(string: json => "url")!,
+                              createdAt: json => "created_at")
     }
 }
-

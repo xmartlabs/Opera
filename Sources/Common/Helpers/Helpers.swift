@@ -25,24 +25,6 @@
 import Foundation
 import RxSwift
 
-extension ObservableType {
-
-    /**
-     Helper to handle any Error in the observable sequence, and propagates all observer messages through the result sequence. Note that callback is not invoked for errors different to Opera.Error. In this cases you should use onError directly.
-
-     - parameter onError: Action to invoke upon Opera.Error errored termination of the observable sequence.
-
-     - returns: The source sequence with the side-effecting behavior applied.
-     */
-    
-    public func doOnOperaError(_ onError: @escaping ((Error) throws -> Void)) -> Observable<E> {
-        return self.do(onError: { error in
-            guard let error = error as? OperaError else { return }
-            try onError(error)
-        })
-    }
-}
-
 extension HTTPURLResponse {
 
     /**
@@ -60,7 +42,7 @@ extension HTTPURLResponse {
     }
 }
 
-func JSONStringify(_ value: Any, prettyPrinted: Bool = true) -> String {
+public func JSONStringify(_ value: Any, prettyPrinted: Bool = true) -> String {
     let options: JSONSerialization.WritingOptions = prettyPrinted ? .prettyPrinted : []
     if JSONSerialization.isValidJSONObject(value) {
         if let data = try? JSONSerialization.data(withJSONObject: value, options: options), let string = NSString(data: data, encoding: String.Encoding.utf8.rawValue) {
@@ -68,4 +50,17 @@ func JSONStringify(_ value: Any, prettyPrinted: Bool = true) -> String {
         }
     }
     return ""
+}
+
+public func JSONFrom(data: Data?) -> Any? {
+    guard
+        let jsonData = data,
+        let json = try? JSONSerialization.jsonObject(
+            with: jsonData,
+            options: JSONSerialization.ReadingOptions.mutableContainers
+        )
+    else {
+        return nil
+    }
+    return json
 }

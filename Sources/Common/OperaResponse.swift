@@ -39,22 +39,21 @@ public struct OperaResponse {
         self.data = data
         self.response = response
     }
-    
+
 }
 
-extension OperaResponse: CustomDebugStringConvertible, Equatable{
+extension OperaResponse: CustomDebugStringConvertible, Equatable {
     public var description: String {
         return "Response Status Code: \(statusCode)"
     }
-    
+
     public var debugDescription: String {
         return description
     }
 }
 
-public func ==(lhs: OperaResponse, rhs: OperaResponse) -> Bool {
+public func == (lhs: OperaResponse, rhs: OperaResponse) -> Bool {
     return lhs.statusCode == rhs.statusCode
         && lhs.data == rhs.data
         && lhs.response == rhs.response
 }
-

@@ -23,28 +23,28 @@
 // THE SOFTWARE.
 
 import Foundation
-import Opera
+import OperaSwift
 import Decodable
 
 struct Release {
-    
+
     let id: Int
     let name: String
     let tagName: String
     let body: String
     let user: String
-    
+
 }
 
 extension Release: OperaDecodable, Decodable {
-    
+
     static func decode(_ j: Any) throws -> Release {
         return try Release(  id: j => "id",
                              name: j => "name",
                              tagName: j => "tag_name",
                              body: j => "body",
                              user: j => ["author", "login"])
-        
+
     }
-    
+
 }

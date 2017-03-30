@@ -25,14 +25,14 @@
 import Foundation
 import XCTest
 import Alamofire
-@testable import Opera
+@testable import OperaSwift
 
 class BaseXCTextCase: XCTestCase {
-    
+
 }
 
 extension URL {
-    
+
     func parameters() -> [String:String] {
         var result = [String: String]()
         let urlStringParametersPart = absoluteString.components(separatedBy: "?")[1]
@@ -46,15 +46,14 @@ extension URL {
 }
 
 extension RouteType {
-    
+
     var baseURL: URL {
         return URL(string: "someURL")!
     }
-    
+
     var manager: ManagerType {
         return RxManager(manager: Alamofire.SessionManager.default)
     }
 
     var retryCount: Int { return 0 }
 }
-

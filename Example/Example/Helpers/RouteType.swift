@@ -23,29 +23,20 @@
 // THE SOFTWARE.
 
 import Foundation
-import Opera
+import OperaSwift
 import Alamofire
 
 extension RouteType {
-    
+
     var baseURL: URL {
         return URL(string: "https://api.github.com")!
     }
-    
+
     var manager: ManagerType {
         return Manager.singleton
     }
-    
+
     var retryCount: Int {
         return 2
     }
 }
-
-
-extension URLRequestSetup {
-    
-    func urlRequestSetup(_ urlRequest: inout URLRequest) {
-        let _ = Manager.githubAuthorizationToken.map { urlRequest.setValue("token \($0)", forHTTPHeaderField: "Authorization") }
-    }
-}
-

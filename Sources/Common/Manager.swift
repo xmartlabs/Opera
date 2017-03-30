@@ -29,29 +29,47 @@ import Alamofire
 public typealias CompletionHandler = (OperaResult) -> Void
 
 public protocol ObserverType {
+
     /// Called immediately before a request is sent over the network (or stubbed).
-    func willSendRequest(_ alamoRequest: Alamofire.Request, requestConvertible: URLRequestConvertible)
+    func willSendRequest(_ alamoRequest: Request, requestConvertible: URLRequestConvertible)
+
 }
 
 public protocol ManagerType: class {
-    var manager: Alamofire.SessionManager { get }
+
+    var manager: SessionManager { get }
+    var requestAdapter: RequestAdapter? { get set }
+    var requestRetrier: RequestRetrier? { get set }
     var observers: [ObserverType] { get set }
-    func response(_ requestConvertible: URLRequestConvertible, completion: @escaping CompletionHandler) -> Alamofire.Request
+    var useMockedData: Bool { get set }
+    func response(
+        _ requestConvertible: URLRequestConvertible,
+        completion: @escaping CompletionHandler
+    ) -> Request
+
 }
 
-
 open class Manager: ManagerType {
-    
+
     open var observers: [ObserverType]
-    open var manager: Alamofire.SessionManager
-    
-    
-    public init(manager: Alamofire.SessionManager) {
+    open var manager: SessionManager
+    open var requestAdapter: RequestAdapter? {
+        didSet {
+            manager.adapter = requestAdapter
+        }
+    }
+    open var requestRetrier: RequestRetrier? {
+        didSet {
+            manager.retrier = requestRetrier
+        }
+    }
+    public var useMockedData = false
+
+    public init(manager: SessionManager) {
         self.manager = manager
         self.observers = []
     }
-    
-    
+
     /**
      Makes a network request
      
@@ -61,16 +79,30 @@ open class Manager: ManagerType {
      
      - returns: the request
      */
-    open func response(_ request: URLRequestConvertible, completion: @escaping CompletionHandler) -> Alamofire.Request {
-        return self.retryCallback(request, retryLeft: (request as? RouteType)?.retryCount ??  (request as? BasePaginationRequestType)?.route.retryCount ?? 0, completion: completion)
+    open func response(
+        _ request: URLRequestConvertible,
+        completion: @escaping CompletionHandler
+    ) -> Request {
+        return self.retryCallback(request, retryLeft: (request as? RouteType)?.retryCount
+            ?? (request as? BasePaginationRequestType)?.route.retryCount
+            ?? 0, completion: completion)
     }
-    
+
     /// Callback responsible for handling retries
-    open func retryCallback(_ request: URLRequestConvertible, retryLeft: Int, completion: @escaping CompletionHandler) -> Alamofire.Request {
+    open func retryCallback(
+        _ request: URLRequestConvertible,
+        retryLeft: Int,
+        completion: @escaping CompletionHandler
+    ) -> Request {
         let result = manager.request(request).validate()
         observers.forEach { $0.willSendRequest(result, requestConvertible: request) }
-        result.response(){ [weak self] dataResponse in
-            let result: OperaResult =  toOperaResult(request, response: dataResponse.response, data: dataResponse.data, error: dataResponse.error)
+        result.response() { [weak self] dataResponse in
+            let result: OperaResult =  toOperaResult(
+                request,
+                originalRequest: dataResponse.request,
+                response: dataResponse.response,
+                data: dataResponse.data,
+                error: dataResponse.error)
             switch result.result {
             case .success:
                 completion(result)
@@ -79,22 +111,51 @@ open class Manager: ManagerType {
                     completion(result)
                     return
                 }
-                _ = self?.retryCallback(request, retryLeft: retryLeft - 1 , completion: completion)
+                _ = self?.retryCallback(
+                    request,
+                    retryLeft: retryLeft - 1,
+                    completion: completion
+                )
             }
         }
         return result
     }
 }
 
-private func toOperaResult(_ requestConvertible: URLRequestConvertible, response: HTTPURLResponse?, data: Data?, error: Error?) ->
-    OperaResult {
+private func toOperaResult(
+    _ requestConvertible: URLRequestConvertible,
+    originalRequest: URLRequest?,
+    response: HTTPURLResponse?,
+    data: Data?,
+    error: Error?
+    ) -> OperaResult {
     switch (response, data, error) {
     case let (.some(response), .some(data), .none):
-        return OperaResult(result: .success(OperaResponse(statusCode: response.statusCode, data: data, response: response)), requestConvertible: requestConvertible)
+        return OperaResult(
+            result: .success(
+                OperaResponse(
+                    statusCode: response.statusCode,
+                    data: data,
+                    response: response
+            )),
+            requestConvertible: requestConvertible
+        )
     case let (_, _, .some(error)):
-        return OperaResult(result: .failure(OperaError.networking(error: error, request: requestConvertible.urlRequest, response: response, json: data as AnyObject)), requestConvertible: requestConvertible)
+        return OperaResult(
+            result: .failure(
+                OperaError.networking(
+                    error: error,
+                    request: originalRequest,
+                    response: response,
+                    json: data as AnyObject)),
+            requestConvertible: requestConvertible
+        )
     default:
-        return OperaResult(result: .failure(OperaError.networking(error: UnknownError(),
-            request: try? requestConvertible.asURLRequest(), response: response, json: data as AnyObject)), requestConvertible: requestConvertible)
+        return OperaResult(result: .failure(OperaError.networking(error: UnknownError(error: error),
+            request: originalRequest,
+            response: response,
+            json: data as AnyObject)),
+            requestConvertible: requestConvertible
+        )
     }
 }

@@ -1,4 +1,4 @@
-//  PaginationRequest.swift
+//  PaginationResponse.swift
 //  Opera ( https://github.com/xmartlabs/Opera )
 //
 //  Copyright (c) 2016 Xmartlabs SRL ( http://xmartlabs.com )
@@ -25,23 +25,20 @@
 import Foundation
 
 /**
- *  A Generic type that adopts PaginationRequestType
+ *  PaginationResponse is a generic type that adopts PaginationResponseType
  */
-public struct PaginationRequest<Element: OperaDecodable>: PaginationRequestType {
-    
-    public typealias Response = PaginationResponse<Element>
-    
-    public var route: RouteType
-    public var page: String = ""
-    public var query: String?
-    public var filter: FilterType?
-    public var collectionKeyPath: String?
-    
-    public init(route: RouteType, page: String? = nil, query: String? = nil, filter: FilterType? = nil, collectionKeyPath: String? = nil) {
-        self.route = route
-        self.page = page ?? (self as? PaginationRequestTypeSettings)?.firstPageParameterValue ?? Default.firstPageParameterValue
-        self.query = query
-        self.filter = filter
-        self.collectionKeyPath = collectionKeyPath
+public struct PaginationResponse<E>: PaginationResponseType {
+
+    public let elements: [E]
+    public let previousPage: String?
+    public let nextPage: String?
+    public let page: String?
+
+    public init(elements: [E], previousPage: String?, nextPage: String?, page: String?) {
+        self.elements = elements
+        self.previousPage = previousPage
+        self.nextPage = nextPage
+        self.page = page
     }
+
 }

@@ -25,46 +25,46 @@
 import UIKit
 import RxSwift
 import RxCocoa
-import Opera
+import OperaSwift
 
 class SearchRepositoriesController: UIViewController {
-    
+
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var searchBar: UISearchBar!
     let refreshControl = UIRefreshControl()
-    
+
     var disposeBag = DisposeBag()
-    
+
     fileprivate lazy var emptyStateLabel: UILabel = {
         let emptyStateLabel = UILabel()
         emptyStateLabel.text = Constants.noTextMessage
         emptyStateLabel.textAlignment = .center
         return emptyStateLabel
     }()
-    
+
     lazy var viewModel: PaginationViewModel<PaginationRequest<Repository>> = {
         return PaginationViewModel(paginationRequest: PaginationRequest(route: GithubAPI.Repository.Search(), collectionKeyPath: "items"))
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         tableView.backgroundView = emptyStateLabel
         tableView.keyboardDismissMode = .onDrag
         tableView.addSubview(self.refreshControl)
         let refreshControl = self.refreshControl
-        
+
         rx.sentMessage(#selector(SearchRepositoriesController.viewWillAppear(_:)))
             .skip(1)
             .map { _ in false }
             .bindTo(viewModel.refreshTrigger)
             .addDisposableTo(disposeBag)
-        
-        tableView.rx_reachedBottom
+
+        tableView.rx.reachedBottom
             .bindTo(viewModel.loadNextPageTrigger)
             .addDisposableTo(disposeBag)
-        
+
         viewModel.loading
             .drive(activityIndicatorView.rx.isAnimating)
             .addDisposableTo(disposeBag)
@@ -89,12 +89,12 @@ class SearchRepositoriesController: UIViewController {
                 cell.detailTextLabel?.text = "🌟\(repository.stargazersCount)"
             }
             .addDisposableTo(disposeBag)
-        
+
         tableView.rx.modelSelected(Repository.self)
             .asDriver()
             .drive(onNext: { [weak self] repo in self?.performSegue(withIdentifier: Constants.repositorySegue, sender: RepositoryData(name: repo.name, owner: repo.company)) })
             .addDisposableTo(disposeBag)
-        
+
         searchBar.rx.text
             .filter { !$0!.isEmpty }
             .map { a -> String in a ?? "" }
@@ -107,18 +107,18 @@ class SearchRepositoriesController: UIViewController {
             .map { _ in return [] }
             .bindTo(viewModel.elements)
             .addDisposableTo(disposeBag)
-        
-        refreshControl.rx_valueChanged
+
+        refreshControl.rx.valueChanged
             .filter { refreshControl.isRefreshing }
             .map { true }
             .bindTo(viewModel.refreshTrigger)
             .addDisposableTo(disposeBag)
-        
+
         viewModel.loading
             .filter { !$0  && refreshControl.isRefreshing }
             .drive(onNext: { _ in refreshControl.endRefreshing() })
             .addDisposableTo(disposeBag)
-        
+
         Driver.combineLatest(viewModel.emptyState, searchBar.rx.text.asDriver().throttle(0.25)) { $0 ||  $1!.isEmpty }
             .drive(onNext: { [weak self] state in
                 self?.emptyStateLabel.isHidden = !state
@@ -126,21 +126,21 @@ class SearchRepositoriesController: UIViewController {
             })
             .addDisposableTo(disposeBag)
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let identifier = segue.identifier, let vc = segue.destination as? RepositoryController, let data = sender as? RepositoryData , identifier == Constants.repositorySegue else { return }
+        guard let identifier = segue.identifier, let vc = segue.destination as? RepositoryController, let data = sender as? RepositoryData, identifier == Constants.repositorySegue else { return }
         vc.name = data.name
         vc.owner = data.owner
     }
-    
+
 }
 
 extension SearchRepositoriesController {
-    
+
     fileprivate struct Constants {
         static let noTextMessage = "Enter text to search repositories"
         static let noRepositoriesMessage = "No repositories found"
         static let repositorySegue = "Show repository"
     }
-    
+
 }

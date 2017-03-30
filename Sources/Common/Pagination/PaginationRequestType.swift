@@ -22,8 +22,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
 import Alamofire
+import Foundation
+import RxSwift
 
 struct Default {
     static let firstPageParameterValue = "1"
@@ -32,7 +33,7 @@ struct Default {
     static let prevRelationName = "prev"
     static let nextRelationName = "next"
     static let relationPageParamName = "page"
-    
+
 }
 
 public protocol BasePaginationRequestType: URLRequestConvertible {
@@ -49,41 +50,47 @@ public protocol BasePaginationRequestType: URLRequestConvertible {
 }
 
 /**
- *  A type that adopts PaginationRequestType encapsulates information required to fetch and filter a collection of items from a server endpoint. It can be used to create a pagination request. The request will take into account page, query, route, filter properties.
+ *  A type that adopts PaginationRequestType encapsulates information required 
+    to fetch and filter a collection of items from a server endpoint. 
+    It can be used to create a pagination request. 
+    The request will take into account page, query, route, filter properties.
  */
 public protocol PaginationRequestType: BasePaginationRequestType {
-    
+
     associatedtype Response: PaginationResponseType
-    
-    
-    
+
     /**
      Creates a new PaginationRequestType equals to self but updating the page value.
      
      - parameter page: new page value
      
-     - returns: PaginationRequestType instance identically to self and having its page value updated to `page`
+     - returns: PaginationRequestType instance identically 
+        to self and having its page value updated to `page`
      */
     func routeWithPage(_ page: String) -> Self
-    
+
     /**
-     Creates a new PaginationRequestType equals to self but updating query strng and setting its page to first page value.
+     Creates a new PaginationRequestType equals to self but updating
+     query strng and setting its page to first page value.
      
      - parameter query: query string
      
-     - returns: PaginationRequestType instance identically to self and having its query value updated to `query` and its page to firs page value.
+     - returns: PaginationRequestType instance identically to self and
+        having its query value updated to `query` and its page to firs page value.
      */
     func routeWithQuery(_ query: String) -> Self
-    
+
     /**
-     Creates a new PaginationRequestType equals to self but updating its filter. Page value is set to first page.
+     Creates a new PaginationRequestType equals to self 
+     but updating its filter. Page value is set to first page.
      
      - parameter filter: filters
      
-     - returns: PaginationRequestType instance identically to self and having its filter value updated to `filter` and its page to firs page value.
+     - returns: PaginationRequestType instance identically to self 
+     and having its filter value updated to `filter` and its page to firs page value.
      */
     func routeWithFilter(_ filter: FilterType) -> Self
-    
+
     /**
      Instantiate a new `PaginationRequestType`
      
@@ -91,58 +98,90 @@ public protocol PaginationRequestType: BasePaginationRequestType {
      - parameter page:              page
      - parameter query:             query string
      - parameter filter:            filters
-     - parameter collectionKeyPath: location within json response to get array of items to parse using the JSON parsing library.
+     - parameter collectionKeyPath: location within json response
+        to get array of items to parse using the JSON parsing library.
      
      - returns: The new PaginationRequestType instance.
      */
-    init(route: RouteType, page: String?, query: String?, filter: FilterType?, collectionKeyPath: String?)
+    init(
+        route: RouteType,
+        page: String?,
+        query: String?,
+        filter: FilterType?,
+        collectionKeyPath: String?
+    )
 }
 
 extension BasePaginationRequestType {
-    
-//MARK: URLRequestConvertible conformance
-    
+
+// MARK: URLRequestConvertible conformance
+
     public func asURLRequest() throws -> URLRequest {
         let url = try route.baseURL.asURL()
         var urlRequest = URLRequest(url: url.appendingPathComponent(route.path))
         urlRequest.httpMethod = route.method.rawValue
 
-        var params = (self.route as? URLRequestParametersSetup)?.urlRequestParametersSetup(urlRequest, parameters: parameters) ?? parameters
-        params = (self as? URLRequestParametersSetup)?.urlRequestParametersSetup(urlRequest, parameters: params) ?? params
+        var params = (self.route as? URLRequestParametersSetup)?
+            .urlRequestParametersSetup(urlRequest, parameters: parameters) ?? parameters
+        params = (self as? URLRequestParametersSetup)?
+            .urlRequestParametersSetup(urlRequest, parameters: params) ?? params
         urlRequest = try route.encoding.encode(urlRequest, with: params)
-        (self.route as? URLRequestSetup)?.urlRequestSetup(&urlRequest)
-        (self as? URLRequestSetup)?.urlRequestSetup(&urlRequest)
 
         return urlRequest
     }
-    
+
     /// Pagination request parameters
     var parameters: [String: Any]? {
         var result = route.parameters ?? [:]
-        result[(self as? PaginationRequestTypeSettings)?.pageParameterName ?? Default.pageParamName] = page as AnyObject?
-        if let q = query , q != "" {
-            result[(self as? PaginationRequestTypeSettings)?.queryParameterName ?? Default.queryParameterName] = query as AnyObject?
+        result[(self as? PaginationRequestTypeSettings)?
+            .pageParameterName ?? Default.pageParamName] = page as AnyObject?
+        if let q = query, q != "" {
+            result[(self as? PaginationRequestTypeSettings)?
+                .queryParameterName ?? Default.queryParameterName] = query as AnyObject?
         }
-        for (k, v) in filter?.parameters ?? [:]  {
+        for (k, v) in filter?.parameters ?? [:] {
             result.updateValue(v, forKey: k)
         }
         return result
     }
 }
 
-
 extension PaginationRequestType {
 
+    public var rx: Reactive<Self> {
+        return Reactive(self)
+    }
+
     public func routeWithPage(_ page: String) -> Self {
-        return Self.init(route: route, page: page, query: query, filter: filter, collectionKeyPath: collectionKeyPath)
+        return Self.init(
+            route: route,
+            page: page,
+            query: query,
+            filter: filter,
+            collectionKeyPath: collectionKeyPath
+        )
     }
-    
+
     public func routeWithQuery(_ query: String) -> Self {
-        return Self.init(route: route, page: (self as? PaginationRequestTypeSettings)?.firstPageParameterValue ?? Default.firstPageParameterValue, query: query, filter: filter, collectionKeyPath: collectionKeyPath)
+        return Self.init(
+            route: route,
+            page: (self as? PaginationRequestTypeSettings)?
+                .firstPageParameterValue ?? Default.firstPageParameterValue,
+            query: query,
+            filter: filter,
+            collectionKeyPath: collectionKeyPath
+        )
     }
-    
+
     public func routeWithFilter(_ filter: FilterType) -> Self {
-        return Self.init(route: route, page: (self as? PaginationRequestTypeSettings)?.firstPageParameterValue ?? Default.firstPageParameterValue, query: query, filter: filter, collectionKeyPath: collectionKeyPath)
+        return Self.init(
+            route: route,
+            page: (self as? PaginationRequestTypeSettings)?
+                .firstPageParameterValue ?? Default.firstPageParameterValue,
+            query: query,
+            filter: filter,
+            collectionKeyPath: collectionKeyPath
+        )
     }
 
 }

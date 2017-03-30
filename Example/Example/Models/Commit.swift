@@ -23,29 +23,28 @@
 // THE SOFTWARE.
 
 import Foundation
-import Opera
+import OperaSwift
 import Decodable
 
 struct Commit {
-    
+
     let sha: String
     let url: URL
     let author: String
     let date: Date
     let message: String
-    
-    
+
 }
 
 extension Commit: OperaDecodable, Decodable {
-    
-    static func decode(_ j: Any) throws -> Commit {
-        return try Commit(  sha: j => "sha",
-              url: URL(string: j => "url")!,
-                         author: j => ["commit", "author", "name"],
-                           date: j => ["commit", "author", "date"],
-                        message: j => ["commit", "message"])
-        
+
+    static func decode(_ json: Any) throws -> Commit {
+        return try Commit(  sha: json => "sha",
+              url: URL(string: json => "url")!,
+                         author: json => ["commit", "author", "name"],
+                           date: json => ["commit", "author", "date"],
+                        message: json => ["commit", "message"])
+
     }
-    
+
 }

@@ -1,4 +1,4 @@
-//  PaginationResponse.swift
+//  PaginationRequestTypeSettings.swift
 //  Opera ( https://github.com/xmartlabs/Opera )
 //
 //  Copyright (c) 2016 Xmartlabs SRL ( http://xmartlabs.com )
@@ -24,20 +24,10 @@
 
 import Foundation
 
-/**
- *  PaginationResponse is a generic type that adopts PaginationResponseType
- */
-public struct PaginationResponse<E>: PaginationResponseType {
-    
-    public let elements: [E]
-    public let previousPage: String?
-    public let nextPage: String?
-    public let page: String?
-    
-    public init(elements: [E], previousPage: String?, nextPage: String?, page: String?){
-        self.elements = elements
-        self.previousPage = previousPage
-        self.nextPage = nextPage
-        self.page = page
-    }
+public protocol PaginationRequestTypeSettings {
+
+    var queryParameterName: String { get }
+    var pageParameterName: String { get }
+    var firstPageParameterValue: String { get }
+
 }

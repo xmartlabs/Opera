@@ -24,56 +24,56 @@
 
 import Foundation
 import UIKit
-import Opera
+import OperaSwift
 import RxSwift
 import RxCocoa
 
 class RepositoryController: UITableViewController {
-    
+
     @IBOutlet weak var repositoryName: UILabel!
     @IBOutlet weak var forksLabel: UILabel!
     @IBOutlet weak var stargazersLabel: UILabel!
     @IBOutlet weak var issuesLabel: UILabel!
-    
+
     var userRepository: UserRepository?
     var owner: String!
     var name: String!
-    
+
     var disposeBag = DisposeBag()
-    
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         return userRepository == nil ? 0 : super.numberOfSections(in: tableView)
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         tableView.reloadData()
-        
+
         GithubAPI.Repository.GetInfo(owner: owner, repo: name)
-            .rx_object()
+            .rx.object()
             .subscribe(onNext: { [weak self] (userRepo: UserRepository) in
                 self?.userRepository = userRepo
                 self?.tableView.reloadData()
-                
+
                 self?.repositoryName.text = userRepo.name
                 self?.forksLabel.text = "\(userRepo.forks)"
                 self?.stargazersLabel.text = "\(userRepo.stargazers)"
                 self?.issuesLabel.text = "\(userRepo.issues)"
             })
             .addDisposableTo(disposeBag)
-        
+
         tableView.rx.itemSelected
             .asDriver()
             .drive(onNext: { [weak self] indexPath in self?.tableView.deselectRow(at: indexPath, animated: true) })
             .addDisposableTo(disposeBag)
-        
+
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let _ = segue.identifier, let vc = segue.destination as? RepositoryBaseController else { return }
         vc.name = name
         vc.owner = owner
     }
-    
+
 }
