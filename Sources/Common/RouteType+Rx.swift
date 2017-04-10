@@ -53,7 +53,7 @@ extension Reactive where Base: RouteType {
      */
     public func collection<T: OperaDecodable>(_ collectionKeyPath: String? = nil) -> Observable<[T]> {
         if base.manager.useMockedData && base.mockedData != nil {
-            return (base as! RxManager).rx.sampleCollection(base, collectionKeyPath: collectionKeyPath)
+            return (base.manager as! RxManager).rx.sampleCollection(base, collectionKeyPath: collectionKeyPath)
         }
         return (base.manager as! RxManager).rx.collection(base, collectionKeyPath: collectionKeyPath)
     }
