@@ -118,17 +118,17 @@ extension RouteType {
     }
 }
 
-protocol GetRouteType: RouteType {}
-protocol PostRouteType: RouteType {}
-protocol OptionsRouteType: RouteType {}
-protocol HeadRouteType: RouteType {}
-protocol PutRouteType: RouteType {}
-protocol PatchRouteType: RouteType {}
-protocol DeleteRouteType: RouteType {}
-protocol TraceRouteType: RouteType {}
-protocol ConnectRouteType: RouteType {}
+public protocol GetRouteType: RouteType {}
+public protocol PostRouteType: RouteType {}
+public protocol OptionsRouteType: RouteType {}
+public protocol HeadRouteType: RouteType {}
+public protocol PutRouteType: RouteType {}
+public protocol PatchRouteType: RouteType {}
+public protocol DeleteRouteType: RouteType {}
+public protocol TraceRouteType: RouteType {}
+public protocol ConnectRouteType: RouteType {}
 
-extension GetRouteType {
+public extension GetRouteType {
 
     var method: HTTPMethod {
         return .get
@@ -136,7 +136,7 @@ extension GetRouteType {
 
 }
 
-extension PostRouteType {
+public extension PostRouteType {
 
     var method: HTTPMethod {
         return .post
@@ -144,7 +144,7 @@ extension PostRouteType {
 
 }
 
-extension OptionsRouteType {
+public extension OptionsRouteType {
 
     var method: HTTPMethod {
         return .options
@@ -152,7 +152,7 @@ extension OptionsRouteType {
 
 }
 
-extension HeadRouteType {
+public extension HeadRouteType {
 
     var method: HTTPMethod {
         return .head
@@ -160,7 +160,7 @@ extension HeadRouteType {
 
 }
 
-extension PutRouteType {
+public extension PutRouteType {
 
     var method: HTTPMethod {
         return .put
@@ -168,7 +168,7 @@ extension PutRouteType {
 
 }
 
-extension PatchRouteType {
+public extension PatchRouteType {
 
     var method: HTTPMethod {
         return .patch
@@ -176,7 +176,7 @@ extension PatchRouteType {
 
 }
 
-extension DeleteRouteType {
+public extension DeleteRouteType {
 
     var method: HTTPMethod {
         return .delete
@@ -184,7 +184,7 @@ extension DeleteRouteType {
 
 }
 
-extension TraceRouteType {
+public extension TraceRouteType {
 
     var method: HTTPMethod {
         return .trace
@@ -192,10 +192,10 @@ extension TraceRouteType {
 
 }
 
-extension ConnectRouteType {
-
+public extension ConnectRouteType {
+    
     var method: HTTPMethod {
         return .connect
     }
-
+    
 }
