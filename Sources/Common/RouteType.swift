@@ -118,6 +118,12 @@ extension RouteType {
     }
 }
 
+public enum DecodingError: Error {
+
+    case invalidJson(String)
+
+}
+
 public protocol GetRouteType: RouteType {}
 public protocol PostRouteType: RouteType {}
 public protocol OptionsRouteType: RouteType {}

@@ -41,13 +41,15 @@ extension Reactive where Base: RxManager {
      */
     func sampleObject<T: OperaDecodable>(_ route: RouteType, keyPath: String? = nil) -> Observable<T> {
        guard let json = JSONFrom(data: route.mockedData) else {
-            return Observable.empty()
+            return Observable.error(DecodingError.invalidJson("The data provided for mocking could not be parsed to json"))
         }
         let object = keyPath.map({ (json as AnyObject).value(forKeyPath: $0) as Any}) ?? json
-        guard let decodedData = try? T.decode(object as Any) else {
-            return Observable.empty()
+        do {
+            let decodedData = try T.decode(object as Any)
+            return Observable.just(decodedData)
+        } catch let error {
+            return Observable.error(error)
         }
-        return Observable.just(decodedData)
     }
 
     /**
@@ -77,15 +79,17 @@ extension Reactive where Base: RxManager {
      - returns: An instance of `Observable<[T]>`  filled with sample data specified on the RouteType.
      */
     func sampleCollection<T: OperaDecodable>(_ route: RouteType, collectionKeyPath: String? = nil) -> Observable<[T]> {
+        guard let json = JSONFrom(data: route.mockedData) else {
+            return Observable.error(DecodingError.invalidJson("The data provided for mocking could not be parsed to json"))
+        }
         guard
-            let json = JSONFrom(data: route.mockedData),
             let representation = (
                 collectionKeyPath.map {
                     (json as AnyObject).value(forKeyPath: $0) as Any
                 } ?? json
             ) as? [[String: AnyObject]]
         else {
-            return Observable.empty()
+            return Observable.error(DecodingError.invalidJson("Could not find keypath on the decoded json"))
         }
 
         var result = [T]()
@@ -116,7 +120,7 @@ extension Reactive where Base: RxManager {
 
     func sampleAny(_ route: RouteType) -> Observable<Any> {
         guard let json = JSONFrom(data: route.mockedData) else {
-            return Observable.empty()
+            return Observable.error(DecodingError.invalidJson("The data provided for mocking could not be parsed to json"))
         }
         return Observable.just(json as Any)
     }
