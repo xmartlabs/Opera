@@ -120,6 +120,10 @@ extension RouteType {
 
 public enum DecodingError: Error {
 
+    static var invalidMockedJson: DecodingError {
+        return .invalidJson("The data provided for mocking could not be parsed to json")
+    }
+
     case invalidJson(String)
 
 }

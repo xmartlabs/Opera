@@ -41,7 +41,7 @@ extension Reactive where Base: RxManager {
      */
     func sampleObject<T: OperaDecodable>(_ route: RouteType, keyPath: String? = nil) -> Observable<T> {
        guard let json = JSONFrom(data: route.mockedData) else {
-            return Observable.error(DecodingError.invalidJson("The data provided for mocking could not be parsed to json"))
+            return Observable.error(DecodingError.invalidMockedJson)
         }
         let object = keyPath.map({ (json as AnyObject).value(forKeyPath: $0) as Any}) ?? json
         do {
@@ -80,7 +80,7 @@ extension Reactive where Base: RxManager {
      */
     func sampleCollection<T: OperaDecodable>(_ route: RouteType, collectionKeyPath: String? = nil) -> Observable<[T]> {
         guard let json = JSONFrom(data: route.mockedData) else {
-            return Observable.error(DecodingError.invalidJson("The data provided for mocking could not be parsed to json"))
+            return Observable.error(DecodingError.invalidMockedJson)
         }
         guard
             let representation = (
@@ -120,7 +120,7 @@ extension Reactive where Base: RxManager {
 
     func sampleAny(_ route: RouteType) -> Observable<Any> {
         guard let json = JSONFrom(data: route.mockedData) else {
-            return Observable.error(DecodingError.invalidJson("The data provided for mocking could not be parsed to json"))
+            return Observable.error(DecodingError.invalidMockedJson)
         }
         return Observable.just(json as Any)
     }
