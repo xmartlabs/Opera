@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "28F8287C1C494B2C00330CF4"
+               BlueprintIdentifier = "542B09E11CB6D5BE00EC2C71"
                BuildableName = "OperaSwift.framework"
-               BlueprintName = "OperaSwift-iOS"
+               BlueprintName = "OperaSwift-OSX"
                ReferencedContainer = "container:OperaSwift.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,10 +28,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "28F828CB1C4B714D00330CF4"
-               BuildableName = "Example-iOS.app"
-               BlueprintName = "Example-iOS"
-               ReferencedContainer = "container:Example-iOS.xcodeproj">
+               BlueprintIdentifier = "D2488DF11CC53A44000062F4"
+               BuildableName = "Example-OSX.app"
+               BlueprintName = "Example-OSX"
+               ReferencedContainer = "container:Example-OSX.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -46,20 +46,30 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "28F828DF1C4B714D00330CF4"
-               BuildableName = "Example-iOS.xctest"
-               BlueprintName = "Example-iOSUITests"
-               ReferencedContainer = "container:Example-iOS.xcodeproj">
+               BlueprintIdentifier = "D2488E021CC53A45000062F4"
+               BuildableName = "Example-OSXTests.xctest"
+               BlueprintName = "Example-OSXTests"
+               ReferencedContainer = "container:Example-OSX.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D2488E0D1CC53A45000062F4"
+               BuildableName = "Example-OSXUITests.xctest"
+               BlueprintName = "Example-OSXUITests"
+               ReferencedContainer = "container:Example-OSX.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "28F828CB1C4B714D00330CF4"
-            BuildableName = "Example-iOS.app"
-            BlueprintName = "Example-iOS"
-            ReferencedContainer = "container:Example-iOS.xcodeproj">
+            BlueprintIdentifier = "D2488DF11CC53A44000062F4"
+            BuildableName = "Example-OSX.app"
+            BlueprintName = "Example-OSX"
+            ReferencedContainer = "container:Example-OSX.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -79,10 +89,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "28F828CB1C4B714D00330CF4"
-            BuildableName = "Example-iOS.app"
-            BlueprintName = "Example-iOS"
-            ReferencedContainer = "container:Example-iOS.xcodeproj">
+            BlueprintIdentifier = "D2488DF11CC53A44000062F4"
+            BuildableName = "Example-OSX.app"
+            BlueprintName = "Example-OSX"
+            ReferencedContainer = "container:Example-OSX.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -98,10 +108,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "28F828CB1C4B714D00330CF4"
-            BuildableName = "Example-iOS.app"
-            BlueprintName = "Example-iOS"
-            ReferencedContainer = "container:Example-iOS.xcodeproj">
+            BlueprintIdentifier = "D2488DF11CC53A44000062F4"
+            BuildableName = "Example-OSX.app"
+            BlueprintName = "Example-OSX"
+            ReferencedContainer = "container:Example-OSX.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

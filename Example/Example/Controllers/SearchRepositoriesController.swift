@@ -58,11 +58,11 @@ class SearchRepositoriesController: UIViewController {
         rx.sentMessage(#selector(SearchRepositoriesController.viewWillAppear(_:)))
             .skip(1)
             .map { _ in false }
-            .bindTo(viewModel.refreshTrigger)
+            .bind(to: viewModel.refreshTrigger)
             .addDisposableTo(disposeBag)
 
         tableView.rx.reachedBottom
-            .bindTo(viewModel.loadNextPageTrigger)
+            .bind(to: viewModel.loadNextPageTrigger)
             .addDisposableTo(disposeBag)
 
         viewModel.loading
@@ -97,21 +97,21 @@ class SearchRepositoriesController: UIViewController {
 
         searchBar.rx.text
             .filter { !$0!.isEmpty }
-            .map { a -> String in a ?? "" }
+            .map { str -> String in str ?? "" }
             .throttle(0.25, scheduler: MainScheduler.instance)
-            .bindTo(viewModel.queryTrigger)
+            .bind(to: viewModel.queryTrigger)
             .addDisposableTo(disposeBag)
 
         searchBar.rx.text
             .filter { $0!.isEmpty }
             .map { _ in return [] }
-            .bindTo(viewModel.elements)
+            .bind(to: viewModel.elements)
             .addDisposableTo(disposeBag)
 
         refreshControl.rx.valueChanged
             .filter { refreshControl.isRefreshing }
             .map { true }
-            .bindTo(viewModel.refreshTrigger)
+            .bind(to: viewModel.refreshTrigger)
             .addDisposableTo(disposeBag)
 
         viewModel.loading

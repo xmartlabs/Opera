@@ -43,7 +43,7 @@ private enum SortFilter: Int, CustomStringConvertible, FilterType {
     }
 
     var parameters: [String: AnyObject]? {
-        return ["state":"\(self)" as AnyObject]
+        return ["state": "\(self)" as AnyObject]
     }
 
 }
@@ -73,11 +73,11 @@ class RepositoryPullRequestsController: RepositoryBaseController {
 
         rx.sentMessage(#selector(RepositoryForksController.viewWillAppear(_:)))
             .map { _ in false }
-            .bindTo(viewModel.refreshTrigger)
+            .bind(to: viewModel.refreshTrigger)
             .addDisposableTo(disposeBag)
 
         tableView.rx.reachedBottom
-            .bindTo(viewModel.loadNextPageTrigger)
+            .bind(to: viewModel.loadNextPageTrigger)
             .addDisposableTo(disposeBag)
 
         viewModel.loading
@@ -95,7 +95,7 @@ class RepositoryPullRequestsController: RepositoryBaseController {
         refreshControl.rx.valueChanged
             .filter { refreshControl.isRefreshing }
             .map { true }
-            .bindTo(viewModel.refreshTrigger)
+            .bind(to: viewModel.refreshTrigger)
             .addDisposableTo(disposeBag)
 
         viewModel.loading
@@ -105,7 +105,7 @@ class RepositoryPullRequestsController: RepositoryBaseController {
 
         filterSegmentControl.rx.valueChanged
             .map { [weak self] in return SortFilter(rawValue: self?.filterSegmentControl.selectedSegmentIndex ?? 0) ?? SortFilter.open }
-            .bindTo(viewModel.filterTrigger)
+            .bind(to: viewModel.filterTrigger)
             .addDisposableTo(disposeBag)
 
         viewModel.emptyState

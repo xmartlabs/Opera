@@ -56,24 +56,27 @@ extension OperaResult {
         switch result {
         case let .success(value):
             let result = OperaResult.serialize(
-                nil, response: value.response,
+                nil,
+                response: value.response,
                 data: value.data,
-                error: nil, onsuccess: { (result, json) -> Result<T> in
-                let object = keyPath.map({ (json as AnyObject).value(forKeyPath: $0) as Any}) ?? json
-                do {
-                    let decodedData = try T.decode(object as AnyObject)
-                    return .success(decodedData)
-                } catch let error {
-                    return .failure(
-                        OperaError.parsing(
-                            error: error,
-                            request: try? self.requestConvertible.asURLRequest(),
-                            response: value.response,
-                            json: json
+                error: nil,
+                onsuccess: { (_, json) -> Result<T> in
+                    let object = keyPath.map({ (json as AnyObject).value(forKeyPath: $0) as Any}) ?? json
+                    do {
+                        let decodedData = try T.decode(object as AnyObject)
+                        return .success(decodedData)
+                    } catch let error {
+                        return .failure(
+                            OperaError.parsing(
+                                error: error,
+                                request: try? self.requestConvertible.asURLRequest(),
+                                response: value.response,
+                                json: json
+                            )
                         )
-                    )
+                    }
                 }
-            })
+            )
             return DataResponse(
                 request: try? requestConvertible.asURLRequest(),
                 response: value.response,
@@ -169,19 +172,20 @@ extension OperaResult {
                 response: value.response,
                 data: value.data,
                 error: nil,
-                onsuccess: { (result, json) -> Result<Any> in
-                if let _ = value.response { return .success(json) }
-                let failureReason = "JSON could not be serialized into response object"
-                let error = SerializationError.jsonSerializationError(reason: failureReason)
-                return .failure(
-                    OperaError.networking(
-                        error: error,
-                        request: try? self.requestConvertible.asURLRequest(),
-                        response: value.response,
-                        json: json
+                onsuccess: { (_, json) -> Result<Any> in
+                    if let _ = value.response { return .success(json) }
+                    let failureReason = "JSON could not be serialized into response object"
+                    let error = SerializationError.jsonSerializationError(reason: failureReason)
+                    return .failure(
+                        OperaError.networking(
+                            error: error,
+                            request: try? self.requestConvertible.asURLRequest(),
+                            response: value.response,
+                            json: json
+                        )
                     )
-                )
-            })
+                }
+            )
             return DataResponse(
                 request: try? requestConvertible.asURLRequest(),
                 response: value.response,
@@ -220,7 +224,7 @@ extension OperaResult {
 
             switch result {
             case .success(let value):
-                guard let _ = response else {
+                guard response != nil else {
                     let failureReason = "JSON could not be serialized into response object: \(value)"
                     let error = SerializationError.jsonSerializationError(reason: failureReason)
                     return .failure(

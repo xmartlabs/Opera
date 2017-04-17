@@ -50,11 +50,11 @@ class RepositoryReleasesController: RepositoryBaseController {
 
         rx.sentMessage(#selector(RepositoryForksController.viewWillAppear(_:)))
             .map { _ in false }
-            .bindTo(viewModel.refreshTrigger)
+            .bind(to: viewModel.refreshTrigger)
             .addDisposableTo(disposeBag)
 
         tableView.rx.reachedBottom
-            .bindTo(viewModel.loadNextPageTrigger)
+            .bind(to: viewModel.loadNextPageTrigger)
             .addDisposableTo(disposeBag)
 
         viewModel.loading
@@ -72,7 +72,7 @@ class RepositoryReleasesController: RepositoryBaseController {
         refreshControl.rx.valueChanged
             .filter { refreshControl.isRefreshing }
             .map { true }
-            .bindTo(viewModel.refreshTrigger)
+            .bind(to: viewModel.refreshTrigger)
             .addDisposableTo(disposeBag)
 
         viewModel.loading

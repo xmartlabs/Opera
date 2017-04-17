@@ -113,13 +113,7 @@ extension HTTPURLResponse {
 
   /// Finds a link which has matching parameters
   public func findLink(parameters: [String: String]) -> Link? {
-    for link in links {
-      if link.parameters ~= parameters {
-        return link
-      }
-    }
-
-    return nil
+    return links.first { $0.parameters ~= parameters }
   }
 
   /// Find a link for the relation
@@ -132,7 +126,7 @@ extension HTTPURLResponse {
 
 /// Merge two dictionaries together
 func +<K, V>(lhs: [K:V], rhs: [K:V]) -> [K:V] {
-  var dictionary = [K:V]()
+  var dictionary = [K: V]()
 
   for (key, value) in rhs {
     dictionary[key] = value

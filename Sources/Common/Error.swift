@@ -135,12 +135,9 @@ extension OperaError : CustomDebugStringConvertible {
         switch self {
         case .networking(let error, let request, _, let json):
             var components = [String]()
-            if let error = error as? CustomStringConvertible {
-                components.append("Networking Error: \(error.description)")
-            }
-            if let error = error as? CustomDebugStringConvertible {
-                components.append(error.debugDescription)
-            }
+
+            components.append("Networking Error: \((error as CustomStringConvertible).description)")
+            components.append((error as CustomDebugStringConvertible).debugDescription)
 
             if let method = request?.httpMethod {
                 components.append(method)
@@ -154,10 +151,9 @@ extension OperaError : CustomDebugStringConvertible {
             }
             return components.joined(separator: " \\\n\t")
         case .parsing(let error, let request, _, let json):
-            var components = ["Parsing Error:"]
-            if let error = error as? CustomDebugStringConvertible {
-                components.append(error.debugDescription)
-            }
+            var components = ["Parsing Error"]
+            components.append((error as CustomDebugStringConvertible).debugDescription)
+
             if let method = request?.httpMethod {
                 components.append(method)
             }
@@ -181,18 +177,15 @@ extension OperaError: CustomStringConvertible {
         switch self {
         case .networking(let error, let request, _, _):
             var components = [String]()
-            if let error = error as? CustomStringConvertible {
-                components.append("Networking Error: \(error.description)")
-            }
-            if let error = error as? CustomDebugStringConvertible {
-                components.append(error.debugDescription)
-            }
+            components.append("Networking Error: \((error as CustomStringConvertible).description)")
+
             if let method = request?.httpMethod {
                 components.append(method)
             }
             if let URLString = request?.url?.absoluteString {
                 components.append(URLString)
             }
+
             return components.joined(separator: " ")
         case .parsing(let error, let request, _, let json):
             var components = ["Parsing Error"]
@@ -202,9 +195,7 @@ extension OperaError: CustomStringConvertible {
             if let URLString = request?.url?.absoluteURL {
                 components.append("URL: \(URLString)")
             }
-            if let error = error as? CustomStringConvertible {
-                components.append(error.description)
-            }
+            components.append((error as CustomStringConvertible).description)
             components = [components.joined(separator: " ")]
             if let jsonStringify = json.map({ JSONStringify($0) }) {
                 components.append("Json:\r\n")

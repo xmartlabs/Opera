@@ -38,13 +38,14 @@ struct Release {
 
 extension Release: OperaDecodable, Decodable {
 
-    static func decode(_ j: Any) throws -> Release {
-        return try Release(  id: j => "id",
-                             name: j => "name",
-                             tagName: j => "tag_name",
-                             body: j => "body",
-                             user: j => ["author", "login"])
-
+    static func decode(_ json: Any) throws -> Release {
+        return try Release(
+            id: json => "id",
+            name: json => "name",
+            tagName: json => "tag_name",
+            body: json => "body",
+            user: json => ["author", "login"]
+        )
     }
 
 }

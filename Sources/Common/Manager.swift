@@ -83,9 +83,11 @@ open class Manager: ManagerType {
         _ request: URLRequestConvertible,
         completion: @escaping CompletionHandler
     ) -> Request {
-        return self.retryCallback(request, retryLeft: (request as? RouteType)?.retryCount
-            ?? (request as? BasePaginationRequestType)?.route.retryCount
-            ?? 0, completion: completion)
+        return self.retryCallback(
+            request,
+            retryLeft: (request as? RouteType)?.retryCount ?? (request as? BasePaginationRequestType)?.route.retryCount ?? 0,
+            completion: completion
+        )
     }
 
     /// Callback responsible for handling retries
@@ -96,7 +98,7 @@ open class Manager: ManagerType {
     ) -> Request {
         let result = manager.request(request).validate()
         observers.forEach { $0.willSendRequest(result, requestConvertible: request) }
-        result.response() { [weak self] dataResponse in
+        result.response { [weak self] dataResponse in
             let result: OperaResult =  toOperaResult(
                 request,
                 originalRequest: dataResponse.request,
@@ -120,6 +122,7 @@ open class Manager: ManagerType {
         }
         return result
     }
+
 }
 
 private func toOperaResult(

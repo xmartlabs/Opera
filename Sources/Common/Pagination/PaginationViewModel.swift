@@ -84,7 +84,7 @@ open class PaginationViewModel<PaginationRequest: PaginationRequestType>
                 )
             })
             .map { _ in false }
-            .bindTo(refreshTrigger)
+            .bind(to: refreshTrigger)
             .addDisposableTo(queryDisposeBag)
 
         refreshTrigger
@@ -96,7 +96,7 @@ open class PaginationViewModel<PaginationRequest: PaginationRequestType>
                 )
             })
             .map { _ in false }
-            .bindTo(refreshTrigger)
+            .bind(to: refreshTrigger)
             .addDisposableTo(queryDisposeBag)
 
         filterTrigger
@@ -108,7 +108,7 @@ open class PaginationViewModel<PaginationRequest: PaginationRequestType>
                 )
             })
             .map { _ in false }
-            .bindTo(refreshTrigger)
+            .bind(to: refreshTrigger)
             .addDisposableTo(queryDisposeBag)
     }
 
@@ -143,7 +143,7 @@ open class PaginationViewModel<PaginationRequest: PaginationRequestType>
                     .catchErrorJustReturn((false, fullloading.value.1))
             )
             .merge()
-            .bindTo(fullloading)
+            .bind(to: fullloading)
             .addDisposableTo(disposeBag)
 
         Observable
@@ -151,12 +151,12 @@ open class PaginationViewModel<PaginationRequest: PaginationRequestType>
                 return response.hasPreviousPage ? elements + response.elements : response.elements
             }
             .take(1)
-            .bindTo(elements)
+            .bind(to: elements)
             .addDisposableTo(disposeBag)
 
         response
             .map { $0.hasNextPage }
-            .bindTo(hasNextPage)
+            .bind(to: hasNextPage)
             .addDisposableTo(disposeBag)
 
         response

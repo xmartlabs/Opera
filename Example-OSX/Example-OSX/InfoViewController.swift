@@ -10,7 +10,7 @@ import Cocoa
 
 class InfoViewController: NSViewController {
 
-    var repository: Repository? = nil
+    var repository: Repository?
 
     @IBOutlet weak var titleLabel: NSTextField!
     @IBOutlet weak var companyLabel: NSTextField!
