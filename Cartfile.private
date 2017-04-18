@@ -1,5 +1,5 @@
 github "Anviking/Decodable" ~> 0.5
 github "thoughtbot/Argo" ~> 4.1
-github "malcommac/SwiftDate" ~> 4.0
+github "malcommac/SwiftDate" ~> 4.1.1
 github "thoughtbot/Curry" ~> 3.0
 github "Hearst-DD/ObjectMapper" ~> 2.2

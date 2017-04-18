@@ -27,21 +27,21 @@ extension Request {
 
     enum Repository: RouteType {
 
-        case GetInfo(owner: String, repo: String)
-        case Search()
+        case getInfo(owner: String, repo: String)
+        case search()
 
         var method: Alamofire.HTTPMethod {
             switch self {
-            case .GetInfo, .Search:
+            case .getInfo, .search:
                 return .get
             }
         }
 
         var path: String {
             switch self {
-            case let .GetInfo(owner, repo):
+            case let .getInfo(owner, repo):
                 return "repos/\(owner)/\(repo)"
-            case .Search:
+            case .search:
                 return "search/repositories"
             }
         }
@@ -51,4 +51,4 @@ extension Request {
     }
 }
 
-let string = Request.Repository.Search().urlRequest?.debugDescription
+let string = Request.Repository.search().urlRequest?.debugDescription

@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "container:/Users/cousi/projects/Opera/OperaSwift.xcodeproj">
+      location = "container:OperaSwift.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Example-iOS.xcodeproj">
