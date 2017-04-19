@@ -66,7 +66,7 @@ extension Date: Argo.Decodable {
     public static func decode(_ json: Argo.JSON) -> Argo.Decoded<Date> {
         switch json {
         case .string(let dateString):
-            if let date =  try? dateString.date(format: DateFormat.iso8601(options: .withInternetDateTime)).absoluteDate {
+            if let date = dateString.date(format: DateFormat.iso8601(options: .withInternetDateTime))?.absoluteDate {
                 return pure(date)
             } else {
                 return .typeMismatch(expected: "Date", actual: json)
