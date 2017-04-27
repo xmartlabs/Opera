@@ -50,6 +50,7 @@
 		54DD8CD81CC13DED00F11463 /* RepositoryForksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DD8CD71CC13DED00F11463 /* RepositoryForksController.swift */; };
 		8F98A6CC1D90743600E88995 /* Runes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F98A6CB1D90743600E88995 /* Runes.framework */; };
 		8F98A6CE1D90748E00E88995 /* Runes.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8F98A6CB1D90743600E88995 /* Runes.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B20DF5661EB0ED480006430E /* OperaSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9E78541E89579400A139CB /* OperaSwift.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -180,6 +181,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B20DF5661EB0ED480006430E /* OperaSwift.framework in Frameworks */,
 				28F107681CB482CB007D8B7D /* Decodable.framework in Frameworks */,
 				54DA8A101CB7EA830044C1D2 /* Argo.framework in Frameworks */,
 				541AE95F1CC67F46005A695E /* ObjectMapper.framework in Frameworks */,

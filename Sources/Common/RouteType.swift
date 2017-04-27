@@ -63,10 +63,9 @@ public protocol RouteType: URLRequestConvertible {
     to request parameters dictionary before they are encoded.
  */
 public protocol URLRequestParametersSetup {
-    func urlRequestParametersSetup(
-        _ urlRequest: URLRequest,
-        parameters: [String: Any]?
-    ) -> [String: Any]?
+
+    func urlRequestParametersSetup(_ urlRequest: URLRequest, parameters: [String: Any]?) -> [String: Any]?
+
 }
 
 extension RouteType {
@@ -203,9 +202,9 @@ public extension TraceRouteType {
 }
 
 public extension ConnectRouteType {
-    
+
     var method: HTTPMethod {
         return .connect
     }
-    
+
 }

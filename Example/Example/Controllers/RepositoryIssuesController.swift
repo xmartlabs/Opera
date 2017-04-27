@@ -119,11 +119,11 @@ class RepositoryIssuesController: RepositoryBaseController {
 
         rx.sentMessage(#selector(RepositoryForksController.viewWillAppear(_:)))
             .map { _ in false }
-            .bindTo(viewModel.refreshTrigger)
+            .bind(to: viewModel.refreshTrigger)
             .addDisposableTo(disposeBag)
 
         tableView.rx.reachedBottom
-            .bindTo(viewModel.loadNextPageTrigger)
+            .bind(to: viewModel.loadNextPageTrigger)
             .addDisposableTo(disposeBag)
 
         viewModel.loading
@@ -141,7 +141,7 @@ class RepositoryIssuesController: RepositoryBaseController {
         refreshControl.rx.valueChanged
             .filter { refreshControl.isRefreshing }
             .map { true }
-            .bindTo(viewModel.refreshTrigger)
+            .bind(to: viewModel.refreshTrigger)
             .addDisposableTo(disposeBag)
 
         viewModel.loading
@@ -152,7 +152,7 @@ class RepositoryIssuesController: RepositoryBaseController {
         filter
             .asObservable()
             .map { $0 }
-            .bindTo(viewModel.filterTrigger)
+            .bind(to: viewModel.filterTrigger)
             .addDisposableTo(disposeBag)
 
         viewModel.emptyState
