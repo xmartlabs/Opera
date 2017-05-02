@@ -71,6 +71,43 @@ extension Reactive where Base: RxManager {
             }
         }
     }
+    /**
+     Returns a `Single` of (OperaResponse?,T) for the current request. Notice that T conforms to OperaDecodable. If something goes wrong an `OperaSwift.Error` error is propagated through the result sequence.
+
+     - parameter route: the route indicates the networking call that will be performed by including all the needed information like parameters, URL and HTTP method.
+     - parameter keyPath: keyPath to look up json object to serialize. Ignore parameter or pass nil when json object is the json root item.
+
+     - returns: An instance of `Single<(OperaResponse?,T)>`
+     */
+    func objectResponse<T: OperaDecodable>(_ route: RouteType, keyPath: String? = nil) -> Single<OperaObjectResult<T>> {
+        return base.rx.response(route).flatMap { operaResult -> Single<OperaObjectResult<T>> in
+            let serialized: DataResponse<T>  = operaResult.serializeObject(keyPath)
+            switch serialized.result {
+            case .failure(let error):
+                return Single.error(error)
+            case .success(let anyObject):
+                return Single.just(OperaObjectResult(operaResult.operaResponse, anyObject))
+            }
+        }
+    }
+    /**
+     Returns a `Single` of (OperaResult?, [T]) for the current request. If something goes wrong an `OperaSwift.Error` error is propagated through the result sequence.
+     - parameter route: the route indicates the networking call that will be performed by including all the needed information like parameters, URL and HTTP method.
+     - parameter collectionKeyPath: keyPath to look up json array to serialize. Ignore parameter or pass nil when json array is the json root item.
+
+     - returns: An instance of `Single<(OperaResult?, [T])>`
+    */
+    func collectionResponse<T: OperaDecodable>(_ route: RouteType, collectionKeyPath: String? = nil) -> Single<OperaCollectionResult<T>> {
+        return base.rx.response(route).flatMap { operaResult -> Single<OperaCollectionResult<T>> in
+            let serialized: DataResponse<[T]> = operaResult.serializeCollection(collectionKeyPath)
+            switch serialized.result {
+            case .failure(let error):
+                return Single.error(error)
+            case .success(let anyObject):
+                return Single.just(OperaCollectionResult(operaResult.operaResponse, anyObject))
+            }
+        }
+    }
 
     /**
      Returns an `Single` of `OperaResult` for the current request. If something goes wrong an `OperaSwift.Error` error is propagated through the result sequence.
@@ -161,6 +198,30 @@ extension Reactive where Base: RxManager {
      */
     func sampleCompletableResponse(_ route: RouteType) -> Completable {
         return Completable.empty()
+    }
+    /**
+     Returns a `Single` of (OperaResponse?, T) for the current RouteType. Notice that T conforms to OperaDecodable. If something goes wrong an `OperaSwift.Error` error is propagated through the result sequence.
+
+     - parameter keyPath: keyPath to look up json object to serialize. Ignore parameter or pass nil when json object is the json root item.
+
+     - returns: An instance of `Single<(OperaResponse?, T)>` filled with sample data specified on the RouteType.
+     */
+    func sampleObjectResponse<T: OperaDecodable>(_ route: RouteType, keyPath: String? = nil) -> Single<OperaObjectResult<T>> {
+        return sampleObject(route, keyPath: keyPath).flatMap { object -> Single<OperaObjectResult<T>> in
+            return Single.just(OperaObjectResult(nil, object))
+        }
+    }
+    /**
+     Returns a `Single` of (OpeaResponse?, [T]) for for the current RouteType. Notice that T conforms to OperaDecodable. If something goes wrong an `OperaSwift.Error` error is propagated through the result sequence.
+
+     - parameter collectionKeyPath: keyPath to look up json array to serialize. Ignore parameter or pass nil when json array is the json root item.
+
+     - returns: An instance of `Single<(OpeaResponse?, [T])>`  filled with sample data specified on the RouteType.
+     */
+    func sampleCollectionResponse<T: OperaDecodable>(_ route: RouteType, collectionKeyPath: String? = nil) -> Single<OperaCollectionResult<T>> {
+        return sampleCollection(route, collectionKeyPath: collectionKeyPath).flatMap { collection -> Single<OperaCollectionResult<T>> in
+            return Single.just(OperaCollectionResult(nil, collection))
+        }
     }
 
 }

@@ -43,6 +43,19 @@ public struct OperaResult {
 }
 
 extension OperaResult {
+    
+    public var operaResponse: OperaResponse? {
+        switch self.result {
+        case let .success(value):
+            return value
+        case .failure:
+            return nil
+        }
+    }
+    
+    public var httpResponse: HTTPURLResponse? {
+        return operaResponse?.response
+    }
 
     /**
      Generic response object serialization that returns a OperaDecodable instance.
