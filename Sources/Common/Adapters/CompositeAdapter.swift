@@ -35,6 +35,11 @@ open class CompositeAdapter: HashableRequestAdapter {
     private var adapters = [String: HashableRequestAdapter]()
     /// Empty init, you can subclass it to add your adapters here.
     public init() {}
+
+    public convenience init(adapters: [HashableRequestAdapter]) {
+        self.init()
+        self.append(adapters: adapters)
+    }
     /// implementation of the adapt function to conform Alamofire.RequestAdapter
     open func adapt(_ urlRequest: URLRequest) throws -> URLRequest {
         return adapters.reduce(urlRequest) { (try? $1.value.adapt($0)) ?? $0 }
@@ -54,6 +59,13 @@ open class CompositeAdapter: HashableRequestAdapter {
         adapters.forEach {
             self.adapters[$0.key] = $0
         }
+    }
+    /**
+     Removes an adapter from the pipeline.
+     - parameter key: The key of the adapter.
+    */
+    open func remove(adapter key: String) {
+        adapters.removeValue(forKey: key)
     }
 
 }
