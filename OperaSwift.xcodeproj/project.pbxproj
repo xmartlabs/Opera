@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A59A4E21EB8A9DB00C0193A /* HashableRequestAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A59A4E11EB8A9DB00C0193A /* HashableRequestAdapter.swift */; };
+		1A59A4E41EB8AAC000C0193A /* CompositeAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A59A4E31EB8AAC000C0193A /* CompositeAdapter.swift */; };
 		1A5AEA831E8ACAA7004A5082 /* repoinfo.json in Resources */ = {isa = PBXBuildFile; fileRef = 1A5AEA821E8ACAA7004A5082 /* repoinfo.json */; };
 		1A9E78741E89585D00A139CB /* FilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9E786A1E89585D00A139CB /* FilterType.swift */; };
 		1A9E78751E89585D00A139CB /* PaginationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9E786B1E89585D00A139CB /* PaginationRequest.swift */; };
@@ -181,6 +183,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A59A4E11EB8A9DB00C0193A /* HashableRequestAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HashableRequestAdapter.swift; path = Common/Adapters/HashableRequestAdapter.swift; sourceTree = "<group>"; };
+		1A59A4E31EB8AAC000C0193A /* CompositeAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CompositeAdapter.swift; path = Common/Adapters/CompositeAdapter.swift; sourceTree = "<group>"; };
 		1A5AEA821E8ACAA7004A5082 /* repoinfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = repoinfo.json; sourceTree = "<group>"; };
 		1A9E786A1E89585D00A139CB /* FilterType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterType.swift; path = Common/Pagination/FilterType.swift; sourceTree = "<group>"; };
 		1A9E786B1E89585D00A139CB /* PaginationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaginationRequest.swift; path = Common/Pagination/PaginationRequest.swift; sourceTree = "<group>"; };
@@ -283,6 +287,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A59A4D81EB8A9AD00C0193A /* Adapters */ = {
+			isa = PBXGroup;
+			children = (
+				1A59A4E11EB8A9DB00C0193A /* HashableRequestAdapter.swift */,
+				1A59A4E31EB8AAC000C0193A /* CompositeAdapter.swift */,
+			);
+			name = Adapters;
+			sourceTree = "<group>";
+		};
 		1A9E78611E89579C00A139CB /* Pagination */ = {
 			isa = PBXGroup;
 			children = (
@@ -362,6 +375,7 @@
 		28F828971C494B4200330CF4 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				1A59A4D81EB8A9AD00C0193A /* Adapters */,
 				542B0A071CB6D7B900EC2C71 /* Supporting Files */,
 				1A9E78611E89579C00A139CB /* Pagination */,
 				28F1076F1CB492D8007D8B7D /* Helpers */,
@@ -832,8 +846,10 @@
 				8F73B1911D0740D700E6C5CA /* OperaResult.swift in Sources */,
 				1A9E787B1E89585D00A139CB /* PaginationViewModel.swift in Sources */,
 				8F854FF61D05EB300094CA52 /* Manager.swift in Sources */,
+				1A59A4E21EB8A9DB00C0193A /* HashableRequestAdapter.swift in Sources */,
 				28D91C571CB385CC006488F1 /* Error.swift in Sources */,
 				1A9E787C1E89585D00A139CB /* WebLinking.swift in Sources */,
+				1A59A4E41EB8AAC000C0193A /* CompositeAdapter.swift in Sources */,
 				1A9E787D1E89585D00A139CB /* WebLinkingSettings.swift in Sources */,
 				8F73B18C1D07401300E6C5CA /* OperaResponse.swift in Sources */,
 				1A9E78791E89585D00A139CB /* PaginationResponse.swift in Sources */,

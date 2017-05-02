@@ -24,6 +24,7 @@ Protocol-Oriented Network abstraction layer written in Swift. Greatly inspired b
 * RxSwift wrappers around `Alamofire.Request` that returns an Observable of a JSON serialized type or an array if it. NetworkError is passed when error event happens.
 * RxSwift wrappers around `PaginationRequestType` that returns an Observable of a `PaginationRensponseType` which contains the serialized elements and information about the current, next and previous page.
 * Ability to easily mock services through `RouteType.sampleData`.
+* Ability to use multiple `RequestAdapters` through `CompositeAdapter`.
 
 
 ## Usage
@@ -398,6 +399,18 @@ extension Request {
          */
     public func responseAnyObject(completionHandler: Response<AnyObject, OperaError> -> Void) -> Self
 }
+```
+## CompositeAdapter
+Opera provides a way to use multiple `RequestAdapter` to adapt your requests. The class `CompositeAdapter` provides a way to setup a pipeline of `RequestAdapter` that will be applied to your requests.
+
+To use it you just have to create a `CompositeAdapter`, add all your adapters ad set it as your NetworkManager's adapter.
+
+Example:
+```swift
+let adapter = CompositeAdapter()
+adapter.append(adapter: KeychainAccessTokenAdapter())
+adapter.append(adapter: LanguageAdapter())
+manager.adapter = adapter
 ```
 
 ## Requirements
