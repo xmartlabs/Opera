@@ -28,6 +28,9 @@ import Foundation
 import RxCocoa
 import RxSwift
 
+public typealias OperaObjectResult<T> = (response: OperaResponse?, object: T)
+public typealias OperaCollectionResult<T> = (response: OperaResponse?, object: [T])
+
 extension Reactive where Base: RouteType {
 
     /**
@@ -88,7 +91,7 @@ extension Reactive where Base: RouteType {
 
      - returns: An instance of `Single<(OperaResponse?, T)>`
      */
-    public func objectResponse<T: OperaDecodable>(_ keyPath: String? = nil) -> Single<(OperaResponse?, T)> {
+    public func objectResponse<T: OperaDecodable>(_ keyPath: String? = nil) -> Single<OperaObjectResult<T>> {
         if base.manager.useMockedData && base.mockedData != nil {
             return (base.manager as! RxManager).rx.sampleObjectResponse(base, keyPath: keyPath)
         }
@@ -101,7 +104,7 @@ extension Reactive where Base: RouteType {
 
      - returns: An instance of `Single<(OperaResponse?, [T])>`
      */
-    public func collectionResponse<T: OperaDecodable>(_ collectionKeyPath: String? = nil) -> Single<(OperaResponse?, [T])> {
+    public func collectionResponse<T: OperaDecodable>(_ collectionKeyPath: String? = nil) -> Single<OperaCollectionResult<T>> {
         if base.manager.useMockedData && base.mockedData != nil {
             return (base.manager as! RxManager).rx.sampleCollectionResponse(base, collectionKeyPath: collectionKeyPath)
         }

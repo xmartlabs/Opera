@@ -79,14 +79,14 @@ extension Reactive where Base: RxManager {
 
      - returns: An instance of `Single<(OperaResponse?,T)>`
      */
-    func objectResponse<T: OperaDecodable>(_ route: RouteType, keyPath: String? = nil) -> Single<(OperaResponse?, T)> {
-        return base.rx.response(route).flatMap { operaResult -> Single<(OperaResponse?, T)> in
+    func objectResponse<T: OperaDecodable>(_ route: RouteType, keyPath: String? = nil) -> Single<OperaObjectResult<T>> {
+        return base.rx.response(route).flatMap { operaResult -> Single<OperaObjectResult<T>> in
             let serialized: DataResponse<T>  = operaResult.serializeObject(keyPath)
             switch serialized.result {
             case .failure(let error):
                 return Single.error(error)
             case .success(let anyObject):
-                return Single.just((operaResult.operaResponse, anyObject))
+                return Single.just(OperaObjectResult(operaResult.operaResponse, anyObject))
             }
         }
     }
@@ -97,14 +97,14 @@ extension Reactive where Base: RxManager {
 
      - returns: An instance of `Single<(OperaResult?, [T])>`
     */
-    func collectionResponse<T: OperaDecodable>(_ route: RouteType, collectionKeyPath: String? = nil) -> Single<(OperaResponse?, [T])> {
-        return base.rx.response(route).flatMap { operaResult -> Single<(OperaResponse?, [T])> in
+    func collectionResponse<T: OperaDecodable>(_ route: RouteType, collectionKeyPath: String? = nil) -> Single<OperaCollectionResult<T>> {
+        return base.rx.response(route).flatMap { operaResult -> Single<OperaCollectionResult<T>> in
             let serialized: DataResponse<[T]> = operaResult.serializeCollection(collectionKeyPath)
             switch serialized.result {
             case .failure(let error):
                 return Single.error(error)
             case .success(let anyObject):
-                return Single.just(operaResult.operaResponse, anyObject)
+                return Single.just(OperaCollectionResult(operaResult.operaResponse, anyObject))
             }
         }
     }
@@ -206,9 +206,9 @@ extension Reactive where Base: RxManager {
 
      - returns: An instance of `Single<(OperaResponse?, T)>` filled with sample data specified on the RouteType.
      */
-    func sampleObjectResponse<T: OperaDecodable>(_ route: RouteType, keyPath: String? = nil) -> Single<(OperaResponse?, T)> {
-        return sampleObject(route, keyPath: keyPath).flatMap { object -> Single<(OperaResponse?, T)> in
-            return Single.just((nil, object))
+    func sampleObjectResponse<T: OperaDecodable>(_ route: RouteType, keyPath: String? = nil) -> Single<OperaObjectResult<T>> {
+        return sampleObject(route, keyPath: keyPath).flatMap { object -> Single<OperaObjectResult<T>> in
+            return Single.just(OperaObjectResult(nil, object))
         }
     }
     /**
@@ -218,9 +218,9 @@ extension Reactive where Base: RxManager {
 
      - returns: An instance of `Single<(OpeaResponse?, [T])>`  filled with sample data specified on the RouteType.
      */
-    func sampleCollectionResponse<T: OperaDecodable>(_ route: RouteType, collectionKeyPath: String? = nil) -> Single<(OperaResponse?, [T])> {
-        return sampleCollection(route, collectionKeyPath: collectionKeyPath).flatMap { collection -> Single<(OperaResponse?, [T])> in
-            return Single.just((nil, collection))
+    func sampleCollectionResponse<T: OperaDecodable>(_ route: RouteType, collectionKeyPath: String? = nil) -> Single<OperaCollectionResult<T>> {
+        return sampleCollection(route, collectionKeyPath: collectionKeyPath).flatMap { collection -> Single<OperaCollectionResult<T>> in
+            return Single.just(OperaCollectionResult(nil, collection))
         }
     }
 
