@@ -23,7 +23,7 @@ extension Reactive where Base: RxManager {
      */
     func object<T: OperaDecodable>(_ route: RouteType, keyPath: String? = nil) -> Single<T> {
         return base.rx.response(route).flatMap { operaResult -> Single<T> in
-            let serialized: DataResponse<T>  = operaResult.serializeObject(keyPath)
+            let serialized: DataResponse<T> = operaResult.serializeObject(keyPath)
             switch serialized.result {
             case .failure(let error):
                 return Single.error(error)
@@ -71,6 +71,7 @@ extension Reactive where Base: RxManager {
             }
         }
     }
+
     /**
      Returns a `Single` of (OperaResponse?,T) for the current request. Notice that T conforms to OperaDecodable. If something goes wrong an `OperaSwift.Error` error is propagated through the result sequence.
 
@@ -90,6 +91,7 @@ extension Reactive where Base: RxManager {
             }
         }
     }
+
     /**
      Returns a `Single` of (OperaResult?, [T]) for the current request. If something goes wrong an `OperaSwift.Error` error is propagated through the result sequence.
      - parameter route: the route indicates the networking call that will be performed by including all the needed information like parameters, URL and HTTP method.
@@ -117,7 +119,14 @@ extension Reactive where Base: RxManager {
      - returns: An instance of `Single<OperaResult>`
      */
     func response(_ requestConvertible: URLRequestConvertible) -> Single<OperaResult> {
+        if let multipartRequest = requestConvertible as? MultipartRouteType {
+            return base.upload(multipartRequest)
+        }
         return base.response(requestConvertible)
+    }
+
+    func response<T: MultipartRouteType>(_ requestConvertible: T, progressHandler: ProgressHandler? = nil) -> Single<OperaResult> {
+        return base.upload(requestConvertible, progressHandler: progressHandler)
     }
 
     /**
@@ -128,7 +137,14 @@ extension Reactive where Base: RxManager {
      - returns: An instance of `Completable`
      */
     func completableResponse(_ requestConvertible: URLRequestConvertible) -> Completable {
+        if let multipartRequest = requestConvertible as? MultipartRouteType {
+            return base.completableUpload(multipartRequest)
+        }
         return base.completableResponse(requestConvertible)
+    }
+
+    func completableResponse<T: MultipartRouteType>(_ requestConvertible: T, progressHandler: ProgressHandler? = nil) -> Completable {
+        return base.completableUpload(requestConvertible, progressHandler: progressHandler)
     }
 
     // MARK: - Mocks
@@ -199,6 +215,7 @@ extension Reactive where Base: RxManager {
     func sampleCompletableResponse(_ route: RouteType) -> Completable {
         return Completable.empty()
     }
+
     /**
      Returns a `Single` of (OperaResponse?, T) for the current RouteType. Notice that T conforms to OperaDecodable. If something goes wrong an `OperaSwift.Error` error is propagated through the result sequence.
 
@@ -211,6 +228,7 @@ extension Reactive where Base: RxManager {
             return Single.just(OperaObjectResult(nil, object))
         }
     }
+
     /**
      Returns a `Single` of (OpeaResponse?, [T]) for for the current RouteType. Notice that T conforms to OperaDecodable. If something goes wrong an `OperaSwift.Error` error is propagated through the result sequence.
 
@@ -227,6 +245,8 @@ extension Reactive where Base: RxManager {
 }
 
 open class RxManager: Manager {
+
+    private let disposeBag = DisposeBag()
 
     public var rx: Reactive<RxManager> {
         return Reactive(self)
@@ -257,22 +277,63 @@ open class RxManager: Manager {
     }
 
     open func completableResponse(_ requestConvertible: URLRequestConvertible) -> Completable {
-        return Completable.create { [weak self] subscriber in
+        return singleToCompletable(single: response(requestConvertible))
+    }
+
+    open func upload(_ multipartRoute: MultipartRouteType, progressHandler: ProgressHandler? = nil) -> Single<OperaResult> {
+        return Single.create { [weak self] subscriber in
             guard let `self` = self else {
                 subscriber(.error(UnknownError(error: nil)))
                 return Disposables.create()
             }
-            let req = self.response(requestConvertible) { result in
-                switch result.result {
-                case .failure(let error):
-                    subscriber(.error(error))
-                case .success:
-                    subscriber(.completed)
+
+            var request: Request? = nil
+            self.upload(
+                multipartRoute,
+                requestCreatedCallback: { result in
+                    switch result {
+                    case .failure(let error):
+                        subscriber(.error(error))
+                    case let .success(req):
+                        request = req
+                    }
+                },
+                progressHandler: progressHandler,
+                completion: { result in
+                    switch result.result {
+                    case .failure(let error):
+                        subscriber(.error(error))
+                    case .success:
+                        subscriber(.success(result))
+                    }
+                }
+            )
+
+            return Disposables.create {
+                if let req = request {
+                    req.cancel()
                 }
             }
-            return Disposables.create {
-                req.cancel()
-            }
+        }
+    }
+
+    open func completableUpload(_ multipartRoute: MultipartRouteType, progressHandler: ProgressHandler? = nil) -> Completable {
+        return singleToCompletable(single: upload(multipartRoute, progressHandler: progressHandler))
+    }
+
+    fileprivate func singleToCompletable<T>(single: Single<T>) -> Completable {
+        let disposeBag = self.disposeBag
+        return Completable.create { subscriber in
+            single.subscribe(
+                onSuccess: { _ in
+                    subscriber(.completed)
+                },
+                onError: { error in
+                    subscriber(.error(error))
+                }
+            )
+            .addDisposableTo(disposeBag)
+            return Disposables.create()
         }
     }
 

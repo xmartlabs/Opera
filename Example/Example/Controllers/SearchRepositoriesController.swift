@@ -72,7 +72,7 @@ class SearchRepositoriesController: UIViewController {
         viewModel.elements.asObservable()
             .subscribe(
                 onNext: { repos in
-                    debugPrint(repos)
+                    debugPrint("#Repos fetched: \(repos.count)")
                 },
                 onError: { error in
                     debugPrint(error)
@@ -131,6 +131,32 @@ class SearchRepositoriesController: UIViewController {
         guard let identifier = segue.identifier, let vc = segue.destination as? RepositoryController, let data = sender as? RepositoryData, identifier == Constants.repositorySegue else { return }
         vc.name = data.name
         vc.owner = data.owner
+    }
+
+    @IBAction func uploadButtonDidTouch(_ sender: Any) {
+        GithubAPI.UploadImage.Upload(image: #imageLiteral(resourceName: "screenshot"))
+            .rx
+            .upload()
+            .uploadProgress { progress in
+                debugPrint("Upload progress: \(progress.fractionCompleted)")
+            }
+            .downloadProgress { progress in
+                debugPrint("Download progress: \(progress.fractionCompleted)")
+            }
+            .completable()
+            .subscribe(
+                onCompleted: {
+                    debugPrint("Completed")
+                },
+                onError: { error in
+                    if let operaError = error as? OperaError {
+                        debugPrint(operaError.bodyString)
+                    } else {
+                        debugPrint(error)
+                    }
+                }
+            )
+            .addDisposableTo(disposeBag)
     }
 
 }

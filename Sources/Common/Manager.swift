@@ -90,6 +90,55 @@ open class Manager: ManagerType {
         )
     }
 
+    open func upload(
+        _ multipartRequest: MultipartRouteType,
+        requestCreatedCallback callback: @escaping (Result<Request>) -> Void,
+        progressHandler: ProgressHandler? = nil,
+        completion: @escaping CompletionHandler) {
+
+        manager.upload(
+            multipartFormData: { multipartFormData in
+                multipartRequest.items.forEach { data in
+                    multipartFormData.append(data.data, withName: data.name, fileName: data.fileName, mimeType: data.mimeType)
+                }
+            },
+            with: multipartRequest,
+            encodingCompletion: { [weak self] encodingResult in
+                switch encodingResult {
+                case let .failure(error):
+                    callback(.failure(error))
+                    let operaResult = OperaResult(
+                        result: .failure(OperaError.networking(
+                            error: error,
+                            request: multipartRequest.urlRequest,
+                            response: nil,
+                            json: nil
+                        )),
+                        requestConvertible: multipartRequest
+                    )
+                    completion(operaResult)
+                case let .success(request, _, _):
+                    callback(.success(request))
+
+                    let result = request.validate()
+                    self?.observers.forEach { $0.willSendRequest(result, requestConvertible: multipartRequest) }
+                    request.uploadProgress { progressHandler?.uploadHandler?($0) }
+                    request.downloadProgress { progressHandler?.downloadHandler?($0) }
+                    request.response { dataResponse in
+                        let result = toOperaResult(
+                            multipartRequest,
+                            originalRequest: dataResponse.request,
+                            response: dataResponse.response,
+                            data: dataResponse.data,
+                            error: dataResponse.error
+                        )
+                        completion(result)
+                    }
+                }
+            }
+        )
+    }
+
     /// Callback responsible for handling retries
     open func retryCallback(
         _ request: URLRequestConvertible,

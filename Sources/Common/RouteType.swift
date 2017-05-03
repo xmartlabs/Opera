@@ -22,8 +22,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
 import Alamofire
+import Foundation
+
+// MARK: - RouteType
 
 /**
  *  A type that adopts RouteType can be used to create a request. 
@@ -126,6 +128,8 @@ public enum DecodingError: Error {
     case invalidJson(String)
 
 }
+
+// MARK: - HTTP route types
 
 public protocol GetRouteType: RouteType {}
 public protocol PostRouteType: RouteType {}

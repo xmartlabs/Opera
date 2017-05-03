@@ -6,10 +6,11 @@
 //
 //
 
-import Foundation
 import Alamofire
+import Foundation
+import OperaSwift
 
-class AuthAdapter: RequestAdapter {
+class AuthAdapter: RequestAdapter, HashableRequestAdapter {
 
     func adapt(_ urlRequest: URLRequest) throws -> URLRequest {
         var urlRequest = urlRequest

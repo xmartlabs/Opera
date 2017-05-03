@@ -104,6 +104,24 @@ public indirect enum OperaError: Error {
         }
     }
 
+    public var bodyString: String? {
+        var json: Any? = nil
+        switch self {
+        case let .networking(error: _, request: _, response: _, json: j):
+            json = j
+        case let .parsing(error: _, request: _, response: _, json: j):
+            json = j
+        }
+
+        if let data = json as? Data {
+            return String(data: data, encoding: .utf8)
+        } else if let string = json as? String {
+            return string
+        } else {
+            return nil
+        }
+    }
+
     public var statusCode: Int? {
         return response?.statusCode
     }
