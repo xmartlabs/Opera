@@ -91,6 +91,7 @@ open class PaginationViewModel<PaginationRequest: PaginationRequestType>
             .filter { $0 }
             .do(onNext: { [weak self] _ in
                 guard let mySelf = self else { return }
+                mySelf.disposeBag = DisposeBag()
                 mySelf.bindPaginationRequest(
                     mySelf.paginationRequest.routeWithPage("1"), nextPage: nil
                 )
@@ -168,7 +169,6 @@ open class PaginationViewModel<PaginationRequest: PaginationRequestType>
                 }
             )
             .subscribe(onNext: { [weak self] paginationResponse in
-                debugPrint(paginationResponse.elements)
                 self?.bindPaginationRequest(
                     paginationRequest,
                     nextPage: paginationResponse.nextPage
