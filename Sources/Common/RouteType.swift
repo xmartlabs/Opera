@@ -100,8 +100,8 @@ extension RouteType {
         return nil
     }
 
-    public func getJsonFromPath(path: String) -> Data? {
-        guard let path = Bundle.main.path(forResource: path, ofType: "json") else {
+    public func getJsonFromPath(path: String, bundle: Bundle? = nil) -> Data? {
+        guard let path = (bundle ?? Bundle.main).path(forResource: path, ofType: "json") else {
             return nil
         }
 
