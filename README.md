@@ -21,11 +21,10 @@ Protocol-Oriented Network abstraction layer written in Swift. Greatly inspired b
 * Pagination support through `PaginationRequestType` conformance.
 * Supports for any JSON parsing library such as [Decodable](https://github.com/Anviking/Decodable) and [Argo](https://github.com/thoughtbot/Argo) through `OperaDecodable` protocol conformance.
 * Networking errors abstraction through `OperaError` type. OperaSwift `OperaError` indicates either an `NSURLSession` error, `Alamofire` error, or your JSON parsing library error.
-* RxSwift wrappers around `Alamofire.Request` that returns an Observable of a JSON serialized type or an array if it. NetworkError is passed when error event happens.
-* RxSwift wrappers around `PaginationRequestType` that returns an Observable of a `PaginationRensponseType` which contains the serialized elements and information about the current, next and previous page.
+* RxSwift wrappers around `Alamofire.Request` that return either a `Single` of a JSON serialized type or an array if it or a completable sequence. NetworkError is passed when error event happens.
+* RxSwift wrappers around `PaginationRequestType` that return a `Single` of a `PaginationResponseType` which contains the serialized elements and information about the current, next and previous page.
 * Ability to easily mock services through `RouteType.sampleData`.
 * Ability to use multiple `RequestAdapters` through `CompositeAdapter`.
-
 
 ## Usage
 
@@ -128,7 +127,7 @@ request
 getInfoRequest
   .rx.object()
   .subscribe(
-    onNext: { (repositories: [Repository]) in
+    onSuccess: { (repositories: [Repository]) in
       // do something when networking and Json parsing completes successfully
     },
     onError: {(error: Error) in
@@ -142,7 +141,7 @@ getInfoRequest
 
 ```
 
-> If you are not interested in decode your JSON response into a Model you can invoke `request.rx.anyObject()` which returns an `Observable` of `AnyObject` for the current request and propagates a `OperaError` error through the result sequence if something goes wrong.
+> If you are not interested in decode your JSON response into a Model you can invoke `request.rx.any()` which returns an `Single` of `Any` for the current request and propagates a `OperaError` error through the result sequence if something goes wrong.
 
 ## Error Handling
 If you are using the reactive helpers (which are awesome btw!) you can handle the errors on the `onError` callback which returns an `Error` that, *in case of Networking or Parsing issues*, can be casted to `OperaError` for easier usage.
