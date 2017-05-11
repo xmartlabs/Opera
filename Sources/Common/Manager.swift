@@ -91,14 +91,14 @@ open class Manager: ManagerType {
     }
 
     open func upload(
-        _ multipartRequest: MultipartRouteType,
+        _ multipartRequest: URLRequestConvertible,
+        multipartData: [MultipartData],
         requestCreatedCallback callback: @escaping (Result<Request>) -> Void,
-        progressHandler: ProgressHandler? = nil,
         completion: @escaping CompletionHandler) {
 
         manager.upload(
             multipartFormData: { multipartFormData in
-                multipartRequest.items.forEach { data in
+                multipartData.forEach { data in
                     multipartFormData.append(data.data, withName: data.name, fileName: data.fileName, mimeType: data.mimeType)
                 }
             },
@@ -121,9 +121,12 @@ open class Manager: ManagerType {
                     callback(.success(request))
 
                     let result = request.validate()
+                    if let progressiveRouteType = multipartRequest as? ProgressiveRouteType {
+                        result.uploadProgress { progressiveRouteType.uploadProgressHandler?($0) }
+                        result.downloadProgress { progressiveRouteType.downloadProgressHandler?($0) }
+                    }
+
                     self?.observers.forEach { $0.willSendRequest(result, requestConvertible: multipartRequest) }
-                    request.uploadProgress { progressHandler?.uploadHandler?($0) }
-                    request.downloadProgress { progressHandler?.downloadHandler?($0) }
                     request.response { dataResponse in
                         let result = toOperaResult(
                             multipartRequest,
@@ -145,7 +148,13 @@ open class Manager: ManagerType {
         retryLeft: Int,
         completion: @escaping CompletionHandler
     ) -> Request {
+
         let result = manager.request(request).validate()
+
+        if let progressiveRouteType = request as? ProgressiveRouteType {
+            result.downloadProgress { progressiveRouteType.downloadProgressHandler?($0) }
+        }
+
         observers.forEach { $0.willSendRequest(result, requestConvertible: request) }
         result.response { [weak self] dataResponse in
             let result: OperaResult =  toOperaResult(

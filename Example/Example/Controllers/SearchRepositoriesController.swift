@@ -136,7 +136,6 @@ class SearchRepositoriesController: UIViewController {
     @IBAction func uploadButtonDidTouch(_ sender: Any) {
         GithubAPI.UploadImage.Upload(image: #imageLiteral(resourceName: "screenshot"))
             .rx
-            .upload()
             .uploadProgress { progress in
                 debugPrint("Upload progress: \(progress.fractionCompleted)")
             }

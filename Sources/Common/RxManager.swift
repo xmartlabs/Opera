@@ -119,14 +119,7 @@ extension Reactive where Base: RxManager {
      - returns: An instance of `Single<OperaResult>`
      */
     func response(_ requestConvertible: URLRequestConvertible) -> Single<OperaResult> {
-        if let multipartRequest = requestConvertible as? MultipartRouteType {
-            return base.upload(multipartRequest)
-        }
         return base.response(requestConvertible)
-    }
-
-    func response<T: MultipartRouteType>(_ requestConvertible: T, progressHandler: ProgressHandler? = nil) -> Single<OperaResult> {
-        return base.upload(requestConvertible, progressHandler: progressHandler)
     }
 
     /**
@@ -137,14 +130,7 @@ extension Reactive where Base: RxManager {
      - returns: An instance of `Completable`
      */
     func completableResponse(_ requestConvertible: URLRequestConvertible) -> Completable {
-        if let multipartRequest = requestConvertible as? MultipartRouteType {
-            return base.completableUpload(multipartRequest)
-        }
         return base.completableResponse(requestConvertible)
-    }
-
-    func completableResponse<T: MultipartRouteType>(_ requestConvertible: T, progressHandler: ProgressHandler? = nil) -> Completable {
-        return base.completableUpload(requestConvertible, progressHandler: progressHandler)
     }
 
     // MARK: - Mocks
@@ -257,6 +243,9 @@ open class RxManager: Manager {
     }
 
     open func response(_ requestConvertible: URLRequestConvertible) -> Single<OperaResult> {
+        if let multipart = multipartRouteType(requestConvertible) {
+            return upload(multipart.routeType, data: multipart.data)
+        }
         return Single.create { [weak self] subscriber in
             guard let `self` = self else {
                 subscriber(.error(UnknownError(error: nil)))
@@ -277,10 +266,13 @@ open class RxManager: Manager {
     }
 
     open func completableResponse(_ requestConvertible: URLRequestConvertible) -> Completable {
+        if let multipart = multipartRouteType(requestConvertible) {
+            return completableUpload(multipart.routeType, data: multipart.data)
+        }
         return singleToCompletable(single: response(requestConvertible))
     }
 
-    open func upload(_ multipartRoute: MultipartRouteType, progressHandler: ProgressHandler? = nil) -> Single<OperaResult> {
+    open func upload(_ multipartRequest: URLRequestConvertible, data: [MultipartData]) -> Single<OperaResult> {
         return Single.create { [weak self] subscriber in
             guard let `self` = self else {
                 subscriber(.error(UnknownError(error: nil)))
@@ -289,7 +281,8 @@ open class RxManager: Manager {
 
             var request: Request? = nil
             self.upload(
-                multipartRoute,
+                multipartRequest,
+                multipartData: data,
                 requestCreatedCallback: { result in
                     switch result {
                     case .failure(let error):
@@ -298,7 +291,6 @@ open class RxManager: Manager {
                         request = req
                     }
                 },
-                progressHandler: progressHandler,
                 completion: { result in
                     switch result.result {
                     case .failure(let error):
@@ -317,8 +309,8 @@ open class RxManager: Manager {
         }
     }
 
-    open func completableUpload(_ multipartRoute: MultipartRouteType, progressHandler: ProgressHandler? = nil) -> Completable {
-        return singleToCompletable(single: upload(multipartRoute, progressHandler: progressHandler))
+    open func completableUpload(_ multipartRequest: URLRequestConvertible, data: [MultipartData]) -> Completable {
+        return singleToCompletable(single: upload(multipartRequest, data: data))
     }
 
     fileprivate func singleToCompletable<T>(single: Single<T>) -> Completable {
@@ -335,6 +327,19 @@ open class RxManager: Manager {
             .addDisposableTo(disposeBag)
             return Disposables.create()
         }
+    }
+
+    fileprivate func multipartRouteType(_ request: URLRequestConvertible) -> (routeType: RouteType, data: [MultipartData])? {
+        guard let routeType = request as? RouteType else {
+            return nil
+        }
+        if let multipart = routeType as? MultipartRouteType {
+            return (routeType: multipart, data: multipart.items)
+        }
+        if let adaptedRouteType = routeType as? AdaptedRouteType, let innerMultipartRoute = adaptedRouteType.innerRouteType as? MultipartRouteType {
+            return (routeType: routeType, data: innerMultipartRoute.items)
+        }
+        return nil
     }
 
 }
