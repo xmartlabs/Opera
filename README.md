@@ -5,7 +5,7 @@
 <img src="https://img.shields.io/badge/platform-iOS%20|%20OSX%20|%20watchOS%20|%20tvOS-blue.svg?style=flat" alt="Platform iOS" />
 <a href="https://developer.apple.com/swift"><img src="https://img.shields.io/badge/swift2-compatible-4BC51D.svg?style=flat" alt="Swift 2 compatible" /></a>
 <a href="https://github.com/Carthage/Carthage"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat" alt="Carthage compatible" /></a>
-<a href="https://cocoapods.org/pods/OperaSwift"><img src="https://img.shields.io/badge/pod-1.0.0-blue.svg" alt="CocoaPods compatible" /></a>
+<a href="https://cocoapods.org/pods/OperaSwift"><img src="https://img.shields.io/badge/pod-2.0.0-blue.svg" alt="CocoaPods compatible" /></a>
 <a href="https://raw.githubusercontent.com/xmartlabs/Opera/master/LICENSE"><img src="http://img.shields.io/badge/license-MIT-blue.svg?style=flat" alt="License: MIT" /></a>
 </p>
 
@@ -529,7 +529,7 @@ Follow these 4 steps to run Example project:
 To install Opera, simply add the following line to your Podfile:
 
 ```ruby
-pod 'Opera', '~> 0.2'
+pod 'Opera', '~> 2.0'
 ```
 
 #### Carthage
@@ -539,7 +539,7 @@ pod 'Opera', '~> 0.2'
 To install Opera, simply add the following line to your Cartfile:
 
 ```ogdl
-github "xmartlabs/Opera" ~> 0.2
+github "xmartlabs/Opera" ~> 2.0
 ```
 
 ## Author
