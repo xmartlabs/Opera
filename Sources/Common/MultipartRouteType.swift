@@ -65,7 +65,7 @@ public enum ImageUploadEncoding {
 public protocol ImageUploadRouteType: MultipartRouteType {
 
     var encoding: ImageUploadEncoding { get }
-    var image: UIImage { get set }
+    var image: UIImage { get }
     var fileName: String { get }
     var imageName: String { get }
 

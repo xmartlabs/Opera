@@ -52,15 +52,10 @@ extension GithubAPI.UploadImage {
 
     struct Upload: ImageUploadRouteType {
 
-        var image: UIImage
+        let image: UIImage
 
-        var path: String {
-            return "/upload2.php"
-        }
-
-        var baseURL: URL {
-            return URL(string: "https://coolutils.org")!
-        }
+        let path = "/upload2.php"
+        let baseURL = URL(string: "https://coolutils.org")!
 
     }
 }

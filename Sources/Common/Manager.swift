@@ -122,8 +122,8 @@ open class Manager: ManagerType {
 
                     let result = request.validate()
                     if let progressiveRouteType = multipartRequest as? ProgressiveRouteType {
-                        result.uploadProgress { progressiveRouteType.uploadProgressHandler?($0) }
-                        result.downloadProgress { progressiveRouteType.downloadProgressHandler?($0) }
+                        result.uploadProgress { progressiveRouteType.notifyUploadHandlers(with: $0) }
+                        result.downloadProgress { progressiveRouteType.notifyDownloadHandlers(with: $0) }
                     }
 
                     self?.observers.forEach { $0.willSendRequest(result, requestConvertible: multipartRequest) }
@@ -152,7 +152,7 @@ open class Manager: ManagerType {
         let result = manager.request(request).validate()
 
         if let progressiveRouteType = request as? ProgressiveRouteType {
-            result.downloadProgress { progressiveRouteType.downloadProgressHandler?($0) }
+            result.downloadProgress { progressiveRouteType.notifyDownloadHandlers(with: $0) }
         }
 
         observers.forEach { $0.willSendRequest(result, requestConvertible: request) }

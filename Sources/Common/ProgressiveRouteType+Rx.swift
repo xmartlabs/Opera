@@ -92,3 +92,14 @@ extension Reactive where Base: BaseProgressiveMultipartDownloadRouteType {
     }
 
 }
+
+extension Reactive where Base: BaseProgressiveUploadRouteType {
+
+    public func uploadProgress(uploadProgressHandler: @escaping Request.ProgressHandler)
+        -> Reactive<BaseProgressiveUploadRouteType> {
+        let adapted = BaseProgressiveUploadRouteType(routeType: base)
+        adapted.set(uploadProgressHandler: uploadProgressHandler)
+        return Reactive<BaseProgressiveUploadRouteType>(adapted)
+    }
+
+}

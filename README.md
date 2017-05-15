@@ -25,6 +25,8 @@ Protocol-Oriented Network abstraction layer written in Swift. Greatly inspired b
 * RxSwift wrappers around `PaginationRequestType` that return a `Single` of a `PaginationResponseType` which contains the serialized elements and information about the current, next and previous page.
 * Ability to easily mock services through `RouteType.sampleData`.
 * Ability to use multiple `RequestAdapters` through `CompositeAdapter`.
+* Easily upload files or images using HTTP **multipart** requests.
+* Download progress on every `RouteType` and upload progress on `MultipartRouteType`.
 
 ## Usage
 
@@ -83,6 +85,7 @@ extension RouteType {
 ```
 
 > Now, by default, all `RouteType`s we define will provide `https://api.github.com` as `baseUrl` and `Manager.singleton` as `mananger`. It's up to you to customize it within a specific RouteType protocol conformance.
+
 ### Default RouteTypes
 To avoid having to implement the `method` property in every `RouteType` Opera provides A protocol for each HTTPMethod so you can implement those:
 ```swift
@@ -97,6 +100,39 @@ protocol TraceRouteType: RouteType {}
 protocol ConnectRouteType: RouteType {}
 ```
 They are pretty simple, they only implement the `medthod` property of `RouteType` with the HTTPMethod that matches.
+
+### Additional RouteTypes
+
+#### ImageUploadRouteType
+
+```swift
+struct Upload: ImageUploadRouteType {
+
+  let image: UIImage
+  let encoding: ImageUploadEncoding = .jpeg(quality: 0.80)
+  let path = "/upload"
+  let baseURL = URL(string: "...")!
+
+}
+```
+And then use it like this:
+```swift
+Upload(image: UIImage(named: "myImage")!)
+  .rx
+  .completable()
+  .subscribe(
+    onCompleted: {
+      // success :)
+    },
+    onError: { error in
+      // do something when something went wrong
+    }
+  )
+  .addDisposableTo(disposeBag)
+```
+
+> Note: If you want to upload a generic list of files through
+an HTTP multipart request, use `MultipartRouteType` instead.
 
 ### Creating requests
 At this point we can easily create an Alamofire Request:
@@ -125,7 +161,7 @@ request
 
 ```swift
 getInfoRequest
-  .rx.object()
+  .rx.collection()
   .subscribe(
     onSuccess: { (repositories: [Repository]) in
       // do something when networking and Json parsing completes successfully
@@ -172,6 +208,54 @@ getInfoRequest
   .addDisposableTo(disposeBag)
 
 ```
+
+## Download & Upload progress
+
+Every `RouteType` can optionally chain a download progress handler through its reactive extension:
+```swift
+let request: RouteType = ...
+request
+  .rx.collection()
+  .downloadProgress {
+    debugPrint("Download progress: \($0.fractionCompleted)")
+  }
+  .subscribe(
+    onNext: { (repositories: [Repository]) in
+      // do something when networking and Json parsing completes successfully
+    },
+    onError: {(error: Error) in
+      // do something when something went wrong
+    }
+  )
+  .addDisposableTo(disposeBag)
+```
+
+Only if the routeType is a `MultipartRouteType` we can also chain an upload progress handler:
+
+> `ImageUploadRouteType` is a specific `MultipartRouteType` to easily upload images.
+
+```swift
+  let imageUpload: ImageUploadRouteType = ...
+  imageUpload
+    .rx
+    .uploadProgress {
+      debugPrint("Upload progress: \($0.fractionCompleted)")
+    }
+    .downloadProgress {
+      debugPrint("Download progress: \($0.fractionCompleted)")
+    }
+    .completable()
+    .subscribe(
+      onCompleted: {
+        debugPrint("Completed")
+      },
+      onError: { error in
+        ...
+      }
+    )
+    .addDisposableTo(disposeBag)
+```
+
 ## Decoding
 We've said Opera is able to decode JSON response into a Model using your favorite JSON parsing library.  Let's see how Opera accomplishes that.
 

@@ -15,26 +15,32 @@ public protocol ProgressiveRouteType: AdaptedRouteType {
 
 extension ProgressiveRouteType {
 
-    var downloadProgressHandler: Request.ProgressHandler? {
-        return getHandler { (type: ProgressiveDownloadRouteType) in type.progressHandler }
+    func notifyDownloadHandlers(with progress: Progress) {
+        let handlers: [ProgressiveDownloadRouteType] = getWrappers()
+        handlers.forEach { $0.progressHandler?(progress) }
     }
 
-    var uploadProgressHandler: Request.ProgressHandler? {
-        return getHandler { (type: ProgressiveUploadRouteType) in type.progressHandler }
+    func notifyUploadHandlers(with progress: Progress) {
+        let handlers: [ProgressiveUploadRouteType] = getWrappers()
+        handlers.forEach { $0.progressHandler?(progress) }
     }
 
-    private func getHandler<T>(returnBlock: (T) -> Request.ProgressHandler?) -> Request.ProgressHandler? {
-        if let type = self as? T {
-            return returnBlock(type)
+    private func getWrappers<T>() -> [T] {
+        var returnList = [T]()
+        if let selfAsT = self as? T {
+            returnList.append(selfAsT)
         }
         var adapted: AdaptedRouteType = self
-        while let inner = adapted.routeType as? AdaptedRouteType, !(inner is T) {
+        while let inner = adapted.routeType as? AdaptedRouteType {
+            if let innerAsT = inner as? T {
+                returnList.append(innerAsT)
+            }
             adapted = inner
         }
-        guard let type = adapted.routeType as? T else {
-            return nil
+        if let lastInnerAsT = adapted.routeType as? T {
+            returnList.append(lastInnerAsT)
         }
-        return returnBlock(type)
+        return returnList
     }
 
 }
