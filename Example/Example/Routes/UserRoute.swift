@@ -22,25 +22,23 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Foundation
 import Alamofire
+import Foundation
 import OperaSwift
+import UIKit
 
 extension GithubAPI {
 
+    struct UploadImage {}
     struct User {}
 
 }
 
 extension GithubAPI.User {
 
-    struct GetUser: RouteType {
+    struct GetUser: GetRouteType {
 
         let username: String
-
-        var method: Alamofire.HTTPMethod {
-            return .get
-        }
 
         var path: String {
             return "users/\(username)"
@@ -48,4 +46,16 @@ extension GithubAPI.User {
 
     }
 
+}
+
+extension GithubAPI.UploadImage {
+
+    struct Upload: ImageUploadRouteType {
+
+        let image: UIImage
+
+        let path = "/upload2.php"
+        let baseURL = URL(string: "https://coolutils.org")!
+
+    }
 }

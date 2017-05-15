@@ -23,7 +23,7 @@ extension Reactive where Base: RxManager {
      */
     func object<T: OperaDecodable>(_ route: RouteType, keyPath: String? = nil) -> Single<T> {
         return base.rx.response(route).flatMap { operaResult -> Single<T> in
-            let serialized: DataResponse<T>  = operaResult.serializeObject(keyPath)
+            let serialized: DataResponse<T> = operaResult.serializeObject(keyPath)
             switch serialized.result {
             case .failure(let error):
                 return Single.error(error)
@@ -71,6 +71,7 @@ extension Reactive where Base: RxManager {
             }
         }
     }
+
     /**
      Returns a `Single` of (OperaResponse?,T) for the current request. Notice that T conforms to OperaDecodable. If something goes wrong an `OperaSwift.Error` error is propagated through the result sequence.
 
@@ -90,6 +91,7 @@ extension Reactive where Base: RxManager {
             }
         }
     }
+
     /**
      Returns a `Single` of (OperaResult?, [T]) for the current request. If something goes wrong an `OperaSwift.Error` error is propagated through the result sequence.
      - parameter route: the route indicates the networking call that will be performed by including all the needed information like parameters, URL and HTTP method.
@@ -199,6 +201,7 @@ extension Reactive where Base: RxManager {
     func sampleCompletableResponse(_ route: RouteType) -> Completable {
         return Completable.empty()
     }
+
     /**
      Returns a `Single` of (OperaResponse?, T) for the current RouteType. Notice that T conforms to OperaDecodable. If something goes wrong an `OperaSwift.Error` error is propagated through the result sequence.
 
@@ -211,6 +214,7 @@ extension Reactive where Base: RxManager {
             return Single.just(OperaObjectResult(nil, object))
         }
     }
+
     /**
      Returns a `Single` of (OpeaResponse?, [T]) for for the current RouteType. Notice that T conforms to OperaDecodable. If something goes wrong an `OperaSwift.Error` error is propagated through the result sequence.
 
@@ -228,6 +232,8 @@ extension Reactive where Base: RxManager {
 
 open class RxManager: Manager {
 
+    private let disposeBag = DisposeBag()
+
     public var rx: Reactive<RxManager> {
         return Reactive(self)
     }
@@ -237,6 +243,9 @@ open class RxManager: Manager {
     }
 
     open func response(_ requestConvertible: URLRequestConvertible) -> Single<OperaResult> {
+        if let multipart = multipartRouteType(requestConvertible) {
+            return upload(multipart.routeType, data: multipart.data)
+        }
         return Single.create { [weak self] subscriber in
             guard let `self` = self else {
                 subscriber(.error(UnknownError(error: nil)))
@@ -257,23 +266,80 @@ open class RxManager: Manager {
     }
 
     open func completableResponse(_ requestConvertible: URLRequestConvertible) -> Completable {
-        return Completable.create { [weak self] subscriber in
+        if let multipart = multipartRouteType(requestConvertible) {
+            return completableUpload(multipart.routeType, data: multipart.data)
+        }
+        return singleToCompletable(single: response(requestConvertible))
+    }
+
+    open func upload(_ multipartRequest: URLRequestConvertible, data: [MultipartData]) -> Single<OperaResult> {
+        return Single.create { [weak self] subscriber in
             guard let `self` = self else {
                 subscriber(.error(UnknownError(error: nil)))
                 return Disposables.create()
             }
-            let req = self.response(requestConvertible) { result in
-                switch result.result {
-                case .failure(let error):
-                    subscriber(.error(error))
-                case .success:
-                    subscriber(.completed)
+
+            var request: Request? = nil
+            self.upload(
+                multipartRequest,
+                multipartData: data,
+                requestCreatedCallback: { result in
+                    switch result {
+                    case .failure(let error):
+                        subscriber(.error(error))
+                    case let .success(req):
+                        request = req
+                    }
+                },
+                completion: { result in
+                    switch result.result {
+                    case .failure(let error):
+                        subscriber(.error(error))
+                    case .success:
+                        subscriber(.success(result))
+                    }
+                }
+            )
+
+            return Disposables.create {
+                if let req = request {
+                    req.cancel()
                 }
             }
-            return Disposables.create {
-                req.cancel()
-            }
         }
+    }
+
+    open func completableUpload(_ multipartRequest: URLRequestConvertible, data: [MultipartData]) -> Completable {
+        return singleToCompletable(single: upload(multipartRequest, data: data))
+    }
+
+    fileprivate func singleToCompletable<T>(single: Single<T>) -> Completable {
+        let disposeBag = self.disposeBag
+        return Completable.create { subscriber in
+            single.subscribe(
+                onSuccess: { _ in
+                    subscriber(.completed)
+                },
+                onError: { error in
+                    subscriber(.error(error))
+                }
+            )
+            .addDisposableTo(disposeBag)
+            return Disposables.create()
+        }
+    }
+
+    fileprivate func multipartRouteType(_ request: URLRequestConvertible) -> (routeType: RouteType, data: [MultipartData])? {
+        guard let routeType = request as? RouteType else {
+            return nil
+        }
+        if let multipart = routeType as? MultipartRouteType {
+            return (routeType: multipart, data: multipart.items)
+        }
+        if let adaptedRouteType = routeType as? AdaptedRouteType, let innerMultipartRoute = adaptedRouteType.innerRouteType as? MultipartRouteType {
+            return (routeType: routeType, data: innerMultipartRoute.items)
+        }
+        return nil
     }
 
 }

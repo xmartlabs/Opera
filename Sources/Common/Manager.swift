@@ -90,13 +90,71 @@ open class Manager: ManagerType {
         )
     }
 
+    open func upload(
+        _ multipartRequest: URLRequestConvertible,
+        multipartData: [MultipartData],
+        requestCreatedCallback callback: @escaping (Result<Request>) -> Void,
+        completion: @escaping CompletionHandler) {
+
+        manager.upload(
+            multipartFormData: { multipartFormData in
+                multipartData.forEach { data in
+                    multipartFormData.append(data.data, withName: data.name, fileName: data.fileName, mimeType: data.mimeType)
+                }
+            },
+            with: multipartRequest,
+            encodingCompletion: { [weak self] encodingResult in
+                switch encodingResult {
+                case let .failure(error):
+                    callback(.failure(error))
+                    let operaResult = OperaResult(
+                        result: .failure(OperaError.networking(
+                            error: error,
+                            request: multipartRequest.urlRequest,
+                            response: nil,
+                            json: nil
+                        )),
+                        requestConvertible: multipartRequest
+                    )
+                    completion(operaResult)
+                case let .success(request, _, _):
+                    callback(.success(request))
+
+                    let result = request.validate()
+                    if let progressiveRouteType = multipartRequest as? ProgressiveRouteType {
+                        result.uploadProgress { progressiveRouteType.notifyUploadHandlers(with: $0) }
+                        result.downloadProgress { progressiveRouteType.notifyDownloadHandlers(with: $0) }
+                    }
+
+                    self?.observers.forEach { $0.willSendRequest(result, requestConvertible: multipartRequest) }
+                    request.response { dataResponse in
+                        let result = toOperaResult(
+                            multipartRequest,
+                            originalRequest: dataResponse.request,
+                            response: dataResponse.response,
+                            data: dataResponse.data,
+                            error: dataResponse.error
+                        )
+                        completion(result)
+                    }
+                }
+            }
+        )
+    }
+
     /// Callback responsible for handling retries
     open func retryCallback(
         _ request: URLRequestConvertible,
         retryLeft: Int,
         completion: @escaping CompletionHandler
     ) -> Request {
+
         let result = manager.request(request).validate()
+
+        if let progressiveRouteType = request as? ProgressiveRouteType {
+            result.downloadProgress { progressiveRouteType.notifyDownloadHandlers(with: $0) }
+        }
+
         observers.forEach { $0.willSendRequest(result, requestConvertible: request) }
         result.response { [weak self] dataResponse in
             let result: OperaResult =  toOperaResult(

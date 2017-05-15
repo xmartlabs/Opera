@@ -1,4 +1,3 @@
-
 //  Opera ( https://github.com/xmartlabs/Opera )
 //
 //  Copyright (c) 2017 Xmartlabs SRL ( http://xmartlabs.com )
