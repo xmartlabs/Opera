@@ -122,7 +122,7 @@ open class PaginationViewModel<PaginationRequest: PaginationRequestType>
 
         let nextPageRequest = loadNextPageTrigger
             .take(1)
-            .flatMap { nextPage.map {
+            .flatMap { _ in nextPage.map {
                     Observable.of(paginationRequest.routeWithPage($0))
                 } ?? Observable.empty()
             }
