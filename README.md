@@ -529,7 +529,7 @@ Follow these 4 steps to run Example project:
 To install Opera, simply add the following line to your Podfile:
 
 ```ruby
-pod 'Opera', '~> 2.0'
+pod 'OperaSwift', '~> 2.0'
 ```
 
 #### Carthage
