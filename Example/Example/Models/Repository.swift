@@ -24,6 +24,7 @@
 
 import Foundation
 import OperaSwift
+import protocol Decodable.Decodable
 import Decodable
 
 struct Repository {

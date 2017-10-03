@@ -8,7 +8,19 @@
 
 import Alamofire
 import Foundation
+#if os(iOS) || os(tvOS) || os(watchOS)
 import UIKit
+#elseif os(OSX)
+import AppKit
+#endif
+
+#if os(iOS) || os(tvOS) || os(watchOS)
+public typealias Image = UIImage
+#elseif os(OSX)
+public typealias Image = NSImage
+#endif
+
+
 
 // MARK: - MultipartRequestType
 
@@ -50,14 +62,25 @@ public enum ImageUploadEncoding {
             return "jpg"
         }
     }
-
-    func encode(image: UIImage) -> Data? {
+    
+    func encode(image: Image) -> Data? {
+#if os(iOS) || os(tvOS) || os(watchOS)
         switch self {
         case .png:
             return UIImagePNGRepresentation(image)
         case let .jpeg(quality):
             return UIImageJPEGRepresentation(image, quality)
         }
+#elseif os(OSX)
+        var format = NSBitmapImageRep.FileType.jpeg
+        if case .png = self {
+           format = NSBitmapImageRep.FileType.png
+        }
+        guard let data = image.tiffRepresentation, let rep = NSBitmapImageRep(data: data), let imgData = rep.representation(using: format, properties: [:]) else {
+            return nil
+        }
+        return imgData
+#endif
     }
 
 }
@@ -65,7 +88,7 @@ public enum ImageUploadEncoding {
 public protocol ImageUploadRouteType: MultipartRouteType {
 
     var encoding: ImageUploadEncoding { get }
-    var image: UIImage { get }
+    var image: Image { get }
     var fileName: String { get }
     var imageName: String { get }
 

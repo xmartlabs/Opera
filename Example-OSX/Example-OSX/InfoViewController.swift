@@ -36,7 +36,7 @@ class InfoViewController: NSViewController {
         languageLabel.stringValue = repositoryToShow.language ?? "no info"
         openIssuesLabel.stringValue = String(repositoryToShow.openIssues)
         forksLabel.stringValue = String(repositoryToShow.forksCount)
-        urlLabel.stringValue = repositoryToShow.url.absoluteString!
+        urlLabel.stringValue = repositoryToShow.url.absoluteString
     }
 
 }

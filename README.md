@@ -3,9 +3,9 @@
 <p align="left">
 <a href="https://travis-ci.org/xmartlabs/Opera"><img src="https://travis-ci.org/xmartlabs/Opera.svg?branch=master" alt="Build status" /></a>
 <img src="https://img.shields.io/badge/platform-iOS%20|%20OSX%20|%20watchOS%20|%20tvOS-blue.svg?style=flat" alt="Platform iOS" />
-<a href="https://developer.apple.com/swift"><img src="https://img.shields.io/badge/swift2-compatible-4BC51D.svg?style=flat" alt="Swift 2 compatible" /></a>
+<a href="https://developer.apple.com/swift"><img src="https://img.shields.io/badge/swift4-compatible-4BC51D.svg?style=flat" alt="Swift 4 compatible" /></a>
 <a href="https://github.com/Carthage/Carthage"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat" alt="Carthage compatible" /></a>
-<a href="https://cocoapods.org/pods/OperaSwift"><img src="https://img.shields.io/badge/pod-2.0.0-blue.svg" alt="CocoaPods compatible" /></a>
+<a href="https://cocoapods.org/pods/OperaSwift"><img src="https://img.shields.io/cocoapods/v/OperaSwift.svg" alt="CocoaPods compatible" /></a>
 <a href="https://raw.githubusercontent.com/xmartlabs/Opera/master/LICENSE"><img src="http://img.shields.io/badge/license-MIT-blue.svg?style=flat" alt="License: MIT" /></a>
 </p>
 
@@ -529,7 +529,7 @@ Follow these 4 steps to run Example project:
 To install Opera, simply add the following line to your Podfile:
 
 ```ruby
-pod 'OperaSwift', '~> 2.0'
+pod 'OperaSwift', '~> 3.0'
 ```
 
 #### Carthage
@@ -539,14 +539,17 @@ pod 'OperaSwift', '~> 2.0'
 To install Opera, simply add the following line to your Cartfile:
 
 ```ogdl
-github "xmartlabs/Opera" ~> 2.0
+github "xmartlabs/Opera" ~> 3.0
 ```
 
 ## Author
+* [Martin Barreto](https://github.com/mtnBarreto) ([@mtnBarreto](https://twitter.com/mtnBarreto))
+
+## Contributors & Maintainers
+
 * [Federico Ojeda](https://github.com/fedeojeda95)
 * [Diego Medina](https://github.com/diegomedina248)
-* [Martin Barreto](https://github.com/mtnBarreto) ([@mtnBarreto](https://twitter.com/mtnBarreto))
-* [Mathias Classen](https://github.com/mats-classen)˚
+* [Martin Barreto](https://github.com/mtnBarreto)
 
 ## FAQ
 

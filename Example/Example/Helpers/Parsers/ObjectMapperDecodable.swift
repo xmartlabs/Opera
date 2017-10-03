@@ -24,7 +24,6 @@
 
 import Foundation
 import OperaSwift
-import Argo
 import ObjectMapper
 
 extension Mappable where Self: OperaDecodable {

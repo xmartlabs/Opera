@@ -45,8 +45,7 @@ extension Reactive where Base: UIControl {
 extension Reactive where Base: UIScrollView {
 
     public var reachedBottom: Observable<Void> {
-        return didEndDecelerating
-            .flatMap { () -> Observable<Void> in
+        return didEndDecelerating.flatMap { (_) -> Observable<Void> in
                 return self.base.isTableViewScrolledToBottom() ?
                     Observable.just(()) : Observable.empty()
         }

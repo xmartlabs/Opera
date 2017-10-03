@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,13 +11,14 @@
 		1A5AEA851E8ACB25004A5082 /* repoinfo.json in Resources */ = {isa = PBXBuildFile; fileRef = 1A5AEA841E8ACB25004A5082 /* repoinfo.json */; };
 		284E6E3D1CBC1FA9001874B5 /* RepositoryRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284E6E3B1CBC1FA9001874B5 /* RepositoryRoute.swift */; };
 		284E6E3E1CBC1FA9001874B5 /* RouteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284E6E3C1CBC1FA9001874B5 /* RouteType.swift */; };
+		287137701F84046B00259A30 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2871376F1F84046B00259A30 /* Alamofire.framework */; };
+		287137771F840E4F00259A30 /* SwiftDate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28F1076B1CB48D61007D8B7D /* SwiftDate.framework */; };
 		287D0A721C4B7877004566D6 /* ExampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287D0A711C4B7877004566D6 /* ExampleUITests.swift */; };
 		2893A68C1CB5A0770052715B /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2893A68B1CB5A0770052715B /* Helpers.swift */; };
 		2893A68E1CB5A09A0052715B /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2893A68D1CB5A09A0052715B /* Manager.swift */; };
 		28F107611CB47853007D8B7D /* SearchRepositoriesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F107601CB47853007D8B7D /* SearchRepositoriesController.swift */; };
 		28F107651CB47A5A007D8B7D /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F107641CB47A5A007D8B7D /* Repository.swift */; };
 		28F107681CB482CB007D8B7D /* Decodable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28F107671CB482CB007D8B7D /* Decodable.framework */; };
-		28F1076C1CB48D61007D8B7D /* SwiftDate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28F1076B1CB48D61007D8B7D /* SwiftDate.framework */; };
 		28F828D01C4B714D00330CF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F828CF1C4B714D00330CF4 /* AppDelegate.swift */; };
 		28F828D51C4B714D00330CF4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28F828D31C4B714D00330CF4 /* Main.storyboard */; };
 		28F828D71C4B714D00330CF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28F828D61C4B714D00330CF4 /* Assets.xcassets */; };
@@ -25,7 +26,6 @@
 		541AE95F1CC67F46005A695E /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 541AE95E1CC67F46005A695E /* ObjectMapper.framework */; };
 		542F7E771CC01D0200E356E3 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542F7E761CC01D0200E356E3 /* UserRepository.swift */; };
 		542F7E811CC020CF00E356E3 /* NSDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542F7E801CC020CF00E356E3 /* NSDate.swift */; };
-		542F7E831CC0213600E356E3 /* ArgoDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542F7E821CC0213600E356E3 /* ArgoDecodable.swift */; };
 		544905AF1CC6801100822350 /* ObjectMapperDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544905AE1CC6801100822350 /* ObjectMapperDecodable.swift */; };
 		544905B91CC6A62800822350 /* UserRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544905B81CC6A62800822350 /* UserRoute.swift */; };
 		54637DD11CC52A38008C519E /* RepositoryPullRequestsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54637DD01CC52A38008C519E /* RepositoryPullRequestsController.swift */; };
@@ -44,12 +44,8 @@
 		54CEB2261CC164BF00C9A1D9 /* RepositoryIssuesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CEB2251CC164BF00C9A1D9 /* RepositoryIssuesController.swift */; };
 		54CEB2281CC1666B00C9A1D9 /* Issue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CEB2271CC1666B00C9A1D9 /* Issue.swift */; };
 		54CEB22A1CC1698A00C9A1D9 /* RepositoryIssueFilterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CEB2291CC1698A00C9A1D9 /* RepositoryIssueFilterController.swift */; };
-		54DA8A101CB7EA830044C1D2 /* Argo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28F107691CB48343007D8B7D /* Argo.framework */; };
-		54DD8CD21CC1237600F11463 /* Curry.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54DD8CD11CC1237600F11463 /* Curry.framework */; };
 		54DD8CD41CC1282500F11463 /* RepositoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DD8CD31CC1282500F11463 /* RepositoryController.swift */; };
 		54DD8CD81CC13DED00F11463 /* RepositoryForksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DD8CD71CC13DED00F11463 /* RepositoryForksController.swift */; };
-		8F98A6CC1D90743600E88995 /* Runes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F98A6CB1D90743600E88995 /* Runes.framework */; };
-		8F98A6CE1D90748E00E88995 /* Runes.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8F98A6CB1D90743600E88995 /* Runes.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B20DF5661EB0ED480006430E /* OperaSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9E78541E89579400A139CB /* OperaSwift.framework */; };
 /* End PBXBuildFile section */
 
@@ -112,25 +108,12 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		287D0A811C4B7B55004566D6 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				8F98A6CE1D90748E00E88995 /* Runes.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		1A19BC021E8BFAD000DA313F /* AuthAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AuthAdapter.swift; path = Example/Helpers/AuthAdapter.swift; sourceTree = "<group>"; };
 		1A5AEA841E8ACB25004A5082 /* repoinfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = repoinfo.json; sourceTree = "<group>"; };
 		284E6E3B1CBC1FA9001874B5 /* RepositoryRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryRoute.swift; sourceTree = "<group>"; };
 		284E6E3C1CBC1FA9001874B5 /* RouteType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RouteType.swift; path = Example/Helpers/RouteType.swift; sourceTree = "<group>"; };
+		2871376F1F84046B00259A30 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		287D0A711C4B7877004566D6 /* ExampleUITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExampleUITests.swift; path = Example/ExampleUITests/ExampleUITests.swift; sourceTree = SOURCE_ROOT; };
 		287D0A741C4B7B26004566D6 /* OperaSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = OperaSwift.xcodeproj; sourceTree = "<group>"; };
 		2893A68B1CB5A0770052715B /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Helpers.swift; path = Example/Helpers/Helpers.swift; sourceTree = "<group>"; };
@@ -138,7 +121,6 @@
 		28F107601CB47853007D8B7D /* SearchRepositoriesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchRepositoriesController.swift; path = Example/Controllers/SearchRepositoriesController.swift; sourceTree = "<group>"; };
 		28F107641CB47A5A007D8B7D /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Repository.swift; path = Example/Models/Repository.swift; sourceTree = "<group>"; };
 		28F107671CB482CB007D8B7D /* Decodable.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Decodable.framework; path = Carthage/Build/iOS/Decodable.framework; sourceTree = "<group>"; };
-		28F107691CB48343007D8B7D /* Argo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Argo.framework; path = Carthage/Build/iOS/Argo.framework; sourceTree = "<group>"; };
 		28F1076B1CB48D61007D8B7D /* SwiftDate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftDate.framework; path = Carthage/Build/iOS/SwiftDate.framework; sourceTree = "<group>"; };
 		28F828CC1C4B714D00330CF4 /* Example-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Example-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		28F828CF1C4B714D00330CF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Example/AppDelegate.swift; sourceTree = "<group>"; };
@@ -151,7 +133,6 @@
 		541AE95E1CC67F46005A695E /* ObjectMapper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ObjectMapper.framework; path = Carthage/Build/iOS/ObjectMapper.framework; sourceTree = "<group>"; };
 		542F7E761CC01D0200E356E3 /* UserRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserRepository.swift; path = Example/Models/UserRepository.swift; sourceTree = "<group>"; };
 		542F7E801CC020CF00E356E3 /* NSDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSDate.swift; path = Example/Helpers/Parsers/NSDate.swift; sourceTree = "<group>"; };
-		542F7E821CC0213600E356E3 /* ArgoDecodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ArgoDecodable.swift; path = Example/Helpers/Parsers/ArgoDecodable.swift; sourceTree = "<group>"; };
 		544905AE1CC6801100822350 /* ObjectMapperDecodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ObjectMapperDecodable.swift; path = Example/Helpers/Parsers/ObjectMapperDecodable.swift; sourceTree = "<group>"; };
 		544905B81CC6A62800822350 /* UserRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRoute.swift; sourceTree = "<group>"; };
 		54637DD01CC52A38008C519E /* RepositoryPullRequestsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RepositoryPullRequestsController.swift; path = Example/Controllers/RepositoryPullRequestsController.swift; sourceTree = "<group>"; };
@@ -170,10 +151,8 @@
 		54CEB2251CC164BF00C9A1D9 /* RepositoryIssuesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RepositoryIssuesController.swift; path = Example/Controllers/RepositoryIssuesController.swift; sourceTree = "<group>"; };
 		54CEB2271CC1666B00C9A1D9 /* Issue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Issue.swift; path = Example/Models/Issue.swift; sourceTree = "<group>"; };
 		54CEB2291CC1698A00C9A1D9 /* RepositoryIssueFilterController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RepositoryIssueFilterController.swift; path = Example/Controllers/RepositoryIssueFilterController.swift; sourceTree = "<group>"; };
-		54DD8CD11CC1237600F11463 /* Curry.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Curry.framework; path = Carthage/Build/iOS/Curry.framework; sourceTree = "<group>"; };
 		54DD8CD31CC1282500F11463 /* RepositoryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = RepositoryController.swift; path = Example/Controllers/RepositoryController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		54DD8CD71CC13DED00F11463 /* RepositoryForksController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RepositoryForksController.swift; path = Example/Controllers/RepositoryForksController.swift; sourceTree = "<group>"; };
-		8F98A6CB1D90743600E88995 /* Runes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Runes.framework; path = Carthage/Build/iOS/Runes.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,13 +160,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				287137701F84046B00259A30 /* Alamofire.framework in Frameworks */,
 				B20DF5661EB0ED480006430E /* OperaSwift.framework in Frameworks */,
 				28F107681CB482CB007D8B7D /* Decodable.framework in Frameworks */,
-				54DA8A101CB7EA830044C1D2 /* Argo.framework in Frameworks */,
 				541AE95F1CC67F46005A695E /* ObjectMapper.framework in Frameworks */,
-				28F1076C1CB48D61007D8B7D /* SwiftDate.framework in Frameworks */,
-				54DD8CD21CC1237600F11463 /* Curry.framework in Frameworks */,
-				8F98A6CC1D90743600E88995 /* Runes.framework in Frameworks */,
+				287137771F840E4F00259A30 /* SwiftDate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,11 +233,9 @@
 		28F107661CB482BD007D8B7D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8F98A6CB1D90743600E88995 /* Runes.framework */,
+				2871376F1F84046B00259A30 /* Alamofire.framework */,
 				541AE95E1CC67F46005A695E /* ObjectMapper.framework */,
-				54DD8CD11CC1237600F11463 /* Curry.framework */,
 				28F1076B1CB48D61007D8B7D /* SwiftDate.framework */,
-				28F107691CB48343007D8B7D /* Argo.framework */,
 				28F107671CB482CB007D8B7D /* Decodable.framework */,
 			);
 			name = Frameworks;
@@ -270,11 +245,11 @@
 			isa = PBXGroup;
 			children = (
 				1A5AEA841E8ACB25004A5082 /* repoinfo.json */,
+				287D0A741C4B7B26004566D6 /* OperaSwift.xcodeproj */,
 				28F107661CB482BD007D8B7D /* Frameworks */,
 				28F828CE1C4B714D00330CF4 /* Example */,
 				28F828E31C4B714D00330CF4 /* ExampleUITests */,
 				28F828CD1C4B714D00330CF4 /* Products */,
-				287D0A741C4B7B26004566D6 /* OperaSwift.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -316,7 +291,6 @@
 			isa = PBXGroup;
 			children = (
 				542F7E801CC020CF00E356E3 /* NSDate.swift */,
-				542F7E821CC0213600E356E3 /* ArgoDecodable.swift */,
 				544905AE1CC6801100822350 /* ObjectMapperDecodable.swift */,
 			);
 			name = Parsers;
@@ -351,7 +325,6 @@
 				28F828C81C4B714D00330CF4 /* Sources */,
 				28F828C91C4B714D00330CF4 /* Frameworks */,
 				28F828CA1C4B714D00330CF4 /* Resources */,
-				287D0A811C4B7B55004566D6 /* Embed Frameworks */,
 				28F1075F1CB4747D007D8B7D /* ShellScript */,
 			);
 			buildRules = (
@@ -388,7 +361,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0900;
 				TargetAttributes = {
 					28F828CB1C4B714D00330CF4 = {
 						CreatedOnToolsVersion = 7.2;
@@ -402,7 +375,7 @@
 				};
 			};
 			buildConfigurationList = 28F828C71C4B714D00330CF4 /* Build configuration list for PBXProject "Example-iOS" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -511,8 +484,6 @@
 				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Decodable.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftDate.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Argo.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Curry.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/ObjectMapper.framework",
 			);
 			outputPaths = (
@@ -547,7 +518,6 @@
 				544905B91CC6A62800822350 /* UserRoute.swift in Sources */,
 				54CEB2261CC164BF00C9A1D9 /* RepositoryIssuesController.swift in Sources */,
 				54CEB2221CC1604E00C9A1D9 /* RepositoryStargazersController.swift in Sources */,
-				542F7E831CC0213600E356E3 /* ArgoDecodable.swift in Sources */,
 				28F107611CB47853007D8B7D /* SearchRepositoriesController.swift in Sources */,
 				28F107651CB47A5A007D8B7D /* Repository.swift in Sources */,
 				54DD8CD41CC1282500F11463 /* RepositoryController.swift in Sources */,
@@ -610,14 +580,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -656,14 +632,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -691,7 +673,6 @@
 		28F828EA1C4B714D00330CF4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/Carthage/Build/iOS",
@@ -702,14 +683,13 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xmartlabs.Example;
 				PRODUCT_NAME = "Example-iOS";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
 		28F828EB1C4B714D00330CF4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)/Carthage/Build/iOS",
@@ -720,7 +700,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xmartlabs.Example;
 				PRODUCT_NAME = "Example-iOS";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

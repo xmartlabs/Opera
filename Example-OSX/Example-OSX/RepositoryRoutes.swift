@@ -24,7 +24,7 @@
 
 import Foundation
 import Alamofire
-import Opera
+import OperaSwift
 
 struct GithubAPI {
     struct Repository {}
@@ -32,10 +32,10 @@ struct GithubAPI {
 
 extension GithubAPI.Repository {
 
-    struct Search: RouteType, URLRequestSetup {
-
-        var method: Alamofire.Method {
-            return .GET
+    struct Search: RouteType {
+        
+        var method: HTTPMethod {
+            return .get
         }
 
         var path: String {
@@ -48,13 +48,13 @@ extension GithubAPI.Repository {
 
     }
 
-    struct GetInfo: RouteType, URLRequestSetup {
+    struct GetInfo: RouteType {
 
         let owner: String
         let repo: String
 
-        var method: Alamofire.Method {
-            return .GET
+        var method: HTTPMethod {
+            return .get
         }
 
         var path: String {

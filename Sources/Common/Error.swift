@@ -29,7 +29,7 @@ import Alamofire
  Provides information about networking errors, either networking errors or parsing error when Opera tries to parse the response.
 
  - Networking: Networking errors, most of the time errors thrown by NSURLSession under NSURLErrorDomain domain or by Alamofire library.
- - Parsing:    Represent parsing errors normally thrown by Json parsing library such as Argo or Decodable.
+ - Parsing:    Represent parsing errors normally thrown by Json parsing library such as Decodable.
  */
 
 public protocol OperaInternalError: Error, CustomStringConvertible, CustomDebugStringConvertible {

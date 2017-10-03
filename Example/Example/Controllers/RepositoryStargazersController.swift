@@ -51,37 +51,37 @@ class RepositoryStargazersController: RepositoryBaseController {
         rx.sentMessage(#selector(RepositoryForksController.viewWillAppear(_:)))
             .map { _ in false }
             .bind(to: viewModel.refreshTrigger)
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         tableView.rx.reachedBottom
             .bind(to: viewModel.loadNextPageTrigger)
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         viewModel.loading
             .drive(activityIndicatorView.rx.isAnimating)
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         Driver.combineLatest(viewModel.elements.asDriver(), viewModel.firstPageLoading) { elements, loading in return loading ? [] : elements }
             .asDriver()
             .drive(tableView.rx.items(cellIdentifier:"Cell")) { _, stargazer, cell in
                 cell.textLabel?.text = stargazer.name
             }
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         refreshControl.rx.valueChanged
             .filter { refreshControl.isRefreshing }
             .map { true }
             .bind(to: viewModel.refreshTrigger)
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         viewModel.loading
             .filter { !$0 && refreshControl.isRefreshing }
             .drive(onNext: { _ in refreshControl.endRefreshing() })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         viewModel.emptyState
             .drive(onNext: { [weak self] emptyState in self?.emptyStateLabel.isHidden = !emptyState })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
     }
 
 }

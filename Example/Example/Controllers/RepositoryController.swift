@@ -61,12 +61,12 @@ class RepositoryController: UITableViewController {
                 self?.stargazersLabel.text = "\(userRepo.stargazers)"
                 self?.issuesLabel.text = "\(userRepo.issues)"
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         tableView.rx.itemSelected
             .asDriver()
             .drive(onNext: { [weak self] indexPath in self?.tableView.deselectRow(at: indexPath, animated: true) })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
     }
 

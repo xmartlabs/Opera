@@ -9,7 +9,7 @@
 import Cocoa
 import RxSwift
 import RxCocoa
-import Opera
+import OperaSwift
 
 private struct SegueIdentifiers {
     static let ShowInformationSegue = "showInfo"
@@ -50,64 +50,65 @@ class ViewController: NSViewController {
         tableView.doubleAction = #selector(ViewController.tableViewDoubleClick(_:))
     }
 
-    func tableViewDoubleClick(_ sender: AnyObject) {
+    @objc func tableViewDoubleClick(_ sender: AnyObject) {
         guard tableView.selectedRow >= 0 else {
             return
         }
         selectedRepository = viewModel.elements.value[tableView.selectedRow]
-        performSegue(withIdentifier: SegueIdentifiers.ShowInformationSegue, sender: nil)
+        performSegue(withIdentifier: NSStoryboardSegue.Identifier(rawValue: SegueIdentifiers.ShowInformationSegue), sender: nil)
     }
 
     fileprivate func setupTableView() {
-        searchBar.rx_text
-            .filter { !$0.isEmpty }
+        searchBar.rx.text
+            .filter { !$0!.isEmpty }
+            .map { str -> String in str ?? "" }
             .throttle(0.50, scheduler: MainScheduler.instance)
-            .bindTo(viewModel.queryTrigger)
-            .addDisposableTo(disposeBag)
-
-        searchBar.rx_text
-            .filter { $0.isEmpty }
+            .bind(to: viewModel.queryTrigger)
+            .disposed(by: disposeBag)
+        
+        searchBar.rx.text
+            .filter { $0?.isEmpty ?? true }
             .map { _ in return [] }
-            .bindTo(viewModel.elements)
-            .addDisposableTo(disposeBag)
+            .bind(to: viewModel.elements)
+            .disposed(by: disposeBag)
 
         changedPage
             .asObservable()
             .skip(1)
             .flatMap { _ -> Observable<Void> in
-                return Observable.just()
+                return Observable.just(())
             }
-            .bindTo(viewModel.loadNextPageTrigger)
-            .addDisposableTo(disposeBag)
+            .bind(to:viewModel.loadNextPageTrigger)
+            .disposed(by: disposeBag)
 
         refreshed
             .asObservable()
             .skip(1)
-            .bindTo(viewModel.refreshTrigger)
-            .addDisposableTo(disposeBag)
+            .bind(to: viewModel.refreshTrigger)
+            .disposed(by: disposeBag)
 
         //Load the table when its needed
-        Driver.combineLatest(viewModel.elements.asDriver(), viewModel.firstPageLoading, searchBar.rx_text.asDriver()) { elements, loading, searchText in
-            return loading || searchText.isEmpty ? [] : elements
+        Driver.combineLatest(viewModel.elements.asDriver(), viewModel.firstPageLoading, searchBar.rx.text.asDriver()) { elements, loading, searchText in
+            return loading || searchText!.isEmpty ? [] : elements
             }
             .asDriver()
-            .driveNext { [weak self] repositories in
+            .drive(onNext: { [weak self] repositories in
                 self?.tableView.reloadData()
                 if repositories.isEmpty {
                     self?.showEmptyStateView(true)
                 } else {
                     self?.showEmptyStateView(false)
                 }
-            }
-            .addDisposableTo(disposeBag)
+            })
+            .disposed(by: disposeBag)
 
         //Empty state
-        Driver.combineLatest(viewModel.emptyState, searchBar.rx_text.asDriver().throttle(0.50)) { $0 ||  $1.isEmpty }
-            .driveNext { [weak self] state in
+        Driver.combineLatest(viewModel.emptyState, searchBar.rx.text.asDriver().throttle(0.50)) { $0 ||  $1!.isEmpty }
+            .drive(onNext: { [weak self] state in
                 self?.showEmptyStateView(state)
                 self?.pageIndicator.stringValue = "1"
-            }
-            .addDisposableTo(disposeBag)
+            })
+            .disposed(by: disposeBag)
     }
 
     @IBAction func getNextPage(_ sender: AnyObject) {
@@ -140,7 +141,7 @@ class ViewController: NSViewController {
 extension ViewController : NSTableViewDataSource {
 
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return viewModel.elements.value.count ?? 0
+        return viewModel.elements.value.count
     }
 
 }
@@ -161,7 +162,7 @@ extension ViewController : NSTableViewDelegate {
             cellIdentifier = "StarsCell"
         }
 
-        if let cell = tableView.make(withIdentifier: cellIdentifier, owner: self) as? NSTableCellView {
+        if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: cellIdentifier), owner: self) as? NSTableCellView {
             cell.textField?.stringValue = text
             return cell
         }

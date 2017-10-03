@@ -46,8 +46,9 @@ public func == (lhs: Link, rhs: Link) -> Bool {
 extension Link {
   /// Encode the link into a HTML element
   public var html: String {
-    let components = parameters.map { key, value in
-      "\(key)=\"\(value)\""
+    let components = parameters.map { arg in
+        let (key, value) = arg
+        return "\(key)=\"\(value)\""
       } + ["href=\"\(uri)\""]
     let elements = components.joined(separator: " ")
     return "<link \(elements) />"
@@ -60,8 +61,9 @@ extension Link {
 extension Link {
   /// Encode the link into a header
   public var header: String {
-    let components = ["<\(uri)>"] + parameters.map { key, value in
-      "\(key)=\"\(value)\""
+    let components = ["<\(uri)>"] + parameters.map { arg in
+        let (key, value) = arg
+        return "\(key)=\"\(value)\""
     }
     return components.joined(separator: "; ")
   }
@@ -167,8 +169,8 @@ func split(_ separator: String, _ input: String) -> (String, String) {
     )
 
   if let range = range {
-    let lhs = input.substring(to: range.lowerBound)
-    let rhs = input.substring(from: range.upperBound)
+    let lhs = String(input[..<range.lowerBound])
+    let rhs = String(input[range.upperBound...])
     return (lhs, rhs)
   }
 
@@ -188,11 +190,11 @@ func takeFirst(_ input: [String]) -> (String, ArraySlice<String>) {
 /// Trim a prefix and suffix from a string
 func trim(_ lhs: Character, _ rhs: Character, _ input: String) -> String {
   if input.hasPrefix("\(lhs)") && input.hasSuffix("\(rhs)") {
-    return input[
+    return String(input[
         input.characters
             .index(after: input.startIndex)..<input
-            .characters.index(before: input.endIndex)
-    ]
+                .characters.index(before: input.endIndex)
+        ])
   }
 
   return input
