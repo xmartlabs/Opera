@@ -3,10 +3,20 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		287137671F83FF4700259A30 /* OperaSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AB33E3F1E673E1600344F77 /* OperaSwift.framework */; };
+		2871376B1F84003B00259A30 /* SwiftDate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 287137691F83FFCB00259A30 /* SwiftDate.framework */; };
+		2871376C1F84003B00259A30 /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2871376A1F83FFD500259A30 /* ObjectMapper.framework */; };
+		2871376D1F84003B00259A30 /* Decodable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 287137681F83FFBC00259A30 /* Decodable.framework */; };
+		2871376E1F8400EA00259A30 /* repoinfo.json in Resources */ = {isa = PBXBuildFile; fileRef = 287137651F83F50300259A30 /* repoinfo.json */; };
+		287137721F84049500259A30 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 287137711F84049400259A30 /* Alamofire.framework */; };
+		287137791F840EDE00259A30 /* RouteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287137781F840EDE00259A30 /* RouteType.swift */; };
+		2871377B1F8410A300259A30 /* AuthAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2871377A1F8410A200259A30 /* AuthAdapter.swift */; };
+		2871377E1F84139D00259A30 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2871377C1F84139D00259A30 /* RxSwift.framework */; };
+		2871377F1F84139D00259A30 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2871377D1F84139D00259A30 /* RxCocoa.framework */; };
 		D2488DF61CC53A44000062F4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2488DF51CC53A44000062F4 /* AppDelegate.swift */; };
 		D2488DF81CC53A44000062F4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2488DF71CC53A44000062F4 /* ViewController.swift */; };
 		D2488DFA1CC53A45000062F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2488DF91CC53A45000062F4 /* Assets.xcassets */; };
@@ -14,7 +24,6 @@
 		D2488E081CC53A45000062F4 /* Example_OSXTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2488E071CC53A45000062F4 /* Example_OSXTests.swift */; };
 		D2488E131CC53A45000062F4 /* Example_OSXUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2488E121CC53A45000062F4 /* Example_OSXUITests.swift */; };
 		D2488E3B1CC53BFD000062F4 /* RepositoryRoutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2488E3A1CC53BFD000062F4 /* RepositoryRoutes.swift */; };
-		D2488E3D1CC53C2C000062F4 /* RouteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2488E3C1CC53C2C000062F4 /* RouteType.swift */; };
 		D2488E981CC541A9000062F4 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2488E971CC541A9000062F4 /* Manager.swift */; };
 		D29866501CC7CC50000CC8C1 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D298664F1CC7CC50000CC8C1 /* InfoViewController.swift */; };
 		D2CBFED61CC673030059710C /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2CBFED51CC673030059710C /* Repository.swift */; };
@@ -100,6 +109,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		287137651F83F50300259A30 /* repoinfo.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = repoinfo.json; sourceTree = "<group>"; };
+		287137681F83FFBC00259A30 /* Decodable.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Decodable.framework; path = Carthage/Build/Mac/Decodable.framework; sourceTree = "<group>"; };
+		287137691F83FFCB00259A30 /* SwiftDate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftDate.framework; path = Carthage/Build/Mac/SwiftDate.framework; sourceTree = "<group>"; };
+		2871376A1F83FFD500259A30 /* ObjectMapper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ObjectMapper.framework; path = Carthage/Build/Mac/ObjectMapper.framework; sourceTree = "<group>"; };
+		287137711F84049400259A30 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/Mac/Alamofire.framework; sourceTree = "<group>"; };
+		287137781F840EDE00259A30 /* RouteType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RouteType.swift; path = "Example-OSX/Helpers/RouteType.swift"; sourceTree = "<group>"; };
+		2871377A1F8410A200259A30 /* AuthAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AuthAdapter.swift; path = "Example-OSX/Helpers/AuthAdapter.swift"; sourceTree = "<group>"; };
+		2871377C1F84139D00259A30 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/Mac/RxSwift.framework; sourceTree = "<group>"; };
+		2871377D1F84139D00259A30 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/Mac/RxCocoa.framework; sourceTree = "<group>"; };
 		D2488DF21CC53A44000062F4 /* Example-OSX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Example-OSX.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2488DF51CC53A44000062F4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = "Example-OSX/AppDelegate.swift"; sourceTree = "<group>"; };
 		D2488DF71CC53A44000062F4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = "Example-OSX/ViewController.swift"; sourceTree = "<group>"; };
@@ -112,7 +130,6 @@
 		D2488E121CC53A45000062F4 /* Example_OSXUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Example_OSXUITests.swift; sourceTree = "<group>"; };
 		D2488E141CC53A45000062F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2488E3A1CC53BFD000062F4 /* RepositoryRoutes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RepositoryRoutes.swift; path = "Example-OSX/RepositoryRoutes.swift"; sourceTree = "<group>"; };
-		D2488E3C1CC53C2C000062F4 /* RouteType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RouteType.swift; path = "Example-OSX/RouteType.swift"; sourceTree = "<group>"; };
 		D2488E7F1CC54143000062F4 /* OperaSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = OperaSwift.xcodeproj; sourceTree = "<group>"; };
 		D2488E971CC541A9000062F4 /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Manager.swift; path = "Example-OSX/Manager.swift"; sourceTree = "<group>"; };
 		D2488E991CC5423D000062F4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Example-OSX/Info.plist"; sourceTree = "<group>"; };
@@ -125,6 +142,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2871377E1F84139D00259A30 /* RxSwift.framework in Frameworks */,
+				2871377F1F84139D00259A30 /* RxCocoa.framework in Frameworks */,
+				287137721F84049500259A30 /* Alamofire.framework in Frameworks */,
+				287137671F83FF4700259A30 /* OperaSwift.framework in Frameworks */,
+				2871376D1F84003B00259A30 /* Decodable.framework in Frameworks */,
+				2871376C1F84003B00259A30 /* ObjectMapper.framework in Frameworks */,
+				2871376B1F84003B00259A30 /* SwiftDate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,14 +183,29 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		287137661F83FF4700259A30 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2871377D1F84139D00259A30 /* RxCocoa.framework */,
+				2871377C1F84139D00259A30 /* RxSwift.framework */,
+				287137711F84049400259A30 /* Alamofire.framework */,
+				2871376A1F83FFD500259A30 /* ObjectMapper.framework */,
+				287137691F83FFCB00259A30 /* SwiftDate.framework */,
+				287137681F83FFBC00259A30 /* Decodable.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D2488DE91CC53A44000062F4 = {
 			isa = PBXGroup;
 			children = (
+				287137651F83F50300259A30 /* repoinfo.json */,
 				D2488E7F1CC54143000062F4 /* OperaSwift.xcodeproj */,
 				D2488DF41CC53A44000062F4 /* Example-OSX */,
 				D2488E061CC53A45000062F4 /* Example-OSXTests */,
 				D2488E111CC53A45000062F4 /* Example-OSXUITests */,
 				D2488DF31CC53A44000062F4 /* Products */,
+				287137661F83FF4700259A30 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -218,7 +257,6 @@
 			isa = PBXGroup;
 			children = (
 				D2488E3A1CC53BFD000062F4 /* RepositoryRoutes.swift */,
-				D2488E3C1CC53C2C000062F4 /* RouteType.swift */,
 			);
 			name = Routes;
 			sourceTree = "<group>";
@@ -226,7 +264,9 @@
 		D2488E6E1CC53DD3000062F4 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				2871377A1F8410A200259A30 /* AuthAdapter.swift */,
 				D2488E971CC541A9000062F4 /* Manager.swift */,
+				287137781F840EDE00259A30 /* RouteType.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -304,7 +344,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Federico Ojeda";
 				TargetAttributes = {
 					D2488DF11CC53A44000062F4 = {
@@ -324,7 +364,7 @@
 				};
 			};
 			buildConfigurationList = D2488DED1CC53A44000062F4 /* Build configuration list for PBXProject "Example-OSX" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -406,6 +446,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2871376E1F8400EA00259A30 /* repoinfo.json in Resources */,
 				D2488DFA1CC53A45000062F4 /* Assets.xcassets in Resources */,
 				D2488DFD1CC53A45000062F4 /* Main.storyboard in Resources */,
 			);
@@ -439,6 +480,7 @@
 				"$(SRCROOT)/Carthage/Build/Mac/RxCocoa.framework",
 				"$(SRCROOT)/Carthage/Build/Mac/Decodable.framework",
 				"$(SRCROOT)/Carthage/Build/Mac/SwiftDate.framework",
+				"$(SRCROOT)/Carthage/Build/Mac/ObjectMapper.framework",
 			);
 			outputPaths = (
 			);
@@ -456,10 +498,11 @@
 				D2488E3B1CC53BFD000062F4 /* RepositoryRoutes.swift in Sources */,
 				D2488DF81CC53A44000062F4 /* ViewController.swift in Sources */,
 				D2488DF61CC53A44000062F4 /* AppDelegate.swift in Sources */,
+				287137791F840EDE00259A30 /* RouteType.swift in Sources */,
 				D29866501CC7CC50000CC8C1 /* InfoViewController.swift in Sources */,
-				D2488E3D1CC53C2C000062F4 /* RouteType.swift in Sources */,
 				D2488E981CC541A9000062F4 /* Manager.swift in Sources */,
 				D2CBFED61CC673030059710C /* Repository.swift in Sources */,
+				2871377B1F8410A300259A30 /* AuthAdapter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -516,14 +559,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -572,14 +621,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -615,28 +670,24 @@
 		D2488E181CC53A45000062F4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "Example-OSX/Example-OSX/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.xmartlabs.Example-OSX";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
 		D2488E191CC53A45000062F4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = "Example-OSX/Example-OSX/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.xmartlabs.Example-OSX";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

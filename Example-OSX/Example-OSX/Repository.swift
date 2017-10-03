@@ -23,7 +23,8 @@
 // THE SOFTWARE.
 
 import Foundation
-import Opera
+import OperaSwift
+import protocol Decodable.Decodable
 import Decodable
 import SwiftDate
 
@@ -44,7 +45,7 @@ struct Repository {
 
 extension Repository: OperaDecodable, Decodable {
 
-    static func decode(_ json: AnyObject) throws -> Repository {
+    static func decode(_ json: Any) throws -> Repository {
         return try Repository.init(  id: json => "id",
                                      name: json => "name",
                                      desc: json =>? "description",
@@ -58,13 +59,3 @@ extension Repository: OperaDecodable, Decodable {
     }
 }
 
-extension Date: Decodable {
-
-    public static func decode(_ json: AnyObject) throws -> Date {
-        let string = try String.decode(json)
-        guard let date = string.toDate(DateFormat.ISO8601Format(.Full)) else {
-            throw TypeMismatchError(expectedType: Date.self, receivedType: String.self, object: json)
-        }
-        return self.init(timeIntervalSince1970: date.timeIntervalSince1970)
-    }
-}

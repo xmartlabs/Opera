@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to Opera will be documented in this file.
 
+### [3.0.0](https://github.com/xmartlabs/Opera/releases/tag/3.0.0)
+
+* Add support for swift 4, Xcode 9.
+
 ### [2.0.0](https://github.com/xmartlabs/Opera/releases/tag/2.0.0)
 <!-- Released on 2017-05-15. -->
 

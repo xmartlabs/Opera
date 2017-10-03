@@ -23,13 +23,13 @@
 // THE SOFTWARE.
 
 import Foundation
-import Opera
+import OperaSwift
 import Alamofire
 
 extension RouteType {
 
-    var baseURL: NSURL {
-        return NSURL(string: "https://api.github.com")!
+    var baseURL: URL {
+        return URL(string: "https://api.github.com")!
     }
 
     var manager: ManagerType {
@@ -37,13 +37,6 @@ extension RouteType {
     }
 
     var retryCount: Int {
-        return 0
-    }
-}
-
-extension URLRequestSetup {
-
-    func urlRequestSetup(_ urlRequest: NSMutableURLRequest) {
-        let _ = Manager.githubAuthorizationToken.map { urlRequest.setValue("token \($0)", forHTTPHeaderField: "Authorization") }
+        return 2
     }
 }

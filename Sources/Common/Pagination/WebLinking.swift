@@ -169,8 +169,8 @@ func split(_ separator: String, _ input: String) -> (String, String) {
     )
 
   if let range = range {
-    let lhs = input.substring(to: range.lowerBound)
-    let rhs = input.substring(from: range.upperBound)
+    let lhs = String(input[..<range.lowerBound])
+    let rhs = String(input[range.upperBound...])
     return (lhs, rhs)
   }
 

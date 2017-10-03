@@ -324,7 +324,7 @@ open class RxManager: Manager {
                     subscriber(.error(error))
                 }
             )
-            .addDisposableTo(disposeBag)
+                .disposed(by: disposeBag)
             return Disposables.create()
         }
     }

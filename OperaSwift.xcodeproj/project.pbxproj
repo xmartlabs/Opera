@@ -3,13 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 48;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		1A59A4E21EB8A9DB00C0193A /* HashableRequestAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A59A4E11EB8A9DB00C0193A /* HashableRequestAdapter.swift */; };
 		1A59A4E41EB8AAC000C0193A /* CompositeAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A59A4E31EB8AAC000C0193A /* CompositeAdapter.swift */; };
-		1A5AEA831E8ACAA7004A5082 /* repoinfo.json in Resources */ = {isa = PBXBuildFile; fileRef = 1A5AEA821E8ACAA7004A5082 /* repoinfo.json */; };
 		1A9E78741E89585D00A139CB /* FilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9E786A1E89585D00A139CB /* FilterType.swift */; };
 		1A9E78751E89585D00A139CB /* PaginationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9E786B1E89585D00A139CB /* PaginationRequest.swift */; };
 		1A9E78761E89585D00A139CB /* PaginationRequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9E786C1E89585D00A139CB /* PaginationRequestType.swift */; };
@@ -24,6 +23,21 @@
 		28251A6D1CC96A26009D5C01 /* BaseXCTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28251A6B1CC96A26009D5C01 /* BaseXCTestCase.swift */; };
 		28251A6E1CC96A26009D5C01 /* BaseXCTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28251A6B1CC96A26009D5C01 /* BaseXCTestCase.swift */; };
 		2840C42B1CB56841009AAB02 /* Helpers-iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2840C42A1CB56841009AAB02 /* Helpers-iOS.swift */; };
+		2871375E1F83EB9700259A30 /* ProgressiveRouteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F99FB01EC51069000B0E9A /* ProgressiveRouteType.swift */; };
+		2871375F1F83EB9800259A30 /* ProgressiveRouteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F99FB01EC51069000B0E9A /* ProgressiveRouteType.swift */; };
+		287137601F83EB9900259A30 /* ProgressiveRouteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F99FB01EC51069000B0E9A /* ProgressiveRouteType.swift */; };
+		287137611F83EBAC00259A30 /* AdaptedRouteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461C4D671EC6504E00AED231 /* AdaptedRouteType.swift */; };
+		287137621F83EBAD00259A30 /* AdaptedRouteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461C4D671EC6504E00AED231 /* AdaptedRouteType.swift */; };
+		287137631F83EBAE00259A30 /* AdaptedRouteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 461C4D671EC6504E00AED231 /* AdaptedRouteType.swift */; };
+		287137801F841A6B00259A30 /* HashableRequestAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A59A4E11EB8A9DB00C0193A /* HashableRequestAdapter.swift */; };
+		287137821F841A6D00259A30 /* HashableRequestAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A59A4E11EB8A9DB00C0193A /* HashableRequestAdapter.swift */; };
+		287137831F841A6E00259A30 /* HashableRequestAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A59A4E11EB8A9DB00C0193A /* HashableRequestAdapter.swift */; };
+		287137841F841A7500259A30 /* CompositeAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A59A4E31EB8AAC000C0193A /* CompositeAdapter.swift */; };
+		287137851F841A7600259A30 /* CompositeAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A59A4E31EB8AAC000C0193A /* CompositeAdapter.swift */; };
+		287137861F841A7700259A30 /* CompositeAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A59A4E31EB8AAC000C0193A /* CompositeAdapter.swift */; };
+		287137871F841B1500259A30 /* ProgressiveRouteType+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C7B8AF1EC3761B00F977FA /* ProgressiveRouteType+Rx.swift */; };
+		287137881F841B1600259A30 /* ProgressiveRouteType+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C7B8AF1EC3761B00F977FA /* ProgressiveRouteType+Rx.swift */; };
+		287137891F841B1700259A30 /* ProgressiveRouteType+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C7B8AF1EC3761B00F977FA /* ProgressiveRouteType+Rx.swift */; };
 		287D0A6E1C4B73BD004566D6 /* RouteTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287D0A6D1C4B73BD004566D6 /* RouteTypeTests.swift */; };
 		28858D7D1D149F3A00532DE7 /* RxManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28858D7C1D149F3A00532DE7 /* RxManager.swift */; };
 		28858D7E1D149F3A00532DE7 /* RxManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28858D7C1D149F3A00532DE7 /* RxManager.swift */; };
@@ -138,61 +152,11 @@
 			remoteGlobalIDString = 5468B3F41CB82EE600D0643E;
 			remoteInfo = "Opera-tvOS";
 		};
-		8F8550041D05EF070094CA52 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8F854FFA1D05EF070094CA52 /* Alamofire.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F8111E3319A95C8B0040E7D1;
-			remoteInfo = "Alamofire iOS";
-		};
-		8F8550061D05EF070094CA52 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8F854FFA1D05EF070094CA52 /* Alamofire.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F8111E3E19A95C8B0040E7D1;
-			remoteInfo = "Alamofire iOS Tests";
-		};
-		8F8550081D05EF070094CA52 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8F854FFA1D05EF070094CA52 /* Alamofire.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4DD67C0B1A5C55C900ED2280;
-			remoteInfo = "Alamofire OSX";
-		};
-		8F85500A1D05EF070094CA52 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8F854FFA1D05EF070094CA52 /* Alamofire.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F829C6B21A7A94F100A2CD59;
-			remoteInfo = "Alamofire OSX Tests";
-		};
-		8F85500C1D05EF070094CA52 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8F854FFA1D05EF070094CA52 /* Alamofire.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4CF626EF1BA7CB3E0011A099;
-			remoteInfo = "Alamofire tvOS";
-		};
-		8F85500E1D05EF070094CA52 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8F854FFA1D05EF070094CA52 /* Alamofire.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4CF626F81BA7CB3E0011A099;
-			remoteInfo = "Alamofire tvOS Tests";
-		};
-		8F8550101D05EF070094CA52 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8F854FFA1D05EF070094CA52 /* Alamofire.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = E4202FE01B667AA100C997FB;
-			remoteInfo = "Alamofire watchOS";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		1A59A4E11EB8A9DB00C0193A /* HashableRequestAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HashableRequestAdapter.swift; path = Common/Adapters/HashableRequestAdapter.swift; sourceTree = "<group>"; };
 		1A59A4E31EB8AAC000C0193A /* CompositeAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CompositeAdapter.swift; path = Common/Adapters/CompositeAdapter.swift; sourceTree = "<group>"; };
-		1A5AEA821E8ACAA7004A5082 /* repoinfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = repoinfo.json; sourceTree = "<group>"; };
 		1A9E786A1E89585D00A139CB /* FilterType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FilterType.swift; path = Common/Pagination/FilterType.swift; sourceTree = "<group>"; };
 		1A9E786B1E89585D00A139CB /* PaginationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaginationRequest.swift; path = Common/Pagination/PaginationRequest.swift; sourceTree = "<group>"; };
 		1A9E786C1E89585D00A139CB /* PaginationRequestType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaginationRequestType.swift; path = Common/Pagination/PaginationRequestType.swift; sourceTree = "<group>"; };
@@ -215,7 +179,7 @@
 		28F828821C494B2C00330CF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Sources/Common/Supporting Files/Info.plist"; sourceTree = "<group>"; };
 		28F828871C494B2C00330CF4 /* OperaSwiftTests_iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OperaSwiftTests_iOS.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		28F8288E1C494B2C00330CF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = "Tests/Supporting Files/Info.plist"; sourceTree = "<group>"; };
-		28F8289B1C494BF100330CF4 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playground.playground; sourceTree = "<group>"; };
+		28F8289B1C494BF100330CF4 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		461C4D671EC6504E00AED231 /* AdaptedRouteType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AdaptedRouteType.swift; path = Common/AdaptedRouteType.swift; sourceTree = "<group>"; };
 		46C7B8AF1EC3761B00F977FA /* ProgressiveRouteType+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ProgressiveRouteType+Rx.swift"; path = "Common/ProgressiveRouteType+Rx.swift"; sourceTree = "<group>"; };
 		46F99FB01EC51069000B0E9A /* ProgressiveRouteType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProgressiveRouteType.swift; path = Common/ProgressiveRouteType.swift; sourceTree = "<group>"; };
@@ -232,7 +196,6 @@
 		8F73B18B1D07401300E6C5CA /* OperaResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OperaResponse.swift; path = Common/OperaResponse.swift; sourceTree = "<group>"; };
 		8F73B1901D0740D700E6C5CA /* OperaResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OperaResult.swift; path = Common/OperaResult.swift; sourceTree = "<group>"; };
 		8F854FF51D05EB300094CA52 /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Manager.swift; path = Common/Manager.swift; sourceTree = "<group>"; };
-		8F854FFA1D05EF070094CA52 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Carthage/Checkouts/Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		B22DAE241EAA9B54009835D7 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
 		B2DD5C031EB9FF09002F91A0 /* MultipartRouteType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultipartRouteType.swift; path = Common/MultipartRouteType.swift; sourceTree = "<group>"; };
 		D2ECA2C71CC530B90057FCC2 /* PaginationRequestTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PaginationRequestTests.swift; path = Tests/PaginationRequestTests.swift; sourceTree = SOURCE_ROOT; };
@@ -328,7 +291,6 @@
 		28D91C4F1CB381BD006488F1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8F854FFA1D05EF070094CA52 /* Alamofire.xcodeproj */,
 				B22DAE241EAA9B54009835D7 /* RxSwift.framework */,
 				54E4AA2A1CBECD6B00A8CEC7 /* RxSwift.framework */,
 				5468B41A1CB82F4400D0643E /* RxSwift.framework */,
@@ -348,7 +310,6 @@
 		28F828731C494B2C00330CF4 = {
 			isa = PBXGroup;
 			children = (
-				1A5AEA821E8ACAA7004A5082 /* repoinfo.json */,
 				28F8289B1C494BF100330CF4 /* Playground.playground */,
 				28F828971C494B4200330CF4 /* Sources */,
 				28F8288B1C494B2C00330CF4 /* Tests */,
@@ -422,20 +383,6 @@
 				28F8288E1C494B2C00330CF4 /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		8F854FFB1D05EF070094CA52 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				8F8550051D05EF070094CA52 /* Alamofire.framework */,
-				8F8550071D05EF070094CA52 /* Alamofire iOS Tests.xctest */,
-				8F8550091D05EF070094CA52 /* Alamofire.framework */,
-				8F85500B1D05EF070094CA52 /* Alamofire macOS Tests.xctest */,
-				8F85500D1D05EF070094CA52 /* Alamofire.framework */,
-				8F85500F1D05EF070094CA52 /* Alamofire tvOS Tests.xctest */,
-				8F8550111D05EF070094CA52 /* Alamofire.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -613,7 +560,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0900;
 				TargetAttributes = {
 					28F8287C1C494B2C00330CF4 = {
 						CreatedOnToolsVersion = 7.2;
@@ -646,7 +593,7 @@
 				};
 			};
 			buildConfigurationList = 28F828771C494B2C00330CF4 /* Build configuration list for PBXProject "OperaSwift" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -655,12 +602,6 @@
 			mainGroup = 28F828731C494B2C00330CF4;
 			productRefGroup = 28F8287E1C494B2C00330CF4 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 8F854FFB1D05EF070094CA52 /* Products */;
-					ProjectRef = 8F854FFA1D05EF070094CA52 /* Alamofire.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				28F8287C1C494B2C00330CF4 /* OperaSwift-iOS */,
@@ -674,64 +615,11 @@
 		};
 /* End PBXProject section */
 
-/* Begin PBXReferenceProxy section */
-		8F8550051D05EF070094CA52 /* Alamofire.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Alamofire.framework;
-			remoteRef = 8F8550041D05EF070094CA52 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		8F8550071D05EF070094CA52 /* Alamofire iOS Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Alamofire iOS Tests.xctest";
-			remoteRef = 8F8550061D05EF070094CA52 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		8F8550091D05EF070094CA52 /* Alamofire.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Alamofire.framework;
-			remoteRef = 8F8550081D05EF070094CA52 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		8F85500B1D05EF070094CA52 /* Alamofire macOS Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Alamofire macOS Tests.xctest";
-			remoteRef = 8F85500A1D05EF070094CA52 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		8F85500D1D05EF070094CA52 /* Alamofire.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Alamofire.framework;
-			remoteRef = 8F85500C1D05EF070094CA52 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		8F85500F1D05EF070094CA52 /* Alamofire tvOS Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "Alamofire tvOS Tests.xctest";
-			remoteRef = 8F85500E1D05EF070094CA52 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		8F8550111D05EF070094CA52 /* Alamofire.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Alamofire.framework;
-			remoteRef = 8F8550101D05EF070094CA52 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
-
 /* Begin PBXResourcesBuildPhase section */
 		28F8287B1C494B2C00330CF4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A5AEA831E8ACAA7004A5082 /* repoinfo.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -892,20 +780,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				287137801F841A6B00259A30 /* HashableRequestAdapter.swift in Sources */,
+				287137871F841B1500259A30 /* ProgressiveRouteType+Rx.swift in Sources */,
 				5415F01D1CBD6CEE00D7A7E4 /* Helpers.swift in Sources */,
 				8F73B18D1D07401300E6C5CA /* OperaResponse.swift in Sources */,
 				28858D7E1D149F3A00532DE7 /* RxManager.swift in Sources */,
 				B20DF5731EB0EF430006430E /* PaginationRequestType+Rx.swift in Sources */,
 				8F854FF71D05EB300094CA52 /* Manager.swift in Sources */,
 				B20DF5761EB0EF4B0006430E /* PaginationResponseType.swift in Sources */,
+				2871375E1F83EB9700259A30 /* ProgressiveRouteType.swift in Sources */,
 				B2DD5C051EB9FF09002F91A0 /* MultipartRouteType.swift in Sources */,
 				542B09FB1CB6D63200EC2C71 /* Error.swift in Sources */,
 				542B0A041CB6D63200EC2C71 /* OperaDecodable.swift in Sources */,
 				B20DF5741EB0EF460006430E /* PaginationRequestTypeSettings.swift in Sources */,
 				8F73B1811D073FC800E6C5CA /* RouteType+Rx.swift in Sources */,
+				287137841F841A7500259A30 /* CompositeAdapter.swift in Sources */,
 				B20DF5771EB0EF4D0006430E /* PaginationViewModel.swift in Sources */,
 				542B0A031CB6D63200EC2C71 /* RouteType.swift in Sources */,
 				8F73B1921D0740D700E6C5CA /* OperaResult.swift in Sources */,
+				287137611F83EBAC00259A30 /* AdaptedRouteType.swift in Sources */,
 				B20DF5721EB0EF3E0006430E /* PaginationRequest.swift in Sources */,
 				B20DF5751EB0EF480006430E /* PaginationResponse.swift in Sources */,
 				B20DF5671EB0EE970006430E /* WebLinking.swift in Sources */,
@@ -929,20 +822,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				287137821F841A6D00259A30 /* HashableRequestAdapter.swift in Sources */,
+				287137881F841B1600259A30 /* ProgressiveRouteType+Rx.swift in Sources */,
 				B20DF57D1EB0EF5F0006430E /* WebLinking.swift in Sources */,
 				5415F01E1CBD6CEE00D7A7E4 /* Helpers.swift in Sources */,
 				B20DF5811EB0EF650006430E /* PaginationResponseType.swift in Sources */,
 				B20DF5871EB0EF6D0006430E /* PaginationRequestType+Rx.swift in Sources */,
 				8F73B18E1D07401300E6C5CA /* OperaResponse.swift in Sources */,
 				B20DF58B1EB0EF730006430E /* PaginationRequest.swift in Sources */,
+				2871375F1F83EB9800259A30 /* ProgressiveRouteType.swift in Sources */,
 				B2DD5C061EB9FF09002F91A0 /* MultipartRouteType.swift in Sources */,
 				28858D7F1D149F3A00532DE7 /* RxManager.swift in Sources */,
 				8F854FF81D05EB300094CA52 /* Manager.swift in Sources */,
 				B20DF57A1EB0EF5C0006430E /* WebLinkingSettings.swift in Sources */,
 				B20DF5851EB0EF6A0006430E /* PaginationRequestTypeSettings.swift in Sources */,
+				287137851F841A7600259A30 /* CompositeAdapter.swift in Sources */,
 				5468B40E1CB82F2100D0643E /* Error.swift in Sources */,
 				B20DF5831EB0EF680006430E /* PaginationResponse.swift in Sources */,
 				5468B4171CB82F2100D0643E /* OperaDecodable.swift in Sources */,
+				287137621F83EBAD00259A30 /* AdaptedRouteType.swift in Sources */,
 				8F73B1821D073FC800E6C5CA /* RouteType+Rx.swift in Sources */,
 				5468B4111CB82F2100D0643E /* RouteType.swift in Sources */,
 				B20DF5891EB0EF700006430E /* PaginationRequestType.swift in Sources */,
@@ -966,20 +864,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				287137831F841A6E00259A30 /* HashableRequestAdapter.swift in Sources */,
+				287137891F841B1700259A30 /* ProgressiveRouteType+Rx.swift in Sources */,
 				B20DF57C1EB0EF5E0006430E /* WebLinking.swift in Sources */,
 				54F726C71CBECB04008D86E8 /* Helpers.swift in Sources */,
 				B20DF5801EB0EF640006430E /* PaginationResponseType.swift in Sources */,
 				B20DF5861EB0EF6D0006430E /* PaginationRequestType+Rx.swift in Sources */,
 				8F73B18F1D07401300E6C5CA /* OperaResponse.swift in Sources */,
 				B20DF58A1EB0EF720006430E /* PaginationRequest.swift in Sources */,
+				287137601F83EB9900259A30 /* ProgressiveRouteType.swift in Sources */,
 				B2DD5C071EB9FF09002F91A0 /* MultipartRouteType.swift in Sources */,
 				28858D801D149F3A00532DE7 /* RxManager.swift in Sources */,
 				8F854FF91D05EB300094CA52 /* Manager.swift in Sources */,
 				B20DF57B1EB0EF5C0006430E /* WebLinkingSettings.swift in Sources */,
 				B20DF5841EB0EF6A0006430E /* PaginationRequestTypeSettings.swift in Sources */,
+				287137861F841A7700259A30 /* CompositeAdapter.swift in Sources */,
 				54F726D31CBECB54008D86E8 /* OperaDecodable.swift in Sources */,
 				B20DF5821EB0EF670006430E /* PaginationResponse.swift in Sources */,
 				54F726CB1CBECB54008D86E8 /* RouteType.swift in Sources */,
+				287137631F83EBAE00259A30 /* AdaptedRouteType.swift in Sources */,
 				54F726C81CBECB54008D86E8 /* Error.swift in Sources */,
 				8F73B1831D073FC800E6C5CA /* RouteType+Rx.swift in Sources */,
 				B20DF5881EB0EF6F0006430E /* PaginationRequestType.swift in Sources */,
@@ -1018,14 +921,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1068,14 +977,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1209,7 +1124,7 @@
 				PRODUCT_NAME = OperaSwift;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -1237,7 +1152,7 @@
 				PRODUCT_NAME = OperaSwift;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -1307,7 +1222,7 @@
 				PRODUCT_NAME = OperaSwift;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.2;
 			};
@@ -1333,7 +1248,7 @@
 				PRODUCT_NAME = OperaSwift;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.2;
 			};
@@ -1396,7 +1311,7 @@
 				PRODUCT_NAME = OperaSwift;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 2.2;
 			};
@@ -1423,7 +1338,7 @@
 				PRODUCT_NAME = OperaSwift;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 2.2;
 			};

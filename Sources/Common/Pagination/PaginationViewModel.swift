@@ -85,7 +85,7 @@ open class PaginationViewModel<PaginationRequest: PaginationRequestType>
             })
             .map { _ in false }
             .bind(to: refreshTrigger)
-            .addDisposableTo(queryDisposeBag)
+            .disposed(by: queryDisposeBag)
 
         refreshTrigger
             .filter { $0 }
@@ -98,7 +98,7 @@ open class PaginationViewModel<PaginationRequest: PaginationRequestType>
             })
             .map { _ in false }
             .bind(to: refreshTrigger)
-            .addDisposableTo(queryDisposeBag)
+            .disposed(by: queryDisposeBag)
 
         filterTrigger
             .do(onNext: { [weak self] fitler in
@@ -110,7 +110,7 @@ open class PaginationViewModel<PaginationRequest: PaginationRequestType>
             })
             .map { _ in false }
             .bind(to: refreshTrigger)
-            .addDisposableTo(queryDisposeBag)
+            .disposed(by: queryDisposeBag)
     }
 
     fileprivate func bindPaginationRequest(_ paginationRequest: PaginationRequest, nextPage: String?) {
@@ -131,11 +131,11 @@ open class PaginationViewModel<PaginationRequest: PaginationRequestType>
             .of(refreshRequest, nextPageRequest)
             .merge()
             .take(1)
-            .shareReplay(1)
+            .share(replay: 1)
 
         let response = request
             .flatMap { $0.rx.collection }
-            .shareReplay(1)
+            .share(replay: 1)
 
         Observable
             .of(
@@ -145,7 +145,7 @@ open class PaginationViewModel<PaginationRequest: PaginationRequestType>
             )
             .merge()
             .bind(to: fullloading)
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         Observable
             .combineLatest(elements.asObservable(), response) { elements, response in
@@ -153,12 +153,12 @@ open class PaginationViewModel<PaginationRequest: PaginationRequestType>
             }
             .take(1)
             .bind(to: elements)
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         response
             .map { $0.hasNextPage }
             .bind(to: hasNextPage)
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
 
         response
             .do(onError: { [weak self] _ in
@@ -174,7 +174,7 @@ open class PaginationViewModel<PaginationRequest: PaginationRequestType>
                     nextPage: paginationResponse.nextPage
                 )
             })
-            .addDisposableTo(disposeBag)
+            .disposed(by: disposeBag)
     }
 }
 
