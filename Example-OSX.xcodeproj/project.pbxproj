@@ -21,8 +21,6 @@
 		D2488DF81CC53A44000062F4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2488DF71CC53A44000062F4 /* ViewController.swift */; };
 		D2488DFA1CC53A45000062F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2488DF91CC53A45000062F4 /* Assets.xcassets */; };
 		D2488DFD1CC53A45000062F4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2488DFB1CC53A45000062F4 /* Main.storyboard */; };
-		D2488E081CC53A45000062F4 /* Example_OSXTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2488E071CC53A45000062F4 /* Example_OSXTests.swift */; };
-		D2488E131CC53A45000062F4 /* Example_OSXUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2488E121CC53A45000062F4 /* Example_OSXUITests.swift */; };
 		D2488E3B1CC53BFD000062F4 /* RepositoryRoutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2488E3A1CC53BFD000062F4 /* RepositoryRoutes.swift */; };
 		D2488E981CC541A9000062F4 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2488E971CC541A9000062F4 /* Manager.swift */; };
 		D29866501CC7CC50000CC8C1 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D298664F1CC7CC50000CC8C1 /* InfoViewController.swift */; };
@@ -79,20 +77,6 @@
 			remoteGlobalIDString = 54F726BE1CBECAA0008D86E8;
 			remoteInfo = "OperaSwift-watchOS";
 		};
-		D2488E041CC53A45000062F4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D2488DEA1CC53A44000062F4 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D2488DF11CC53A44000062F4;
-			remoteInfo = "Example-OSX";
-		};
-		D2488E0F1CC53A45000062F4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D2488DEA1CC53A44000062F4 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = D2488DF11CC53A44000062F4;
-			remoteInfo = "Example-OSX";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -123,12 +107,6 @@
 		D2488DF71CC53A44000062F4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = "Example-OSX/ViewController.swift"; sourceTree = "<group>"; };
 		D2488DF91CC53A45000062F4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "Example-OSX/Assets.xcassets"; sourceTree = "<group>"; };
 		D2488DFC1CC53A45000062F4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		D2488E031CC53A45000062F4 /* Example-OSXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Example-OSXTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D2488E071CC53A45000062F4 /* Example_OSXTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Example_OSXTests.swift; sourceTree = "<group>"; };
-		D2488E091CC53A45000062F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D2488E0E1CC53A45000062F4 /* Example-OSXUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Example-OSXUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D2488E121CC53A45000062F4 /* Example_OSXUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Example_OSXUITests.swift; sourceTree = "<group>"; };
-		D2488E141CC53A45000062F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2488E3A1CC53BFD000062F4 /* RepositoryRoutes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RepositoryRoutes.swift; path = "Example-OSX/RepositoryRoutes.swift"; sourceTree = "<group>"; };
 		D2488E7F1CC54143000062F4 /* OperaSwift.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = OperaSwift.xcodeproj; sourceTree = "<group>"; };
 		D2488E971CC541A9000062F4 /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Manager.swift; path = "Example-OSX/Manager.swift"; sourceTree = "<group>"; };
@@ -149,20 +127,6 @@
 				2871376D1F84003B00259A30 /* Decodable.framework in Frameworks */,
 				2871376C1F84003B00259A30 /* ObjectMapper.framework in Frameworks */,
 				2871376B1F84003B00259A30 /* SwiftDate.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D2488E001CC53A45000062F4 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D2488E0B1CC53A45000062F4 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,8 +166,6 @@
 				287137651F83F50300259A30 /* repoinfo.json */,
 				D2488E7F1CC54143000062F4 /* OperaSwift.xcodeproj */,
 				D2488DF41CC53A44000062F4 /* Example-OSX */,
-				D2488E061CC53A45000062F4 /* Example-OSXTests */,
-				D2488E111CC53A45000062F4 /* Example-OSXUITests */,
 				D2488DF31CC53A44000062F4 /* Products */,
 				287137661F83FF4700259A30 /* Frameworks */,
 			);
@@ -213,8 +175,6 @@
 			isa = PBXGroup;
 			children = (
 				D2488DF21CC53A44000062F4 /* Example-OSX.app */,
-				D2488E031CC53A45000062F4 /* Example-OSXTests.xctest */,
-				D2488E0E1CC53A45000062F4 /* Example-OSXUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -233,24 +193,6 @@
 				D298664F1CC7CC50000CC8C1 /* InfoViewController.swift */,
 			);
 			path = "Example-OSX";
-			sourceTree = "<group>";
-		};
-		D2488E061CC53A45000062F4 /* Example-OSXTests */ = {
-			isa = PBXGroup;
-			children = (
-				D2488E071CC53A45000062F4 /* Example_OSXTests.swift */,
-				D2488E091CC53A45000062F4 /* Info.plist */,
-			);
-			path = "Example-OSXTests";
-			sourceTree = "<group>";
-		};
-		D2488E111CC53A45000062F4 /* Example-OSXUITests */ = {
-			isa = PBXGroup;
-			children = (
-				D2488E121CC53A45000062F4 /* Example_OSXUITests.swift */,
-				D2488E141CC53A45000062F4 /* Info.plist */,
-			);
-			path = "Example-OSXUITests";
 			sourceTree = "<group>";
 		};
 		D2488E391CC53B84000062F4 /* Routes */ = {
@@ -301,42 +243,6 @@
 			productReference = D2488DF21CC53A44000062F4 /* Example-OSX.app */;
 			productType = "com.apple.product-type.application";
 		};
-		D2488E021CC53A45000062F4 /* Example-OSXTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D2488E1A1CC53A45000062F4 /* Build configuration list for PBXNativeTarget "Example-OSXTests" */;
-			buildPhases = (
-				D2488DFF1CC53A45000062F4 /* Sources */,
-				D2488E001CC53A45000062F4 /* Frameworks */,
-				D2488E011CC53A45000062F4 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				D2488E051CC53A45000062F4 /* PBXTargetDependency */,
-			);
-			name = "Example-OSXTests";
-			productName = "Example-OSXTests";
-			productReference = D2488E031CC53A45000062F4 /* Example-OSXTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		D2488E0D1CC53A45000062F4 /* Example-OSXUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D2488E1D1CC53A45000062F4 /* Build configuration list for PBXNativeTarget "Example-OSXUITests" */;
-			buildPhases = (
-				D2488E0A1CC53A45000062F4 /* Sources */,
-				D2488E0B1CC53A45000062F4 /* Frameworks */,
-				D2488E0C1CC53A45000062F4 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				D2488E101CC53A45000062F4 /* PBXTargetDependency */,
-			);
-			name = "Example-OSXUITests";
-			productName = "Example-OSXUITests";
-			productReference = D2488E0E1CC53A45000062F4 /* Example-OSXUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -350,16 +256,6 @@
 					D2488DF11CC53A44000062F4 = {
 						CreatedOnToolsVersion = 7.3;
 						LastSwiftMigration = 0800;
-					};
-					D2488E021CC53A45000062F4 = {
-						CreatedOnToolsVersion = 7.3;
-						LastSwiftMigration = 0800;
-						TestTargetID = D2488DF11CC53A44000062F4;
-					};
-					D2488E0D1CC53A45000062F4 = {
-						CreatedOnToolsVersion = 7.3;
-						LastSwiftMigration = 0800;
-						TestTargetID = D2488DF11CC53A44000062F4;
 					};
 				};
 			};
@@ -383,8 +279,6 @@
 			projectRoot = "";
 			targets = (
 				D2488DF11CC53A44000062F4 /* Example-OSX */,
-				D2488E021CC53A45000062F4 /* Example-OSXTests */,
-				D2488E0D1CC53A45000062F4 /* Example-OSXUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -452,20 +346,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D2488E011CC53A45000062F4 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D2488E0C1CC53A45000062F4 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -506,36 +386,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D2488DFF1CC53A45000062F4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D2488E081CC53A45000062F4 /* Example_OSXTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		D2488E0A1CC53A45000062F4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D2488E131CC53A45000062F4 /* Example_OSXUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		D2488E051CC53A45000062F4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D2488DF11CC53A44000062F4 /* Example-OSX */;
-			targetProxy = D2488E041CC53A45000062F4 /* PBXContainerItemProxy */;
-		};
-		D2488E101CC53A45000062F4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = D2488DF11CC53A44000062F4 /* Example-OSX */;
-			targetProxy = D2488E0F1CC53A45000062F4 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		D2488DFB1CC53A45000062F4 /* Main.storyboard */ = {
@@ -691,60 +542,6 @@
 			};
 			name = Release;
 		};
-		D2488E1B1CC53A45000062F4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = "Example-OSXTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.xmartlabs.Example-OSXTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Example-OSX.app/Contents/MacOS/Example-OSX";
-			};
-			name = Debug;
-		};
-		D2488E1C1CC53A45000062F4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = "Example-OSXTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.xmartlabs.Example-OSXTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Example-OSX.app/Contents/MacOS/Example-OSX";
-			};
-			name = Release;
-		};
-		D2488E1E1CC53A45000062F4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = "Example-OSXUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.xmartlabs.Example-OSXUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_TARGET_NAME = "Example-OSX";
-			};
-			name = Debug;
-		};
-		D2488E1F1CC53A45000062F4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = "Example-OSXUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.xmartlabs.Example-OSXUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_TARGET_NAME = "Example-OSX";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -762,24 +559,6 @@
 			buildConfigurations = (
 				D2488E181CC53A45000062F4 /* Debug */,
 				D2488E191CC53A45000062F4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D2488E1A1CC53A45000062F4 /* Build configuration list for PBXNativeTarget "Example-OSXTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D2488E1B1CC53A45000062F4 /* Debug */,
-				D2488E1C1CC53A45000062F4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		D2488E1D1CC53A45000062F4 /* Build configuration list for PBXNativeTarget "Example-OSXUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				D2488E1E1CC53A45000062F4 /* Debug */,
-				D2488E1F1CC53A45000062F4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

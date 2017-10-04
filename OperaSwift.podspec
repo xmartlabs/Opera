@@ -12,8 +12,8 @@ Pod::Spec.new do |s|
   s.tvos.deployment_target = '9.2'
   s.watchos.deployment_target = '2.2'
   s.requires_arc = true
-  s.source_files = 'Sources/Common/**/*'
-  s.ios.source_files = 'Sources/iOS/**/*'
+  s.source_files = 'Sources/Common/**/*.swift'
+  s.ios.source_files = 'Sources/iOS/**/*.swift'
   s.dependency 'Alamofire', '~> 4.0'
   s.dependency 'RxSwift', '4.0.0-beta.1'
   s.dependency 'RxCocoa', '4.0.0-beta.1'

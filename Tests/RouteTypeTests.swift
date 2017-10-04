@@ -12,24 +12,9 @@ import Alamofire
 class RouteTypeTests: BaseXCTextCase {
 
     func testParametersSetup() {
-        let parameters = try! Example.getRoute().asURLRequest().url?.parameters() ?? [String: String]()
+        let parameters = try! Example.getRoute.asURLRequest().url?.parameters() ?? [String: String]()
         XCTAssertTrue(parameters[RouteValues.parameterName] == RouteValues.parameterValue)
     }
-
-    func testHeadersSetup() {
-        XCTAssertEqual(try! Example.getRoute().asURLRequest().value(forHTTPHeaderField: RouteValues.headerName), RouteValues.headerValue)
-    }
-
-//    func testDefaultEncodingType() {
-//        XCTAssert(Example.getRoute().encoding == RouteValues.URLEncoding)
-//        XCTAssert(Example.deleteRoute().encoding == RouteValues.URLEncoding)
-//        XCTAssert(Example.putRoute().encoding == RouteValues.JsonEncoding)
-//        XCTAssert(Example.postRoute().encoding == RouteValues.JsonEncoding)
-//    }
-//    
-//    func testModifiedEncodingType() {
-//        XCTAssert(ModifiedEncodingExample.modifiedEncodingRoute().encoding == RouteValues.URLEncoding)
-//    }
 }
 
 //MARK - Text Case Helpers
@@ -45,20 +30,20 @@ private struct RouteValues {
 
 private enum Example: RouteType, URLRequestParametersSetup {
 
-    case getRoute()
-    case postRoute()
-    case putRoute()
-    case deleteRoute()
+    case getRoute
+    case postRoute
+    case putRoute
+    case deleteRoute
 
     var method: Alamofire.HTTPMethod {
         switch self {
         case .getRoute:
             return .get
-        case .deleteRoute():
+        case .deleteRoute:
             return .delete
-        case .postRoute():
+        case .postRoute:
             return .post
-        case .putRoute():
+        case .putRoute:
             return .put
         }
     }

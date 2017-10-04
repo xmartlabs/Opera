@@ -21,7 +21,6 @@
 		1A9E787D1E89585D00A139CB /* WebLinkingSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9E78731E89585D00A139CB /* WebLinkingSettings.swift */; };
 		28251A6C1CC96A26009D5C01 /* BaseXCTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28251A6B1CC96A26009D5C01 /* BaseXCTestCase.swift */; };
 		28251A6D1CC96A26009D5C01 /* BaseXCTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28251A6B1CC96A26009D5C01 /* BaseXCTestCase.swift */; };
-		28251A6E1CC96A26009D5C01 /* BaseXCTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28251A6B1CC96A26009D5C01 /* BaseXCTestCase.swift */; };
 		2840C42B1CB56841009AAB02 /* Helpers-iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2840C42A1CB56841009AAB02 /* Helpers-iOS.swift */; };
 		2871375E1F83EB9700259A30 /* ProgressiveRouteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F99FB01EC51069000B0E9A /* ProgressiveRouteType.swift */; };
 		2871375F1F83EB9800259A30 /* ProgressiveRouteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F99FB01EC51069000B0E9A /* ProgressiveRouteType.swift */; };
@@ -60,7 +59,6 @@
 		542B0A041CB6D63200EC2C71 /* OperaDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C5E1CB38687006488F1 /* OperaDecodable.swift */; };
 		542B0A091CB6D9A600EC2C71 /* Opera.h in Headers */ = {isa = PBXBuildFile; fileRef = 28F828801C494B2C00330CF4 /* Opera.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		542B0A151CB6DDF500EC2C71 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 542B0A121CB6DDF500EC2C71 /* RxSwift.framework */; };
-		5468B3FF1CB82EE600D0643E /* OperaSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5468B3F51CB82EE600D0643E /* OperaSwift.framework */; };
 		5468B40C1CB82F2100D0643E /* Opera.h in Headers */ = {isa = PBXBuildFile; fileRef = 28F828801C494B2C00330CF4 /* Opera.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5468B40E1CB82F2100D0643E /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C521CB385CC006488F1 /* Error.swift */; };
 		5468B4111CB82F2100D0643E /* RouteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C561CB385CC006488F1 /* RouteType.swift */; };
@@ -124,10 +122,8 @@
 		B2DD5C061EB9FF09002F91A0 /* MultipartRouteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DD5C031EB9FF09002F91A0 /* MultipartRouteType.swift */; };
 		B2DD5C071EB9FF09002F91A0 /* MultipartRouteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DD5C031EB9FF09002F91A0 /* MultipartRouteType.swift */; };
 		D2ECA2C51CC52FD30057FCC2 /* RouteTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287D0A6D1C4B73BD004566D6 /* RouteTypeTests.swift */; };
-		D2ECA2C61CC52FD30057FCC2 /* RouteTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287D0A6D1C4B73BD004566D6 /* RouteTypeTests.swift */; };
 		D2ECA2C81CC530B90057FCC2 /* PaginationRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2ECA2C71CC530B90057FCC2 /* PaginationRequestTests.swift */; };
 		D2ECA2C91CC530B90057FCC2 /* PaginationRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2ECA2C71CC530B90057FCC2 /* PaginationRequestTests.swift */; };
-		D2ECA2CA1CC530B90057FCC2 /* PaginationRequestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2ECA2C71CC530B90057FCC2 /* PaginationRequestTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -144,13 +140,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 542B09E11CB6D5BE00EC2C71;
 			remoteInfo = "Opera-OSX";
-		};
-		5468B4001CB82EE600D0643E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 28F828741C494B2C00330CF4 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5468B3F41CB82EE600D0643E;
-			remoteInfo = "Opera-tvOS";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -178,7 +167,7 @@
 		28F828801C494B2C00330CF4 /* Opera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Opera.h; path = "Sources/Common/Supporting Files/Opera.h"; sourceTree = "<group>"; };
 		28F828821C494B2C00330CF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Sources/Common/Supporting Files/Info.plist"; sourceTree = "<group>"; };
 		28F828871C494B2C00330CF4 /* OperaSwiftTests_iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OperaSwiftTests_iOS.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		28F8288E1C494B2C00330CF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = "Tests/Supporting Files/Info.plist"; sourceTree = "<group>"; };
+		28F8288E1C494B2C00330CF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = "Supporting Files/Info.plist"; sourceTree = "<group>"; };
 		28F8289B1C494BF100330CF4 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		461C4D671EC6504E00AED231 /* AdaptedRouteType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AdaptedRouteType.swift; path = Common/AdaptedRouteType.swift; sourceTree = "<group>"; };
 		46C7B8AF1EC3761B00F977FA /* ProgressiveRouteType+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "ProgressiveRouteType+Rx.swift"; path = "Common/ProgressiveRouteType+Rx.swift"; sourceTree = "<group>"; };
@@ -188,7 +177,6 @@
 		542B09EB1CB6D5BE00EC2C71 /* OperaSwift-OSXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "OperaSwift-OSXTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		542B0A121CB6DDF500EC2C71 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/Mac/RxSwift.framework; sourceTree = "<group>"; };
 		5468B3F51CB82EE600D0643E /* OperaSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OperaSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5468B3FE1CB82EE600D0643E /* OperaSwift-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "OperaSwift-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5468B41A1CB82F4400D0643E /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/tvOS/RxSwift.framework; sourceTree = "<group>"; };
 		54E4AA2A1CBECD6B00A8CEC7 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/watchOS/RxSwift.framework; sourceTree = "<group>"; };
 		54F726BE1CBECAA0008D86E8 /* OperaSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OperaSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -239,14 +227,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5468B41D1CB82F4400D0643E /* RxSwift.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5468B3FB1CB82EE600D0643E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5468B3FF1CB82EE600D0643E /* OperaSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,7 +306,6 @@
 				542B09E21CB6D5BE00EC2C71 /* OperaSwift.framework */,
 				542B09EB1CB6D5BE00EC2C71 /* OperaSwift-OSXTests.xctest */,
 				5468B3F51CB82EE600D0643E /* OperaSwift.framework */,
-				5468B3FE1CB82EE600D0643E /* OperaSwift-tvOSTests.xctest */,
 				54F726BE1CBECAA0008D86E8 /* OperaSwift.framework */,
 			);
 			name = Products;
@@ -340,8 +319,7 @@
 				D2ECA2C71CC530B90057FCC2 /* PaginationRequestTests.swift */,
 				28251A6B1CC96A26009D5C01 /* BaseXCTestCase.swift */,
 			);
-			name = Tests;
-			path = OperaTests;
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		28F828971C494B4200330CF4 /* Sources */ = {
@@ -516,25 +494,6 @@
 			productReference = 5468B3F51CB82EE600D0643E /* OperaSwift.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		5468B3FD1CB82EE600D0643E /* OperaSwift-tvOSTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 5468B40B1CB82EE600D0643E /* Build configuration list for PBXNativeTarget "OperaSwift-tvOSTests" */;
-			buildPhases = (
-				5468B3FA1CB82EE600D0643E /* Sources */,
-				5468B3FB1CB82EE600D0643E /* Frameworks */,
-				5468B3FC1CB82EE600D0643E /* Resources */,
-				D24A49051CC545B000C86743 /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				5468B4011CB82EE600D0643E /* PBXTargetDependency */,
-			);
-			name = "OperaSwift-tvOSTests";
-			productName = "Opera-tvOSTests";
-			productReference = 5468B3FE1CB82EE600D0643E /* OperaSwift-tvOSTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		54F726BD1CBECAA0008D86E8 /* OperaSwift-watchOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 54F726C51CBECAA0008D86E8 /* Build configuration list for PBXNativeTarget "OperaSwift-watchOS" */;
@@ -569,6 +528,7 @@
 					28F828861C494B2C00330CF4 = {
 						CreatedOnToolsVersion = 7.2;
 						LastSwiftMigration = 0800;
+						ProvisioningStyle = Manual;
 					};
 					542B09E11CB6D5BE00EC2C71 = {
 						CreatedOnToolsVersion = 7.3;
@@ -579,10 +539,6 @@
 						LastSwiftMigration = 0800;
 					};
 					5468B3F41CB82EE600D0643E = {
-						CreatedOnToolsVersion = 7.3;
-						LastSwiftMigration = 0800;
-					};
-					5468B3FD1CB82EE600D0643E = {
 						CreatedOnToolsVersion = 7.3;
 						LastSwiftMigration = 0800;
 					};
@@ -609,7 +565,6 @@
 				542B09E11CB6D5BE00EC2C71 /* OperaSwift-OSX */,
 				542B09EA1CB6D5BE00EC2C71 /* OperaSwift-OSXTests */,
 				5468B3F41CB82EE600D0643E /* OperaSwift-tvOS */,
-				5468B3FD1CB82EE600D0643E /* OperaSwift-tvOSTests */,
 				54F726BD1CBECAA0008D86E8 /* OperaSwift-watchOS */,
 			);
 		};
@@ -645,13 +600,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		5468B3F31CB82EE600D0643E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5468B3FC1CB82EE600D0643E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -707,22 +655,6 @@
 				"$(SRCROOT)/Carthage/Build/Mac/Alamofire.framework",
 				"$(SRCROOT)/Carthage/Build/Mac/RxSwift.framework",
 				"$(SRCROOT)/Carthage/Build/Mac/RxCocoa.framework",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
-		};
-		D24A49051CC545B000C86743 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/tvOS/Alamofire.framework",
-				"$(SRCROOT)/Carthage/Build/tvOS/RxSwift.framework",
-				"$(SRCROOT)/Carthage/Build/tvOS/RxCocoa.framework",
 			);
 			outputPaths = (
 			);
@@ -850,16 +782,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5468B3FA1CB82EE600D0643E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D2ECA2C61CC52FD30057FCC2 /* RouteTypeTests.swift in Sources */,
-				28251A6E1CC96A26009D5C01 /* BaseXCTestCase.swift in Sources */,
-				D2ECA2CA1CC530B90057FCC2 /* PaginationRequestTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		54F726B91CBECAA0008D86E8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -904,11 +826,6 @@
 			isa = PBXTargetDependency;
 			target = 542B09E11CB6D5BE00EC2C71 /* OperaSwift-OSX */;
 			targetProxy = 542B09ED1CB6D5BE00EC2C71 /* PBXContainerItemProxy */;
-		};
-		5468B4011CB82EE600D0643E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5468B3F41CB82EE600D0643E /* OperaSwift-tvOS */;
-			targetProxy = 5468B4001CB82EE600D0643E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1071,6 +988,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -1079,8 +998,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xmartlabs.OperaTests;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -1088,6 +1008,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -1096,7 +1018,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xmartlabs.OperaTests;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SWIFT_VERSION = 3.0;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -1160,7 +1083,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1175,7 +1098,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-16";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -1183,7 +1106,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1198,7 +1121,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				STRINGS_FILE_OUTPUT_ENCODING = "UTF-16";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -1250,42 +1173,6 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 9.2;
-			};
-			name = Release;
-		};
-		5468B4081CB82EE600D0643E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/tvOS",
-				);
-				INFOPLIST_FILE = "Tests/Supporting Files/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.xmartlabs.Opera-tvOSTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
-				SWIFT_VERSION = 3.0;
-				TVOS_DEPLOYMENT_TARGET = 9.2;
-			};
-			name = Debug;
-		};
-		5468B4091CB82EE600D0643E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/tvOS",
-				);
-				INFOPLIST_FILE = "Tests/Supporting Files/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.xmartlabs.Opera-tvOSTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
-				SWIFT_VERSION = 3.0;
 				TVOS_DEPLOYMENT_TARGET = 9.2;
 			};
 			name = Release;
@@ -1397,15 +1284,6 @@
 			buildConfigurations = (
 				5468B4061CB82EE600D0643E /* Debug */,
 				5468B4071CB82EE600D0643E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		5468B40B1CB82EE600D0643E /* Build configuration list for PBXNativeTarget "OperaSwift-tvOSTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				5468B4081CB82EE600D0643E /* Debug */,
-				5468B4091CB82EE600D0643E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -29,7 +29,26 @@
       language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "28F828861C494B2C00330CF4"
+               BuildableName = "OperaSwiftTests_iOS.xctest"
+               BlueprintName = "OperaSwiftTests-iOS"
+               ReferencedContainer = "container:OperaSwift.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "28F8287C1C494B2C00330CF4"
+            BuildableName = "OperaSwift.framework"
+            BlueprintName = "OperaSwift-iOS"
+            ReferencedContainer = "container:OperaSwift.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
