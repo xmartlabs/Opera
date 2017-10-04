@@ -47,7 +47,7 @@ extension GithubAPI.Repository {
 
   struct Search: RouteType {
 
-      var method: Method { return .get }
+      var method: HTTPMethod { return .get }
       var path: String { return "search/repositories" }
   }
 
@@ -56,7 +56,7 @@ extension GithubAPI.Repository {
       let owner: String
       let repo: String
 
-      var method: Method { return .get }
+      var method: HTTPMethod { return .get }
       var path: String { return "repos/\(owner)/\(repo)" }
   }
 }
