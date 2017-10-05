@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to Opera will be documented in this file.
 
+### [3.0.1-beta.0](https://github.com/xmartlabs/Opera/releases/tag/3.0.1-beta.0)
+
+* Fix minor compatibility issue with rx.
+
 ### [3.0.0](https://github.com/xmartlabs/Opera/releases/tag/3.0.0)
 
 * Add support for swift 4, Xcode 9.
