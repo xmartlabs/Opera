@@ -131,11 +131,11 @@ open class PaginationViewModel<PaginationRequest: PaginationRequestType>
             .of(refreshRequest, nextPageRequest)
             .merge()
             .take(1)
-            .share(replay: 1)
+            .share(replay: 1, scope: .forever)
 
         let response = request
             .flatMap { $0.rx.collection }
-            .share(replay: 1)
+            .share(replay: 1, scope: .forever)
 
         Observable
             .of(

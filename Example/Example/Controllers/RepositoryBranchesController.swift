@@ -65,7 +65,7 @@ class RepositoryBranchesController: RepositoryBaseController {
             .asDriver()
             .drive(tableView.rx.items(cellIdentifier: "Cell")) { _, branch, cell in
                 cell.textLabel?.text = branch.name
-                cell.detailTextLabel?.text = branch.commit!.substring(to: branch.commit!.index(branch.commit!.startIndex, offsetBy: 6))
+                cell.detailTextLabel?.text = String(branch.commit![..<branch.commit!.index(branch.commit!.startIndex, offsetBy: 6)])
             }
             .disposed(by: disposeBag)
 
