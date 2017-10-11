@@ -99,7 +99,7 @@ protocol DeleteRouteType: RouteType {}
 protocol TraceRouteType: RouteType {}
 protocol ConnectRouteType: RouteType {}
 ```
-They are pretty simple, they only implement the `medthod` property of `RouteType` with the HTTPMethod that matches.
+They are pretty simple, they only implement the `method` property of `RouteType` with the HTTPMethod that matches.
 
 ### Additional RouteTypes
 
