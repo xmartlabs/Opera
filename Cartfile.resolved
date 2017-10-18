@@ -1,5 +1,5 @@
 github "Alamofire/Alamofire" "4.5.1"
 github "Anviking/Decodable" "0.6.0"
 github "Hearst-DD/ObjectMapper" "3.0.0"
-github "ReactiveX/RxSwift" "4.0.0-rc.0"
+github "ReactiveX/RxSwift" "4.0.0"
 github "malcommac/SwiftDate" "4.4.1"

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "OperaSwift"
-  s.version          = "3.0.1-beta.1"
+  s.version          = "3.0.1"
   s.summary          = "Protocol-Oriented Network abstraction layer written in Swift 4."
   s.homepage         = "https://github.com/xmartlabs/Opera"
   s.license          = { type: 'MIT', file: 'LICENSE' }
@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.source_files = 'Sources/Common/**/*.swift'
   s.ios.source_files = 'Sources/iOS/**/*.swift'
-  s.dependency 'Alamofire', '~> 4.0'
-  s.dependency 'RxSwift', '4.0.0-rc.0'
-  s.dependency 'RxCocoa', '4.0.0-rc.0'
+  s.dependency 'Alamofire', '~> 4.5.1'
+  s.dependency 'RxSwift', '4.0.0'
+  s.dependency 'RxCocoa', '4.0.0'
 end
