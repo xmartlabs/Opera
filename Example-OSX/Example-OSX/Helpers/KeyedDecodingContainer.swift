@@ -1,5 +1,5 @@
-//  Manager.swift
-//  Example-iOS 
+//  KeyedDecodingContainer.swift
+//  Example-iOX ( https://github.com/xmartlabs/Example-iOS )
 //
 //  Copyright (c) 2019 Xmartlabs SRL ( http://xmartlabs.com )
 //
@@ -22,33 +22,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+
 import Foundation
-import Alamofire
-import OperaSwift
-import RxSwift
 
-class Manager: RxManager {
+extension KeyedDecodingContainer {
     
-    // Add a Github personal access token to have more requests per hour
-    static let githubAuthorizationToken: String? = nil
-    static let singleton = Manager(manager: Alamofire.SessionManager.default)
-    
-    override init(manager: Alamofire.SessionManager) {
-        super.init(manager: manager)
-        observers = [Logger()]
-        requestAdapter = AuthAdapter()
-        // Uncoment this line if you want to try mocked services.
-        //useMockedData = true
+    public func decode<T: Decodable>(_ key: Key, as type: T.Type = T.self) throws -> T {
+        return try self.decode(T.self, forKey: key)
     }
     
-    func refreshToken() -> Observable<String?> {
-        return Observable.just(nil)
-    }
-    
-}
-
-struct Logger: OperaSwift.ObserverType {
-    func willSendRequest(_ alamoRequest: Alamofire.Request, requestConvertible: URLRequestConvertible) {
-        debugPrint(alamoRequest)
+    public func decodeIfPresent<T: Decodable>(_ key: Key) throws -> T? {
+        return try decodeIfPresent(T.self, forKey: key)
     }
 }

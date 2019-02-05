@@ -1,7 +1,7 @@
 //  PullRequest.swift
-//  Example-iOS ( https://github.com/xmartlabs/Example-iOS )
+//  Example-iOS 
 //
-//  Copyright (c) 2016 Xmartlabs SRL ( http://xmartlabs.com )
+//  Copyright (c) 2019 Xmartlabs SRL ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,11 +24,10 @@
 
 import Foundation
 import OperaSwift
-import protocol Decodable.Decodable
-import Decodable
+
 
 struct PullRequest {
-
+    
     let id: Int
     let url: URL
     let number: Int
@@ -36,20 +35,37 @@ struct PullRequest {
     let state: String
     let title: String
     let locked: Bool
-
 }
+    
 
-extension PullRequest: OperaDecodable, Decodable {
-
-    static func decode(_ json: Any) throws -> PullRequest {
-        return try PullRequest(  id: json => "id",
-                  url: URL(string: json => "url")!,
-                             number: json => "number",
-                               user: json => ["user", "login"],
-                              state: json => "state",
-                              title: json => "title",
-                             locked: json => "locked")
-
+extension PullRequest: Decodable {
+    
+    init(from decoder: Decoder) throws {
+        
+        enum CodingKeys: String, CodingKey {
+            case id
+            case url
+            case number
+            case state
+            case title
+            case locked
+            case user
+        }
+        
+        enum UserKeys: String, CodingKey {
+            case user = "login"
+        }
+        
+        let container =  try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(.id)
+        url = try container.decode(.url)
+        number = try container.decode(.number)
+        state = try container.decode(.state)
+        title = try container.decode(.title)
+        locked = try container.decode(.locked)
+        let additionalInfoContainer = try container.nestedContainer(keyedBy: UserKeys.self, forKey: .user)
+        user = try additionalInfoContainer.decode(.user)
     }
-
 }
+
+extension PullRequest: OperaDecodable {}

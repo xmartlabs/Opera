@@ -1,7 +1,7 @@
 //  UserRepository.swift
-//  Example-iOS ( https://github.com/xmartlabs/Example-iOS )
+//  Example-iOS 
 //
-//  Copyright (c) 2016 Xmartlabs SRL ( http://xmartlabs.com )
+//  Copyright (c) 2019 Xmartlabs SRL
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -25,8 +25,6 @@
 import Foundation
 import OperaSwift
 import SwiftDate
-import protocol Decodable.Decodable
-import Decodable
 
 
 struct UserRepository {
@@ -40,25 +38,45 @@ struct UserRepository {
     let watchers: Int
     let issues: Int
     let createdAt: Date?
-
 }
-
-extension UserRepository: OperaDecodable, Decodable {
-
-    static func decode(_ json: Any) throws -> UserRepository {
-        return try UserRepository.init(id: json => "id",
-                                owner: json => ["owner", "login"],
-                                 name: json => "name",
-                          description: json =>? "description",
-                                forks: json => "forks_count",
-                           stargazers: json => "stargazers_count",
-                             watchers: json => "watchers_count",
-                               issues: json => "open_issues_count",
-                            createdAt: json =>? "created_at")
+    
+extension UserRepository: Decodable {
+    
+    
+    init(from decoder: Decoder) throws {
         
-        //dateString.date(format: DateFormat.iso8601(options: .withInternetDateTime))?.absoluteDate
+        enum CodingKeys: String, CodingKey {
+            case id
+            case name
+            case description
+            case forks = "forks_count"
+            case stargazers = "stargazers_count"
+            case watchers = "watchers_count"
+            case issues = "open_issues_count"
+            case createdAt = "created_at"
+            case owner
+        }
+        
+        enum OwnerInfoKeys: String, CodingKey {
+            case owner = "login"
+        }
+        
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decode(.id)
+        self.name = try container.decode(.name)
+        self.description = try container.decode(.description)
+        self.forks = try container.decode(.forks)
+        self.stargazers = try container.decode(.stargazers)
+        self.watchers = try container.decode(.watchers)
+        self.issues = try container.decode(.issues)
+        self.createdAt = try container.decode(.createdAt)
+        let ownerContainer = try container.nestedContainer(keyedBy: OwnerInfoKeys.self, forKey: .owner)
+        self.owner = try ownerContainer.decode(.owner)
+        
+        
     }
-
 }
+
+extension UserRepository: OperaDecodable {}
 
 

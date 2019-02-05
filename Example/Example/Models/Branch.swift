@@ -1,7 +1,7 @@
 //  Branch.swift
-//  Example-iOS ( https://github.com/xmartlabs/Example-iOS )
+//  Example-iOS 
 //
-//  Copyright (c) 2016 Xmartlabs SRL ( http://xmartlabs.com )
+//  Copyright (c) 2019 Xmartlabs SRL ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -30,14 +30,11 @@ struct Branch {
 
     var name: String?
     var commit: String?
-
 }
 
 extension Branch: OperaDecodable, Mappable {
 
-    init?(map: Map) {
-
-    }
+    init?(map: Map) {}
 
     mutating func mapping(map: Map) {
         name    <- map["name"]

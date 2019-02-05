@@ -1,7 +1,7 @@
 //  Issue.swift
-//  Example-iOS ( https://github.com/xmartlabs/Example-iOS )
+//  Example-iOS 
 //
-//  Copyright (c) 2016 Xmartlabs SRL ( http://xmartlabs.com )
+//  Copyright (c) 2019 Xmartlabs SRL ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,8 +24,6 @@
 
 import Foundation
 import OperaSwift
-import protocol Decodable.Decodable
-import Decodable
 
 struct Issue {
 
@@ -35,18 +33,34 @@ struct Issue {
     let state: String
     let title: String
     let user: String
-
 }
 
-extension Issue: OperaDecodable, Decodable {
-
-    static func decode(_ json: Any) throws -> Issue {
-        return try Issue.init(  id: json => "id",
-                 url: URL(string: json => "url")!,
-                            number: json => "number",
-                             state: json => "state",
-                             title: json => "title",
-                              user: json => ["user", "login"])
+extension Issue: Decodable {
+    
+    public init(from decoder: Decoder) throws {
+        
+        enum CodingKeys: String, CodingKey {
+            case id
+            case url
+            case number
+            case state
+            case title
+            case user
+        }
+        
+        enum UserKeys: String, CodingKey {
+            case user = "login"
+        }
+        
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(.id)
+        url = try container.decode(.url)
+        number = try container.decode(.number)
+        state = try container.decode(.state)
+        title = try container.decode(.title)
+        let additionalInfoContainer = try container.nestedContainer(keyedBy: UserKeys.self, forKey: .user)
+        user = try additionalInfoContainer.decode(.user)
     }
-
 }
+
+extension Issue: OperaDecodable {}

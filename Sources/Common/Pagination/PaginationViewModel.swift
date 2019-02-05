@@ -1,7 +1,7 @@
 //  PaginationViewModel.swift
 //  Opera ( https://github.com/xmartlabs/Opera )
 //
-//  Copyright (c) 2016 Xmartlabs SRL ( http://xmartlabs.com )
+//  Copyright (c) 2019 Xmartlabs SRL ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -38,24 +38,24 @@ open class PaginationViewModel<PaginationRequest: PaginationRequestType>
     /// trigger a refresh, if emited item is true it will cancel pending 
     //  request and make a new one. if false it will
     //  not refresh if there is a request in progress.
-    open let refreshTrigger = PublishSubject<Bool>()
+    public let refreshTrigger = PublishSubject<Bool>()
     /// trigger a next page load, it makes a new request for
     //  the nextPage value provided by lastest request sent to server.
-    open let loadNextPageTrigger = PublishSubject<Void>()
+    public let loadNextPageTrigger = PublishSubject<Void>()
     /// Cancel any in progress request and start a new one using the query string provided.
-    open let queryTrigger = PublishSubject<String>()
+    public let queryTrigger = PublishSubject<String>()
     /// Cancel any in progress request and start a new one using the filter parameters provided.
-    open let filterTrigger = PublishSubject<FilterType>()
+    public let filterTrigger = PublishSubject<FilterType>()
 
     /// Allows subscribers to get notified about networking errors
-    open let errors = PublishSubject<Error>()
+    public let errors = PublishSubject<Error>()
     /// Indicates if there is a next page to load. 
     //  hasNextPage value is the result of getting next link relation from latest response.
-    open let hasNextPage = Variable<Bool>(false)
+    public let hasNextPage = Variable<Bool>(false)
     /// Indicates is there is a request in progress and what is the request page.
-    open let fullloading = Variable<LoadingType>((false, "1"))
+    public let fullloading = Variable<LoadingType>((false, "1"))
     /// Elements array from first page up to latest fetched page.
-    open let elements = Variable<[PaginationRequest.Response.Element]>([])
+    public let elements = Variable<[PaginationRequest.Response.Element]>([])
 
     fileprivate var disposeBag = DisposeBag()
     fileprivate let queryDisposeBag = DisposeBag()

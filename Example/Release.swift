@@ -1,7 +1,7 @@
 //  Release.swift
-//  Example-iOS ( https://github.com/xmartlabs/Example-iOS )
+//  Example-iOS 
 //
-//  Copyright (c) 2016 Xmartlabs SRL ( http://xmartlabs.com )
+//  Copyright (c) 2019 Xmartlabs SRL ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,8 +24,6 @@
 
 import Foundation
 import OperaSwift
-import protocol Decodable.Decodable
-import Decodable
 
 struct Release {
 
@@ -34,19 +32,32 @@ struct Release {
     let tagName: String
     let body: String
     let user: String
-
 }
 
-extension Release: OperaDecodable, Decodable {
-
-    static func decode(_ json: Any) throws -> Release {
-        return try Release(
-            id: json => "id",
-            name: json => "name",
-            tagName: json => "tag_name",
-            body: json => "body",
-            user: json => ["author", "login"]
-        )
+extension Release: Decodable {
+    
+    init(from decoder: Decoder) throws {
+        
+        enum CodingKeys: String, CodingKey {
+            case id
+            case name
+            case tagName = "tag_name"
+            case body
+            case author
+        }
+        
+        enum NestedInfoKeys: String, CodingKey {
+            case user = "login"
+        }
+        
+        let container =  try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(.id)
+        name = try container.decode(.name)
+        tagName = try container.decode(.tagName)
+        body = try container.decode(.body)
+        let additionalInfoContainer = try container.nestedContainer(keyedBy: NestedInfoKeys.self, forKey: .author)
+        user = try additionalInfoContainer.decode(.user)
     }
-
 }
+
+extension Release: OperaDecodable {}

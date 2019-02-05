@@ -1,7 +1,7 @@
 //  OperaDecodable.swift
 //  Opera ( https://github.com/xmartlabs/Opera )
 //
-//  Copyright (c) 2016 Xmartlabs SRL ( http://xmartlabs.com )
+//  Copyright (c) 2019 Xmartlabs SRL  ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,6 +23,7 @@
 // THE SOFTWARE.
 
 import Foundation
+import SwiftDate
 
 /**
  *  Entities that conforms to OperaDecotable are able to 
@@ -53,4 +54,19 @@ import Foundation
  */
 public protocol OperaDecodable {
     static func decode(_ json: Any) throws -> Self
+}
+
+public extension OperaDecodable where Self: Decodable {
+    
+    static func decode(_ json: Any) throws -> Self {
+        
+        let decoder = JSONDecoder();
+        let dateFormatter = DateFormatter()
+        dateFormatter.calendar = Calendar.current
+        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.dateFormat = DateFormats.iso8601
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
+        let data = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
+        return try decoder.decode(Self.self, from: data)
+    }
 }

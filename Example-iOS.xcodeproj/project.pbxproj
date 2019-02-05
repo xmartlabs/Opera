@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1A19BC031E8BFAD000DA313F /* AuthAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A19BC021E8BFAD000DA313F /* AuthAdapter.swift */; };
 		1A5AEA851E8ACB25004A5082 /* repoinfo.json in Resources */ = {isa = PBXBuildFile; fileRef = 1A5AEA841E8ACB25004A5082 /* repoinfo.json */; };
+		2802F2452209F761002C5505 /* KeyedDecodingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2802F2442209F761002C5505 /* KeyedDecodingContainer.swift */; };
 		284E6E3D1CBC1FA9001874B5 /* RepositoryRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284E6E3B1CBC1FA9001874B5 /* RepositoryRoute.swift */; };
 		284E6E3E1CBC1FA9001874B5 /* RouteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284E6E3C1CBC1FA9001874B5 /* RouteType.swift */; };
 		287137701F84046B00259A30 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2871376F1F84046B00259A30 /* Alamofire.framework */; };
@@ -17,7 +18,6 @@
 		2893A68E1CB5A09A0052715B /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2893A68D1CB5A09A0052715B /* Manager.swift */; };
 		28F107611CB47853007D8B7D /* SearchRepositoriesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F107601CB47853007D8B7D /* SearchRepositoriesController.swift */; };
 		28F107651CB47A5A007D8B7D /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F107641CB47A5A007D8B7D /* Repository.swift */; };
-		28F107681CB482CB007D8B7D /* Decodable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28F107671CB482CB007D8B7D /* Decodable.framework */; };
 		28F828D01C4B714D00330CF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F828CF1C4B714D00330CF4 /* AppDelegate.swift */; };
 		28F828D51C4B714D00330CF4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28F828D31C4B714D00330CF4 /* Main.storyboard */; };
 		28F828D71C4B714D00330CF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28F828D61C4B714D00330CF4 /* Assets.xcassets */; };
@@ -84,13 +84,6 @@
 			remoteGlobalIDString = 5468B3F51CB82EE600D0643E;
 			remoteInfo = "OperaSwift-tvOS";
 		};
-		1A9E785D1E89579400A139CB /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 287D0A741C4B7B26004566D6 /* OperaSwift.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 5468B3FE1CB82EE600D0643E;
-			remoteInfo = "OperaSwift-tvOSTests";
-		};
 		1A9E785F1E89579400A139CB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 287D0A741C4B7B26004566D6 /* OperaSwift.xcodeproj */;
@@ -103,6 +96,7 @@
 /* Begin PBXFileReference section */
 		1A19BC021E8BFAD000DA313F /* AuthAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AuthAdapter.swift; path = Example/Helpers/AuthAdapter.swift; sourceTree = "<group>"; };
 		1A5AEA841E8ACB25004A5082 /* repoinfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = repoinfo.json; sourceTree = "<group>"; };
+		2802F2442209F761002C5505 /* KeyedDecodingContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyedDecodingContainer.swift; path = Example/Helpers/Parsers/KeyedDecodingContainer.swift; sourceTree = "<group>"; };
 		284E6E3B1CBC1FA9001874B5 /* RepositoryRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryRoute.swift; sourceTree = "<group>"; };
 		284E6E3C1CBC1FA9001874B5 /* RouteType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RouteType.swift; path = Example/Helpers/RouteType.swift; sourceTree = "<group>"; };
 		2871376F1F84046B00259A30 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
@@ -111,7 +105,6 @@
 		2893A68D1CB5A09A0052715B /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; name = Manager.swift; path = Example/Helpers/Manager.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		28F107601CB47853007D8B7D /* SearchRepositoriesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchRepositoriesController.swift; path = Example/Controllers/SearchRepositoriesController.swift; sourceTree = "<group>"; };
 		28F107641CB47A5A007D8B7D /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Repository.swift; path = Example/Models/Repository.swift; sourceTree = "<group>"; };
-		28F107671CB482CB007D8B7D /* Decodable.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Decodable.framework; path = Carthage/Build/iOS/Decodable.framework; sourceTree = "<group>"; };
 		28F1076B1CB48D61007D8B7D /* SwiftDate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftDate.framework; path = Carthage/Build/iOS/SwiftDate.framework; sourceTree = "<group>"; };
 		28F828CC1C4B714D00330CF4 /* Example-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Example-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		28F828CF1C4B714D00330CF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Example/AppDelegate.swift; sourceTree = "<group>"; };
@@ -151,7 +144,6 @@
 			files = (
 				287137701F84046B00259A30 /* Alamofire.framework in Frameworks */,
 				B20DF5661EB0ED480006430E /* OperaSwift.framework in Frameworks */,
-				28F107681CB482CB007D8B7D /* Decodable.framework in Frameworks */,
 				541AE95F1CC67F46005A695E /* ObjectMapper.framework in Frameworks */,
 				287137771F840E4F00259A30 /* SwiftDate.framework in Frameworks */,
 			);
@@ -168,7 +160,6 @@
 				1A9E78581E89579400A139CB /* OperaSwift.framework */,
 				1A9E785A1E89579400A139CB /* OperaSwift-OSXTests.xctest */,
 				1A9E785C1E89579400A139CB /* OperaSwift.framework */,
-				1A9E785E1E89579400A139CB /* OperaSwift-tvOSTests.xctest */,
 				1A9E78601E89579400A139CB /* OperaSwift.framework */,
 			);
 			name = Products;
@@ -218,7 +209,6 @@
 				2871376F1F84046B00259A30 /* Alamofire.framework */,
 				541AE95E1CC67F46005A695E /* ObjectMapper.framework */,
 				28F1076B1CB48D61007D8B7D /* SwiftDate.framework */,
-				28F107671CB482CB007D8B7D /* Decodable.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -261,6 +251,7 @@
 		542F7E7F1CC0207200E356E3 /* Parsers */ = {
 			isa = PBXGroup;
 			children = (
+				2802F2442209F761002C5505 /* KeyedDecodingContainer.swift */,
 				542F7E801CC020CF00E356E3 /* NSDate.swift */,
 				544905AE1CC6801100822350 /* ObjectMapperDecodable.swift */,
 			);
@@ -314,7 +305,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 1010;
 				TargetAttributes = {
 					28F828CB1C4B714D00330CF4 = {
 						CreatedOnToolsVersion = 7.2;
@@ -382,13 +373,6 @@
 			remoteRef = 1A9E785B1E89579400A139CB /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		1A9E785E1E89579400A139CB /* OperaSwift-tvOSTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "OperaSwift-tvOSTests.xctest";
-			remoteRef = 1A9E785D1E89579400A139CB /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		1A9E78601E89579400A139CB /* OperaSwift.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -422,7 +406,6 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Decodable.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftDate.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/ObjectMapper.framework",
 			);
@@ -430,7 +413,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -451,6 +434,7 @@
 				54637DD11CC52A38008C519E /* RepositoryPullRequestsController.swift in Sources */,
 				28F828D01C4B714D00330CF4 /* AppDelegate.swift in Sources */,
 				54637DE11CC53BB6008C519E /* Release.swift in Sources */,
+				2802F2452209F761002C5505 /* KeyedDecodingContainer.swift in Sources */,
 				54637DE31CC53C74008C519E /* RepositoryReleasesController.swift in Sources */,
 				54DD8CD81CC13DED00F11463 /* RepositoryForksController.swift in Sources */,
 				2893A68E1CB5A09A0052715B /* Manager.swift in Sources */,
@@ -508,12 +492,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -560,12 +546,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -603,11 +591,11 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Example/Example/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xmartlabs.Example;
 				PRODUCT_NAME = "Example-iOS";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -620,11 +608,11 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Example/Example/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xmartlabs.Example;
 				PRODUCT_NAME = "Example-iOS";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
