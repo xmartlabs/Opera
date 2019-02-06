@@ -41,9 +41,6 @@ extension Reactive where Base: RouteType {
      - returns: An instance of `Single<T>`
      */
     public func object<T: OperaDecodable>(_ keyPath: String? = nil) -> Single<T> {
-        if base.manager.useMockedData && base.mockedData != nil {
-            return (base.manager as! RxManager).rx.sampleObject(base, keyPath: keyPath)
-        }
         return (base.manager as! RxManager).rx.object(base, keyPath: keyPath)
     }
 
@@ -55,9 +52,6 @@ extension Reactive where Base: RouteType {
      - returns: An instance of `Single<[T]>`
      */
     public func collection<T: OperaDecodable>(_ collectionKeyPath: String? = nil) -> Single<[T]> {
-        if base.manager.useMockedData && base.mockedData != nil {
-            return (base.manager as! RxManager).rx.sampleCollection(base, collectionKeyPath: collectionKeyPath)
-        }
         return (base.manager as! RxManager).rx.collection(base, collectionKeyPath: collectionKeyPath)
     }
 
@@ -67,9 +61,6 @@ extension Reactive where Base: RouteType {
      - returns: An instance of `Single<Any>`
      */
     public func any() -> Single<Any> {
-        if base.manager.useMockedData && base.mockedData != nil {
-            return (base.manager as! RxManager).rx.sampleAny(base)
-        }
         return (base.manager as! RxManager).rx.any(base)
     }
 
@@ -79,9 +70,6 @@ extension Reactive where Base: RouteType {
      - returns: An instance of `Completable`
      */
     public func completable() -> Completable {
-        if base.manager.useMockedData && base.mockedData != nil {
-            return (base.manager as! RxManager).rx.sampleCompletableResponse(base)
-        }
         return (base.manager as! RxManager).rx.completableResponse(base)
     }
 
@@ -93,9 +81,6 @@ extension Reactive where Base: RouteType {
      - returns: An instance of `Single<OperaObjectResult<T>>`
      */
     public func objectResponse<T: OperaDecodable>(_ keyPath: String? = nil) -> Single<OperaObjectResult<T>> {
-        if base.manager.useMockedData && base.mockedData != nil {
-            return (base.manager as! RxManager).rx.sampleObjectResponse(base, keyPath: keyPath)
-        }
         return (base.manager as! RxManager).rx.objectResponse(base, keyPath: keyPath)
     }
 
@@ -107,9 +92,6 @@ extension Reactive where Base: RouteType {
      - returns: An instance of `Single<OperaObjectResult<T>>`
      */
     public func collectionResponse<T: OperaDecodable>(_ collectionKeyPath: String? = nil) -> Single<OperaCollectionResult<T>> {
-        if base.manager.useMockedData && base.mockedData != nil {
-            return (base.manager as! RxManager).rx.sampleCollectionResponse(base, collectionKeyPath: collectionKeyPath)
-        }
         return (base.manager as! RxManager).rx.collectionResponse(base, collectionKeyPath: collectionKeyPath)
     }
 

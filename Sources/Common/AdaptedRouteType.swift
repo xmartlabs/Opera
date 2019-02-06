@@ -23,8 +23,6 @@ public extension AdaptedRouteType {
     var baseURL: URL { return routeType.baseURL }
     var manager: ManagerType { return routeType.manager }
     var retryCount: Int { return routeType.retryCount }
-    var mockedData: Data? { return routeType.mockedData }
-
 }
 
 public extension AdaptedRouteType {

@@ -61,17 +61,17 @@ extension Repository: Decodable {
     
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decode(Int.self, forKey: .id)
-        name = try container.decode(String.self, forKey: .name)
-        desc = try container.decodeIfPresent(String.self, forKey: .desc)
-        language = try container.decodeIfPresent(String.self, forKey: .language)
-        openIssues = try container.decode(Int.self, forKey: .openIssues)
-        stargazersCount = try container.decode(Int.self, forKey: .stargazersCount)
-        forksCount = try container.decode(Int.self, forKey: .forksCount)
-        url = try container.decode(URL.self, forKey: .url)
-        createdAt = try container.decode(Date.self, forKey: .createdAt)
+        id = try container.decode(.id)
+        name = try container.decode(.name)
+        desc = try container.decodeIfPresent(.desc)
+        language = try container.decodeIfPresent(.language)
+        openIssues = try container.decode(.openIssues)
+        stargazersCount = try container.decode(.stargazersCount)
+        forksCount = try container.decode(.forksCount)
+        url = try container.decode(.url)
+        createdAt = try container.decode(.createdAt)
         let nestedContainer = try container.nestedContainer(keyedBy: OwnerInfoKeys.self, forKey: .owner)
-        company = try nestedContainer.decodeIfPresent(String.self, forKey: .company)
+        company = try nestedContainer.decodeIfPresent(.company)
     }
 }
 

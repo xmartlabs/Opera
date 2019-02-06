@@ -32,8 +32,7 @@ import SwiftDate
     OperaDecodable allows us to use the JSON parsing library
     that we feel confortable with.
  *  For instance to use Decodable we just need 
-    to declare protocol conformance since Decodable 
-    protocol methods are the same as OperaDecodable protocol.
+    to declare protocol conformance.
  *  In order to use Argo as JSON parsing library each json 
     parseable entity should declare OperaDecodable protocol conformance. 
     We also need to implement `static func decode(json: AnyObject) throws -> Self` 
