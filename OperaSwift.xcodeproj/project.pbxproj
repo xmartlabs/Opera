@@ -58,13 +58,10 @@
 		542B0A031CB6D63200EC2C71 /* RouteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C561CB385CC006488F1 /* RouteType.swift */; };
 		542B0A041CB6D63200EC2C71 /* OperaDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C5E1CB38687006488F1 /* OperaDecodable.swift */; };
 		542B0A091CB6D9A600EC2C71 /* Opera.h in Headers */ = {isa = PBXBuildFile; fileRef = 28F828801C494B2C00330CF4 /* Opera.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		542B0A151CB6DDF500EC2C71 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 542B0A121CB6DDF500EC2C71 /* RxSwift.framework */; };
 		5468B40C1CB82F2100D0643E /* Opera.h in Headers */ = {isa = PBXBuildFile; fileRef = 28F828801C494B2C00330CF4 /* Opera.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5468B40E1CB82F2100D0643E /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C521CB385CC006488F1 /* Error.swift */; };
 		5468B4111CB82F2100D0643E /* RouteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C561CB385CC006488F1 /* RouteType.swift */; };
 		5468B4171CB82F2100D0643E /* OperaDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C5E1CB38687006488F1 /* OperaDecodable.swift */; };
-		5468B41D1CB82F4400D0643E /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5468B41A1CB82F4400D0643E /* RxSwift.framework */; };
-		54E4AA2C1CBECD6B00A8CEC7 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E4AA2A1CBECD6B00A8CEC7 /* RxSwift.framework */; };
 		54F726C61CBECAFD008D86E8 /* Opera.h in Headers */ = {isa = PBXBuildFile; fileRef = 28F828801C494B2C00330CF4 /* Opera.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		54F726C71CBECB04008D86E8 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5415F01B1CBD6CEC00D7A7E4 /* Helpers.swift */; };
 		54F726C81CBECB54008D86E8 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D91C521CB385CC006488F1 /* Error.swift */; };
@@ -116,7 +113,6 @@
 		B20DF58B1EB0EF730006430E /* PaginationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9E786B1E89585D00A139CB /* PaginationRequest.swift */; };
 		B20DF58C1EB0EF750006430E /* FilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9E786A1E89585D00A139CB /* FilterType.swift */; };
 		B20DF58D1EB0EF760006430E /* FilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9E786A1E89585D00A139CB /* FilterType.swift */; };
-		B22DAE251EAA9B54009835D7 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B22DAE241EAA9B54009835D7 /* RxSwift.framework */; };
 		B2DD5C041EB9FF09002F91A0 /* MultipartRouteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DD5C031EB9FF09002F91A0 /* MultipartRouteType.swift */; };
 		B2DD5C051EB9FF09002F91A0 /* MultipartRouteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DD5C031EB9FF09002F91A0 /* MultipartRouteType.swift */; };
 		B2DD5C061EB9FF09002F91A0 /* MultipartRouteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2DD5C031EB9FF09002F91A0 /* MultipartRouteType.swift */; };
@@ -194,7 +190,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B22DAE251EAA9B54009835D7 /* RxSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,7 +205,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				542B0A151CB6DDF500EC2C71 /* RxSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -226,7 +220,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5468B41D1CB82F4400D0643E /* RxSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,7 +227,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				54E4AA2C1CBECD6B00A8CEC7 /* RxSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,6 +402,7 @@
 				28F8287A1C494B2C00330CF4 /* Headers */,
 				28F8287B1C494B2C00330CF4 /* Resources */,
 				1A4EF7271E8D2DD20061AB02 /* SwiftLint */,
+				2802F25A220C940B002C5505 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -447,6 +440,7 @@
 				542B09DE1CB6D5BE00EC2C71 /* Frameworks */,
 				542B09DF1CB6D5BE00EC2C71 /* Headers */,
 				542B09E01CB6D5BE00EC2C71 /* Resources */,
+				2802F25B220CA8BE002C5505 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -484,6 +478,7 @@
 				5468B3F11CB82EE600D0643E /* Frameworks */,
 				5468B3F21CB82EE600D0643E /* Headers */,
 				5468B3F31CB82EE600D0643E /* Resources */,
+				2802F25C220CA977002C5505 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -502,6 +497,7 @@
 				54F726BA1CBECAA0008D86E8 /* Frameworks */,
 				54F726BB1CBECAA0008D86E8 /* Headers */,
 				54F726BC1CBECAA0008D86E8 /* Resources */,
+				2802F25D220CAB3B002C5505 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -632,6 +628,102 @@
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
+		2802F25A220C940B002C5505 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SwiftDate.framework",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Alamofire.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxSwift.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxCocoa.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftDate.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks \n";
+		};
+		2802F25B220CA8BE002C5505 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/Mac/Alamofire.framework",
+				"$(SRCROOT)/Carthage/Build/Mac/RxSwift.framework",
+				"$(SRCROOT)/Carthage/Build/Mac/RxCocoa.framework",
+				"$(SRCROOT)/Carthage/Build/Mac/SwiftDate.framework",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Alamofire.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxSwift.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxCocoa.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftDate.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks \n\n";
+		};
+		2802F25C220CA977002C5505 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/tvOS/Alamofire.framework",
+				"$(SRCROOT)/Carthage/Build/tvOS/RxSwift.framework",
+				"$(SRCROOT)/Carthage/Build/tvOS/RxCocoa.framework",
+				"$(SRCROOT)/Carthage/Build/tvOS/SwiftDate.framework",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Alamofire.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxSwift.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxCocoa.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftDate.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks \n";
+		};
+		2802F25D220CAB3B002C5505 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/watchOS/Alamofire.framework",
+				"$(SRCROOT)/Carthage/Build/watchOS/RxSwift.framework",
+				"$(SRCROOT)/Carthage/Build/watchOS/RxCocoa.framework",
+				"$(SRCROOT)/Carthage/Build/watchOS/SwiftDate.framework",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks \n";
+		};
 		28A6B9DB1CB6354F00682BCE /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -644,6 +736,10 @@
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftDate.framework",
 			);
 			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Alamofire.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxSwift.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxCocoa.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftDate.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -661,6 +757,10 @@
 				"$(SRCROOT)/Carthage/Build/Mac/SwiftDate.framework",
 			);
 			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Alamofire.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxSwift.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxCocoa.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftDate.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
