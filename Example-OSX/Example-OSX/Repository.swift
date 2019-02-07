@@ -24,7 +24,6 @@
 
 import Foundation
 import OperaSwift
-import SwiftDate
 
 struct Repository {
 

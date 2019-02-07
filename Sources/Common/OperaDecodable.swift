@@ -23,7 +23,6 @@
 // THE SOFTWARE.
 
 import Foundation
-import SwiftDate
 
 /**
  *  Entities that conforms to OperaDecotable are able to 
@@ -63,7 +62,7 @@ public extension OperaDecodable where Self: Decodable {
         let dateFormatter = DateFormatter()
         dateFormatter.calendar = Calendar.current
         dateFormatter.timeZone = TimeZone.current
-        dateFormatter.dateFormat = DateFormats.iso8601
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
         decoder.dateDecodingStrategy = .formatted(dateFormatter)
         let data = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
         return try decoder.decode(Self.self, from: data)
