@@ -24,7 +24,6 @@
 
 import Foundation
 import OperaSwift
-import ObjectMapper
 
 struct Branch {
 
@@ -32,13 +31,24 @@ struct Branch {
     var commit: String?
 }
 
-extension Branch: OperaDecodable, Mappable {
-
-    init?(map: Map) {}
-
-    mutating func mapping(map: Map) {
-        name    <- map["name"]
-        commit  <- map["commit.sha"]
+extension Branch: Decodable {
+    
+    init(from decoder: Decoder) throws {
+        
+        enum CodingKeys: String, CodingKey {
+            case name
+            case commit
+        }
+        
+        enum CommitKeys: String, CodingKey {
+            case commit = "sha"
+        }
+    
+        let container =  try decoder.container(keyedBy: CodingKeys.self)
+        self.name = try container.decode(.name)
+        let additionalInfoContainer = try container.nestedContainer(keyedBy: CommitKeys.self, forKey: .commit)
+        self.commit = try additionalInfoContainer.decode(.commit)
     }
-
 }
+
+extension Branch: OperaDecodable {}

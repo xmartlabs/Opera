@@ -22,10 +22,8 @@
 		28F828D51C4B714D00330CF4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28F828D31C4B714D00330CF4 /* Main.storyboard */; };
 		28F828D71C4B714D00330CF4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 28F828D61C4B714D00330CF4 /* Assets.xcassets */; };
 		28F828DA1C4B714D00330CF4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 28F828D81C4B714D00330CF4 /* LaunchScreen.storyboard */; };
-		541AE95F1CC67F46005A695E /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 541AE95E1CC67F46005A695E /* ObjectMapper.framework */; };
 		542F7E771CC01D0200E356E3 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542F7E761CC01D0200E356E3 /* UserRepository.swift */; };
 		542F7E811CC020CF00E356E3 /* NSDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542F7E801CC020CF00E356E3 /* NSDate.swift */; };
-		544905AF1CC6801100822350 /* ObjectMapperDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544905AE1CC6801100822350 /* ObjectMapperDecodable.swift */; };
 		544905B91CC6A62800822350 /* UserRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544905B81CC6A62800822350 /* UserRoute.swift */; };
 		54637DD11CC52A38008C519E /* RepositoryPullRequestsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54637DD01CC52A38008C519E /* RepositoryPullRequestsController.swift */; };
 		54637DD91CC52D08008C519E /* PullRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54637DD81CC52D08008C519E /* PullRequest.swift */; };
@@ -115,7 +113,6 @@
 		541AE95E1CC67F46005A695E /* ObjectMapper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ObjectMapper.framework; path = Carthage/Build/iOS/ObjectMapper.framework; sourceTree = "<group>"; };
 		542F7E761CC01D0200E356E3 /* UserRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserRepository.swift; path = Example/Models/UserRepository.swift; sourceTree = "<group>"; };
 		542F7E801CC020CF00E356E3 /* NSDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NSDate.swift; path = Example/Helpers/Parsers/NSDate.swift; sourceTree = "<group>"; };
-		544905AE1CC6801100822350 /* ObjectMapperDecodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ObjectMapperDecodable.swift; path = Example/Helpers/Parsers/ObjectMapperDecodable.swift; sourceTree = "<group>"; };
 		544905B81CC6A62800822350 /* UserRoute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRoute.swift; sourceTree = "<group>"; };
 		54637DD01CC52A38008C519E /* RepositoryPullRequestsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RepositoryPullRequestsController.swift; path = Example/Controllers/RepositoryPullRequestsController.swift; sourceTree = "<group>"; };
 		54637DD81CC52D08008C519E /* PullRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PullRequest.swift; path = Example/Models/PullRequest.swift; sourceTree = "<group>"; };
@@ -144,7 +141,6 @@
 			files = (
 				287137701F84046B00259A30 /* Alamofire.framework in Frameworks */,
 				B20DF5661EB0ED480006430E /* OperaSwift.framework in Frameworks */,
-				541AE95F1CC67F46005A695E /* ObjectMapper.framework in Frameworks */,
 				287137771F840E4F00259A30 /* SwiftDate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -253,7 +249,6 @@
 			children = (
 				2802F2442209F761002C5505 /* KeyedDecodingContainer.swift */,
 				542F7E801CC020CF00E356E3 /* NSDate.swift */,
-				544905AE1CC6801100822350 /* ObjectMapperDecodable.swift */,
 			);
 			name = Parsers;
 			sourceTree = "<group>";
@@ -407,7 +402,6 @@
 				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/SwiftDate.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/ObjectMapper.framework",
 			);
 			outputPaths = (
 			);
@@ -450,7 +444,6 @@
 				54CEB21A1CC15F8100C9A1D9 /* Stargazer.swift in Sources */,
 				542F7E771CC01D0200E356E3 /* UserRepository.swift in Sources */,
 				542F7E811CC020CF00E356E3 /* NSDate.swift in Sources */,
-				544905AF1CC6801100822350 /* ObjectMapperDecodable.swift in Sources */,
 				54637DD91CC52D08008C519E /* PullRequest.swift in Sources */,
 				284E6E3E1CBC1FA9001874B5 /* RouteType.swift in Sources */,
 			);

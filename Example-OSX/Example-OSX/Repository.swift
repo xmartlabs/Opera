@@ -41,25 +41,27 @@ struct Repository {
 }
 
 extension Repository: Decodable {
-        
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case name
-        case desc = "description"
-        case language
-        case openIssues = "open_issues_count"
-        case stargazersCount = "stargazers_count"
-        case forksCount = "forks_count"
-        case url
-        case createdAt = "created_at"
-        case owner
-    }
-    
-    enum OwnerInfoKeys: String, CodingKey {
-        case company = "login"
-    }
     
     public init(from decoder: Decoder) throws {
+        
+        enum CodingKeys: String, CodingKey {
+            case id
+            case name
+            case desc = "description"
+            case language
+            case openIssues = "open_issues_count"
+            case stargazersCount = "stargazers_count"
+            case forksCount = "forks_count"
+            case url
+            case createdAt = "created_at"
+            case owner
+        }
+        
+        enum OwnerInfoKeys: String, CodingKey {
+            case company = "login"
+        }
+        
+        
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(.id)
         name = try container.decode(.name)

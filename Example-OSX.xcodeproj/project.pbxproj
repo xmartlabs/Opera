@@ -10,7 +10,6 @@
 		2802F23D2209F51A002C5505 /* KeyedDecodingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2802F23C2209F51A002C5505 /* KeyedDecodingContainer.swift */; };
 		287137671F83FF4700259A30 /* OperaSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AB33E3F1E673E1600344F77 /* OperaSwift.framework */; };
 		2871376B1F84003B00259A30 /* SwiftDate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 287137691F83FFCB00259A30 /* SwiftDate.framework */; };
-		2871376C1F84003B00259A30 /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2871376A1F83FFD500259A30 /* ObjectMapper.framework */; };
 		2871376E1F8400EA00259A30 /* repoinfo.json in Resources */ = {isa = PBXBuildFile; fileRef = 287137651F83F50300259A30 /* repoinfo.json */; };
 		287137721F84049500259A30 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 287137711F84049400259A30 /* Alamofire.framework */; };
 		287137791F840EDE00259A30 /* RouteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287137781F840EDE00259A30 /* RouteType.swift */; };
@@ -117,7 +116,6 @@
 				2871377F1F84139D00259A30 /* RxCocoa.framework in Frameworks */,
 				287137721F84049500259A30 /* Alamofire.framework in Frameworks */,
 				287137671F83FF4700259A30 /* OperaSwift.framework in Frameworks */,
-				2871376C1F84003B00259A30 /* ObjectMapper.framework in Frameworks */,
 				2871376B1F84003B00259A30 /* SwiftDate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -343,7 +341,6 @@
 				"$(SRCROOT)/Carthage/Build/Mac/RxSwift.framework",
 				"$(SRCROOT)/Carthage/Build/Mac/RxCocoa.framework",
 				"$(SRCROOT)/Carthage/Build/Mac/SwiftDate.framework",
-				"$(SRCROOT)/Carthage/Build/Mac/ObjectMapper.framework",
 			);
 			outputPaths = (
 			);

@@ -122,7 +122,8 @@ extension OperaResult {
                 nil,
                 response: value.response,
                 data: value.data,
-                error: nil, onsuccess: { (result, json) -> Result<[T]> in
+                error: nil,
+                onsuccess: { (result, json) -> Result<[T]> in
                 if let representation = (
                     collectionKeyPath.map {
                         (json as AnyObject).value(forKeyPath: $0) as Any
