@@ -37,12 +37,6 @@ class Manager: RxManager {
         super.init(manager: manager)
         observers = [Logger()]
         requestAdapter = AuthAdapter()
-        // Uncoment this line if you want to try mocked services.
-        //useMockedData = true
-    }
-
-    func refreshToken() -> Observable<String?> {
-        return Observable.just(nil)
     }
 
 }

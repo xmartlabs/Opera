@@ -66,5 +66,4 @@ open class CompositeAdapter: HashableRequestAdapter {
     open func remove(adapter key: String) {
         adapters.removeValue(forKey: key)
     }
-
 }
