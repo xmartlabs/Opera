@@ -103,7 +103,7 @@ class RepositoryIssuesController: RepositoryBaseController {
 
     var disposeBag = DisposeBag()
 
-    fileprivate var filter = Variable<IssuesFilter>(IssuesFilter())
+    fileprivate var filter = BehaviorRelay<IssuesFilter>(IssuesFilter())
 
     lazy var viewModel: PaginationViewModel<PaginationRequest<Issue>> = { [unowned self] in
         return PaginationViewModel(paginationRequest: PaginationRequest(route: GithubAPI.Repository.GetIssues(owner: self.owner, repo: self.name), filter: self.filter.value))

@@ -35,7 +35,7 @@ class RepositoryIssueFilterController: UITableViewController {
     @IBOutlet weak var issueCreatorTextField: UITextField!
     @IBOutlet weak var issueMentionedUserTextField: UITextField!
 
-    var filter: Variable<IssuesFilter>!
+    var filter: BehaviorRelay<IssuesFilter>!
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -57,7 +57,7 @@ class RepositoryIssueFilterController: UITableViewController {
         newFilter.issueCreator = issueCreatorTextField.text
         newFilter.userMentioned = issueMentionedUserTextField.text
 
-        filter.value = newFilter
+        filter.accept(newFilter)
 
         self.dismiss(animated: true, completion: nil)
     }

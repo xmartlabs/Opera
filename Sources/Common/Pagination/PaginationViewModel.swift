@@ -51,11 +51,11 @@ open class PaginationViewModel<PaginationRequest: PaginationRequestType>
     public let errors = PublishSubject<Error>()
     /// Indicates if there is a next page to load. 
     //  hasNextPage value is the result of getting next link relation from latest response.
-    public let hasNextPage = Variable<Bool>(false)
+    public let hasNextPage = BehaviorRelay<Bool>(value: false)
     /// Indicates is there is a request in progress and what is the request page.
-    public let fullloading = Variable<LoadingType>((false, "1"))
+    public let fullloading = BehaviorRelay<LoadingType>(value: (false, "1"))
     /// Elements array from first page up to latest fetched page.
-    public let elements = Variable<[PaginationRequest.Response.Element]>([])
+    public let elements = BehaviorRelay<[PaginationRequest.Response.Element]>(value: [])
 
     fileprivate var disposeBag = DisposeBag()
     fileprivate let queryDisposeBag = DisposeBag()
@@ -163,16 +163,10 @@ open class PaginationViewModel<PaginationRequest: PaginationRequestType>
         response
             .do(onError: { [weak self] _ in
                 guard let mySelf = self else { return }
-                mySelf.bindPaginationRequest(
-                    mySelf.paginationRequest,
-                    nextPage: mySelf.fullloading.value.1)
-                }
-            )
+                mySelf.bindPaginationRequest(mySelf.paginationRequest, nextPage: mySelf.fullloading.value.1)
+            })
             .subscribe(onNext: { [weak self] paginationResponse in
-                self?.bindPaginationRequest(
-                    paginationRequest,
-                    nextPage: paginationResponse.nextPage
-                )
+                self?.bindPaginationRequest(paginationRequest, nextPage: paginationResponse.nextPage)
             })
             .disposed(by: disposeBag)
     }
