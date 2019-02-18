@@ -131,7 +131,6 @@ class RepositoryIssuesController: RepositoryBaseController {
             .disposed(by: disposeBag)
 
         Driver.combineLatest(viewModel.elements.asDriver(), viewModel.firstPageLoading) { elements, loading in return loading ? [] : elements }
-            .asDriver()
             .drive(tableView.rx.items(cellIdentifier:"Cell")) { _, issue, cell in
                 cell.textLabel?.text = issue.title
                 cell.detailTextLabel?.text = " #\(issue.number)"

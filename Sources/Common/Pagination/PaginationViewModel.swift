@@ -78,10 +78,7 @@ open class PaginationViewModel<PaginationRequest: PaginationRequestType>
         queryTrigger
             .do(onNext: { [weak self] queryString in
                 guard let mySelf = self else { return }
-                mySelf.bindPaginationRequest(
-                    mySelf.paginationRequest.routeWithQuery(queryString),
-                    nextPage: nil
-                )
+                mySelf.bindPaginationRequest(mySelf.paginationRequest.routeWithQuery(queryString), nextPage: nil)
             })
             .map { _ in false }
             .bind(to: refreshTrigger)
