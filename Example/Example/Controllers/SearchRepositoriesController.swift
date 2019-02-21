@@ -55,17 +55,11 @@ class SearchRepositoriesController: UIViewController {
         tableView.addSubview(self.refreshControl)
         let refreshControl = self.refreshControl
 
-        rx.sentMessage(#selector(SearchRepositoriesController.viewWillAppear(_:)))
-            .skip(1)
-            .map { _ in false }
-            .bind(to: viewModel.refreshTrigger)
-            .disposed(by: disposeBag)
-
         tableView.rx.reachedBottom
             .bind(to: viewModel.loadNextPageTrigger)
             .disposed(by: disposeBag)
 
-        viewModel.loading
+        viewModel.loading.asDriver()
             .drive(activityIndicatorView.rx.isAnimating)
             .disposed(by: disposeBag)
 
@@ -95,26 +89,25 @@ class SearchRepositoriesController: UIViewController {
             .drive(onNext: { [weak self] repo in self?.performSegue(withIdentifier: Constants.repositorySegue, sender: RepositoryData(name: repo.name, owner: repo.company)) })
             .disposed(by: disposeBag)
 
-        searchBar.rx.text
+        searchBar.rx.text.asDriver()
             .filter { !$0!.isEmpty }
             .map { str -> String in str ?? "" }
-            .throttle(0.25, scheduler: MainScheduler.instance)
-            .bind(to: viewModel.queryTrigger)
+            .throttle(0.25)
+            .drive(viewModel.queryTrigger)
             .disposed(by: disposeBag)
 
-        searchBar.rx.text
+        searchBar.rx.text.asDriver()
             .filter { $0!.isEmpty }
             .map { _ in return [] }
-            .bind(to: viewModel.elements)
+            .drive(viewModel.elements)
             .disposed(by: disposeBag)
 
-        refreshControl.rx.valueChanged
+        refreshControl.rx.valueChanged.asDriver()
             .filter { refreshControl.isRefreshing }
-            .map { true }
-            .bind(to: viewModel.refreshTrigger)
+            .drive(viewModel.refreshTrigger)
             .disposed(by: disposeBag)
 
-        viewModel.loading
+        viewModel.loading.asDriver()
             .filter { !$0  && refreshControl.isRefreshing }
             .drive(onNext: { _ in refreshControl.endRefreshing() })
             .disposed(by: disposeBag)
@@ -125,6 +118,11 @@ class SearchRepositoriesController: UIViewController {
                 self?.emptyStateLabel.text = (self?.searchBar.text?.isEmpty ?? true) ? Constants.noTextMessage : Constants.noRepositoriesMessage
             })
             .disposed(by: disposeBag)
+        
+        Driver.just(())
+            .drive(viewModel.refreshTrigger)
+            .disposed(by: disposeBag)
+
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -48,8 +48,7 @@ class RepositoryReleasesController: RepositoryBaseController {
         emptyStateLabel.text = "No releases found"
         let refreshControl = self.refreshControl
 
-        rx.sentMessage(#selector(RepositoryForksController.viewWillAppear(_:)))
-            .map { _ in false }
+        rx.viewWillAppear.take(1)
             .bind(to: viewModel.refreshTrigger)
             .disposed(by: disposeBag)
 
@@ -57,7 +56,7 @@ class RepositoryReleasesController: RepositoryBaseController {
             .bind(to: viewModel.loadNextPageTrigger)
             .disposed(by: disposeBag)
 
-        viewModel.loading
+        viewModel.loading.asDriver()
             .drive(activityIndicatorView.rx.isAnimating)
             .disposed(by: disposeBag)
 
@@ -69,13 +68,12 @@ class RepositoryReleasesController: RepositoryBaseController {
             }
             .disposed(by: disposeBag)
 
-        refreshControl.rx.valueChanged
+        refreshControl.rx.valueChanged.asDriver()
             .filter { refreshControl.isRefreshing }
-            .map { true }
-            .bind(to: viewModel.refreshTrigger)
+            .drive(viewModel.refreshTrigger)
             .disposed(by: disposeBag)
 
-        viewModel.loading
+        viewModel.loading.asDriver()
             .filter { !$0 && refreshControl.isRefreshing }
             .drive(onNext: { _ in refreshControl.endRefreshing() })
             .disposed(by: disposeBag)

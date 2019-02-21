@@ -48,8 +48,7 @@ class RepositoryStargazersController: RepositoryBaseController {
         tableView.addSubview(self.refreshControl)
         let refreshControl = self.refreshControl
 
-        rx.sentMessage(#selector(RepositoryForksController.viewWillAppear(_:)))
-            .map { _ in false }
+        rx.viewWillAppear.take(1)
             .bind(to: viewModel.refreshTrigger)
             .disposed(by: disposeBag)
 
@@ -57,7 +56,7 @@ class RepositoryStargazersController: RepositoryBaseController {
             .bind(to: viewModel.loadNextPageTrigger)
             .disposed(by: disposeBag)
 
-        viewModel.loading
+        viewModel.loading.asDriver()
             .drive(activityIndicatorView.rx.isAnimating)
             .disposed(by: disposeBag)
 
@@ -70,11 +69,10 @@ class RepositoryStargazersController: RepositoryBaseController {
 
         refreshControl.rx.valueChanged
             .filter { refreshControl.isRefreshing }
-            .map { true }
             .bind(to: viewModel.refreshTrigger)
             .disposed(by: disposeBag)
 
-        viewModel.loading
+        viewModel.loading.asDriver()
             .filter { !$0 && refreshControl.isRefreshing }
             .drive(onNext: { _ in refreshControl.endRefreshing() })
             .disposed(by: disposeBag)
