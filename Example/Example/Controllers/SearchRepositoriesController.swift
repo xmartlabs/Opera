@@ -92,7 +92,7 @@ class SearchRepositoriesController: UIViewController {
         searchBar.rx.text.asDriver()
             .filter { !$0!.isEmpty }
             .map { str -> String in str ?? "" }
-            .throttle(0.25)
+            .debounce(0.25)
             .drive(viewModel.queryTrigger)
             .disposed(by: disposeBag)
 
@@ -102,15 +102,21 @@ class SearchRepositoriesController: UIViewController {
             .drive(viewModel.elements)
             .disposed(by: disposeBag)
 
-        refreshControl.rx.valueChanged.asDriver()
+        self.refreshControl.rx.valueChanged.asDriver()
             .filter { refreshControl.isRefreshing }
             .drive(viewModel.refreshTrigger)
             .disposed(by: disposeBag)
 
         viewModel.loading.asDriver()
-            .filter { !$0  && refreshControl.isRefreshing }
-            .drive(onNext: { _ in refreshControl.endRefreshing() })
+            .filter { !$0 }
+            .drive(onNext: { _ in
+                refreshControl.endRefreshing()
+            })
             .disposed(by: disposeBag)
+        
+        viewModel.errors.drive { error in
+            print(error)
+        }
 
         Driver.combineLatest(viewModel.emptyState, searchBar.rx.text.asDriver().throttle(0.25)) { $0 ||  $1!.isEmpty }
             .drive(onNext: { [weak self] state in
@@ -119,10 +125,6 @@ class SearchRepositoriesController: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        Driver.just(())
-            .drive(viewModel.refreshTrigger)
-            .disposed(by: disposeBag)
-
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

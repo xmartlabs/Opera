@@ -82,17 +82,17 @@ open class PaginationViewModel<PaginationRequest: PaginationRequestType>
     public init(paginationRequest: PaginationRequest) {
         self.paginationRequest = paginationRequest
         
+        var _paginationRequest = paginationRequest
         self.loadAction = Action { input in
-            var request = paginationRequest
             switch input {
             case .page(let page):
-                request = paginationRequest.routeWithPage(page)
+                _paginationRequest = _paginationRequest.routeWithPage(page)
             case .query(let query):
-                request = paginationRequest.routeWithQuery(query)
+                _paginationRequest = _paginationRequest.routeWithQuery(query)
             case .filter(let filter):
-                request = paginationRequest.routeWithFilter(filter)
+                _paginationRequest = _paginationRequest.routeWithFilter(filter)
             }
-            return request.rx.collection.asObservable()
+            return _paginationRequest.rx.collection.asObservable()
         }
         
         self.errors = loadAction.errors
@@ -118,7 +118,6 @@ open class PaginationViewModel<PaginationRequest: PaginationRequestType>
         
         loadAction.executing
             .asDriver(onErrorJustReturn: false)
-            .distinctUntilChanged()
             .drive(self.loading)
             .disposed(by: disposeBag)
         
@@ -128,9 +127,10 @@ open class PaginationViewModel<PaginationRequest: PaginationRequestType>
             .disposed(by: disposeBag)
         
         
-        
         self.refreshTrigger
-            .map { _ in LoadActionInput.page(page: "1") }
+            .map { _ in
+                return LoadActionInput.page(page: "1")
+            }
             .bind(to: self.loadAction.inputs)
             .disposed(by: disposeBag)
         
@@ -151,57 +151,25 @@ open class PaginationViewModel<PaginationRequest: PaginationRequestType>
             .bind(to: self.loadAction.inputs)
             .disposed(by: disposeBag)
         
-        
-        Driver.combineLatest(loadAction.executing.asDriver(onErrorJustReturn: false).distinctUntilChanged(), loadAction.elements.map { $0.nextPage ?? "1" }.asDriver(onErrorJustReturn: self.fullloading.value.1).startWith("1")).drive(self.fullloading)
+        Driver.combineLatest(loadAction.executing.asDriver(onErrorDriveWith: .empty()).distinctUntilChanged(),  loadAction.inputs.asDriver(onErrorJustReturn: LoadActionInput.page(page: "1")).map {
+            switch $0 {
+            case .page(let page):
+                return page
+            case .query(_), .filter(_):
+                return "1"
+            }
+        }).drive(self.fullloading)
         .disposed(by: disposeBag)
         
     }
-
-
-//    fileprivate func bindPaginationRequest(_ paginationRequest: PaginationRequest, nextPage: String?) {
-//        self.paginationRequest = paginationRequest
-
-
-//        let nextPageRequest = loadNextPageTrigger
-//            .take(1)
-//            .flatMap { _ in nextPage.map {
-//                    Observable.of(paginationRequest.routeWithPage($0))
-//                } ?? Observable.empty()
-//            }
-
-//        let request = Observable
-//            .of(refreshRequest, nextPageRequest)
-//            .merge()
-//            .take(1)
-//            .share(replay: 1, scope: .forever)
-
-//        let response = request
-//            .flatMap { $0.rx.collection }
-//            .share(replay: 1, scope: .forever)
     
-        
-
-//        Observable
-//            .of(
-//                request.map { (true, $0.page) },
-//                response.map { (false, $0.page ?? "1") }
-//                    .catchErrorJustReturn((false, fullloading.value.1))
-//            )
-//            .merge()
-//            .bind(to: fullloading)
-//            .disposed(by: disposeBag)
 }
 
 extension PaginationViewModel {
 
-    /// Emits items indicating when start and complete requests.
-//    public var loading: Driver<Bool> {
-//        return fullloading.asDriver().map { $0.0 }.distinctUntilChanged()
-//    }
-
     /// Emits items indicating when first page request starts and completes.
     public var firstPageLoading: Driver<Bool> {
-        return fullloading.asDriver().filter { $0.1 == "1" }.map { $0.0 }.distinctUntilChanged()
+        return fullloading.asDriver().filter { $0.1 == "1" }.map { $0.0 }
     }
     
     /// Emits items to show/hide a empty state view
