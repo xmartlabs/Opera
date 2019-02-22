@@ -61,7 +61,7 @@ open class PaginationViewModel<PaginationRequest: PaginationRequestType>
     //  hasNextPage value is the result of getting next link relation from latest response.
     public let hasNextPage = BehaviorRelay<Bool>(value: false)
     /// Indicates is there is a request in progress and what is the request page.
-    public let fullloading = BehaviorRelay<LoadingType>(value: (false, "1"))
+    public let fullloading = BehaviorRelay<LoadingType>(value: (false, Default.firstPageParameterValue))
     
     public let loading = BehaviorRelay<Bool>(value: false)
     
@@ -106,11 +106,12 @@ open class PaginationViewModel<PaginationRequest: PaginationRequestType>
                 }
             }
         
+        let fistPageValue = (self.paginationRequest as? PaginationRequestTypeSettings)?.firstPageParameterValue ?? Default.firstPageParameterValue
         loadAction
             .elements
             .asDriver(onErrorDriveWith: .empty())
             .scan([]) {
-                $1.page == "1" ? $1.elements : $0 + $1.elements
+                $1.page == fistPageValue ? $1.elements : $0 + $1.elements
             }
             .startWith([])
             .drive(self.elements)
@@ -129,7 +130,7 @@ open class PaginationViewModel<PaginationRequest: PaginationRequestType>
         
         self.refreshTrigger
             .map { _ in
-                return LoadActionInput.page(page: "1")
+                return LoadActionInput.page(page: fistPageValue)
             }
             .bind(to: self.loadAction.inputs)
             .disposed(by: disposeBag)
@@ -151,12 +152,12 @@ open class PaginationViewModel<PaginationRequest: PaginationRequestType>
             .bind(to: self.loadAction.inputs)
             .disposed(by: disposeBag)
         
-        Driver.combineLatest(loadAction.executing.asDriver(onErrorDriveWith: .empty()).distinctUntilChanged(),  loadAction.inputs.asDriver(onErrorJustReturn: LoadActionInput.page(page: "1")).map {
+        Driver.combineLatest(loadAction.executing.asDriver(onErrorDriveWith: .empty()).distinctUntilChanged(),  loadAction.inputs.asDriver(onErrorJustReturn: LoadActionInput.page(page: fistPageValue)).map {
             switch $0 {
             case .page(let page):
                 return page
             case .query(_), .filter(_):
-                return "1"
+                return fistPageValue
             }
         }).drive(self.fullloading)
         .disposed(by: disposeBag)
@@ -169,7 +170,8 @@ extension PaginationViewModel {
 
     /// Emits items indicating when first page request starts and completes.
     public var firstPageLoading: Driver<Bool> {
-        return fullloading.asDriver().filter { $0.1 == "1" }.map { $0.0 }
+        let fistPageValue = (self.paginationRequest as? PaginationRequestTypeSettings)?.firstPageParameterValue ?? Default.firstPageParameterValue
+        return fullloading.asDriver().filter { $0.1 == fistPageValue }.map { $0.0 }
     }
     
     /// Emits items to show/hide a empty state view
