@@ -38,12 +38,13 @@ class ViewController: NSViewController {
     @IBOutlet weak var searchBar: NSSearchField!
     @IBOutlet weak var pageIndicator: NSTextField!
     @IBOutlet weak var emptyStateView: NSView!
-
+    @IBOutlet weak var refreshButton: NSButton!
+    @IBOutlet weak var showNextPageButton: NSButton!
+    
     var selectedRepository: Repository?
     var disposeBag = DisposeBag()
-    let changedPage = Variable<Bool>(false)
-    let refreshed = Variable<Bool>(false)
 
+    
     lazy var viewModel: PaginationViewModel<PaginationRequest<Repository>> = {
         return PaginationViewModel(paginationRequest: PaginationRequest(route: GithubAPI.Repository.Search(), collectionKeyPath: "items"))
     }()
@@ -79,7 +80,7 @@ class ViewController: NSViewController {
         searchBar.rx.text
             .filter { !$0!.isEmpty }
             .map { str -> String in str ?? "" }
-            .throttle(0.50, scheduler: MainScheduler.instance)
+            .debounce(0.50, scheduler: MainScheduler.instance)
             .bind(to: viewModel.queryTrigger)
             .disposed(by: disposeBag)
         
@@ -88,21 +89,25 @@ class ViewController: NSViewController {
             .map { _ in return [] }
             .bind(to: viewModel.elements)
             .disposed(by: disposeBag)
-
-        changedPage
-            .asObservable()
-            .skip(1)
-            .flatMap { _ -> Observable<Void> in
-                return Observable.just(())
-            }
-            .bind(to:viewModel.loadNextPageTrigger)
+        
+        refreshButton.rx.tap.asDriver()
+            .filter { [weak self] _ in self?.searchBar.stringValue.isEmpty == false }
+            .do(onNext: { [weak self] _ in
+                self?.pageIndicator.stringValue = "1"
+            })
+            .drive(viewModel.refreshTrigger)
             .disposed(by: disposeBag)
 
-        refreshed
-            .asObservable()
-            .skip(1)
-            .bind(to: viewModel.refreshTrigger)
+        showNextPageButton.rx.tap.asDriver()
+            .filter { [weak self] _ in self?.searchBar.stringValue.isEmpty == false }
+            .do(onNext: { [weak self] str in
+                self?.pageIndicator.stringValue = String(Int(self?.pageIndicator.stringValue ?? "1")! + 1)
+            })
+            .drive(viewModel.loadNextPageTrigger)
             .disposed(by: disposeBag)
+        
+//
+//        pageIndicator.stringValue = "1"
 
         //Load the table when its needed
         Driver.combineLatest(viewModel.elements.asDriver(), viewModel.firstPageLoading, searchBar.rx.text.asDriver()) { elements, loading, searchText in
@@ -126,24 +131,6 @@ class ViewController: NSViewController {
                 self?.pageIndicator.stringValue = "1"
             })
             .disposed(by: disposeBag)
-    }
-
-    @IBAction func getNextPage(_ sender: AnyObject) {
-        guard !searchBar.stringValue.isEmpty else {
-            return
-        }
-
-        changedPage.value = true
-        pageIndicator.stringValue = String(Int(pageIndicator.stringValue)! + 1)
-    }
-
-    @IBAction func refresh(_ sender: AnyObject) {
-        guard !searchBar.stringValue.isEmpty else {
-            return
-        }
-
-        refreshed.value = true
-        pageIndicator.stringValue = "1"
     }
 
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {

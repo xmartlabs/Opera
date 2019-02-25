@@ -688,28 +688,22 @@
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zER-rn-zsg">
                                 <rect key="frame" x="403" y="13" width="137" height="32"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="125" id="kfC-Bo-dB0"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="kfC-Bo-dB0"/>
                                 </constraints>
                                 <buttonCell key="cell" type="push" title="Show next page" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="BH0-aK-Rhz">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
-                                <connections>
-                                    <action selector="getNextPage:" target="XfG-lQ-9wD" id="tPP-K5-Ca7"/>
-                                </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ak4-Ey-aoA">
                                 <rect key="frame" x="14" y="13" width="87" height="32"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="75" id="Nxc-UW-q5L"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="70" id="Nxc-UW-q5L"/>
                                 </constraints>
                                 <buttonCell key="cell" type="push" title="Refresh" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="jx8-mt-pU1">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
-                                <connections>
-                                    <action selector="refresh:" target="XfG-lQ-9wD" id="yEl-mc-two"/>
-                                </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HhF-Em-Kq1">
                                 <rect key="frame" x="272" y="24" width="10" height="17"/>
@@ -786,7 +780,7 @@
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView id="Bka-Ub-bzh">
-                                                            <rect key="frame" x="250.5" y="1" width="250" height="17"/>
+                                                            <rect key="frame" x="251" y="1" width="250" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="XbY-i3-whq">
@@ -881,6 +875,7 @@
                                     <constraint firstItem="Mn8-Yu-aQp" firstAttribute="top" secondItem="BcL-53-lcQ" secondAttribute="bottom" constant="3" id="L5f-4S-cq5"/>
                                     <constraint firstAttribute="trailing" secondItem="Mn8-Yu-aQp" secondAttribute="trailing" constant="20" id="WNA-iW-F6U"/>
                                     <constraint firstAttribute="height" constant="96" id="bbh-Oy-AD0"/>
+                                    <constraint firstItem="BcL-53-lcQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="cSQ-ak-khX" secondAttribute="leading" constant="20" symbolic="YES" id="fcQ-WQ-5SX"/>
                                     <constraint firstAttribute="bottom" secondItem="Mn8-Yu-aQp" secondAttribute="bottom" constant="28" id="ged-6U-6Hm"/>
                                     <constraint firstItem="BcL-53-lcQ" firstAttribute="top" secondItem="cSQ-ak-khX" secondAttribute="top" constant="10" id="gr5-j9-SqB"/>
                                     <constraint firstAttribute="trailing" secondItem="BcL-53-lcQ" secondAttribute="trailing" constant="64" id="i29-ye-sDt"/>
@@ -919,7 +914,9 @@
                     <connections>
                         <outlet property="emptyStateView" destination="cSQ-ak-khX" id="Bm1-D0-YTt"/>
                         <outlet property="pageIndicator" destination="HhF-Em-Kq1" id="Rm5-88-2AE"/>
+                        <outlet property="refreshButton" destination="ak4-Ey-aoA" id="fvN-yM-1Sk"/>
                         <outlet property="searchBar" destination="f87-m3-ine" id="2kM-GO-ymo"/>
+                        <outlet property="showNextPageButton" destination="zER-rn-zsg" id="bdJ-fO-Kz2"/>
                         <outlet property="tableView" destination="6YB-9v-7eY" id="8HM-zi-2ak"/>
                         <segue destination="w9r-Bn-fpO" kind="show" identifier="showInfo" id="4AI-qH-mQ3"/>
                     </connections>
