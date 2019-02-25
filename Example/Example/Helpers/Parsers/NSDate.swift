@@ -1,7 +1,7 @@
 //  NSDate.swift
-//  Example-iOS ( https://github.com/xmartlabs/Example-iOS )
+//  Example-iOS 
 //
-//  Copyright (c) 2016 Xmartlabs SRL ( http://xmartlabs.com )
+//  Copyright (c) 2019 Xmartlabs SRL ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,21 +23,7 @@
 // THE SOFTWARE.
 
 import Foundation
-import Decodable
 import OperaSwift
-import SwiftDate
-
-extension Date {
-
-    public static func decode(_ json: Any) throws -> Date {
-        let string = try String.decode(json)
-        guard let date = string.date(format: DateFormat.iso8601(options: ISO8601DateTimeFormatter.Options.withFullTime))?.absoluteDate else {
-            throw DecodingError.typeMismatch(expected: Date.self, actual: String.self, DecodingError.Metadata(object: json))
-        }
-        return self.init(timeIntervalSince1970: date.timeIntervalSince1970)
-    }
-
-}
 
 extension Date {
 
@@ -46,5 +32,4 @@ extension Date {
         formatter.dateFormat = "dd/MM/YYYY"
         return formatter.string(from: self)
     }
-
 }

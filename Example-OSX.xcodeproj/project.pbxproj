@@ -7,10 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2802F23D2209F51A002C5505 /* KeyedDecodingContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2802F23C2209F51A002C5505 /* KeyedDecodingContainer.swift */; };
 		287137671F83FF4700259A30 /* OperaSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AB33E3F1E673E1600344F77 /* OperaSwift.framework */; };
 		2871376B1F84003B00259A30 /* SwiftDate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 287137691F83FFCB00259A30 /* SwiftDate.framework */; };
-		2871376C1F84003B00259A30 /* ObjectMapper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2871376A1F83FFD500259A30 /* ObjectMapper.framework */; };
-		2871376D1F84003B00259A30 /* Decodable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 287137681F83FFBC00259A30 /* Decodable.framework */; };
 		2871376E1F8400EA00259A30 /* repoinfo.json in Resources */ = {isa = PBXBuildFile; fileRef = 287137651F83F50300259A30 /* repoinfo.json */; };
 		287137721F84049500259A30 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 287137711F84049400259A30 /* Alamofire.framework */; };
 		287137791F840EDE00259A30 /* RouteType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287137781F840EDE00259A30 /* RouteType.swift */; };
@@ -63,13 +62,6 @@
 			remoteGlobalIDString = 5468B3F51CB82EE600D0643E;
 			remoteInfo = "OperaSwift-tvOS";
 		};
-		1AB33E441E673E1600344F77 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D2488E7F1CC54143000062F4 /* OperaSwift.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 5468B3FE1CB82EE600D0643E;
-			remoteInfo = "OperaSwift-tvOSTests";
-		};
 		1AB33E461E673E1600344F77 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D2488E7F1CC54143000062F4 /* OperaSwift.xcodeproj */;
@@ -93,8 +85,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2802F23C2209F51A002C5505 /* KeyedDecodingContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = KeyedDecodingContainer.swift; path = "Example-OSX/Helpers/KeyedDecodingContainer.swift"; sourceTree = "<group>"; };
 		287137651F83F50300259A30 /* repoinfo.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = repoinfo.json; sourceTree = "<group>"; };
-		287137681F83FFBC00259A30 /* Decodable.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Decodable.framework; path = Carthage/Build/Mac/Decodable.framework; sourceTree = "<group>"; };
 		287137691F83FFCB00259A30 /* SwiftDate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftDate.framework; path = Carthage/Build/Mac/SwiftDate.framework; sourceTree = "<group>"; };
 		2871376A1F83FFD500259A30 /* ObjectMapper.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ObjectMapper.framework; path = Carthage/Build/Mac/ObjectMapper.framework; sourceTree = "<group>"; };
 		287137711F84049400259A30 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/Mac/Alamofire.framework; sourceTree = "<group>"; };
@@ -124,8 +116,6 @@
 				2871377F1F84139D00259A30 /* RxCocoa.framework in Frameworks */,
 				287137721F84049500259A30 /* Alamofire.framework in Frameworks */,
 				287137671F83FF4700259A30 /* OperaSwift.framework in Frameworks */,
-				2871376D1F84003B00259A30 /* Decodable.framework in Frameworks */,
-				2871376C1F84003B00259A30 /* ObjectMapper.framework in Frameworks */,
 				2871376B1F84003B00259A30 /* SwiftDate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -141,7 +131,6 @@
 				1AB33E3F1E673E1600344F77 /* OperaSwift.framework */,
 				1AB33E411E673E1600344F77 /* OperaSwift-OSXTests.xctest */,
 				1AB33E431E673E1600344F77 /* OperaSwift.framework */,
-				1AB33E451E673E1600344F77 /* OperaSwift-tvOSTests.xctest */,
 				1AB33E471E673E1600344F77 /* OperaSwift.framework */,
 			);
 			name = Products;
@@ -155,7 +144,6 @@
 				287137711F84049400259A30 /* Alamofire.framework */,
 				2871376A1F83FFD500259A30 /* ObjectMapper.framework */,
 				287137691F83FFCB00259A30 /* SwiftDate.framework */,
-				287137681F83FFBC00259A30 /* Decodable.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -209,6 +197,7 @@
 				2871377A1F8410A200259A30 /* AuthAdapter.swift */,
 				D2488E971CC541A9000062F4 /* Manager.swift */,
 				287137781F840EDE00259A30 /* RouteType.swift */,
+				2802F23C2209F51A002C5505 /* KeyedDecodingContainer.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -250,12 +239,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Federico Ojeda";
 				TargetAttributes = {
 					D2488DF11CC53A44000062F4 = {
 						CreatedOnToolsVersion = 7.3;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 1010;
 					};
 				};
 			};
@@ -319,13 +308,6 @@
 			remoteRef = 1AB33E421E673E1600344F77 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		1AB33E451E673E1600344F77 /* OperaSwift-tvOSTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "OperaSwift-tvOSTests.xctest";
-			remoteRef = 1AB33E441E673E1600344F77 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		1AB33E471E673E1600344F77 /* OperaSwift.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -358,15 +340,17 @@
 				"$(SRCROOT)/Carthage/Build/Mac/Alamofire.framework",
 				"$(SRCROOT)/Carthage/Build/Mac/RxSwift.framework",
 				"$(SRCROOT)/Carthage/Build/Mac/RxCocoa.framework",
-				"$(SRCROOT)/Carthage/Build/Mac/Decodable.framework",
 				"$(SRCROOT)/Carthage/Build/Mac/SwiftDate.framework",
-				"$(SRCROOT)/Carthage/Build/Mac/ObjectMapper.framework",
 			);
 			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Alamofire.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxSwift.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/RxCocoa.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftDate.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -376,6 +360,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D2488E3B1CC53BFD000062F4 /* RepositoryRoutes.swift in Sources */,
+				2802F23D2209F51A002C5505 /* KeyedDecodingContainer.swift in Sources */,
 				D2488DF81CC53A44000062F4 /* ViewController.swift in Sources */,
 				D2488DF61CC53A44000062F4 /* AppDelegate.swift in Sources */,
 				287137791F840EDE00259A30 /* RouteType.swift in Sources */,
@@ -414,12 +399,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -476,12 +463,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -524,9 +513,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Example-OSX/Example-OSX/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.xmartlabs.Example-OSX";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -536,9 +526,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Example-OSX/Example-OSX/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.xmartlabs.Example-OSX";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};

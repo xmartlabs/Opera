@@ -1,7 +1,7 @@
 //  Commit.swift
-//  Example-iOS ( https://github.com/xmartlabs/Example-iOS )
+//  Example-iOS 
 //
-//  Copyright (c) 2016 Xmartlabs SRL ( http://xmartlabs.com )
+//  Copyright (c) 2019 Xmartlabs SRL ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,8 +24,6 @@
 
 import Foundation
 import OperaSwift
-import protocol Decodable.Decodable
-import Decodable
 
 struct Commit {
 
@@ -34,18 +32,37 @@ struct Commit {
     let author: String
     let date: Date
     let message: String
-
 }
 
-extension Commit: OperaDecodable, Decodable {
-
-    static func decode(_ json: Any) throws -> Commit {
-        return try Commit(  sha: json => "sha",
-              url: URL(string: json => "url")!,
-                         author: json => ["commit", "author", "name"],
-                           date: json => ["commit", "author", "date"],
-                        message: json => ["commit", "message"])
-
+extension Commit: Decodable {
+ 
+    init(from decoder: Decoder) throws {
+        
+        enum CodingKeys: String, CodingKey {
+            case sha
+            case url
+            case commitInfo = "commit"
+        }
+        
+        enum CommitKeys: String, CodingKey {
+            case message
+            case authorInfo = "author"
+        }
+        
+        enum AuthorKeys: String, CodingKey {
+            case name
+            case date
+        }
+        
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.sha = try container.decode(.sha)
+        self.url = try container.decode(.url)
+        let commitContainer = try container.nestedContainer(keyedBy: CommitKeys.self, forKey: .commitInfo)
+        self.message = try commitContainer.decode(.message)
+        let authorContainer = try commitContainer.nestedContainer(keyedBy: AuthorKeys.self, forKey: .authorInfo)
+        self.author = try authorContainer.decode(.name)
+        self.date = try authorContainer.decode(.date)
     }
-
 }
+
+extension Commit: OperaDecodable {}

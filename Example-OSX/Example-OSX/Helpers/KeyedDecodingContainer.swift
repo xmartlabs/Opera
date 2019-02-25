@@ -1,7 +1,7 @@
-//  ObjectMapperDecodable.swift
-//  Example-iOS ( https://github.com/xmartlabs/Example-iOS )
+//  KeyedDecodingContainer.swift
+//  Example-iOX ( https://github.com/xmartlabs/Example-iOS )
 //
-//  Copyright (c) 2016 Xmartlabs SRL ( http://xmartlabs.com )
+//  Copyright (c) 2019 Xmartlabs SRL ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -22,24 +22,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+
 import Foundation
-import OperaSwift
-import ObjectMapper
 
-extension Mappable where Self: OperaDecodable {
-
-    static func decode(_ json: Any) throws -> Self {
-        guard let jsonData = json as? [String: Any] else { throw OperaError.parsing(error: "Data is not JSON formatted", request: nil, response: nil, json: json) }
-        let map = Map(mappingType: MappingType.fromJSON, JSON: jsonData, toObject: true)
-        if var decoded = Self.init(map: map) {
-            decoded.mapping(map: map)
-            return decoded
-        } else {
-            throw OperaError.parsing(error: "Object could not be parsed from JSON data", request: nil, response: nil, json: json)
-        }
+extension KeyedDecodingContainer {
+    
+    public func decode<T: Decodable>(_ key: Key, as type: T.Type = T.self) throws -> T {
+        return try self.decode(T.self, forKey: key)
     }
-
-}
-
-extension String: Error {
+    
+    public func decodeIfPresent<T: Decodable>(_ key: Key) throws -> T? {
+        return try decodeIfPresent(T.self, forKey: key)
+    }
 }

@@ -2,9 +2,26 @@
 //  ManagerType+Rx.swift
 //  Opera
 //
-//  Created by Martin Barreto on 6/17/16.
+//  Copyright (c) 2019 Xmartlabs SRL ( http://xmartlabs.com )
 //
 //
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
 
 import Alamofire
 import Foundation
@@ -132,102 +149,6 @@ extension Reactive where Base: RxManager {
     func completableResponse(_ requestConvertible: URLRequestConvertible) -> Completable {
         return base.completableResponse(requestConvertible)
     }
-
-    // MARK: - Mocks
-
-    /**
-     Returns a `Single` of T for the current RouteType. Notice that T conforms to OperaDecodable. If something goes wrong an `OperaSwift.Error` error is propagated through the result sequence.
-
-     - parameter keyPath: keyPath to look up json object to serialize. Ignore parameter or pass nil when json object is the json root item.
-
-     - returns: An instance of `Single<T>` filled with sample data specified on the RouteType.
-     */
-    func sampleObject<T: OperaDecodable>(_ route: RouteType, keyPath: String? = nil) -> Single<T> {
-        guard let json = JSONFrom(data: route.mockedData) else {
-            return Single.error(DecodingError.invalidMockedJson)
-        }
-        let object = keyPath.map({ (json as AnyObject).value(forKeyPath: $0) as Any}) ?? json
-        do {
-            let decodedData = try T.decode(object as Any)
-            return Single.just(decodedData)
-        } catch let error {
-            return Single.error(error)
-        }
-    }
-
-    /**
-     Returns a `Single` of [T] for for the current RouteType. Notice that T conforms to OperaDecodable. If something goes wrong an `OperaSwift.Error` error is propagated through the result sequence.
-
-     - parameter collectionKeyPath: keyPath to look up json array to serialize. Ignore parameter or pass nil when json array is the json root item.
-
-     - returns: An instance of `Single<[T]>`  filled with sample data specified on the RouteType.
-     */
-    func sampleCollection<T: OperaDecodable>(_ route: RouteType, collectionKeyPath: String? = nil) -> Single<[T]> {
-        guard let json = JSONFrom(data: route.mockedData) else {
-            return Single.error(DecodingError.invalidMockedJson)
-        }
-        guard
-            let representation = (collectionKeyPath.map { (json as AnyObject).value(forKeyPath: $0) as Any } ?? json) as? [[String: AnyObject]]
-        else {
-            return Single.error(DecodingError.invalidJson("Could not find keypath on the decoded json"))
-        }
-
-        var result = [T]()
-        representation.forEach {
-            if let decodedData = try? T.decode($0 as AnyObject) {
-                result.append(decodedData)
-            }
-        }
-        return Single.just(result)
-    }
-
-    /**
-     Returns a `Single` sequence for the current request using the specified mocks. If something goes wrong an `OperaSwift.Error` error is propagated through the result sequence.
-
-     - returns: An instance of `Single<Any>`
-     */
-    func sampleAny(_ route: RouteType) -> Single<Any> {
-        guard let json = JSONFrom(data: route.mockedData) else {
-            return Single.error(DecodingError.invalidMockedJson)
-        }
-        return Single.just(json as Any)
-    }
-
-    /**
-     Returns an empty `Completable` sequence for the current request. No networking call is done as this is supposed to be used as part of a mocked response
-
-     - returns: An instance of `Completable`
-     */
-    func sampleCompletableResponse(_ route: RouteType) -> Completable {
-        return Completable.empty()
-    }
-
-    /**
-     Returns a `Single` of (OperaResponse?, T) for the current RouteType. Notice that T conforms to OperaDecodable. If something goes wrong an `OperaSwift.Error` error is propagated through the result sequence.
-
-     - parameter keyPath: keyPath to look up json object to serialize. Ignore parameter or pass nil when json object is the json root item.
-
-     - returns: An instance of `Single<(OperaResponse?, T)>` filled with sample data specified on the RouteType.
-     */
-    func sampleObjectResponse<T: OperaDecodable>(_ route: RouteType, keyPath: String? = nil) -> Single<OperaObjectResult<T>> {
-        return sampleObject(route, keyPath: keyPath).flatMap { object -> Single<OperaObjectResult<T>> in
-            return Single.just(OperaObjectResult(nil, object))
-        }
-    }
-
-    /**
-     Returns a `Single` of (OpeaResponse?, [T]) for for the current RouteType. Notice that T conforms to OperaDecodable. If something goes wrong an `OperaSwift.Error` error is propagated through the result sequence.
-
-     - parameter collectionKeyPath: keyPath to look up json array to serialize. Ignore parameter or pass nil when json array is the json root item.
-
-     - returns: An instance of `Single<(OpeaResponse?, [T])>`  filled with sample data specified on the RouteType.
-     */
-    func sampleCollectionResponse<T: OperaDecodable>(_ route: RouteType, collectionKeyPath: String? = nil) -> Single<OperaCollectionResult<T>> {
-        return sampleCollection(route, collectionKeyPath: collectionKeyPath).flatMap { collection -> Single<OperaCollectionResult<T>> in
-            return Single.just(OperaCollectionResult(nil, collection))
-        }
-    }
-
 }
 
 open class RxManager: Manager {

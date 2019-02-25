@@ -1,6 +1,5 @@
-//
-//  OperaResponse.swift
-//  Opera ( https://github.com/xmartlabs/Opera )
+//  KeyedDecodingContainer.swift
+//  Example-iOS 
 //
 //  Copyright (c) 2019 Xmartlabs SRL ( http://xmartlabs.com )
 //
@@ -25,35 +24,13 @@
 
 import Foundation
 
-/**
- *  The response object returned by a successful request
- */
-public struct OperaResponse {
-    public let statusCode: Int
-    public let data: Data
-    public let response: HTTPURLResponse?
-
-    // Initializer must be defined so that it is public and not internal
-    public init(statusCode: Int, data: Data, response: HTTPURLResponse?) {
-        self.statusCode = statusCode
-        self.data = data
-        self.response = response
+extension KeyedDecodingContainer {
+    
+    public func decode<T: Decodable>(_ key: Key, as type: T.Type = T.self) throws -> T {
+        return try self.decode(T.self, forKey: key)
     }
-
-}
-
-extension OperaResponse: CustomDebugStringConvertible, Equatable {
-    public var description: String {
-        return "Response Status Code: \(statusCode)"
+    
+    public func decodeIfPresent<T: Decodable>(_ key: Key) throws -> T? {
+        return try decodeIfPresent(T.self, forKey: key)
     }
-
-    public var debugDescription: String {
-        return description
-    }
-}
-
-public func == (lhs: OperaResponse, rhs: OperaResponse) -> Bool {
-    return lhs.statusCode == rhs.statusCode
-        && lhs.data == rhs.data
-        && lhs.response == rhs.response
 }

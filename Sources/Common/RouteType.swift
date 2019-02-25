@@ -1,7 +1,7 @@
 //  RouteType.swift
 //  Opera ( https://github.com/xmartlabs/Opera )
 //
-//  Copyright (c) 2016 Xmartlabs SRL ( http://xmartlabs.com )
+//  Copyright (c) 2019 Xmartlabs SRL ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -55,8 +55,6 @@ public protocol RouteType: URLRequestConvertible {
     var manager: ManagerType { get }
     /// Used to determine how often a request should be retried if unsuccessful
     var retryCount: Int { get }
-
-    var mockedData: Data? { get }
 }
 
 /**
@@ -98,10 +96,6 @@ extension RouteType {
         return nil
     }
 
-    public var mockedData: Data? {
-        return nil
-    }
-
     public func getJsonFromPath(path: String, bundle: Bundle? = nil) -> Data? {
         guard let path = (bundle ?? Bundle.main).path(forResource: path, ofType: "json") else {
             return nil
@@ -120,10 +114,6 @@ extension RouteType {
 }
 
 public enum DecodingError: Error {
-
-    static var invalidMockedJson: DecodingError {
-        return .invalidJson("The data provided for mocking could not be parsed to json")
-    }
 
     case invalidJson(String)
 

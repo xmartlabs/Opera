@@ -1,7 +1,7 @@
 //  User.swift
-//  Example-iOS ( https://github.com/xmartlabs/Example-iOS )
+//  Example-iOS 
 //
-//  Copyright (c) 2016 Xmartlabs SRL ( http://xmartlabs.com )
+//  Copyright (c) 2019 Xmartlabs SRL ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,8 +24,6 @@
 
 import Foundation
 import OperaSwift
-import protocol Decodable.Decodable
-import Decodable
 
 struct User {
 
@@ -34,18 +32,17 @@ struct User {
     let avatar: URL
     let type: String
     let contributions: Int
-
 }
 
-extension User: OperaDecodable, Decodable {
-
-    static func decode(_ json: Any) throws -> User {
-        return try User(  id: json => "id",
-                        user: json => "login",
-        avatar: URL(string: json => "avatar_url")!,
-                        type: json => "type",
-               contributions: json => "contributions")
-
+extension User: Decodable {
+    
+    private enum CodingKeys: String, CodingKey {
+        case id
+        case user = "login"
+        case avatar = "avatar_url"
+        case type
+        case contributions
     }
-
 }
+
+extension User: OperaDecodable {} 

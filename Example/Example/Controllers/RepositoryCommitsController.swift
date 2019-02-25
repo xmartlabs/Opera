@@ -1,7 +1,7 @@
 //  RepositoryCommitsController.swift
-//  Example-iOS ( https://github.com/xmartlabs/Example-iOS )
+//  Example-iOS 
 //
-//  Copyright (c) 2016 Xmartlabs SRL ( http://xmartlabs.com )
+//  Copyright (c) 2019 Xmartlabs SRL ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -28,6 +28,16 @@ import OperaSwift
 import RxSwift
 import RxCocoa
 
+extension Reactive where Base: UIViewController {
+    private func controlEvent(for selector: Selector) -> ControlEvent<Void> {
+        return ControlEvent(events: sentMessage(selector).map { _ in })
+    }
+    
+    var viewWillAppear: ControlEvent<Void> {
+        return controlEvent(for: #selector(UIViewController.viewWillAppear))
+    }
+}
+
 class RepositoryCommitsController: RepositoryBaseController {
 
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
@@ -48,16 +58,16 @@ class RepositoryCommitsController: RepositoryBaseController {
         emptyStateLabel.text = "No commits found"
         let refreshControl = self.refreshControl
 
-        rx.sentMessage(#selector(RepositoryForksController.viewWillAppear(_:)))
-            .map { _ in false }
-            .bind(to: viewModel.refreshTrigger)
+        rx.viewWillAppear
+            .asDriver()
+            .drive(viewModel.refreshTrigger)
             .disposed(by: disposeBag)
-
+        
         tableView.rx.reachedBottom
             .bind(to: viewModel.loadNextPageTrigger)
             .disposed(by: disposeBag)
 
-        viewModel.loading
+        viewModel.loading.asDriver()
             .drive(activityIndicatorView.rx.isAnimating)
             .disposed(by: disposeBag)
 
@@ -71,11 +81,10 @@ class RepositoryCommitsController: RepositoryBaseController {
 
         refreshControl.rx.valueChanged
             .filter { refreshControl.isRefreshing }
-            .map { true }
             .bind(to: viewModel.refreshTrigger)
             .disposed(by: disposeBag)
 
-        viewModel.loading
+        viewModel.loading.asDriver()
             .filter { !$0 && refreshControl.isRefreshing }
             .drive(onNext: { _ in refreshControl.endRefreshing() })
             .disposed(by: disposeBag)

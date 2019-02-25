@@ -1,7 +1,7 @@
 //  Branch.swift
-//  Example-iOS ( https://github.com/xmartlabs/Example-iOS )
+//  Example-iOS 
 //
-//  Copyright (c) 2016 Xmartlabs SRL ( http://xmartlabs.com )
+//  Copyright (c) 2019 Xmartlabs SRL ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,24 +24,31 @@
 
 import Foundation
 import OperaSwift
-import ObjectMapper
 
 struct Branch {
 
     var name: String?
     var commit: String?
-
 }
 
-extension Branch: OperaDecodable, Mappable {
-
-    init?(map: Map) {
-
+extension Branch: Decodable {
+    
+    init(from decoder: Decoder) throws {
+        
+        enum CodingKeys: String, CodingKey {
+            case name
+            case commit
+        }
+        
+        enum CommitKeys: String, CodingKey {
+            case commit = "sha"
+        }
+    
+        let container =  try decoder.container(keyedBy: CodingKeys.self)
+        self.name = try container.decode(.name)
+        let additionalInfoContainer = try container.nestedContainer(keyedBy: CommitKeys.self, forKey: .commit)
+        self.commit = try additionalInfoContainer.decode(.commit)
     }
-
-    mutating func mapping(map: Map) {
-        name    <- map["name"]
-        commit  <- map["commit.sha"]
-    }
-
 }
+
+extension Branch: OperaDecodable {}

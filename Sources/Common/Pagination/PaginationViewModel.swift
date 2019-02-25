@@ -1,7 +1,7 @@
 //  PaginationViewModel.swift
 //  Opera ( https://github.com/xmartlabs/Opera )
 //
-//  Copyright (c) 2016 Xmartlabs SRL ( http://xmartlabs.com )
+//  Copyright (c) 2019 Xmartlabs SRL ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -26,39 +26,51 @@ import Alamofire
 import Foundation
 import RxSwift
 import RxCocoa
+import Action
 
 /// Reactive View Model helper to load list of OperaDecodable items.
 open class PaginationViewModel<PaginationRequest: PaginationRequestType>
     where PaginationRequest.Response.Element: OperaDecodable {
+    
+    
+    private enum LoadActionInput {
+        case page(page: String)
+        case query(query: String)
+        case filter(filter: FilterType)
+    }
 
     /// pagination request
     var paginationRequest: PaginationRequest
     public typealias LoadingType = (Bool, String)
-
+    
     /// trigger a refresh, if emited item is true it will cancel pending 
     //  request and make a new one. if false it will
     //  not refresh if there is a request in progress.
-    open let refreshTrigger = PublishSubject<Bool>()
+    public let refreshTrigger = PublishSubject<Void>()
     /// trigger a next page load, it makes a new request for
     //  the nextPage value provided by lastest request sent to server.
-    open let loadNextPageTrigger = PublishSubject<Void>()
+    public let loadNextPageTrigger = PublishSubject<Void>()
     /// Cancel any in progress request and start a new one using the query string provided.
-    open let queryTrigger = PublishSubject<String>()
+    public let queryTrigger = PublishSubject<String>()
     /// Cancel any in progress request and start a new one using the filter parameters provided.
-    open let filterTrigger = PublishSubject<FilterType>()
+    public let filterTrigger = PublishSubject<FilterType>()
 
     /// Allows subscribers to get notified about networking errors
-    open let errors = PublishSubject<Error>()
+    public let errors: Driver<Error>
     /// Indicates if there is a next page to load. 
     //  hasNextPage value is the result of getting next link relation from latest response.
-    open let hasNextPage = Variable<Bool>(false)
+    public let hasNextPage = BehaviorRelay<Bool>(value: false)
     /// Indicates is there is a request in progress and what is the request page.
-    open let fullloading = Variable<LoadingType>((false, "1"))
+    public let fullloading = BehaviorRelay<LoadingType>(value: (false, Default.firstPageParameterValue))
+    
+    public let loading = BehaviorRelay<Bool>(value: false)
+    
     /// Elements array from first page up to latest fetched page.
-    open let elements = Variable<[PaginationRequest.Response.Element]>([])
+    public let elements = BehaviorRelay<[PaginationRequest.Response.Element]>(value: [])
+    
+    private let loadAction: Action<LoadActionInput, PaginationRequest.Response>
 
     fileprivate var disposeBag = DisposeBag()
-    fileprivate let queryDisposeBag = DisposeBag()
 
     /**
      Initialize a new PaginationViewModel instance.
@@ -69,130 +81,102 @@ open class PaginationViewModel<PaginationRequest: PaginationRequestType>
      */
     public init(paginationRequest: PaginationRequest) {
         self.paginationRequest = paginationRequest
-        bindPaginationRequest(self.paginationRequest, nextPage: nil)
-        setUpForceRefresh()
-    }
-
-    fileprivate func setUpForceRefresh() {
-
-        queryTrigger
-            .do(onNext: { [weak self] queryString in
-                guard let mySelf = self else { return }
-                mySelf.bindPaginationRequest(
-                    mySelf.paginationRequest.routeWithQuery(queryString),
-                    nextPage: nil
-                )
-            })
-            .map { _ in false }
-            .bind(to: refreshTrigger)
-            .disposed(by: queryDisposeBag)
-
-        refreshTrigger
-            .filter { $0 }
-            .do(onNext: { [weak self] _ in
-                guard let mySelf = self else { return }
-                mySelf.disposeBag = DisposeBag()
-                mySelf.bindPaginationRequest(
-                    mySelf.paginationRequest.routeWithPage("1"), nextPage: nil
-                )
-            })
-            .map { _ in false }
-            .bind(to: refreshTrigger)
-            .disposed(by: queryDisposeBag)
-
-        filterTrigger
-            .do(onNext: { [weak self] fitler in
-                guard let mySelf = self else { return }
-                mySelf.bindPaginationRequest(
-                    mySelf.paginationRequest.routeWithFilter(fitler),
-                    nextPage: nil
-                )
-            })
-            .map { _ in false }
-            .bind(to: refreshTrigger)
-            .disposed(by: queryDisposeBag)
-    }
-
-    fileprivate func bindPaginationRequest(_ paginationRequest: PaginationRequest, nextPage: String?) {
-        self.paginationRequest = paginationRequest
-        let refreshRequest = refreshTrigger
-            .filter { !$0 }
-            .take(1)
-            .map { _ in paginationRequest }
-
-        let nextPageRequest = loadNextPageTrigger
-            .take(1)
-            .flatMap { _ in nextPage.map {
-                    Observable.of(paginationRequest.routeWithPage($0))
-                } ?? Observable.empty()
+        
+        var _paginationRequest = paginationRequest
+        self.loadAction = Action { input in
+            switch input {
+            case .page(let page):
+                _paginationRequest = _paginationRequest.routeWithPage(page)
+            case .query(let query):
+                _paginationRequest = _paginationRequest.routeWithQuery(query)
+            case .filter(let filter):
+                _paginationRequest = _paginationRequest.routeWithFilter(filter)
             }
-
-        let request = Observable
-            .of(refreshRequest, nextPageRequest)
-            .merge()
-            .take(1)
-            .share(replay: 1, scope: .forever)
-
-        let response = request
-            .flatMap { $0.rx.collection }
-            .share(replay: 1, scope: .forever)
-
-        Observable
-            .of(
-                request.map { (true, $0.page) },
-                response.map { (false, $0.page ?? "1") }
-                    .catchErrorJustReturn((false, fullloading.value.1))
-            )
-            .merge()
-            .bind(to: fullloading)
-            .disposed(by: disposeBag)
-
-        Observable
-            .combineLatest(elements.asObservable(), response) { elements, response in
-                return response.hasPreviousPage ? elements + response.elements : response.elements
-            }
-            .take(1)
-            .bind(to: elements)
-            .disposed(by: disposeBag)
-
-        response
-            .map { $0.hasNextPage }
-            .bind(to: hasNextPage)
-            .disposed(by: disposeBag)
-
-        response
-            .do(onError: { [weak self] _ in
-                guard let mySelf = self else { return }
-                mySelf.bindPaginationRequest(
-                    mySelf.paginationRequest,
-                    nextPage: mySelf.fullloading.value.1)
+            return _paginationRequest.rx.collection.asObservable()
+        }
+        
+        self.errors = loadAction.errors
+            .asDriver(onErrorDriveWith: .empty())
+            .flatMap { error -> Driver<Error> in
+                switch error {
+                case .underlyingError(let error):
+                    return Driver.just(error)
+                case .notEnabled:
+                    return Driver.empty()
                 }
-            )
-            .subscribe(onNext: { [weak self] paginationResponse in
-                self?.bindPaginationRequest(
-                    paginationRequest,
-                    nextPage: paginationResponse.nextPage
-                )
-            })
+            }
+        
+        let fistPageValue = (self.paginationRequest as? PaginationRequestTypeSettings)?.firstPageParameterValue ?? Default.firstPageParameterValue
+        loadAction
+            .elements
+            .asDriver(onErrorDriveWith: .empty())
+            .scan([]) {
+                $1.page == fistPageValue ? $1.elements : $0 + $1.elements
+            }
+            .startWith([])
+            .drive(self.elements)
             .disposed(by: disposeBag)
+        
+        loadAction.executing
+            .asDriver(onErrorJustReturn: false)
+            .drive(self.loading)
+            .disposed(by: disposeBag)
+        
+        loadAction.elements.map { $0.hasNextPage }
+            .asDriver(onErrorJustReturn: self.hasNextPage.value)
+            .drive(self.hasNextPage)
+            .disposed(by: disposeBag)
+        
+        
+        self.refreshTrigger
+            .map { _ in
+                return LoadActionInput.page(page: fistPageValue)
+            }
+            .bind(to: self.loadAction.inputs)
+            .disposed(by: disposeBag)
+        
+        self.queryTrigger
+            .map { LoadActionInput.query(query: $0) }
+            .bind(to: self.loadAction.inputs)
+            .disposed(by: disposeBag)
+        
+        self.filterTrigger
+            .map { LoadActionInput.filter(filter: $0) }
+            .bind(to: self.loadAction.inputs)
+            .disposed(by: disposeBag)
+        
+
+        self.loadNextPageTrigger
+            .withLatestFrom(loadAction.elements)
+            .flatMap { $0.nextPage.map { return Observable.of(LoadActionInput.page(page: $0)) } ?? Observable.empty() }
+            .bind(to: self.loadAction.inputs)
+            .disposed(by: disposeBag)
+        
+        Driver.combineLatest(loadAction.executing.asDriver(onErrorDriveWith: .empty()).distinctUntilChanged(),  loadAction.inputs.asDriver(onErrorJustReturn: LoadActionInput.page(page: fistPageValue)).map {
+            switch $0 {
+            case .page(let page):
+                return page
+            case .query(_), .filter(_):
+                return fistPageValue
+            }
+        }).drive(self.fullloading)
+        .disposed(by: disposeBag)
+        
     }
+    
 }
 
 extension PaginationViewModel {
 
-    /// Emits items indicating when start and complete requests.
-    public var loading: Driver<Bool> {
-        return fullloading.asDriver().map { $0.0 }.distinctUntilChanged()
-    }
-
     /// Emits items indicating when first page request starts and completes.
     public var firstPageLoading: Driver<Bool> {
-        return fullloading.asDriver().filter { $0.1 == "1" }.map { $0.0 }
+        let fistPageValue = (self.paginationRequest as? PaginationRequestTypeSettings)?.firstPageParameterValue ?? Default.firstPageParameterValue
+        return fullloading.asDriver().filter { $0.1 == fistPageValue }.map { $0.0 }
     }
-
+    
     /// Emits items to show/hide a empty state view
     public var emptyState: Driver<Bool> {
-        return Driver.combineLatest(loading, elements.asDriver()) { (isLoading, elements) -> Bool in
+        return Driver.combineLatest(self.loading.asDriver(onErrorJustReturn: false), self.elements.asDriver()) { (isLoading, elements) -> Bool in
             return !isLoading && elements.isEmpty
         }
         .distinctUntilChanged()

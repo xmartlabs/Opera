@@ -1,3 +1,1 @@
-github "Anviking/Decodable" ~> 0.6
-github "Hearst-DD/ObjectMapper" ~> 3.0
-github "malcommac/SwiftDate" ~> 4.0
+github "malcommac/SwiftDate" ~> 5.0

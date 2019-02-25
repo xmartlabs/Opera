@@ -2,9 +2,26 @@
 //  ViewController.swift
 //  Example-OSX
 //
-//  Created by Federico Ojeda on 4/18/16.
-//  Copyright © 2016 Federico Ojeda. All rights reserved.
+//  Copyright (c) 2019 Xmartlabs SRL ( http://xmartlabs.com )
 //
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
 
 import Cocoa
 import RxSwift
@@ -21,12 +38,13 @@ class ViewController: NSViewController {
     @IBOutlet weak var searchBar: NSSearchField!
     @IBOutlet weak var pageIndicator: NSTextField!
     @IBOutlet weak var emptyStateView: NSView!
-
+    @IBOutlet weak var refreshButton: NSButton!
+    @IBOutlet weak var showNextPageButton: NSButton!
+    
     var selectedRepository: Repository?
     var disposeBag = DisposeBag()
-    let changedPage = Variable<Bool>(false)
-    let refreshed = Variable<Bool>(false)
 
+    
     lazy var viewModel: PaginationViewModel<PaginationRequest<Repository>> = {
         return PaginationViewModel(paginationRequest: PaginationRequest(route: GithubAPI.Repository.Search(), collectionKeyPath: "items"))
     }()
@@ -55,14 +73,14 @@ class ViewController: NSViewController {
             return
         }
         selectedRepository = viewModel.elements.value[tableView.selectedRow]
-        performSegue(withIdentifier: NSStoryboardSegue.Identifier(rawValue: SegueIdentifiers.ShowInformationSegue), sender: nil)
+        performSegue(withIdentifier: SegueIdentifiers.ShowInformationSegue, sender: nil)
     }
 
     fileprivate func setupTableView() {
         searchBar.rx.text
             .filter { !$0!.isEmpty }
             .map { str -> String in str ?? "" }
-            .throttle(0.50, scheduler: MainScheduler.instance)
+            .debounce(0.50, scheduler: MainScheduler.instance)
             .bind(to: viewModel.queryTrigger)
             .disposed(by: disposeBag)
         
@@ -71,22 +89,23 @@ class ViewController: NSViewController {
             .map { _ in return [] }
             .bind(to: viewModel.elements)
             .disposed(by: disposeBag)
-
-        changedPage
-            .asObservable()
-            .skip(1)
-            .flatMap { _ -> Observable<Void> in
-                return Observable.just(())
-            }
-            .bind(to:viewModel.loadNextPageTrigger)
+        
+        refreshButton.rx.tap.asDriver()
+            .filter { [weak self] _ in self?.searchBar.stringValue.isEmpty == false }
+            .do(onNext: { [weak self] _ in
+                self?.pageIndicator.stringValue = "1"
+            })
+            .drive(viewModel.refreshTrigger)
             .disposed(by: disposeBag)
 
-        refreshed
-            .asObservable()
-            .skip(1)
-            .bind(to: viewModel.refreshTrigger)
+        showNextPageButton.rx.tap.asDriver()
+            .filter { [weak self] _ in self?.searchBar.stringValue.isEmpty == false }
+            .do(onNext: { [weak self] str in
+                self?.pageIndicator.stringValue = String(Int(self?.pageIndicator.stringValue ?? "1")! + 1)
+            })
+            .drive(viewModel.loadNextPageTrigger)
             .disposed(by: disposeBag)
-
+        
         //Load the table when its needed
         Driver.combineLatest(viewModel.elements.asDriver(), viewModel.firstPageLoading, searchBar.rx.text.asDriver()) { elements, loading, searchText in
             return loading || searchText!.isEmpty ? [] : elements
@@ -109,24 +128,6 @@ class ViewController: NSViewController {
                 self?.pageIndicator.stringValue = "1"
             })
             .disposed(by: disposeBag)
-    }
-
-    @IBAction func getNextPage(_ sender: AnyObject) {
-        guard !searchBar.stringValue.isEmpty else {
-            return
-        }
-
-        changedPage.value = true
-        pageIndicator.stringValue = String(Int(pageIndicator.stringValue)! + 1)
-    }
-
-    @IBAction func refresh(_ sender: AnyObject) {
-        guard !searchBar.stringValue.isEmpty else {
-            return
-        }
-
-        refreshed.value = true
-        pageIndicator.stringValue = "1"
     }
 
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {

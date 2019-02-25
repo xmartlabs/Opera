@@ -1,7 +1,7 @@
 //  Helpers-iOS.swift
 //  Opera ( https://github.com/xmartlabs/Opera )
 //
-//  Copyright (c) 2016 Xmartlabs SRL ( http://xmartlabs.com )
+//  Copyright (c) 2019 Xmartlabs SRL ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy

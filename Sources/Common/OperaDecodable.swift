@@ -1,7 +1,7 @@
 //  OperaDecodable.swift
 //  Opera ( https://github.com/xmartlabs/Opera )
 //
-//  Copyright (c) 2016 Xmartlabs SRL ( http://xmartlabs.com )
+//  Copyright (c) 2019 Xmartlabs SRL  ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -31,8 +31,7 @@ import Foundation
     OperaDecodable allows us to use the JSON parsing library
     that we feel confortable with.
  *  For instance to use Decodable we just need 
-    to declare protocol conformance since Decodable 
-    protocol methods are the same as OperaDecodable protocol.
+    to declare protocol conformance.
  *  In order to use Argo as JSON parsing library each json 
     parseable entity should declare OperaDecodable protocol conformance. 
     We also need to implement `static func decode(json: AnyObject) throws -> Self` 
@@ -53,4 +52,19 @@ import Foundation
  */
 public protocol OperaDecodable {
     static func decode(_ json: Any) throws -> Self
+}
+
+public extension OperaDecodable where Self: Decodable {
+    
+    static func decode(_ json: Any) throws -> Self {
+        
+        let decoder = JSONDecoder();
+        let dateFormatter = DateFormatter()
+        dateFormatter.calendar = Calendar.current
+        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
+        let data = try JSONSerialization.data(withJSONObject: json, options: .prettyPrinted)
+        return try decoder.decode(Self.self, from: data)
+    }
 }

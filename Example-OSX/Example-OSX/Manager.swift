@@ -1,7 +1,7 @@
 //  Manager.swift
-//  Example-iOS ( https://github.com/xmartlabs/Example-iOS )
+//  Example-iOS 
 //
-//  Copyright (c) 2016 Xmartlabs SRL ( http://xmartlabs.com )
+//  Copyright (c) 2019 Xmartlabs SRL ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -37,12 +37,6 @@ class Manager: RxManager {
         super.init(manager: manager)
         observers = [Logger()]
         requestAdapter = AuthAdapter()
-        // Uncoment this line if you want to try mocked services.
-        //useMockedData = true
-    }
-    
-    func refreshToken() -> Observable<String?> {
-        return Observable.just(nil)
     }
     
 }

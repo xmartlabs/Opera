@@ -1,7 +1,7 @@
 //  RepositoryForksController.swift
-//  Example-iOS ( https://github.com/xmartlabs/Example-iOS )
+//  Example-iOS 
 //
-//  Copyright (c) 2016 Xmartlabs SRL ( http://xmartlabs.com )
+//  Copyright (c) 2019 Xmartlabs SRL ( http://xmartlabs.com )
 //
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -71,8 +71,7 @@ class RepositoryForksController: RepositoryBaseController {
         tableView.addSubview(self.refreshControl)
         let refreshControl = self.refreshControl
 
-        rx.sentMessage(#selector(RepositoryForksController.viewWillAppear(_:)))
-            .map { _ in false }
+        rx.viewWillAppear.take(1)
             .bind(to: viewModel.refreshTrigger)
             .disposed(by: disposeBag)
 
@@ -80,7 +79,7 @@ class RepositoryForksController: RepositoryBaseController {
             .bind(to: viewModel.loadNextPageTrigger)
             .disposed(by: disposeBag)
 
-        viewModel.loading
+        viewModel.loading.asDriver()
             .drive(activityIndicatorView.rx.isAnimating)
             .disposed(by: disposeBag)
 
@@ -100,11 +99,10 @@ class RepositoryForksController: RepositoryBaseController {
 
         refreshControl.rx.valueChanged
             .filter { refreshControl.isRefreshing }
-            .map { true }
             .bind(to: viewModel.refreshTrigger)
             .disposed(by: disposeBag)
 
-        viewModel.loading
+        viewModel.loading.asDriver()
             .filter { !$0 && refreshControl.isRefreshing }
             .drive(onNext: { _ in refreshControl.endRefreshing() })
             .disposed(by: disposeBag)
