@@ -106,9 +106,6 @@ class ViewController: NSViewController {
             .drive(viewModel.loadNextPageTrigger)
             .disposed(by: disposeBag)
         
-//
-//        pageIndicator.stringValue = "1"
-
         //Load the table when its needed
         Driver.combineLatest(viewModel.elements.asDriver(), viewModel.firstPageLoading, searchBar.rx.text.asDriver()) { elements, loading, searchText in
             return loading || searchText!.isEmpty ? [] : elements
